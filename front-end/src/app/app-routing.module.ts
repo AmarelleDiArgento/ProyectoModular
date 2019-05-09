@@ -5,6 +5,9 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { RegisterComponent } from './components/register/register.component';
+import { ListusersComponent } from './components/register/listusers/listusers.component';
+import { UpdateusersComponent } from './components/register/updateusers/updateusers.component';
 
 //const routes
 const routes: Routes = [
@@ -23,10 +26,21 @@ const routes: Routes = [
         {
             path: 'profile',
             component: ProfileComponent,
+        },
+        {
+            path: 'createusers',
+            component: RegisterComponent,
+        },
+        {
+            path: 'updateusers',
+            component: UpdateusersComponent,
+        },
+        {
+            path: 'listusers',
+            component: ListusersComponent,
         }
         
     ];
-
 
     @NgModule({
         imports: [

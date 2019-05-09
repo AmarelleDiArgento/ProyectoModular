@@ -1,4 +1,8 @@
 var mysql = require('mysql')
+var enigma = require('enigma-code')
+
+const valorEncriptación = 8
+let key = '3456#@|#lM'
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -13,7 +17,13 @@ var loginModel = {}
 
 loginModel.getUserLogin = function (userData, callback) {
 
-  var query = "select user_id, username, rol_id, status  from user where email = '" + userData.email + "' and password = '" + userData.password + "' "
+  var pass;
+  enigma.genHash(valorEncriptación, key, userData.password, function (error, hash) {
+    if (error) return console.error(error)
+    pass = hash
+  })
+
+  var query = "select user_id, username, rol_id, status  from user where email = '" + userData.email + "' and password = '" + pass + "' "
   if (connection) {
     connection.query(query, function (error, rows) {
       if (error) {
@@ -42,10 +52,7 @@ loginModel.getUserLogin = function (userData, callback) {
       "Respuesta": "Error en Conexion"
     })
   }
-
 }
-
-
 
 
 module.exports = loginModel;

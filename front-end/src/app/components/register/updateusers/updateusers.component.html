@@ -4,9 +4,9 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-4"></div>
-    <div class="col-md-4" id="create">
-      <form [formGroup]="registerUsersForm" (ngSubmit)="onSubmit()">
-        <h3>Crear Usuarios</h3>
+    <div class="col-md-4" id="update">
+      <form [formGroup]="updateUsersForm" (ngSubmit)="onSubmit()">
+        <h3>Actualizar Usuarios</h3>
         <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
           <a class="close" (click)="closeAlertErr()">
             &times;
@@ -16,7 +16,7 @@
         <div class="form-group">
           <label for="user_id">Documento</label>
           <input type="text" class="form-control" id="user_id" formControlName="user_id"
-            [ngClass]="{ 'is-invalid': submitted && f.user_id.errors }" placeholder="Enter document">
+            [ngClass]="{ 'is-invalid': submitted && f.user_id.errors }" placeholder="Enter document" readonly>
           <span>
             <div *ngIf="submitted && f.user_id.errors">
               <div *ngIf="f.user_id.errors.required"> <label id="error">Error el documento es requerido </label></div>
@@ -81,7 +81,7 @@
             </div>
           </span>
         </div>
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Crear</button>
+        <button type="submit" class="btn btn-warning btn-lg btn-block">Actualizar</button>
       </form>
     </div>
   </div>

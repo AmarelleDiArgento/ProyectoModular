@@ -16,8 +16,12 @@ import { InventoryComponent } from './components/inventory/inventory.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ListusersComponent } from './components/register/listusers/listusers.component';
+import { UpdateusersComponent } from './components/register/updateusers/updateusers.component';
 //service
 import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +32,9 @@ import { AuthService } from './services/auth.service';
     InventoryComponent,
     HeaderComponent,
     FooterComponent,
-    RegisterComponent
+    RegisterComponent,
+    ListusersComponent,
+    UpdateusersComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +44,7 @@ import { AuthService } from './services/auth.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService],
+  providers: [AuthService,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,44 @@
+<!-- header -->
+<app-header></app-header>
+<!-- end header -->
+<div class="container-fluid">
+  <div class="col-md-12">
+    <br>
+    <h3>Listado de Usuarios</h3>
+  </div>
+  <div class="col-md-12">
+    <br>
+    <button type="button" (click)="createUser()" class="btn btn-primary">Crear Usuario</button>
+  </div>
+  <div class="col-md-12">
+    <br>
+    <table class="table table-striped">
+        <thead class="flip-header">
+          <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Fecha Creacion</th>
+            <th>Fecha Actualizacion</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listUser">
+            <td>{{item.user_id}}</td>
+            <td>{{item.username}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.rol_id}}</td>
+            <td>{{item.status}}</td>
+            <td>{{item.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{item.update_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td class="text-center"><i class="fa fa-edit text-center" style="font-size: 1em;"
+                  title="Modificar" (click)="updateUser(item.user_id)"></i><i class="fa fa-trash text-center"
+                  style="font-size: 1em;" title="Eliminar" (click)="deleteUser(item.user_id)"></i></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>

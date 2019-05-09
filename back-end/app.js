@@ -9,6 +9,8 @@ var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 //route login
 var login = require('./routes/login');
+//route user
+var user = require('./routes/user');
 
 // Initialize the app
 var app = express()
@@ -35,10 +37,17 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//urls
 //url init
 app.use('/', indexRouter);
 //url login
 app.post('/auth', login)
+//urls user
+app.post('/createuser', user)
+app.post('/updateuser', user)
+app.post('/deleteuser', user)
+app.post('/getdatauser', user)
+app.get('/getdatausers', user)
 
 
 // catch 404 and forward to error handler
