@@ -11,6 +11,8 @@ var indexRouter = require('./routes/index');
 var login = require('./routes/login');
 //route user
 var user = require('./routes/user');
+//route rol
+var rol = require('./routes/rol');
 
 // Initialize the app
 var app = express()
@@ -48,6 +50,12 @@ app.post('/updateuser', user)
 app.post('/deleteuser', user)
 app.post('/getdatauser', user)
 app.get('/getdatausers', user)
+//urls rol
+app.post('/createrol', rol)
+app.put('/updaterol', rol)
+app.delete('/deleterol', rol)
+app.post('/getdatarol', rol)
+app.get('/getdatarols', rol)
 
 
 // catch 404 and forward to error handler

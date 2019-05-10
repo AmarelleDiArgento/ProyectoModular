@@ -61,3 +61,7 @@ typings/
 .next
 
 *.bak
+
+back-end/package-lock\.json
+
+front-end/package-lock\.json

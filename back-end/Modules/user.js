@@ -7,8 +7,8 @@ let key = '3456#@|#lM'
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
-  database: "proyectomodular"
+  password: "Arkangel",
+  database: "proyectoModular"
 })
 
 connection.connect();

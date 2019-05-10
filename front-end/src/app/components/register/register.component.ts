@@ -21,7 +21,8 @@ export class RegisterComponent implements OnInit {
   //list data auth 
   listUser: {};
 
-  constructor(private http: Http, private formBuilder: FormBuilder, private userService: UserService, private router: Router) { }
+  constructor(private http: Http, private formBuilder: FormBuilder, 
+    private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     //init form

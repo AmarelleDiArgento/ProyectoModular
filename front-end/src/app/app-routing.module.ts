@@ -8,6 +8,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ListusersComponent } from './components/register/listusers/listusers.component';
 import { UpdateusersComponent } from './components/register/updateusers/updateusers.component';
+import { RolComponent } from './components/rol/rol.component';
 
 //const routes
 const routes: Routes = [
@@ -38,7 +39,12 @@ const routes: Routes = [
         {
             path: 'listusers',
             component: ListusersComponent,
+        },
+        {
+            path: 'createrols',
+            component: RolComponent,
         }
+
         
     ];
 

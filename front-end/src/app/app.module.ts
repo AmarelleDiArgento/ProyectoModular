@@ -18,9 +18,14 @@ import { FooterComponent } from './components/footer/footer.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ListusersComponent } from './components/register/listusers/listusers.component';
 import { UpdateusersComponent } from './components/register/updateusers/updateusers.component';
+import { RolComponent } from './components/rol/rol.component';
+import { ListrolComponent } from './components/rol/listrol/listrol.component';
+import { UpdaterolComponent } from './components/rol/updaterol/updaterol.component';
+
 //service
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
+import { RolService } from './services/rol.service';
 
 
 @NgModule({
@@ -34,7 +39,10 @@ import { UserService } from './services/user.service';
     FooterComponent,
     RegisterComponent,
     ListusersComponent,
-    UpdateusersComponent
+    UpdateusersComponent,
+    RolComponent,
+    ListrolComponent,
+    UpdaterolComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +52,7 @@ import { UserService } from './services/user.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService,UserService],
+  providers: [AuthService,UserService,RolService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

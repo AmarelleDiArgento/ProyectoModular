@@ -7,8 +7,8 @@ let key = '3456#@|#lM'
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
-  database: "proyectomodular"
+  password: "Arkangel",
+  database: "proyectoModular"
 })
 
 connection.connect();
@@ -24,6 +24,7 @@ loginModel.getUserLogin = function (userData, callback) {
   })
 
   var query = "select user_id, username, rol_id, status  from user where email = '" + userData.email + "' and password = '" + pass + "' "
+  //console.log(userData.email + 'pass: ' + pass);
   if (connection) {
     connection.query(query, function (error, rows) {
       if (error) {
