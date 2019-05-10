@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS proyectomodular.category (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS proyectomodular.rol (
   rol_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT ,
-  name VARCHAR(45) NOT NULL);
+  name VARCHAR(45) NOT NULL UNIQUE);
 
 
 
