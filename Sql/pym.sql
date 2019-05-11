@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS proyectomodular.timestamps (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS proyectomodular.category (
   category_id INT PRIMARY KEY NOT NULL auto_increment,
-  name VARCHAR(255) NOT NULL);
+  name VARCHAR(255) NOT NULL UNIQUE);
 
 
 -- -----------------------------------------------------
@@ -48,11 +48,11 @@ CREATE TABLE IF NOT EXISTS proyectomodular.user (
   user_id VARCHAR(45) PRIMARY KEY NOT NULL,
   username VARCHAR(16) NULL UNIQUE,
   email VARCHAR(255) NULL UNIQUE,
-  password VARCHAR(32) NOT NULL,
+  password VARCHAR(255) NOT NULL,
   rol_id INT NOT NULL,
-  status tinyint NULL,
+  status tinyint NOT NULL,
   create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  update_time VARCHAR(45) NULL,
+  update_time TIMESTAMP NULL,
   CONSTRAINT fk_user_rol
     FOREIGN KEY (rol_id)
     REFERENCES proyectomodular.rol (rol_id)
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS proyectomodular.tax (
 CREATE TABLE IF NOT EXISTS proyectomodular.product (
   product_id INT PRIMARY KEY NOT NULL auto_increment,
   code VARCHAR(45) unique NOT NULL,
-  name VARCHAR(255) NOT NULL,
+  name VARCHAR(255) UNIQUE NOT NULL,
   net_price VARCHAR(45) NOT NULL,
   category_id INT NOT NULL,
   tax_tax_id INT NOT NULL,
@@ -96,10 +96,10 @@ CREATE TABLE IF NOT EXISTS proyectomodular.product (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS proyectomodular.pod (
   pod_id INT PRIMARY KEY NOT NULL auto_increment,
-  name  VARCHAR(45) NOT NULL,
-  address VARCHAR(45) NULL,
-  phone VARCHAR(10) NULL,
-  status VARCHAR(45) NULL)
+  name  VARCHAR(120) UNIQUE NOT NULL,
+  address VARCHAR(255) NULL,
+  phone VARCHAR(12) NULL,
+  status tinyint NOT NULL)
 COMMENT = 'Point of sale';
 
 
@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS proyectomodular.sale_product (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS proyectomodular.module (
   module_id INT PRIMARY KEY NOT NULL auto_increment,
-  name VARCHAR(45) NULL);
+  name VARCHAR(45) UNIQUE NULL);
 
 
 -- -----------------------------------------------------
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS proyectomodular.module (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS proyectomodular.privilege (
   privilege_id INT PRIMARY KEY NOT NULL auto_increment,
-  name VARCHAR(45) NULL,
+  name VARCHAR(45) NULL UNIQUE,
   module_module_id INT NOT NULL,
   CONSTRAINT fk_privilege_module1
     FOREIGN KEY (module_module_id)
