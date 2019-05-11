@@ -1,15 +1,11 @@
-var mysql = require('mysql')
+var mysql = require('mysql'),
+  config = require("../config");
 var enigma = require('enigma-code')
 
 const valorEncriptación = 8
 let key = '3456#@|#lM'
 
-var connection = mysql.createConnection({
-  host: "localhost",
-  user: "proyectomodular",
-  password: "da12cb09fe566f2d6e131d7fb5c5c732",
-  database: "proyectomodular"
-})
+var connection = mysql.createConnection(config.db);
 
 connection.connect();
 

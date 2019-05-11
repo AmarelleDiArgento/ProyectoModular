@@ -48,6 +48,4 @@ export class UserService {
     return this.http.post('http://localhost:3000/deleteuser/', this.params, options)
       .map((response: Response) => response.json())
   }
-
-
 }

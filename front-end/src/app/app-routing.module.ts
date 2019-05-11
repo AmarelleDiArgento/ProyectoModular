@@ -9,6 +9,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { ListusersComponent } from './components/register/listusers/listusers.component';
 import { UpdateusersComponent } from './components/register/updateusers/updateusers.component';
 import { RolComponent } from './components/rol/rol.component';
+import { ListrolComponent } from './components/rol/listrol/listrol.component';
+import { UpdaterolComponent } from './components/rol/updaterol/updaterol.component';
 
 //const routes
 const routes: Routes = [
@@ -43,6 +45,14 @@ const routes: Routes = [
         {
             path: 'createrols',
             component: RolComponent,
+        },
+        {
+            path: 'updaterols',
+            component: UpdaterolComponent,
+        },
+        {
+            path: 'listrols',
+            component: ListrolComponent,
         }
 
         

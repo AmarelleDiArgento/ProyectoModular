@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
+//service auth
+import { RolService } from '../../../services/rol.service';
 
 @Component({
   selector: 'app-listrol',
@@ -7,9 +12,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListrolComponent implements OnInit {
 
-  constructor() { }
+  //list data ws rol 
+  listRol: {};
+  
+  constructor(private http: Http, private formBuilder: FormBuilder, private rolService: RolService, private router: Router) {
+    this.getAllData();
+  }
 
   ngOnInit() {
   }
 
+  //obtain all data from the register rols
+  getAllData() {
+    //send to search api backend all rols
+    this.rolService.getAllDataRols()
+      .subscribe(data => {
+        //populate list json rol
+        console.log(data);
+        this.listRol = data.rows;
+      });
+  }
+  //redirect to create rol
+  createRol() {
+    this.router.navigate(['/createrols'])
+  }
+  //redirect to update rol
+  updateRol(id) {
+    this.router.navigate(['/updaterols'])
+  }
+  //delete rol
+  deleteRol(id) {
+    //send to api backend delete rol for id
+    this.rolService.deleteRols(id)
+      .subscribe(data => {
+        if (data.respuesta == "Success") {
+          //redirect 
+          location.reload();
+        }
+      });
+  }
 }

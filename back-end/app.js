@@ -50,6 +50,7 @@ app.post('/updateuser', user)
 app.post('/deleteuser', user)
 app.post('/getdatauser', user)
 app.get('/getdatausers', user)
+
 //urls rol
 app.post('/createrol', rol)
 app.put('/updaterol', rol)
