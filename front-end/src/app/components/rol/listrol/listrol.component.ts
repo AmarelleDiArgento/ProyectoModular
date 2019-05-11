@@ -28,8 +28,8 @@ export class ListrolComponent implements OnInit {
     this.rolService.getAllDataRols()
       .subscribe(data => {
         //populate list json rol
-        console.log(data);
-        this.listRol = data.rows;
+        console.log(data.rows[1]);
+        this.listRol = data.rows[0];
       });
   }
   //redirect to create rol
