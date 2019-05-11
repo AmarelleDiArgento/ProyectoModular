@@ -209,7 +209,7 @@ USE proyectomodular$$
 CREATE PROCEDURE userupd (
 
 _user_id VARCHAR(45) ,
-_username VARCHAR(16),
+_username VARCHAR(255),
 _email VARCHAR(255),
 _password VARCHAR(255),
 _rol_id INT,
