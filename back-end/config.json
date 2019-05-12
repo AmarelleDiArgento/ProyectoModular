@@ -3,6 +3,8 @@
         "host": "localhost",
         "user": "proyectomodular",
         "password": "da12cb09fe566f2d6e131d7fb5c5c732",
-        "database": "proyectomodular"
+        "database": "proyectomodular",
+        "dateStrings": true,
+        "multipleStatements": true
     }
 }

@@ -33,8 +33,8 @@ export class RolService {
         .map((response: Response) => response.json())
     }
   //service to api mysql update rols
-  updateRols(rol_id, name) {
-    this.params = 'rol_id=' + rol_id +'&name=' + name + '';
+  updateRols(rol_id, name) {    
+    this.params = 'rol_id=' + rol_id +'&name=' + name;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post('http://localhost:3000/updaterol/', this.params, options)

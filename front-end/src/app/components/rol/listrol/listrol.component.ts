@@ -28,7 +28,7 @@ export class ListrolComponent implements OnInit {
     this.rolService.getAllDataRols()
       .subscribe(data => {
         //populate list json rol
-        console.log(data.rows[1]);
+        //console.log(data.rows[0]);
         this.listRol = data.rows[0];
       });
   }
@@ -38,6 +38,10 @@ export class ListrolComponent implements OnInit {
   }
   //redirect to update rol
   updateRol(id) {
+    //almacenamos el id
+    localStorage.setItem('idRol', id);
+
+    console.log(id);
     this.router.navigate(['/updaterols'])
   }
   //delete rol
