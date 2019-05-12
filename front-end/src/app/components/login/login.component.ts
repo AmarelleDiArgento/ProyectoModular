@@ -43,8 +43,10 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
         .subscribe(data => {
           if (data.respuesta == "Success") {
-            //almacenamos el id
-            localStorage.setItem('idUser', data.rows[0].user_id);
+            //storage the id
+            localStorage.setItem('idSesionUser', data.rows[0].user_id);
+            //storage the rol
+            localStorage.setItem('idSesionRol', data.rows[0].rol_id);
             //redirect to home menu
             this.router.navigate(['/home'])
           } else {
