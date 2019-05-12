@@ -45,7 +45,7 @@ export class UpdateusersComponent implements OnInit {
       estado: ['', Validators.required]
     });
     //asign id user to search data
-    this.idUser = localStorage.getItem('idUser');
+    this.idUser = localStorage.getItem('idSesionUser');
     //eject ws search user for id
     this.getUserDataId();
   }

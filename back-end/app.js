@@ -13,6 +13,8 @@ var login = require('./routes/login');
 var user = require('./routes/user');
 //route rol
 var rol = require('./routes/rol');
+//route permission
+var permission = require('./routes/permission');
 
 // Initialize the app
 var app = express()
@@ -50,13 +52,14 @@ app.post('/updateuser', user)
 app.post('/deleteuser', user)
 app.post('/getdatauser', user)
 app.get('/getdatausers', user)
-
 //urls rol
 app.post('/createrol', rol)
 app.put('/updaterol', rol)
 app.delete('/deleterol', rol)
 app.post('/getdatarol', rol)
 app.get('/getdatarols', rol)
+//urls permission menu
+app.post('/getdatapermission', permission)
 
 
 // catch 404 and forward to error handler
