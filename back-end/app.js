@@ -21,6 +21,12 @@ var tax = require('./routes/tax');
 var product = require('./routes/product');
 //route permission
 var permission = require('./routes/permission');
+//route sale
+var sale = require('./routes/sale');
+//route sale_product
+var saleproduct = require('./routes/saleproduct');
+
+
 
 // Initialize the app
 var app = express()
@@ -84,6 +90,18 @@ app.post('/getdataproduct', product)
 app.get('/getdataproducts', product)
 //urls permission menu
 app.post('/getdatapermission', permission)
+//urls sale
+app.post('/createsale', sale)
+app.post('/updatesale', sale)
+app.post('/deletesale', sale)
+app.post('/getdatasale', sale)
+app.get('/getdatasale', sale)
+//urls saleproduct
+app.post('/createsaleproduct', saleproduct)
+app.post('/updatesaleproduct', saleproduct)
+app.post('/deletesaleproduct', saleproduct)
+app.post('/getdatasaleproduct', saleproduct)
+app.get('/getdatasaleproduct', saleproduct)
 
 
 // catch 404 and forward to error handler
