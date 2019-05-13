@@ -6,19 +6,22 @@ var connection = mysql.createConnection(config.db);
 
 connection.connect();
 
-var rolModel = {}
+var taxModel = {}
 
 
-let ins = `call proyectomodular.rolins(?);`;
-let upd = `call proyectomodular.rolupd(?,?);`;
-let del = `call proyectomodular.roldel(?);`;
-let all = `call proyectomodular.rolall();`;
-let one = `call proyectomodular.rolone(?);`;
+let ins = `call proyectomodular.taxins(?,?);`;
+let upd = `call proyectomodular.taxupd(?,?,?);`;
+let del = `call proyectomodular.taxdel(?);`;
+let all = `call proyectomodular.taxall();`;
+let one = `call proyectomodular.taxone(?);`;
 
-rolModel.createrol = function (rolData, callback) {
+taxModel.createtax = function (taxData, callback) {
 
   if (connection) {
-    connection.query(ins, rolData.name, function (error, rows) {
+    connection.query(ins, [
+      taxData.name,
+      taxData.percent
+    ], function (error, rows) {
       if (error) {
         callback(null, {
           "respuesta": error
@@ -47,12 +50,13 @@ rolModel.createrol = function (rolData, callback) {
 }
 
 
-rolModel.updateRol = function (rolData, callback) {
+taxModel.updatetax = function (taxData, callback) {
   if (connection) {
     connection.query(upd,
       [
-        rolData.rol_id,
-        rolData.name
+        taxData.tax_id,
+        taxData.name,
+        taxData.percent
       ],
       function (error, rows) {
         console.log(rows);
@@ -84,9 +88,9 @@ rolModel.updateRol = function (rolData, callback) {
   }
 }
 
-rolModel.deleteRol = function (rolData, callback) {
+taxModel.deletetax = function (taxData, callback) {
   if (connection) {
-    connection.query(del, rolData.rol_id, function (error, rows) {
+    connection.query(del, taxData.tax_id, function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
@@ -115,9 +119,9 @@ rolModel.deleteRol = function (rolData, callback) {
   }
 }
 
-rolModel.dataRol = function (rolData, callback) {
+taxModel.datatax = function (taxData, callback) {
   if (connection) {
-    connection.query(one, rolData.rol_id, function (error, rows) {
+    connection.query(one, taxData.tax_id, function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
@@ -147,7 +151,7 @@ rolModel.dataRol = function (rolData, callback) {
   }
 }
 
-rolModel.dataAllRol = function (rolData, callback) {
+taxModel.dataAlltax = function (taxData, callback) {
   if (connection) {
     connection.query(all, function (error, rows) {
       if (error) {
@@ -179,4 +183,4 @@ rolModel.dataAllRol = function (rolData, callback) {
   }
 }
 
-module.exports = rolModel;
+module.exports = taxModel;

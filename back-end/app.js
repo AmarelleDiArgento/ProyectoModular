@@ -13,6 +13,12 @@ var login = require('./routes/login');
 var user = require('./routes/user');
 //route rol
 var rol = require('./routes/rol');
+//route category
+var category = require('./routes/category');
+//route tax
+var tax = require('./routes/tax');
+//route product
+var product = require('./routes/product');
 //route permission
 var permission = require('./routes/permission');
 
@@ -58,6 +64,24 @@ app.put('/updaterol', rol)
 app.delete('/deleterol', rol)
 app.post('/getdatarol', rol)
 app.get('/getdatarols', rol)
+//urls category
+app.post('/createcategory', category)
+app.put('/updatecategory', category)
+app.delete('/deletecategory', category)
+app.post('/getdatacategory', category)
+app.get('/getdatacategorys', category)
+//urls tax
+app.post('/createtax', tax)
+app.put('/updatetax', tax)
+app.delete('/deletetax', tax)
+app.post('/getdatatax', tax)
+app.get('/getdatataxs', tax)
+//urls tax
+app.post('/createproduct', product)
+app.put('/updateproduct', product)
+app.delete('/deleteproduct', product)
+app.post('/getdataproduct', product)
+app.get('/getdataproducts', product)
 //urls permission menu
 app.post('/getdatapermission', permission)
 

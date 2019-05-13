@@ -21,125 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `proyectomodular`
 --
-
-DELIMITER $$
---
--- Procedimientos
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `categoryall` ()  BEGIN
-
-SELECT  c.category_id, c.name
-FROM proyectomodular.category AS c;
-
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `categorydel` (`_category_id` INT)  BEGIN
-
-DELETE FROM proyectomodular.category
-WHERE category_id = _category_id;
-
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `categoryins` (`_name` VARCHAR(45))  BEGIN
-INSERT INTO proyectomodular.category (name) 
-VALUES
-(_name);
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `categoryone` (`_category_id` INT)  BEGIN
-SELECT  c.category_id, c.name
-FROM proyectomodular.category AS c
-WHERE category_id = _category_id;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `categoryupd` (`_category_id` INT, `_name` VARCHAR(45))  BEGIN
-
-UPDATE proyectomodular.category
-SET
-name = _name
-WHERE 
-category_id = _category_id;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rolall` ()  BEGIN
-
-SELECT  r.rol_id, r.name
-FROM proyectomodular.rol AS r;
-
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `roldel` (`_rol_id` INT)  BEGIN
-
-DELETE FROM proyectomodular.rol
-WHERE rol_id = _rol_id;
-
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rolins` (`_name` VARCHAR(45))  BEGIN
-INSERT INTO proyectomodular.rol (name) 
-VALUES
-(_name);
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rolone` (`_rol_id` INT)  BEGIN
-SELECT  r.rol_id, r.name
-FROM proyectomodular.rol AS r
-WHERE rol_id = _rol_id;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rolupd` (`_rol_id` INT, `_name` VARCHAR(45))  BEGIN
-
-UPDATE proyectomodular.rol
-SET
-name = _name
-WHERE 
-rol_id = _rol_id;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `userall` ()  BEGIN
-
-SELECT  u.user_id, u.username, u.email, u.password, u.rol_id, u.status, u.create_time, u.update_time
-FROM proyectomodular.user AS u;
-
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `userdel` (`_user_id` INT)  BEGIN
-
-DELETE FROM proyectomodular.user
-WHERE user_id = _user_id;
-
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `userins` (`_user_id` VARCHAR(45), `_username` VARCHAR(16), `_email` VARCHAR(255), `_password` VARCHAR(255), `_rol_id` INT, `_status` TINYINT)  BEGIN
-
-INSERT INTO proyectomodular.user
-(user_id,username, email, password, rol_id, status, create_time, update_time)
-VALUES
-(_user_id,_username, _email, _password, _rol_id, _status, now(),now());
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `userone` (`_user_id` INT)  BEGIN
-SELECT  u.user_id, u.username, u.email, u.password, u.rol_id, u.status, u.create_time, u.update_time
-FROM proyectomodular.user AS u
-WHERE user_id = _user_id;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `userupd` (`_user_id` VARCHAR(45), `_username` VARCHAR(255), `_email` VARCHAR(255), `_password` VARCHAR(255), `_rol_id` INT, `_status` TINYINT)  BEGIN
-
-UPDATE proyectomodular.user
-SET
-user_id = _user_id ,
-username =_username,
-email =_email,
-password = _password,
-rol_id=_rol_id,
-update_time = now()
-WHERE 
-user_id = _user_id;
-END$$
-
-DELIMITER ;
-
+create database proyectomodular;
+use proyectomodular;
 -- --------------------------------------------------------
 
 --
@@ -236,11 +119,11 @@ INSERT INTO `privilege` (`privilege_id`, `name`, `module_module_id`, `icon`, `ro
 
 CREATE TABLE `product` (
   `product_id` int(11) NOT NULL,
-  `code` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `code` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `net_price` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `category_id` int(11) NOT NULL,
-  `tax_tax_id` int(11) NOT NULL,
+  `tax_id` int(11) NOT NULL,
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -341,7 +224,7 @@ CREATE TABLE `timestamps` (
 --
 
 INSERT INTO `timestamps` (`create_time`, `update_time`) VALUES
-('2019-05-11 20:37:11', '2019-05-11 20:37:11');
+(now(), now());
 
 -- --------------------------------------------------------
 
@@ -414,7 +297,7 @@ ALTER TABLE `privilege`
 ALTER TABLE `product`
   ADD PRIMARY KEY (`product_id`),
   ADD KEY `fk_product_category1` (`category_id`),
-  ADD KEY `fk_product_tax1` (`tax_tax_id`);
+  ADD KEY `fk_product_tax1` (`tax_id`);
 
 --
 -- Indices de la tabla `rol`
@@ -540,7 +423,7 @@ ALTER TABLE `privilege`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `fk_product_category1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_product_tax1` FOREIGN KEY (`tax_tax_id`) REFERENCES `tax` (`tax_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_product_tax1` FOREIGN KEY (`tax_id`) REFERENCES `tax` (`tax_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `rol_privilege`
@@ -574,3 +457,122 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `categoryall` ()  BEGIN
+
+SELECT  c.category_id, c.name
+FROM proyectomodular.category AS c;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `categorydel` (`_category_id` INT)  BEGIN
+
+DELETE FROM proyectomodular.category
+WHERE category_id = _category_id;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `categoryins` (`_name` VARCHAR(45))  BEGIN
+INSERT INTO proyectomodular.category (name) 
+VALUES
+(_name);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `categoryone` (`_category_id` INT)  BEGIN
+SELECT  c.category_id, c.name
+FROM proyectomodular.category AS c
+WHERE category_id = _category_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `categoryupd` (`_category_id` INT, `_name` VARCHAR(45))  BEGIN
+
+UPDATE proyectomodular.category
+SET
+name = _name
+WHERE 
+category_id = _category_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `rolall` ()  BEGIN
+
+SELECT  r.rol_id, r.name
+FROM proyectomodular.rol AS r;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `roldel` (`_rol_id` INT)  BEGIN
+
+DELETE FROM proyectomodular.rol
+WHERE rol_id = _rol_id;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `rolins` (`_name` VARCHAR(45))  BEGIN
+INSERT INTO proyectomodular.rol (name) 
+VALUES
+(_name);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `rolone` (`_rol_id` INT)  BEGIN
+SELECT  r.rol_id, r.name
+FROM proyectomodular.rol AS r
+WHERE rol_id = _rol_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `rolupd` (`_rol_id` INT, `_name` VARCHAR(45))  BEGIN
+
+UPDATE proyectomodular.rol
+SET
+name = _name
+WHERE 
+rol_id = _rol_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `userall` ()  BEGIN
+
+SELECT  u.user_id, u.username, u.email, u.password, u.rol_id, u.status, u.create_time, u.update_time
+FROM proyectomodular.user AS u;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `userdel` (`_user_id` INT)  BEGIN
+
+DELETE FROM proyectomodular.user
+WHERE user_id = _user_id;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `userins` (`_user_id` VARCHAR(45), `_username` VARCHAR(16), `_email` VARCHAR(255), `_password` VARCHAR(255), `_rol_id` INT, `_status` TINYINT)  BEGIN
+
+INSERT INTO proyectomodular.user
+(user_id,username, email, password, rol_id, status, create_time, update_time)
+VALUES
+(_user_id,_username, _email, _password, _rol_id, _status, now(),now());
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `userone` (`_user_id` INT)  BEGIN
+SELECT  u.user_id, u.username, u.email, u.password, u.rol_id, u.status, u.create_time, u.update_time
+FROM proyectomodular.user AS u
+WHERE user_id = _user_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `userupd` (`_user_id` VARCHAR(45), `_username` VARCHAR(255), `_email` VARCHAR(255), `_password` VARCHAR(255), `_rol_id` INT, `_status` TINYINT)  BEGIN
+
+UPDATE proyectomodular.user
+SET
+user_id = _user_id ,
+username =_username,
+email =_email,
+password = _password,
+rol_id=_rol_id,
+update_time = now()
+WHERE 
+user_id = _user_id;
+END$$
+
+DELIMITER ;

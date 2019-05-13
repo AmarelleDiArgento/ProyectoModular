@@ -8,7 +8,7 @@ DROP procedure IF EXISTS rolins;
 
 DELIMITER $$
 USE proyectomodular$$
-CREATE PROCEDURE rolins (_name VARCHAR(45) )
+CREATE PROCEDURE rolins (_name varchar(100) )
 BEGIN
 INSERT INTO proyectomodular.rol (name) 
 VALUES
@@ -24,7 +24,7 @@ DROP procedure IF EXISTS rolupd;
 
 DELIMITER $$
 USE proyectomodular$$
-CREATE PROCEDURE rolupd (_rol_id INT, _name VARCHAR(45) )
+CREATE PROCEDURE rolupd (_rol_id INT, _name varchar(100) )
 BEGIN
 
 UPDATE proyectomodular.rol
@@ -95,7 +95,7 @@ DROP procedure IF EXISTS categoryins;
 
 DELIMITER $$
 USE proyectomodular$$
-CREATE PROCEDURE categoryins (_name VARCHAR(45) )
+CREATE PROCEDURE categoryins (_name varchar(100) )
 BEGIN
 INSERT INTO proyectomodular.category (name) 
 VALUES
@@ -111,7 +111,7 @@ DROP procedure IF EXISTS categoryupd;
 
 DELIMITER $$
 USE proyectomodular$$
-CREATE PROCEDURE categoryupd (_category_id INT, _name VARCHAR(45) )
+CREATE PROCEDURE categoryupd (_category_id INT, _name varchar(100) )
 BEGIN
 
 UPDATE proyectomodular.category
@@ -184,7 +184,7 @@ DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE userins (
 _user_id VARCHAR(45) ,
-_username VARCHAR(16),
+_username varchar(255),
 _email VARCHAR(255),
 _password VARCHAR(255),
 _rol_id INT,
@@ -280,3 +280,97 @@ FROM proyectomodular.user AS u;
 END$$
 
 DELIMITER ;
+
+-- ------------------------------------------------------------------------------------------------------------------------
+-- taxL PROCEDURE :D
+-- PROCEDURE taxL INSERT
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS taxins;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE taxins (
+_name varchar(100), 
+_percent decimal(10,2)
+)
+BEGIN
+INSERT INTO proyectomodular.tax (name,percent) 
+VALUES
+(_name,_percent);
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE taxL UPDATE 
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS taxupd;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE taxupd (
+_tax_id INT, 
+_name varchar(100),
+_percent decimal(10,2) )
+BEGIN
+
+UPDATE proyectomodular.tax
+SET
+name = _name,
+percent = _percent
+WHERE 
+tax_id = _tax_id;
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE taxL ONE BY ID
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS taxone;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE taxone (_tax_id INT)
+BEGIN
+SELECT  t.tax_id, t.name, t.percent
+FROM proyectomodular.tax AS t
+WHERE tax_id = _tax_id;
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE taxL DELETE BY ID
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS taxdel;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE taxdel (_tax_id INT)
+BEGIN
+
+DELETE FROM proyectomodular.tax
+WHERE tax_id = _tax_id;
+
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE taxL LIST ALL
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS taxall;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE taxall ()
+BEGIN
+
+SELECT  t.tax_id, t.name, t.percent
+FROM proyectomodular.tax AS t;
+
+END$$
+
+DELIMITER ;
+
