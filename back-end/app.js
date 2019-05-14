@@ -31,6 +31,10 @@ var modulo = require('./routes/modulo');
 var privilege = require('./routes/privilege');
 //route rolprivilege
 var rolprivilege = require('./routes/rolprivilege');
+//route pod
+var pod = require('./routes/pod');
+//route poduser
+var poduser = require('./routes/poduser');
 
 
 // Initialize the app
@@ -125,6 +129,20 @@ app.put('/updaterolprivilege', rolprivilege)
 app.delete('/deleterolprivilege', rolprivilege)
 app.post('/getdatarolprivilege', rolprivilege)
 app.post('/getdatarolprivileges', rolprivilege)
+//urls pod
+app.post('/createpod', pod)
+app.post('/updatepod', pod)
+app.post('/deletepod', pod)
+app.post('/getdatapod', pod)
+app.get('/getdatapod', pod)
+//urls poduser
+app.post('/createpoduser', poduser)
+app.post('/updatepoduser', poduser)
+app.post('/deletepoduser', poduser)
+app.post('/getdatapoduser', poduser)
+app.get('/getdatapoduser', poduser)
+
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
