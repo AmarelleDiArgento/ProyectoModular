@@ -70,7 +70,7 @@ router.post('/getdatarol', function (req, res, next) {
 })
 
 //get all rol 
-router.get('/getdatarols', function (req, res, next) {
+router.get('/getdatarol', function (req, res, next) {
   var rolData = {}
   rol.dataAllRol(rolData, function (error, data) {
   if (error) {

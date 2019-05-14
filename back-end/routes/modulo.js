@@ -1,16 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
-var tax = require('../Modules/tax')
+var modulo = require('../Modules/modulo')
 
 
-//create tax
-router.post('/createtax', function (req, res, next) {
-  var taxData = {
+//create modulo
+router.post('/createmodulo', function (req, res, next) {
+  var modData = {
     name: req.body.name,
     percent: req.body.percent
   }
-  tax.createtax(taxData, function (error, data) {
+  modulo.createmodulo(modData, function (error, data) {
     if (error) {
       res.status(504).jsonp({
         "error": error
@@ -21,14 +21,14 @@ router.post('/createtax', function (req, res, next) {
   })
 })
 
-//update tax
-router.put('/updatetax', function (req, res, next) {
-  var taxData = {
-    tax_id: req.body.tax_id,
+//update modulo
+router.put('/updatemodulo', function (req, res, next) {
+  var modData = {
+    modulo_id: req.body.modulo_id,
     name: req.body.name,
     percent: req.body.percent
   }
-  tax.updatetax(taxData, function (error, data) {
+  modulo.updatemodulo(modData, function (error, data) {
     if (error) {
       res.status(504).jsonp({
         "error": error
@@ -39,12 +39,12 @@ router.put('/updatetax', function (req, res, next) {
   })
 })
 
-//delete tax
-router.delete('/deletetax', function (req, res, next) {
-  var taxData = {
-    tax_id: req.body.tax_id
+//delete modulo
+router.delete('/deletemodulo', function (req, res, next) {
+  var modData = {
+    modulo_id: req.body.modulo_id
   }
-  tax.deletetax(taxData, function (error, data) {
+  modulo.deletemodulo(modData, function (error, data) {
     if (error) {
       res.status(504).jsonp({
         "error": error
@@ -55,12 +55,12 @@ router.delete('/deletetax', function (req, res, next) {
   })
 })
 
-//get tax x id
-router.post('/getdatatax', function (req, res, next) {
-  var taxData = {
-    tax_id: req.body.tax_id
+//get modulo x id
+router.post('/getdatamodulo', function (req, res, next) {
+  var modData = {
+    modulo_id: req.body.modulo_id
   }
-  tax.datatax(taxData, function (error, data) {
+  modulo.datamodulo(modData, function (error, data) {
     if (error) {
       res.status(504).jsonp({
         "error": error
@@ -71,10 +71,10 @@ router.post('/getdatatax', function (req, res, next) {
   })
 })
 
-//get all tax 
-router.get('/getdatatax', function (req, res, next) {
-  var taxData = {}
-  tax.dataAlltax(taxData, function (error, data) {
+//get all modulo 
+router.get('/getdatamodulo', function (req, res, next) {
+  var modData = {}
+  modulo.dataAllmodulo(modData, function (error, data) {
   if (error) {
     res.status(504).jsonp({
       "error": error

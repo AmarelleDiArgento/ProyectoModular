@@ -13,7 +13,7 @@ export class UserService {
   getAllDataUsers() {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get('http://localhost:3000/getdatausers/', options)
+    return this.http.get('http://localhost:3000/getdatauser/', options)
       .map((response: Response) => response.json())
   }
  //service to api mysql get user for id

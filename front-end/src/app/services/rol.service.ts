@@ -13,7 +13,7 @@ export class RolService {
   getAllDataRols() {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get('http://localhost:3000/getdatarols/', options)
+    return this.http.get('http://localhost:3000/getdatarol/', options)
       .map((response: Response) => response.json())
   }
   //service to api mysql get rol for id

@@ -40,9 +40,9 @@ call proyectomodular.userins('1020123', 'Prueba', 'prueba@prueba.com', "é61ë62
 -- ------------------------------------------------------------
 -- ROLL INSERT
 -- ------------------------------------------------------------
- call proyectomodular.rolins('Consumo', 8.00);
- call proyectomodular.rolins('IVA', 16.00 );
- call proyectomodular.rolins('Lujo', 5.00);
+ call proyectomodular.taxins('Consumo', 8.00);
+ call proyectomodular.taxins('IVA', 16.00 );
+ call proyectomodular.taxins('Lujo', 5.00);
 
 -- call proyectomodular.taxins(?,?);
 -- call proyectomodular.taxupd(?, ?, ?);
@@ -61,3 +61,67 @@ call proyectomodular.productins('000000000', 'Queso', '1400', 1, 3, 1);
 -- call proyectomodular.productall();
 -- call proyectomodular.productone(?);
 -- call proyectomodular.productdel(?);
+
+-- ------------------------------------------------------------
+-- MODULE INSERT
+-- ------------------------------------------------------------
+
+call proyectomodular.moduleins('User', 1);
+call proyectomodular.moduleins('Sale', 1);
+call proyectomodular.moduleins('Product', 1);
+-- call proyectomodular.moduleins(?, ?);
+-- call proyectomodular.moduleupd(?,?,?);
+-- call proyectomodular.moduleall();
+-- call proyectomodular.moduledel(?);
+-- call proyectomodular.moduleone(?);
+
+-- ------------------------------------------------------------
+-- PRIVILEGE INSERT
+-- ------------------------------------------------------------
+
+call proyectomodular.privilegeins('User', 1, 'ico', 'listusers', 1);
+call proyectomodular.privilegeins('Rol', 1, 'ico1', 'listrols', 1);
+call proyectomodular.privilegeins('Privilege', 1, 'ico2', 'listprivileges', 1);
+call proyectomodular.privilegeins('Module', 1, 'ico3', 'listmodules', 1);
+call proyectomodular.privilegeins('Pod', 2, 'ico4', 'listpods', 1);
+call proyectomodular.privilegeins('Sale', 2, 'ico5', 'listsales', 1);
+call proyectomodular.privilegeins('Product', 3, 'ico6', 'listproducts', 1);
+call proyectomodular.privilegeins('Tax', 3, 'ico7', 'listtaxs', 1);
+call proyectomodular.privilegeins('Category', 3, 'ico8', 'listcategorys', 1);
+
+-- call proyectomodular.privilegeins(?,?,?,?,?);
+-- call proyectomodular.privilegeupd(?,?,?,?,?,?);
+-- call proyectomodular.privilegeall();
+-- call proyectomodular.privilegedel(?);
+-- call proyectomodular.privilegeone(?);
+
+-- ------------------------------------------------------------
+-- ROL_PRIVILEGE INSERT
+-- ------------------------------------------------------------
+
+call proyectomodular.rol_privilegeins(1, 1, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(2, 1, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(3, 1, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(4, 1, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(5, 1, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(6, 1, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(7, 1, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(8, 1, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(9, 1, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(10, 1, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(1, 2, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(2, 2, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(3, 2, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(4, 2, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(5, 2, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(6, 2, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(7, 2, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(8, 2, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(9, 2, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(10, 2, 1, 1, 1, 1);
+
+-- call proyectomodular.rol_privilegeins(?, ?, ?, ?, ?, ?);
+-- call proyectomodular.rol_privilegeupd(?, ?, ?, ?, ?, ?);
+-- call proyectomodular.rol_privilegeall(?);
+-- call proyectomodular.rol_privilegedel(?, ?);
+-- call proyectomodular.rol_privilegeone(?, ?);

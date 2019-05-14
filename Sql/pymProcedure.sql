@@ -374,3 +374,347 @@ END$$
 
 DELIMITER ;
 
+-- ------------------------------------------------------------------------------------------------------------------------
+-- PRODUCT PROCEDURE :D
+-- PROCEDURE PRODUCT INSERT
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS productins;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE productins (
+  _code varchar(100),
+  _name varchar(255),
+  _net_price varchar(45),
+  _category_id int(11),
+  _tax_id int(11),
+  _status tinyint(4)
+)
+BEGIN
+INSERT INTO proyectomodular.product (code,name,net_price,category_id,tax_id,status) 
+VALUES
+(_code,_name,_net_price,_category_id,_tax_id,_status);
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE PRODUCT UPDATE 
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS productupd;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE productupd (
+  _product_id int(11),
+  _code varchar(100),
+  _name varchar(255),
+  _net_price varchar(45),
+  _category_id int(11),
+  _tax_id int(11),
+  _status tinyint(4))
+BEGIN
+
+UPDATE proyectomodular.product
+SET
+code=_code,
+name=_name,
+net_price=_net_price,
+category_id=_category_id,
+tax_id=_tax_id,
+status=_status
+WHERE 
+product_id = _product_id;
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE PRODUCT ONE BY ID
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS productone;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE productone (_product_id INT)
+BEGIN
+SELECT p.product_id,p.code,p.name,p.net_price,p.category_id,p.tax_id,p.status
+FROM proyectomodular.product AS p
+WHERE product_id = _product_id;
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE PRODUCT DELETE BY ID
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS productdel;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE productdel (_product_id INT)
+BEGIN
+
+DELETE FROM proyectomodular.product
+WHERE product_id = _product_id;
+
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE PRODUCT LIST ALL
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS productall;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE productall ()
+BEGIN
+
+SELECT  p.product_id,p.code,p.name,p.net_price,p.category_id,p.tax_id,p.status
+FROM proyectomodular.product AS p;
+
+END$$
+
+DELIMITER ;
+
+USE proyectomodular;
+
+-- ------------------------------------------------------------------------------------------------------------------------
+-- MODULE PROCEDURE :D
+-- PROCEDURE MODULE INSERT
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS moduleins;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE moduleins (
+_name varchar(100),
+_status tinyint(4))
+BEGIN
+INSERT INTO proyectomodular.module (name,status) 
+VALUES
+(_name,_status);
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE MODULE UPDATE 
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS moduleupd;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE moduleupd (
+_module_id INT, 
+_name varchar(100),
+_status tinyint(4))
+BEGIN
+
+UPDATE proyectomodular.module
+SET
+name = _name,
+status = _status
+WHERE 
+module_id = _module_id;
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE MODULE ONE BY ID
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS moduleone;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE moduleone (_module_id INT)
+BEGIN
+SELECT  m.module_id, m.name, m.status
+FROM proyectomodular.module AS m
+WHERE module_id = _module_id;
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE MODULE DELETE BY ID
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS moduledel;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE moduledel (_module_id INT)
+BEGIN
+
+DELETE FROM proyectomodular.module
+WHERE module_id = _module_id;
+
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE MODULE LIST ALL
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS moduleall;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE moduleall ()
+BEGIN
+
+SELECT  m.module_id, m.name, m.status
+FROM proyectomodular.module AS m;
+
+END$$
+
+DELIMITER ;
+
+USE proyectomodular;
+
+-- ------------------------------------------------------------------------------------------------------------------------
+-- privilege PROCEDURE :D
+-- PROCEDURE PRIVILEGE INSERT
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS privilegeins;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE privilegeins (
+  _name varchar(100),
+  _module_id int(11),
+  _icon varchar(75),
+  _route varchar(75),
+  _status tinyint(4))
+BEGIN
+INSERT INTO proyectomodular.privilege (name, module_id, icon, route, status) 
+VALUES
+(_name, _module_id, _icon, _route, _status);
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE PRIVILEGE UPDATE 
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS privilegeupd;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE privilegeupd (
+  _privilege_id int(11),
+  _name varchar(100),
+  _module_id int(11),
+  _icon varchar(75),
+  _route varchar(75),
+  _status tinyint(4))
+BEGIN
+
+UPDATE proyectomodular.privilege
+SET
+  name=_name,
+  module_id=_module_id,
+  icon=_icon ,
+  route=_route,
+  status=_status
+  WHERE 
+privilege_id = _privilege_id;
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE PRIVILEGE ONE BY ID
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS privilegeone;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE privilegeone (_privilege_id INT)
+BEGIN
+SELECT  p.privilege_id, p.name, p.module_id, p.icon, p.route, p.status
+FROM proyectomodular.privilege AS p
+WHERE privilege_id = _privilege_id;
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE PRIVILEGE DELETE BY ID
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS privilegedel;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE privilegedel (_privilege_id INT)
+BEGIN
+
+DELETE FROM proyectomodular.privilege
+WHERE privilege_id = _privilege_id;
+
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE PRIVILEGE LIST ALL
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS privilegeall;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE privilegeall ()
+BEGIN
+
+SELECT  p.privilege_id, p.name, p.module_id, p.icon, p.route, p.status
+FROM proyectomodular.privilege AS p;
+
+END$$
+
+DELIMITER ;
+
+
+-- ------------------------------------------------------------
+-- PROCEDURE ROL_PRIVILEGE DELETE BY ID
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS rol_privilegedel;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE rol_privilegedel (
+  _rp_privilege_id int(11),
+  _rp_rol_id int(11)
+)
+BEGIN
+
+DELETE FROM proyectomodular.rol_privilege
+WHERE rp_rol_id = _rp_rol_id AND rp_privilege_id= _rp_privilege_id;
+
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE ROL_PRIVILEGE LIST ALL
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS rol_privilegeall;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE rol_privilegeall (
+_rp_rol_id int(11)
+)
+BEGIN
+
+SELECT  rp.rp_privilege_id, rp.rp_rol_id, rp.view, rp.create, rp.update, rp.delete
+FROM proyectomodular.rol_privilege AS rp
+WHERE rp.rp_rol_id = _rp_rol_id;
+END$$
+
+DELIMITER ;
+
+
+

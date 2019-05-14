@@ -25,7 +25,12 @@ var permission = require('./routes/permission');
 var sale = require('./routes/sale');
 //route sale_product
 var saleproduct = require('./routes/saleproduct');
-
+//route module
+var modulo = require('./routes/modulo');
+//route privilege
+var privilege = require('./routes/privilege');
+//route rolprivilege
+var rolprivilege = require('./routes/rolprivilege');
 
 
 // Initialize the app
@@ -60,50 +65,66 @@ app.use('/', indexRouter);
 app.post('/auth', login)
 //urls user
 app.post('/createuser', user)
-app.post('/updateuser', user)
-app.post('/deleteuser', user)
+app.put('/updateuser', user)
+app.delete('/deleteuser', user)
 app.post('/getdatauser', user)
-app.get('/getdatausers', user)
+app.get('/getdatauser', user)
 //urls rol
 app.post('/createrol', rol)
 app.put('/updaterol', rol)
 app.delete('/deleterol', rol)
 app.post('/getdatarol', rol)
-app.get('/getdatarols', rol)
+app.get('/getdatarol', rol)
 //urls category
 app.post('/createcategory', category)
 app.put('/updatecategory', category)
 app.delete('/deletecategory', category)
 app.post('/getdatacategory', category)
-app.get('/getdatacategorys', category)
+app.get('/getdatacategory', category)
 //urls tax
 app.post('/createtax', tax)
 app.put('/updatetax', tax)
 app.delete('/deletetax', tax)
 app.post('/getdatatax', tax)
-app.get('/getdatataxs', tax)
+app.get('/getdatatax', tax)
 //urls tax
 app.post('/createproduct', product)
 app.put('/updateproduct', product)
 app.delete('/deleteproduct', product)
 app.post('/getdataproduct', product)
-app.get('/getdataproducts', product)
+app.get('/getdataproduct', product)
 //urls permission menu
 app.post('/getdatapermission', permission)
 //urls sale
 app.post('/createsale', sale)
-app.post('/updatesale', sale)
-app.post('/deletesale', sale)
+app.put('/updatesale', sale)
+app.delete('/deletesale', sale)
 app.post('/getdatasale', sale)
 app.get('/getdatasale', sale)
 //urls saleproduct
 app.post('/createsaleproduct', saleproduct)
-app.post('/updatesaleproduct', saleproduct)
-app.post('/deletesaleproduct', saleproduct)
+app.put('/updatesaleproduct', saleproduct)
+app.delete('/deletesaleproduct', saleproduct)
 app.post('/getdatasaleproduct', saleproduct)
 app.get('/getdatasaleproduct', saleproduct)
-
-
+//urls privilege
+app.post('/createprivilege', privilege)
+app.put('/updateprivilege', privilege)
+app.delete('/deleteprivilege', privilege)
+app.post('/getdataprivilege', privilege)
+app.get('/getdataprivilege', privilege)
+//urls privilege
+app.post('/createmodulo', modulo)
+app.put('/updatemodulo', modulo)
+app.delete('/deletemodulo', modulo)
+app.post('/getdatamodulo', modulo)
+app.get('/getdatamodulo', modulo)
+//urls privilege
+app.post('/createrolprivilege', rolprivilege)
+app.put('/updaterolprivilege', rolprivilege)
+app.delete('/deleterolprivilege', rolprivilege)
+app.post('/getdatarolprivilege', rolprivilege)
+app.post('/getdatarolprivileges', rolprivilege)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
