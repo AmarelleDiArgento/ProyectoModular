@@ -25,6 +25,10 @@ var permission = require('./routes/permission');
 var sale = require('./routes/sale');
 //route sale_product
 var saleproduct = require('./routes/saleproduct');
+//route pod
+var pod = require('./routes/pod');
+//route poduser
+var poduser = require('./routes/poduser');
 
 
 
@@ -102,6 +106,18 @@ app.post('/updatesaleproduct', saleproduct)
 app.post('/deletesaleproduct', saleproduct)
 app.post('/getdatasaleproduct', saleproduct)
 app.get('/getdatasaleproduct', saleproduct)
+//urls pod
+app.post('/createpod', pod)
+app.post('/updatepod', pod)
+app.post('/deletepod', pod)
+app.post('/getdatapod', pod)
+app.get('/getdatapod', pod)
+//urls poduser
+app.post('/createpoduser', poduser)
+app.post('/updatepoduser', poduser)
+app.post('/deletepoduser', poduser)
+app.post('/getdatapoduser', poduser)
+app.get('/getdatapoduser', poduser)
 
 
 // catch 404 and forward to error handler
