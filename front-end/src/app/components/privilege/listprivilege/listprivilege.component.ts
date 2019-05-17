@@ -4,47 +4,51 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 // service auth
-import { RolService } from '../../../services/rol.service';
+import { PrivilegeService } from '../../../services/privilege.service';
 
 @Component({
-  selector: 'app-listrol',
-  templateUrl: './listrol.component.html',
-  styleUrls: ['./listrol.component.css']
+  selector: 'app-listprivilege',
+  templateUrl: './listprivilege.component.html',
+  styleUrls: ['./listprivilege.component.css']
 })
-export class ListrolComponent implements OnInit {
+export class ListprivilegeComponent implements OnInit {
 
-  // list data ws rol 
-  listRol: {};
+  // list data ws privilege 
+  listPrivilege: {};
 
-  constructor(private http: Http, private formBuilder: FormBuilder, private rolService: RolService, private router: Router) {
+  constructor(private http: Http, private formBuilder: FormBuilder, private privilegeService: PrivilegeService, private router: Router) {
     this.getAllData();
   }
 
   ngOnInit() {
   }
 
-  // obtain all data from the register rols
+  // obtain all data from the register privileges
   getAllData() {
-    // send to search api backend all rols
-    this.rolService.getAllDataRols()
+    // send to search api backend all privileges
+    this.privilegeService.getAllDataprivileges()
       .subscribe(data => {
-        // populate list json rol
-        this.listRol = data.rows;
+        // populate list json privilege
+        console.log(data.rows);
+
+        this.listPrivilege = data.rows;
       });
   }
-  // redirect to create rol
-  createRol() {
-    this.router.navigate(['/createrols'])
+  // redirect to create privilege
+  createPrivilege() {
+    this.router.navigate(['/createprivileges'])
   }
-  // redirect to update rol
-  updateRol(id) {
+  // redirect to update privilege
+  updatePrivilege(id) {
     // almacenamos el id
-    localStorage.setItem('idRol', id);
-    this.router.navigate(['/updaterols'])
+    localStorage.setItem('idPrivilege', id);
+    this.router.navigate(['/updateprivileges'])
   }
-  
-  // delete rol
-  deleteRol(id) {
+  showModal() {
+
+  }
+  // delete privilege
+  deletePrivilege(id) {
 
 
     Swal.fire({
@@ -57,7 +61,7 @@ export class ListrolComponent implements OnInit {
       confirmButtonText: 'Si, eliminalo!'
     }).then((result) => {
       if (result.value) {
-        this.rolService.deleteRols(id)
+        this.privilegeService.deleteprivileges(id)
           .subscribe(data => {
             if (data.respuesta === 'Success') {
               Swal.fire({
@@ -86,7 +90,7 @@ export class ListrolComponent implements OnInit {
       }
     })
 
-    // send to api backend delete rol for id
+    // send to api backend delete privilege for id
 
   }
 }

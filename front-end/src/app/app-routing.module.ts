@@ -11,60 +11,90 @@ import { UpdateusersComponent } from './components/register/updateusers/updateus
 import { RolComponent } from './components/rol/rol.component';
 import { ListrolComponent } from './components/rol/listrol/listrol.component';
 import { UpdaterolComponent } from './components/rol/updaterol/updaterol.component';
+import { ListprivilegeComponent } from './components/privilege/listprivilege/listprivilege.component';
+import { UpdateprivilegeComponent } from './components/privilege/updateprivilege/updateprivilege.component';
+import { PrivilegeComponent } from './components/privilege/privilege.component';
+import { ListmodulesComponent } from './components/module/listmodules/listmodules.component';
+import { UpdatemodulesComponent } from './components/module/updatemodules/updatemodules.component';
+import { ModuleComponent } from './components/module/module.component';
 
-//const routes
+// const routes
 const routes: Routes = [
-		{
-            path: '',
-            component: LoginComponent,
-        },
-        {
-            path: 'home',
-            component: HomeComponent,
-        },
-        {
-            path: 'inventory',
-            component: InventoryComponent,
-        },
-        {
-            path: 'profile',
-            component: ProfileComponent,
-        },
-        {
-            path: 'createusers',
-            component: RegisterComponent,
-        },
-        {
-            path: 'updateusers',
-            component: UpdateusersComponent,
-        },
-        {
-            path: 'listusers',
-            component: ListusersComponent,
-        },
-        {
-            path: 'createrols',
-            component: RolComponent,
-        },
-        {
-            path: 'updaterols',
-            component: UpdaterolComponent,
-        },
-        {
-            path: 'listrols',
-            component: ListrolComponent,
-        }
+    {
+        path: '',
+        component: LoginComponent,
+    },
+    {
+        path: 'home',
+        component: HomeComponent,
+    },
+    {
+        path: 'inventory',
+        component: InventoryComponent,
+    },
+    {
+        path: 'profile',
+        component: ProfileComponent,
+    },
+    {
+        path: 'createusers',
+        component: RegisterComponent,
+    },
+    {
+        path: 'updateusers',
+        component: UpdateusersComponent,
+    },
+    {
+        path: 'listusers',
+        component: ListusersComponent,
+    },
+    {
+        path: 'createrols',
+        component: RolComponent,
+    },
+    {
+        path: 'updaterols',
+        component: UpdaterolComponent,
+    },
+    {
+        path: 'listrols',
+        component: ListrolComponent,
+    },
+    {
+        path: 'createprivileges',
+        component: PrivilegeComponent,
+    },
+    {
+        path: 'updateprivileges',
+        component: UpdateprivilegeComponent,
+    },
+    {
+        path: 'listprivileges',
+        component: ListprivilegeComponent,
+    },
+    {
+        path: 'createmodules',
+        component: ModuleComponent,
+    },
+    {
+        path: 'updatmodules',
+        component: UpdatemodulesComponent,
+    },
+    {
+        path: 'listmodules',
+        component: ListmodulesComponent,
+    }
 
-        
-    ];
 
-    @NgModule({
-        imports: [
-            RouterModule.forRoot(routes)
-        ],
-        exports: [
-            RouterModule
-        ],
-        declarations: []
-    })
-    export class AppRoutingModule { }
+];
+
+@NgModule({
+    imports: [
+        RouterModule.forRoot(routes)
+    ],
+    exports: [
+        RouterModule
+    ],
+    declarations: []
+})
+export class AppRoutingModule { }

@@ -32,7 +32,7 @@ router.put('/updatecategory', function (req, res, next) {
         "error": error
       })
     } else {
-      res.status(200).jsonp(data.rows[0])
+      res.status(200).jsonp(data)
     }
   })
 })
@@ -48,7 +48,7 @@ router.delete('/deletecategory', function (req, res, next) {
         "error": error
       })
     } else {
-      res.status(200).jsonp(data.rows[0])
+      res.status(200).jsonp(data)
     }
   })
 })
@@ -64,7 +64,7 @@ router.post('/getdatacategory', function (req, res, next) {
         "error": error
       })
     } else {
-      res.status(200).jsonp(data.rows[0])
+      res.status(200).jsonp(data)
     }
   })
 })

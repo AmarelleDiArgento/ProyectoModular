@@ -4,11 +4,11 @@
 <div class="container-fluid">
   <div class="col-md-12">
     <br>
-    <h3>Listado de Roles</h3>
+    <h3>Listado de Modules</h3>
   </div>
   <div class="col-md-12">
     <br>
-    <button type="button" (click)="createRol()" class="btn btn-primary">Crear Rol</button>
+    <button type="button" (click)="createModule()" class="btn btn-primary">Crear Module</button>
   </div>
   <div class="col-md-12">
     <br>
@@ -21,15 +21,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of listRol">
-          <td>{{item.rol_id}}</td>
+        <tr *ngFor="let item of listModule">
+          <td>{{item.module_id}}</td>
           <td>{{item.name}}</td>
           <td class="text-center">
             <i class="fa fa-edit text-center" style="font-size: 1em;" title="Modificar"
-              (click)="updateRol(item.rol_id)"></i></td>
+              (click)="updateModule(item.module_id)"></i></td>
               <td class="text-center">
             <i class="fa fa-trash text-center" style="font-size: 1em;" title="Eliminar"
-              (click)="deleteRol(item.rol_id)"></i></td>
+              (click)="deleteModule(item.module_id)"></i></td>
         </tr>
       </tbody>
     </table>

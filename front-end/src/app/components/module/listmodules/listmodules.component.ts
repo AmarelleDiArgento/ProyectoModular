@@ -4,47 +4,47 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 // service auth
-import { RolService } from '../../../services/rol.service';
+import { ModuleService } from '../../../services/module.service';
 
 @Component({
-  selector: 'app-listrol',
-  templateUrl: './listrol.component.html',
-  styleUrls: ['./listrol.component.css']
+  selector: 'app-listmodules',
+  templateUrl: './listmodules.component.html',
+  styleUrls: ['./listmodules.component.css']
 })
-export class ListrolComponent implements OnInit {
+export class ListmodulesComponent implements OnInit {
 
-  // list data ws rol 
-  listRol: {};
+  // list data ws module 
+  listModule: {};
 
-  constructor(private http: Http, private formBuilder: FormBuilder, private rolService: RolService, private router: Router) {
+  constructor(private http: Http, private formBuilder: FormBuilder, private moduleService: ModuleService, private router: Router) {
     this.getAllData();
   }
 
   ngOnInit() {
   }
 
-  // obtain all data from the register rols
+  // obtain all data from the register modules
   getAllData() {
-    // send to search api backend all rols
-    this.rolService.getAllDataRols()
+    // send to search api backend all modules
+    this.moduleService.getAllDataModules()
       .subscribe(data => {
-        // populate list json rol
-        this.listRol = data.rows;
+        // populate list json module
+        this.listModule = data.rows;
       });
   }
-  // redirect to create rol
-  createRol() {
-    this.router.navigate(['/createrols'])
+  // redirect to create module
+  createModule() {
+    this.router.navigate(['/createmodules'])
   }
-  // redirect to update rol
-  updateRol(id) {
+  // redirect to update module
+  updateModule(id) {
     // almacenamos el id
-    localStorage.setItem('idRol', id);
-    this.router.navigate(['/updaterols'])
+    localStorage.setItem('idModule', id);
+    this.router.navigate(['/updatemodules'])
   }
   
-  // delete rol
-  deleteRol(id) {
+  // delete module
+  deleteModule(id) {
 
 
     Swal.fire({
@@ -57,7 +57,7 @@ export class ListrolComponent implements OnInit {
       confirmButtonText: 'Si, eliminalo!'
     }).then((result) => {
       if (result.value) {
-        this.rolService.deleteRols(id)
+        this.moduleService.deleteModules(id)
           .subscribe(data => {
             if (data.respuesta === 'Success') {
               Swal.fire({
@@ -86,7 +86,7 @@ export class ListrolComponent implements OnInit {
       }
     })
 
-    // send to api backend delete rol for id
+    // send to api backend delete module for id
 
   }
 }

@@ -21,7 +21,7 @@ router.post('/createrol', function (req, res, next) {
 })
 
 //update rol
-router.put('/updaterol', function (req, res, next) {
+router.post('/updaterol', function (req, res, next) {
   var rolData = {
     rol_id: req.body.rol_id,
     name: req.body.name
@@ -38,7 +38,7 @@ router.put('/updaterol', function (req, res, next) {
 })
 
 //delete rol
-router.delete('/deleterol', function (req, res, next) {
+router.post('/deleterol', function (req, res, next) {
   var rolData = {
     rol_id: req.body.rol_id
   }

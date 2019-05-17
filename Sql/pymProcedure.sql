@@ -676,6 +676,76 @@ END$$
 
 DELIMITER ;
 
+-- ------------------------------------------------------------------------------------------------------------------------
+-- MODULE PROCEDURE :D
+-- PROCEDURE MODULE INSERT
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS moduleins;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE moduleins (
+_name varchar(100),
+_status tinyint(4))
+BEGIN
+INSERT INTO proyectomodular.module (name,status) 
+VALUES
+(_name,_status);
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE MODULE UPDATE 
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS moduleupd;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE moduleupd (
+
+_rp_privilege_id, 
+_rp_rol_id, 
+_view, 
+_create, 
+_update, 
+_delete tinyint(4))
+BEGIN
+
+UPDATE proyectomodular.module
+SET
+
+rp_privilege_id = _rp_privilege_id, 
+rp_rol_id = _rp_rol_id, 
+`view` = _view, 
+`create`=_create, 
+`update`=_update, 
+`delete`=delete
+WHERE 
+module_id = _module_id;
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE ROL_PRIVILEGE ONE
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS rol_privilegeone;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE rol_privilegeall (
+_rp_rol_id int(11),
+_rp_privilege_id int(11)
+)
+BEGIN
+
+SELECT  rp.rp_privilege_id, rp.rp_rol_id, rp.view, rp.create, rp.update, rp.delete
+FROM proyectomodular.rol_privilege AS rp
+WHERE rp.rp_rol_id = _rp_rol_id AND rp_privilege_id = _rp_privilege_id;
+END$$
+
+DELIMITER ;
 
 -- ------------------------------------------------------------
 -- PROCEDURE ROL_PRIVILEGE DELETE BY ID
@@ -715,6 +785,3 @@ WHERE rp.rp_rol_id = _rp_rol_id;
 END$$
 
 DELIMITER ;
-
-
-

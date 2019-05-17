@@ -25,7 +25,7 @@ router.post('/createprivilege', function (req, res, next) {
 })
 
 //update privilege
-router.put('/updateprivilege', function (req, res, next) {
+router.post('/updateprivilege', function (req, res, next) {
   var priData = {
     privilege_id: req.body.privilege_id,
     name: req.body.name,
@@ -46,7 +46,7 @@ router.put('/updateprivilege', function (req, res, next) {
 })
 
 //delete privilege
-router.delete('/deleteprivilege', function (req, res, next) {
+router.post('/deleteprivilege', function (req, res, next) {
   var priData = {
     privilege_id: req.body.privilege_id
   }

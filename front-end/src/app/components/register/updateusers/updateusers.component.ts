@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
-//service auth
+// service auth
 import { UserService } from '../../../services/user.service';
 
 @Component({
@@ -12,19 +12,19 @@ import { UserService } from '../../../services/user.service';
 })
 export class UpdateusersComponent implements OnInit {
 
-  //vars msj
+  // vars msj
   msgerr: string = '';
-  //var submitted
+  // var submitted
   submitted = false;
-  //var form
+  // var form
   updateUsersForm: FormGroup;
-  //list data auth 
+  // list data auth
   listUser: {};
-  //id user
+  // id user
   idUser = '';
-  //rows vacio
+  // rows vacio
   rows = [];
-  //vars form update user
+  // vars form update user
   user_id = '';
   username = '';
   email = '';
@@ -35,7 +35,7 @@ export class UpdateusersComponent implements OnInit {
   constructor(private http: Http, private formBuilder: FormBuilder, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    //init form
+    // init form
     this.updateUsersForm = this.formBuilder.group({
       user_id: ['', Validators.required],
       username: ['', Validators.required],
@@ -44,46 +44,52 @@ export class UpdateusersComponent implements OnInit {
       rol: ['', Validators.required],
       estado: ['', Validators.required]
     });
-    //asign id user to search data
+    // asign id user to search data
     this.idUser = localStorage.getItem('idSesionUser');
-    //eject ws search user for id
+    // eject ws search user for id
     this.getUserDataId();
   }
-  //get form controls
+  // get form controls
   get f() { return this.updateUsersForm.controls; }
-  //submit form
+  // submit form
   onSubmit() {
     this.submitted = true;
     // error here if form is invalid
     if (this.updateUsersForm.invalid) {
       return;
     } else {
-      //send to api backend update user
-      this.userService.updateUsers(this.updateUsersForm.value.user_id, this.updateUsersForm.value.username, this.updateUsersForm.value.email, this.updateUsersForm.value.password, this.updateUsersForm.value.rol, this.updateUsersForm.value.estado)
+      // send to api backend update user
+      this.userService.updateUsers(
+        this.updateUsersForm.value.user_id,
+        this.updateUsersForm.value.username,
+        this.updateUsersForm.value.email,
+        this.updateUsersForm.value.password,
+        this.updateUsersForm.value.rol,
+        this.updateUsersForm.value.estado)
         .subscribe(data => {
-          if (data.respuesta == "Success") {
-            //redirect to home menu
-            this.router.navigate(['/listusers'])
+          if (data.respuesta == 'Success') {
+            // redirect to home menu
+            this.router.navigate(['/listusers']);
           } else {
-            this.msgerr = "Error al actualizar el usuario";
+            this.msgerr = 'Error al actualizar el usuario';
           }
         });
     }
   }
-  //obtain data user for id
+  // obtain data user for id
   getUserDataId() {
-    //send to ws api mysql search data user for id
+    // send to ws api mysql search data user for id
     this.userService.getDataUsersForId(this.idUser)
       .subscribe(data => {
         if (data != null) {
-          //add values to the form
+          // add values to the form
           this.updateUsersForm.get('user_id').setValue(data.rows[0].user_id);
           this.updateUsersForm.get('username').setValue(data.rows[0].username);
           this.updateUsersForm.get('email').setValue(data.rows[0].email);
         }
       });
   }
-  //clear alert err
+  // clear alert err
   closeAlertErr(): void {
     this.msgerr = '';
   }

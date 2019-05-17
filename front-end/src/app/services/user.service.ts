@@ -9,14 +9,14 @@ export class UserService {
 
   constructor(private http: Http) { }
   params;
-  //service to api mysql get all users
+  // service to api mysql get all users
   getAllDataUsers() {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
     return this.http.get('http://localhost:3000/getdatauser/', options)
       .map((response: Response) => response.json())
   }
- //service to api mysql get user for id
+ // service to api mysql get user for id
  getDataUsersForId(user_id) {
     this.params = 'user_id=' + user_id ;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
@@ -24,23 +24,23 @@ export class UserService {
     return this.http.post('http://localhost:3000/getdatauser/', this.params, options)
       .map((response: Response) => response.json())
   }
-  //service to api mysql create users
-  createUsers(user_id,username, email, password, rol_id, status) {
-    this.params = 'user_id=' + user_id +'&username=' + username + '&email=' + email + '&password=' + password + '&rol_id=' + rol_id + '&status=' + status + '';
+  // service to api mysql create users
+  createUsers(user_id, username, email, password, rol_id, status) {
+    this.params = 'user_id=' + user_id + '&username=' + username + '&email=' + email + '&password=' + password + '&rol_id=' + rol_id + '&status=' + status + '';
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post('http://localhost:3000/createuser/', this.params, options)
       .map((response: Response) => response.json())
   }
-  //service to api mysql update users
+  // service to api mysql update users
   updateUsers(user_id, username, email, password, rol_id, status) {
-    this.params = 'user_id=' + user_id +'&username=' + username + '&email=' + email + '&password=' + password + '&rol_id=' + rol_id + '&status=' + status + '';
+    this.params = 'user_id=' + user_id + '&username=' + username + '&email=' + email + '&password=' + password + '&rol_id=' + rol_id + '&status=' + status + '';
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/updateuser/', this.params, options)
+    return this.http.put('http://localhost:3000/updateuser/', this.params, options)
       .map((response: Response) => response.json())
   }
-  //service to api mysql delete users
+  // service to api mysql delete users
   deleteUsers(user_id) {
     this.params = 'user_id=' + user_id ;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });

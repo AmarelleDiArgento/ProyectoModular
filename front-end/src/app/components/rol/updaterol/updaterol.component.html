@@ -6,7 +6,7 @@
     <div class="col-md-4"></div>
     <div class="col-md-4" id="update">
       <form [formGroup]="updateRolForm" (ngSubmit)="onSubmit()">
-        <h3>Actualizar Rol</h3>
+        <h3>Actualizar Roles</h3>
         <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
           <a class="close" (click)="closeAlertErr()">
             &times;
@@ -15,21 +15,21 @@
         </div>
         <div class="form-group">
           <label for="rol_id">Documento</label>
-          <input type="text" class="form-control" id="rol_id" formContname="rol_id"
+          <input type="text" class="form-control" id="rol_id" formControlName="rol_id"
             [ngClass]="{ 'is-invalid': submitted && f.rol_id.errors }" placeholder="Enter document" readonly>
           <span>
             <div *ngIf="submitted && f.rol_id.errors">
-              <div *ngIf="f.rol_id.errors.required"> <label id="error">Error el id es requerido </label></div>
+              <div *ngIf="f.rol_id.errors.required"> <label id="error">Error el documento es requerido </label></div>
             </div>
           </span>
         </div>
         <div class="form-group">
           <label for="name">name </label>
-          <input type="text" class="form-control" id="name" formContname="name"
+          <input type="text" class="form-control" id="name" formControlName="name"
             [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Enter name">
           <span>
             <div *ngIf="submitted && f.name.errors">
-              <div *ngIf="f.name.errors.required"> <label id="error">Error el nombre es requerido </label></div>
+              <div *ngIf="f.name.errors.required"> <label id="error">Error el usuario es requerido </label></div>
             </div>
           </span>
         </div>

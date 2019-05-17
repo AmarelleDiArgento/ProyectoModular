@@ -1,0 +1,92 @@
+<!-- header -->
+<app-header></app-header>
+<!-- end header -->
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-4"></div>
+    <div class="col-md-4" id="create">
+      <form [formGroup]="updatePrivilegeForm" (ngSubmit)="onSubmit()">
+        <h3>Actualizar Privilegio</h3>
+        <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
+          <a class="close" (click)="closeAlertErr()">
+            &times;
+          </a>
+          <h6>{{msgerr}}</h6>
+        </div>
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" class="form-control" id="name" formControlName="name"
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Ingrese el nombre">
+          <span>
+            <div *ngIf="submitted && f.name.errors">
+              <div *ngIf="f.name.errors.required"> <label id="error">Error el nombre es requerido</label></div>
+            </div>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Modulo</label>
+          <select class="form-control" id="module_id" formControlName="module_id"
+            [ngClass]="{ 'is-invalid': submitted && f.module_id.errors}">
+            <option value="" disabled>Selecione un modulo</option>
+            <option *ngFor="let m of listModule" [ngValue]="m.module_id">
+              {{ m.name}}
+            </option>
+          </select>
+          <span>
+            <div *ngIf="submitted && f.module_id.errors">
+              <div *ngIf="f.module_id.errors.required"> <label id="error">Error el modulo es requerido</label></div>
+            </div>
+          </span>
+
+        </div>
+
+        <div class="form-group">
+          <label for="name">Icono</label>
+          <input type="text" class="form-control" id="icon" formControlName="icon"
+            [ngClass]="{ 'is-invalid': submitted && f.icon.errors }" placeholder="Ingrese el icono">
+          <span>
+            <div *ngIf="submitted && f.icon.errors">
+              <div *ngIf="f.icon.errors.required"> <label id="error">Error el icono es requerido</label></div>
+            </div>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Ruta</label>
+          <input type="text" class="form-control" id="route" formControlName="route"
+            [ngClass]="{ 'is-invalid': submitted && f.route.errors }" placeholder="Ingrese la ruta">
+          <span>
+            <div *ngIf="submitted && f.name.errors">
+              <div *ngIf="f.route.errors.required"> <label id="error">Error la ruta es requerida</label></div>
+            </div>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Estado</label>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input form-control" id="status" ngModel="checked"
+              formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+            <label class="custom-control-label" for="status">
+              <ng-container *ngIf="f.status === 1 else elseTemplate">
+                Activo {{f.status}}
+              </ng-container>
+              <ng-template #elseTemplate>
+                Inactivo {{f.status}}
+              </ng-template>
+            </label>
+          </div>
+          <span>
+            <div *ngIf="submitted && f.status.errors">
+              <div *ngIf="f.status.errors.required"> <label id="error">Error el estado es requerido</label></div>
+            </div>
+          </span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Crear</button>
+      </form>
+    </div>
+  </div>
+</div>

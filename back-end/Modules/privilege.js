@@ -9,8 +9,8 @@ connection.connect();
 var privilegeModel = {}
 
 
-let ins = `call proyectomodular.privilegeins(?, ?, ?, ?, ?, ?);`;
-let upd = `call proyectomodular.privilegeupd(?,?, ?, ?, ?, ?, ?);`;
+let ins = `call proyectomodular.privilegeins(?, ?, ?, ?, ?);`;
+let upd = `call proyectomodular.privilegeupd(?, ?, ?, ?, ?, ?);`;
 let del = `call proyectomodular.privilegedel(?);`;
 let all = `call proyectomodular.privilegeall();`;
 let one = `call proyectomodular.privilegeone(?);`;

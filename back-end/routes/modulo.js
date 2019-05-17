@@ -22,7 +22,7 @@ router.post('/createmodulo', function (req, res, next) {
 })
 
 //update modulo
-router.put('/updatemodulo', function (req, res, next) {
+router.post('/updatemodulo', function (req, res, next) {
   var modData = {
     modulo_id: req.body.modulo_id,
     name: req.body.name,
@@ -40,7 +40,7 @@ router.put('/updatemodulo', function (req, res, next) {
 })
 
 //delete modulo
-router.delete('/deletemodulo', function (req, res, next) {
+router.post('/deletemodulo', function (req, res, next) {
   var modData = {
     modulo_id: req.body.modulo_id
   }

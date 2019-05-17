@@ -1,4 +1,4 @@
-//generic libs
+// generic libs
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-//components
+// components
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -21,11 +21,18 @@ import { UpdateusersComponent } from './components/register/updateusers/updateus
 import { RolComponent } from './components/rol/rol.component';
 import { ListrolComponent } from './components/rol/listrol/listrol.component';
 import { UpdaterolComponent } from './components/rol/updaterol/updaterol.component';
-
-//service
+import { PrivilegeComponent } from './components/privilege/privilege.component';
+import { ListprivilegeComponent } from './components/privilege/listprivilege/listprivilege.component';
+import { UpdateprivilegeComponent } from './components/privilege/updateprivilege/updateprivilege.component';
+import { ModuleComponent } from './components/module/module.component';
+import { ListmodulesComponent } from './components/module/listmodules/listmodules.component';
+import { UpdatemodulesComponent } from './components/module/updatemodules/updatemodules.component';
+// service
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { RolService } from './services/rol.service';
+import { PrivilegeService } from './services/privilege.service';
+import { ModuleService } from './services/module.service';
 
 
 @NgModule({
@@ -42,7 +49,13 @@ import { RolService } from './services/rol.service';
     UpdateusersComponent,
     RolComponent,
     ListrolComponent,
-    UpdaterolComponent
+    UpdaterolComponent,
+    PrivilegeComponent,
+    ListprivilegeComponent,
+    UpdateprivilegeComponent,
+    ModuleComponent,
+    ListmodulesComponent,
+    UpdatemodulesComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +65,7 @@ import { RolService } from './services/rol.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService,UserService,RolService],
+  providers: [AuthService, UserService, RolService, PrivilegeService, ModuleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

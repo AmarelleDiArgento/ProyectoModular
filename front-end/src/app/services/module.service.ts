@@ -5,47 +5,47 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
 @Injectable()
-export class RolService {
+export class ModuleService {
 
   constructor(private http: Http) { }
   params;
-  // service to api mysql get all rols
-  getAllDataRols() {
+  // service to api mysql get all modules
+  getAllDataModules() {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get('http://localhost:3000/getdatarol/', options)
+    return this.http.get('http://localhost:3000/getdatamodulo/', options)
       .map((response: Response) => response.json());
   }
-  // service to api mysql get rol for id
-  getDataRolsForId(rol_id) {
-    this.params = 'rol_id=' + rol_id;
+  // service to api mysql get module for id
+  getDataModulesForId(module_id) {
+    this.params = 'module_id=' + module_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/getdatarol/', this.params, options)
+    return this.http.post('http://localhost:3000/getdatamodulo/', this.params, options)
       .map((response: Response) => response.json());
   }
-  // service to api mysql create rol
-  createRols(name) {
+  // service to api mysql create module
+  createModules(name) {
     this.params = 'name=' + name;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/createrol/', this.params, options)
+    return this.http.post('http://localhost:3000/createmodulo/', this.params, options)
       .map((response: Response) => response.json());
   }
-  // service to api mysql update rols
-  updateRols(rol_id, name) {
-    this.params = 'rol_id=' + rol_id + '&name=' + name;
+  // service to api mysql update modules
+  updateModules(module_id, name) {
+    this.params = 'module_id=' + module_id + '&name=' + name;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/updaterol/', this.params, options)
+    return this.http.post('http://localhost:3000/updatemodulo/', this.params, options)
       .map((response: Response) => response.json());
   }
-  // service to api mysql delete rols
-  deleteRols(rol_id) {
-    this.params = 'rol_id=' + rol_id;
+  // service to api mysql delete modules
+  deleteModules(module_id) {
+    this.params = 'module_id=' + module_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/deleterol/', this.params, options)
+    return this.http.post('http://localhost:3000/deletemodulo/', this.params, options)
       .map((response: Response) => response.json());
   }
 }
