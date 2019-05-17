@@ -37,7 +37,6 @@ export class UpdaterolComponent implements OnInit {
       name: ['', Validators.required],
     });
     //asign id rol to search data
-    console.log(localStorage)
     this.idRol = localStorage.getItem('idRol');
     //eject ws search user for id
     this.getRolDataId();

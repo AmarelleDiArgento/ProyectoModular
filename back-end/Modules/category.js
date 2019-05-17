@@ -94,9 +94,8 @@ categoryModel.deletecategory = function (catDate, callback) {
                 })
             } else {
                 if (rows.length != 0) {
-                    rows = rows[0];
                     var jsonObj = {
-                        respuesta: "Success"
+                      respuesta: "Success"
                     }
                     callback(null, jsonObj)
                 } else {

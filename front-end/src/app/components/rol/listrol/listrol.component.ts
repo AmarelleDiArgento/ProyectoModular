@@ -40,8 +40,6 @@ export class ListrolComponent implements OnInit {
   updateRol(id) {
     //almacenamos el id
     localStorage.setItem('idRol', id);
-
-    console.log(id);
     this.router.navigate(['/updaterols'])
   }
   //delete rol

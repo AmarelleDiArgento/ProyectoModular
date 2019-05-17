@@ -81,20 +81,20 @@ app.post('/getdatarol', rol)
 app.get('/getdatarol', rol)
 //urls category
 app.post('/createcategory', category)
-app.put('/updatecategory', category)
-app.delete('/deletecategory', category)
+app.post('/updatecategory', category)
+app.post('/deletecategory', category)
 app.post('/getdatacategory', category)
 app.get('/getdatacategory', category)
 //urls tax
 app.post('/createtax', tax)
-app.put('/updatetax', tax)
-app.delete('/deletetax', tax)
+app.post('/updatetax', tax)
+app.post('/deletetax', tax)
 app.post('/getdatatax', tax)
 app.get('/getdatatax', tax)
-//urls tax
+//urls product
 app.post('/createproduct', product)
-app.put('/updateproduct', product)
-app.delete('/deleteproduct', product)
+app.post('/updateproduct', product)
+app.post('/deleteproduct', product)
 app.post('/getdataproduct', product)
 app.get('/getdataproduct', product)
 //urls permission menu
@@ -117,13 +117,13 @@ app.put('/updateprivilege', privilege)
 app.delete('/deleteprivilege', privilege)
 app.post('/getdataprivilege', privilege)
 app.get('/getdataprivilege', privilege)
-//urls privilege
+//urls modulo
 app.post('/createmodulo', modulo)
 app.put('/updatemodulo', modulo)
 app.delete('/deletemodulo', modulo)
 app.post('/getdatamodulo', modulo)
 app.get('/getdatamodulo', modulo)
-//urls privilege
+//urls rol privilege
 app.post('/createrolprivilege', rolprivilege)
 app.put('/updaterolprivilege', rolprivilege)
 app.delete('/deleterolprivilege', rolprivilege)
