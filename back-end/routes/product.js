@@ -26,7 +26,7 @@ router.post('/createproduct', function (req, res, next) {
 })
 
 //update product
-router.put('/updateproduct', function (req, res, next) {
+router.post('/updateproduct', function (req, res, next) {
   var productData = {
     product_id: req.body.product_id,
     code: req.body.code,
@@ -48,7 +48,7 @@ router.put('/updateproduct', function (req, res, next) {
 })
 
 //delete product
-router.delete('/deleteproduct', function (req, res, next) {
+router.post('/deleteproduct', function (req, res, next) {
   var productData = {
     product_id: req.body.product_id
   }

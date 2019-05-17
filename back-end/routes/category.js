@@ -15,13 +15,13 @@ router.post('/createcategory', function (req, res, next) {
         "error": error
       })
     } else {
-      res.status(200).jsonp(data.rows[0])
+      res.status(200).jsonp(data)
     }
   })
 })
 
 //update category
-router.put('/updatecategory', function (req, res, next) {
+router.post('/updatecategory', function (req, res, next) {
   var catData = {
     category_id: req.body.category_id,
     name: req.body.name
@@ -38,7 +38,7 @@ router.put('/updatecategory', function (req, res, next) {
 })
 
 //delete category
-router.delete('/deletecategory', function (req, res, next) {
+router.post('/deletecategory', function (req, res, next) {
   var catData = {
     category_id: req.body.category_id
   }

@@ -1,0 +1,30 @@
+<!-- header -->
+<app-header></app-header>
+<!-- end header -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4" id="create">
+      <form [formGroup]="registerCategoryForm" (ngSubmit)="onSubmit()">
+        <h3>Crear Categoria</h3>
+        <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
+          <a class="close" (click)="closeAlertErr()">
+            &times;
+          </a>
+          <h6>{{msgerr}}</h6>
+        </div>
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" class="form-control" id="name" formControlName="name"
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Ingrese el nombre">
+          <span>
+            <div *ngIf="submitted && f.name.errors">
+              <div *ngIf="f.name.errors.required"> <label id="error">Error el nombre es requerido </label></div>
+            </div>
+          </span>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Crear</button>
+      </form>
+    </div>
+  </div>
+</div>

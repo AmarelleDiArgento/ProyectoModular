@@ -91,7 +91,7 @@ app.post('/updatetax', tax)
 app.post('/deletetax', tax)
 app.post('/getdatatax', tax)
 app.get('/getdatatax', tax)
-//urls tax
+//urls product
 app.post('/createproduct', product)
 app.post('/updateproduct', product)
 app.post('/deleteproduct', product)
@@ -117,13 +117,13 @@ app.post('/updateprivilege', privilege)
 app.post('/deleteprivilege', privilege)
 app.post('/getdataprivilege', privilege)
 app.get('/getdataprivilege', privilege)
-//urls privilege
+//urls modulo
 app.post('/createmodulo', modulo)
 app.post('/updatemodulo', modulo)
 app.post('/deletemodulo', modulo)
 app.post('/getdatamodulo', modulo)
 app.get('/getdatamodulo', modulo)
-//urls privilege
+//urls rol privilege
 app.post('/createrolprivilege', rolprivilege)
 app.post('/updaterolprivilege', rolprivilege)
 app.post('/deleterolprivilege', rolprivilege)

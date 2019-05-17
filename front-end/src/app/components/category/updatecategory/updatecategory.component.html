@@ -1,0 +1,30 @@
+<!-- header -->
+<app-header></app-header>
+<!-- end header -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4" id="update">
+      <form [formGroup]="updateCategoryForm" (ngSubmit)="onSubmit()">
+        <h3>Actualizar Categoria</h3>
+        <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
+          <a class="close" (click)="closeAlertErr()">
+            &times;
+          </a>
+          <h6>{{msgerr}}</h6>
+        </div>
+        <div class="form-group">
+          <label for="name">Nombre </label>
+          <input type="text" class="form-control" id="name" formControlName="name"
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Nombre">
+          <span>
+            <div *ngIf="submitted && f.name.errors">
+              <div *ngIf="f.name.errors.required"> <label id="error">Error el nombre es requerido </label></div>
+            </div>
+          </span>
+        </div>
+        <button type="submit" class="btn btn-warning btn-lg btn-block">Actualizar</button>
+      </form>
+    </div>
+  </div>
+</div>

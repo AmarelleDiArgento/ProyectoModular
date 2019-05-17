@@ -28,11 +28,26 @@ import { ModuleComponent } from './components/module/module.component';
 import { ListmodulesComponent } from './components/module/listmodules/listmodules.component';
 import { UpdatemodulesComponent } from './components/module/updatemodules/updatemodules.component';
 // service
+import { CategoryComponent } from './components/category/category.component';
+import { ListcategoryComponent } from './components/category/listcategory/listcategory.component';
+import { UpdatecategoryComponent } from './components/category/updatecategory/updatecategory.component';
+import { TaxComponent } from './components/tax/tax.component';
+import { ListtaxComponent } from './components/tax/listtax/listtax.component';
+import { UpdatetaxComponent } from './components/tax/updatetax/updatetax.component';
+import { ProductComponent } from './components/product/product.component';
+import { ListproductComponent } from './components/product/listproduct/listproduct.component';
+import { UpdateproductComponent } from './components/product/updateproduct/updateproduct.component';
+
+//service
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { RolService } from './services/rol.service';
 import { PrivilegeService } from './services/privilege.service';
 import { ModuleService } from './services/module.service';
+import { CategoryService } from './services/category.service';
+import { TaxService } from './services/tax.service';
+import { ProductService } from './services/product.service';
+
 
 
 @NgModule({
@@ -55,7 +70,16 @@ import { ModuleService } from './services/module.service';
     UpdateprivilegeComponent,
     ModuleComponent,
     ListmodulesComponent,
-    UpdatemodulesComponent
+    UpdatemodulesComponent,
+    CategoryComponent,
+    ListcategoryComponent,
+    UpdatecategoryComponent,
+    TaxComponent,
+    ListtaxComponent,
+    UpdatetaxComponent,
+    ProductComponent,
+    ListproductComponent,
+    UpdateproductComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +89,7 @@ import { ModuleService } from './services/module.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService, UserService, RolService, PrivilegeService, ModuleService],
+  providers: [AuthService, UserService, RolService, CategoryService, TaxService, ProductService, PrivilegeService, ModuleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

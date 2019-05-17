@@ -22,7 +22,7 @@ router.post('/createtax', function (req, res, next) {
 })
 
 //update tax
-router.put('/updatetax', function (req, res, next) {
+router.post('/updatetax', function (req, res, next) {
   var taxData = {
     tax_id: req.body.tax_id,
     name: req.body.name,
@@ -40,7 +40,7 @@ router.put('/updatetax', function (req, res, next) {
 })
 
 //delete tax
-router.delete('/deletetax', function (req, res, next) {
+router.post('/deletetax', function (req, res, next) {
   var taxData = {
     tax_id: req.body.tax_id
   }

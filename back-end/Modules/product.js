@@ -23,8 +23,8 @@ productModel.createproduct = function (prodData, callback) {
                 prodData.code,
                 prodData.name,
                 prodData.net_price,
-                prodData.id_category,
-                prodData.id_tax,
+                prodData.category_id,
+                prodData.tax_id,
                 prodData.status
             ],
             function (error, rows) {
@@ -64,8 +64,8 @@ productModel.updateproduct = function (prodData, callback) {
                 prodData.code,
                 prodData.name,
                 prodData.net_price,
-                prodData.id_category,
-                prodData.id_tax,
+                prodData.category_id,
+                prodData.tax_id,
                 prodData.status
             ],
             function (error, rows) {
