@@ -479,8 +479,6 @@ END$$
 
 DELIMITER ;
 
-USE proyectomodular;
-
 -- ------------------------------------------------------------------------------------------------------------------------
 -- MODULE PROCEDURE :D
 -- PROCEDURE MODULE INSERT
@@ -572,8 +570,6 @@ FROM proyectomodular.module AS m;
 END$$
 
 DELIMITER ;
-
-USE proyectomodular;
 
 -- ------------------------------------------------------------------------------------------------------------------------
 -- privilege PROCEDURE :D
@@ -677,62 +673,11 @@ END$$
 DELIMITER ;
 
 -- ------------------------------------------------------------------------------------------------------------------------
--- MODULE PROCEDURE :D
--- PROCEDURE MODULE INSERT
--- ------------------------------------------------------------
-DROP procedure IF EXISTS moduleins;
-
-DELIMITER $$
-USE proyectomodular$$
-CREATE PROCEDURE moduleins (
-_name varchar(100),
-_status tinyint(4))
-BEGIN
-INSERT INTO proyectomodular.module (name,status) 
-VALUES
-(_name,_status);
-END$$
-
-DELIMITER ;
-
--- ------------------------------------------------------------
--- PROCEDURE MODULE UPDATE 
--- ------------------------------------------------------------
-DROP procedure IF EXISTS moduleupd;
-
-DELIMITER $$
-USE proyectomodular$$
-CREATE PROCEDURE moduleupd (
-
-_rp_privilege_id, 
-_rp_rol_id, 
-_view, 
-_create, 
-_update, 
-_delete tinyint(4))
-BEGIN
-
-UPDATE proyectomodular.module
-SET
-
-rp_privilege_id = _rp_privilege_id, 
-rp_rol_id = _rp_rol_id, 
-`view` = _view, 
-`create`=_create, 
-`update`=_update, 
-`delete`=delete	
-WHERE 
-module_id = _module_id;
-END$$
-
-DELIMITER ;
-
--- ------------------------------------------------------------------------------------------------------------------------
 -- ROL_PRIVILEGE PROCEDURE :D
 -- PROCEDURE ROL_PRIVILEGE INSERT
 -- ------------------------------------------------------------
 
-DROP procedure IF EXISTS privilegeins;
+DROP procedure IF EXISTS rol_privilegeins;
 
 DELIMITER $$
 USE proyectomodular$$
@@ -754,7 +699,7 @@ DELIMITER ;
 -- ------------------------------------------------------------
 -- PROCEDURE ROL_PRIVILEGE UPDATE 
 -- ------------------------------------------------------------
-DROP procedure IF EXISTS privilegeupd;
+DROP procedure IF EXISTS rol_privilegeupd;
 
 DELIMITER $$
 USE proyectomodular$$
@@ -831,3 +776,186 @@ WHERE rp.rp_rol_id = _rp_rol_id;
 END$$
 
 DELIMITER ;
+
+-- ------------------------------------------------------------------------------------------------------------------------
+-- POD PROCEDURE :D
+-- PROCEDURE POD INSERT
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS podins;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE podins (
+  _name varchar(120),
+  _address varchar(255),
+  _phone varchar(12),
+  _status tinyint(4)
+)
+BEGIN
+INSERT INTO proyectomodular.pod (name,address,phone,status) 
+VALUES
+(_name,_address,_phone,_status);
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE POD UPDATE 
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS podupd;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE podupd (
+  _pod_id int(11),
+  _name varchar(120),
+  _address varchar(255),
+  _phone varchar(12),
+  _status tinyint(4)
+)
+BEGIN
+
+UPDATE proyectomodular.pod
+SET  
+  name = _name,
+  address = _address, 
+  phone = _phone,
+  status = _status
+WHERE 
+pod_id = _pod_id;
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE POD ONE BY ID
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS podone;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE podone (_pod_id INT)
+BEGIN
+SELECT  p.name,p.address,p.phone,p.status
+FROM proyectomodular.pod AS p
+WHERE pod_id = _pod_id;
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE POD DELETE BY ID
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS poddel;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE poddel (_pod_id INT)
+BEGIN
+
+DELETE FROM proyectomodular.pod
+WHERE pod_id = _pod_id;
+
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE POD LIST ALL
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS podall;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE podall ()
+BEGIN
+
+SELECT  p.name,p.address,p.phone,p.status
+FROM proyectomodular.pod AS p;
+
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------------------------------------------------------------------
+-- POD PROCEDURE :D
+-- PROCEDURE POD_USER INSERT
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS pod_userins;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE pod_userins (
+  _ps_user_id varchar(45),
+  _ps_pod_id int(11)
+)
+BEGIN
+INSERT INTO proyectomodular.pod_user (ps_user_id,ps_pod_id) 
+VALUES
+(_ps_user_id,_ps_pod_id);
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE POD_USER DELETE BY ID
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS pod_userdel;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE pod_userdel (
+  _ps_user_id varchar(45),
+  _ps_pod_id int(11)
+  )
+BEGIN
+
+DELETE FROM proyectomodular.pod_user
+WHERE ps_user_id = _ps_user_id AND ps_pod_id = _ps_pod_id;
+
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE POD_USER - LISTAR USUARIOS POR PUNTO DE VENTA
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS pod_useralluserbypod;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE pod_useralluserbypod (
+_ps_pod_id int(11)
+)
+BEGIN
+SELECT u.user_id, u.username, email, u.rol_id, r.name, u.status, u.create_time, u.update_time
+FROM rol as r
+inner join user as u on r.rol_id = u.rol_id 
+inner join pod_user as pu on u.user_id = pu.ps_user_id
+inner join pod as p on pu.ps_pod_id = p.pod_id
+where p.pod_id  = _ps_pod_id 
+order by u.username;
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE POD_USER - LISTAR PUNTO DE VENTA POR USUARIOS
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS pod_userallpodbyuser;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE pod_userallpodbyuser (
+  _ps_user_id varchar(45)
+)
+BEGIN
+SELECT p.name,p.address,p.phone,p.status 
+FROM user as u 
+inner join pod_user as pu on u.user_id = pu.ps_user_id
+inner join pod as p on pu.ps_pod_id = p.pod_id
+where u.user_id = _ps_user_id;
+END$$
+
+DELIMITER ;
+

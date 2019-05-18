@@ -108,7 +108,6 @@ call proyectomodular.rol_privilegeins(6, 1, 1, 1, 1, 1);
 call proyectomodular.rol_privilegeins(7, 1, 1, 1, 1, 1);
 call proyectomodular.rol_privilegeins(8, 1, 1, 1, 1, 1);
 call proyectomodular.rol_privilegeins(9, 1, 1, 1, 1, 1);
-call proyectomodular.rol_privilegeins(10, 1, 1, 1, 1, 1);
 call proyectomodular.rol_privilegeins(1, 2, 1, 1, 1, 1);
 call proyectomodular.rol_privilegeins(2, 2, 1, 1, 1, 1);
 call proyectomodular.rol_privilegeins(3, 2, 1, 1, 1, 1);
@@ -118,10 +117,30 @@ call proyectomodular.rol_privilegeins(6, 2, 1, 1, 1, 1);
 call proyectomodular.rol_privilegeins(7, 2, 1, 1, 1, 1);
 call proyectomodular.rol_privilegeins(8, 2, 1, 1, 1, 1);
 call proyectomodular.rol_privilegeins(9, 2, 1, 1, 1, 1);
-call proyectomodular.rol_privilegeins(10, 2, 1, 1, 1, 1);
 
 -- call proyectomodular.rol_privilegeins(?, ?, ?, ?, ?, ?);
 -- call proyectomodular.rol_privilegeupd(?, ?, ?, ?, ?, ?);
 -- call proyectomodular.rol_privilegeall(?);
 -- call proyectomodular.rol_privilegedel(?, ?);
 -- call proyectomodular.rol_privilegeone(?, ?);
+
+-- ------------------------------------------------------------
+-- POD INSERT
+-- ------------------------------------------------------------
+
+call proyectomodular.podins('Americas 68', 'Av Americas No 68 36 lc 101', '4441234', 1);
+-- call proyectomodular.podins(?, ?, ?, ?);
+-- call proyectomodular.podupd(?, ?, ?, ? , ?);
+-- call proyectomodular.podone(?);
+-- call proyectomodular.podall();
+-- call proyectomodular.poddel(?);
+
+-- ------------------------------------------------------------
+-- POD_USER INSERT
+-- ------------------------------------------------------------
+
+call proyectomodular.pod_userins('1020123',1);
+-- call proyectomodular.pod_userins(?,?);
+-- call proyectomodular.pod_userins(?,?);
+-- call proyectomodular.pod_userallpodbyuser(?);
+-- call proyectomodular.pod_useralluserbypod(2);
