@@ -72,8 +72,8 @@
           <select class="form-control" id="estado" formControlName="estado"
             [ngClass]="{ 'is-invalid': submitted && f.estado.errors }">
             <option value="">Seleccione</option>
-            <option value="Activo">Activo</option>
-            <option value="Inactivo">Inactivo</option>
+            <option value="1">Activo</option>
+            <option value="0">Inactivo</option>
           </select>
           <span>
             <div *ngIf="submitted && f.estado.errors">

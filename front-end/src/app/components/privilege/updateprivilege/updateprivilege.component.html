@@ -70,11 +70,11 @@
             <input type="checkbox" class="custom-control-input form-control" id="status" ngModel="checked"
               formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
             <label class="custom-control-label" for="status">
-              <ng-container *ngIf="f.status === 1 else elseTemplate">
-                Activo {{f.status}}
+              <ng-container *ngIf="f.status.value === 1 else elseTemplate">
+                Activo 
               </ng-container>
               <ng-template #elseTemplate>
-                Inactivo {{f.status}}
+                Inactivo 
               </ng-template>
             </label>
           </div>

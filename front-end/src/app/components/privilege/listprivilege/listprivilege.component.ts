@@ -36,13 +36,13 @@ export class ListprivilegeComponent implements OnInit {
   }
   // redirect to create privilege
   createPrivilege() {
-    this.router.navigate(['/createprivileges'])
+    this.router.navigate(['/createprivilege'])
   }
   // redirect to update privilege
   updatePrivilege(id) {
     // almacenamos el id
     localStorage.setItem('idPrivilege', id);
-    this.router.navigate(['/updateprivileges'])
+    this.router.navigate(['/updateprivilege'])
   }
   showModal() {
 

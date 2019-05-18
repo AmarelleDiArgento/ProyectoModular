@@ -20,8 +20,8 @@ moduloModel.createmodulo = function (moduloData, callback) {
     if (connection) {
         connection.query(ins, [
             moduloData.name,
-            moduloData.percent
-        ], function (error, rows) {
+            moduloData.status
+        ], function (error, rows) {            
             if (error) {
                 callback(null, {
                     "respuesta": error
@@ -56,10 +56,9 @@ moduloModel.updatemodulo = function (moduloData, callback) {
             [
                 moduloData.modulo_id,
                 moduloData.name,
-                moduloData.percent
+                moduloData.state
             ],
             function (error, rows) {
-                console.log(rows);
                 if (error) {
                     console.log(error)
                     callback(null, {
@@ -68,6 +67,8 @@ moduloModel.updatemodulo = function (moduloData, callback) {
                 } else {
                     if (rows.length != 0) {
                         rows = rows[0];
+                        console.log('Cosa; ' + rows);
+                        
                         var jsonObj = {
                             respuesta: "Success"
                         }

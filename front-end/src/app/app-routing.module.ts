@@ -56,11 +56,11 @@ const routes: Routes = [
         component: ProfileComponent,
     },
     {
-        path: 'createusers',
+        path: 'createuser',
         component: RegisterComponent,
     },
     {
-        path: 'updateusers',
+        path: 'updateuser',
         component: UpdateusersComponent,
     },
     {
@@ -68,11 +68,11 @@ const routes: Routes = [
         component: ListusersComponent,
     },
     {
-        path: 'createrols',
+        path: 'createrol',
         component: RolComponent,
     },
     {
-        path: 'updaterols',
+        path: 'updaterol',
         component: UpdaterolComponent,
     },
     {
@@ -80,11 +80,11 @@ const routes: Routes = [
         component: ListrolComponent,
     },
     {
-        path: 'createprivileges',
+        path: 'createprivilege',
         component: PrivilegeComponent,
     },
     {
-        path: 'updateprivileges',
+        path: 'updateprivilege',
         component: UpdateprivilegeComponent,
     },
     {
@@ -92,11 +92,11 @@ const routes: Routes = [
         component: ListprivilegeComponent,
     },
     {
-        path: 'createmodules',
+        path: 'createmodule',
         component: ModuleComponent,
     },
     {
-        path: 'updatmodules',
+        path: 'updatemodule',
         component: UpdatemodulesComponent,
     },
     {

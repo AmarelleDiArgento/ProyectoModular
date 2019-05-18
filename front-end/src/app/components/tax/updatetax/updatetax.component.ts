@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
-//service 
+// service
 import { TaxService } from '../../../services/tax.service';
 
 @Component({
@@ -12,19 +12,19 @@ import { TaxService } from '../../../services/tax.service';
 })
 export class UpdatetaxComponent implements OnInit {
 
- //vars msj
- msgerr: string = '';
- //var submitted
+ // vars msj
+ msgerr = '';
+ // var submitted
  submitted = false;
- //var form
+ // var form
  updateTaxForm: FormGroup;
- //list data  
+ // list data
  listTax: {};
- //id 
+ // id
  idTax = '';
- //rows empty
+ // rows empty
  rows = [];
- //vars form update 
+ // vars form update
  name = '';
  percent = '';
 
@@ -32,17 +32,17 @@ export class UpdatetaxComponent implements OnInit {
 
 
  ngOnInit() {
-   //init form
+   // init form
    this.updateTaxForm = this.formBuilder.group({
      name: ['', Validators.required],
      percent: ['', Validators.required]
    });
-   //asign id tax to search data
+   // asign id tax to search data
    this.idTax = localStorage.getItem('idTax');
-   //eject ws search tax for id
+   // eject ws search tax for id
    this.getTaxDataId();
  }
- //get form controls
+ // get form controls
  get f() { return this.updateTaxForm.controls; }
  onSubmit() {
    this.submitted = true;
@@ -52,26 +52,26 @@ export class UpdatetaxComponent implements OnInit {
    } else {
      this.taxService.updateTax(this.idTax, this.updateTaxForm.value.name, this.updateTaxForm.value.percent)
        .subscribe(data => {
-         if (data.respuesta == "Success") {
-           this.router.navigate(['/listtax'])
+         if (data.respuesta === 'Success') {
+           this.router.navigate(['/listtaxs']);
          } else {
-           this.msgerr = "error al actualizar el impuesto";
+           this.msgerr = 'error al actualizar el impuesto';
          }
-       })
+       });
    }
  }
- //obtain data tax for id
+ // obtain data tax for id
  getTaxDataId() {
    this.taxService.getDataTaxForId(this.idTax)
      .subscribe(data => {
        if (data != null) {
-         //add values to the form
+         // add values to the form
          this.updateTaxForm.get('name').setValue(data.rows[0].name);
          this.updateTaxForm.get('percent').setValue(data.rows[0].percent);
        }
      });
  }
- //clear alert err
+ // clear alert err
  closeAlertErr(): void {
    this.msgerr = '';
  }

@@ -720,29 +720,75 @@ rp_rol_id = _rp_rol_id,
 `view` = _view, 
 `create`=_create, 
 `update`=_update, 
-`delete`=delete
+`delete`=delete	
 WHERE 
 module_id = _module_id;
 END$$
 
 DELIMITER ;
 
+-- ------------------------------------------------------------------------------------------------------------------------
+-- ROL_PRIVILEGE PROCEDURE :D
+-- PROCEDURE ROL_PRIVILEGE INSERT
 -- ------------------------------------------------------------
--- PROCEDURE ROL_PRIVILEGE ONE
+
+DROP procedure IF EXISTS privilegeins;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE rol_privilegeins (
+ _rp_privilege_id INT(11),
+ _rp_rol_id INT(11),
+ _view TINYINT(4),
+ _create TINYINT(4),
+ _update TINYINT(4),
+ _delete TINYINT(4))
+BEGIN
+INSERT INTO proyectomodular.rol_privilege (rp_privilege_id, rp_rol_id, view, `create`,`update`,`delete`) 
+VALUES
+(_rp_privilege_id, _rp_rol_id, _view, _create,_update,_delete);
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE ROL_PRIVILEGE UPDATE 
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS privilegeupd;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE rol_privilegeupd (
+ _rp_privilege_id INT(11),
+ _rp_rol_id INT(11),
+ _view TINYINT(4),
+ _create TINYINT(4),
+ _update TINYINT(4),
+ _delete TINYINT(4))
+BEGIN
+UPDATE proyectomodular.rol_privilegeupd
+SET
+ rp_privilege_id = _rp_privilege_id,
+ rp_rol_id= _rp_rol_id,
+ `view`= _view,
+ `create`= _create,
+ `update`= _update,
+ `delete` = _delete
+WHERE rp_rol_id = _rp_rol_id AND rp_privilege_id= _rp_privilege_id;
+END$$
+
+-- ------------------------------------------------------------
+-- PROCEDURE ROL_PRIVILEGE ONE BY ID
 -- ------------------------------------------------------------
 DROP procedure IF EXISTS rol_privilegeone;
 
 DELIMITER $$
 USE proyectomodular$$
-CREATE PROCEDURE rol_privilegeall (
-_rp_rol_id int(11),
-_rp_privilege_id int(11)
-)
+CREATE PROCEDURE rol_privilegeone (_privilege_id INT)
 BEGIN
-
 SELECT  rp.rp_privilege_id, rp.rp_rol_id, rp.view, rp.create, rp.update, rp.delete
-FROM proyectomodular.rol_privilege AS rp
-WHERE rp.rp_rol_id = _rp_rol_id AND rp_privilege_id = _rp_privilege_id;
+FROM proyectomodular.rol_privilegeone AS rp
+WHERE rp_rol_id = _rp_rol_id AND rp_privilege_id= _rp_privilege_id;
 END$$
 
 DELIMITER ;

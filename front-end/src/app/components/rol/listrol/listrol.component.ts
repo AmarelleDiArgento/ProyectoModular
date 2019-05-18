@@ -34,18 +34,17 @@ export class ListrolComponent implements OnInit {
   }
   // redirect to create rol
   createRol() {
-    this.router.navigate(['/createrols'])
+    this.router.navigate(['/createrol'])
   }
   // redirect to update rol
   updateRol(id) {
     // almacenamos el id
     localStorage.setItem('idRol', id);
-    this.router.navigate(['/updaterols'])
+    this.router.navigate(['/updaterol'])
   }
   
   // delete rol
   deleteRol(id) {
-
 
     Swal.fire({
       title: 'Estas seguro?',
@@ -79,7 +78,7 @@ export class ListrolComponent implements OnInit {
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 3000
+                timer: 2000
               });
             }
           });

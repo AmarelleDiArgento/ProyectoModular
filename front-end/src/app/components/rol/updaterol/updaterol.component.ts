@@ -56,7 +56,10 @@ export class UpdaterolComponent implements OnInit {
     if (this.updateRolForm.invalid) {
       return;
     } else {
-      this.rolService.updateRols(this.updateRolForm.value.rol_id, this.updateRolForm.value.name)
+      this.rolService.updateRols(
+        this.updateRolForm.value.rol_id,
+        this.updateRolForm.value.name
+        )
         .subscribe(data => {
           // tslint:disable-next-line: triple-equals
           if (data.respuesta == 'Success') {
@@ -74,7 +77,7 @@ export class UpdaterolComponent implements OnInit {
       .subscribe(data => {
         if (data != null) {
           // add values to the form
-          // console.log(data.rows[0].rol_id);
+          console.log(data);
 
           this.updateRolForm.get('rol_id').setValue(data.rows[0].rol_id);
           this.updateRolForm.get('name').setValue(data.rows[0].name);

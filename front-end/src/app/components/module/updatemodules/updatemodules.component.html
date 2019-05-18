@@ -1,3 +1,60 @@
-<p>
-  updatemodules works!
-</p>
+<!-- header -->
+<app-header></app-header>
+<!-- end header -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4" id="update">
+      <form [formGroup]="updateModuleForm" (ngSubmit)="onSubmit()">
+        <h3>Actualizar Modulos</h3>
+        <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
+          <a class="close" (click)="closeAlertErr()">
+            &times;
+          </a>
+          <h6>{{msgerr}}</h6>
+        </div>
+        <div class="form-group">
+          <label for="module_id">Id Modulo</label>
+          <input type="text" class="form-control" id="module_id" formControlName="module_id"
+            [ngClass]="{ 'is-invalid': submitted && f.module_id.errors }" placeholder="Enter document" readonly>
+          <span>
+            <div *ngIf="submitted && f.module_id.errors">
+              <div *ngIf="f.module_id.errors.required"> <label id="error">Error el documento es requerido </label></div>
+            </div>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="name">name </label>
+          <input type="text" class="form-control" id="name" formControlName="name"
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Enter name">
+          <span>
+            <div *ngIf="submitted && f.name.errors">
+              <div *ngIf="f.name.errors.required"> <label id="error">Error el usuario es requerido </label></div>
+            </div>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="name">Estado</label>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input form-control" id="status" formControlName="status"
+              [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+            <label class="custom-control-label" for="status">
+              <ng-container *ngIf="status === 1 else elseTemplate">
+                Activo
+              </ng-container>
+              <ng-template #elseTemplate>
+                Inactivo
+              </ng-template>
+            </label>
+          </div>
+          <span>
+            <div *ngIf="submitted && f.status.errors">
+              <div *ngIf="f.status.errors.required"> <label id="error">Error el estado es requerido</label></div>
+            </div>
+          </span>
+        </div>
+        <button type="submit" class="btn btn-warning btn-lg btn-block">Actualizar</button>
+      </form>
+    </div>
+  </div>
+</div>

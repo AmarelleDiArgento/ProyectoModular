@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
-//service product
+// service product
 import { ProductService } from '../../services/product.service';
-//service  category
+// service  category
 import { CategoryService } from '../../services/category.service';
-//service tax
+// service tax
 import { TaxService } from '../../services/tax.service';
 
 @Component({
@@ -15,17 +15,17 @@ import { TaxService } from '../../services/tax.service';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  //vars msj
-  msgerr: string = '';
-  //var submitted
+  // vars msj
+  msgerr = '';
+  // var submitted
   submitted = false;
-  //var form
+  // var form
   registerProductForm: FormGroup;
-  //list data  
+  // list data
   listProduct: {};
-  //list data
+  // list data
   listCategory: {};
-  //list data
+  // list data
   listTax: {};
 
   constructor(private http: Http, private formBuilder: FormBuilder,
@@ -34,7 +34,7 @@ export class ProductComponent implements OnInit {
     private taxService: TaxService, private router: Router) { }
 
   ngOnInit() {
-    //init form
+    // init form
     this.registerProductForm = this.formBuilder.group({
       code: ['', Validators.required],
       name: ['', Validators.required],
@@ -43,54 +43,60 @@ export class ProductComponent implements OnInit {
       tax_id: ['', Validators.required],
       status: ['', Validators.required]
     });
-    //init select category
+    // init select category
     this.getAllDataCategory();
-    //init select tax
+    // init select tax
     this.getAllDataTax();
   }
-  //get form controls
+  // get form controls
   get f() { return this.registerProductForm.controls; }
-  //submit form
+  // submit form
   onSubmit() {
     this.submitted = true;
     // error here if form is invalid
     if (this.registerProductForm.invalid) {
       return;
     } else {
-      //send to api backend create product
-      this.productService.createProduct(this.registerProductForm.value.code, this.registerProductForm.value.name, this.registerProductForm.value.net_price, this.registerProductForm.value.category_id, this.registerProductForm.value.tax_id, this.registerProductForm.value.status)
+      // send to api backend create product
+      this.productService.createProduct(
+        this.registerProductForm.value.code,
+        this.registerProductForm.value.name,
+        this.registerProductForm.value.net_price,
+        this.registerProductForm.value.category_id,
+        this.registerProductForm.value.tax_id,
+        this.registerProductForm.value.status)
         .subscribe(data => {
           console.log(data);
-          if (data.respuesta == "Success") {
-            //redirect 
-            this.router.navigate(['/listproduct'])
+          if (data.respuesta === 'Success') {
+            // redirect
+            this.router.navigate(['/listproducts']);
           } else {
-            this.msgerr = "Error al crear el producto";
+            this.msgerr = 'Error al crear el producto';
           }
         });
     }
   }
-  //obtain all data from the category
+  // obtain all data from the category
   getAllDataCategory() {
-    //send to search api backend all category
+    // send to search api backend all category
     this.categoryService.getAllDataCategory()
       .subscribe(data => {
-        //populate list json 
+        // populate list json
         console.log(data);
         this.listCategory = data.rows;
       });
   }
-  //obtain all data from the tax
+  // obtain all data from the tax
   getAllDataTax() {
-    //send to search api backend all tax
+    // send to search api backend all tax
     this.taxService.getAllDataTax()
       .subscribe(data => {
-        //populate list json 
+        // populate list json
         console.log(data);
         this.listTax = data.rows;
       });
   }
-  //clear alert err
+  // clear alert err
   closeAlertErr(): void {
     this.msgerr = '';
   }

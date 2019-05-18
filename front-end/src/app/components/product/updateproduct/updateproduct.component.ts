@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
-//service product
+// service product
 import { ProductService } from '../../../services/product.service';
-//service  category
+// service  category
 import { CategoryService } from '../../../services/category.service';
-//service tax
+// service tax
 import { TaxService } from '../../../services/tax.service';
 
 @Component({
@@ -16,23 +16,23 @@ import { TaxService } from '../../../services/tax.service';
 })
 export class UpdateproductComponent implements OnInit {
 
-  //vars msj
-  msgerr: string = '';
-  //var submitted
+  // vars msj
+  msgerr = '';
+  // var submitted
   submitted = false;
-  //var form
+  // var form
   updateProductForm: FormGroup;
-  //list data  
+  // list data
   listRol: {};
-  //list data
+  // list data
   listCategory: {};
-  //list data
+  // list data
   listTax: {};
-  //id 
+  // id
   idProduct = '';
-  //rows empty
+  // rows empty
   rows = [];
-  //vars form update 
+  // vars form update
   code = '';
   name = '';
   net_price = '';
@@ -45,7 +45,7 @@ export class UpdateproductComponent implements OnInit {
     private categoryService: CategoryService,
     private taxService: TaxService, private router: Router) { }
   ngOnInit() {
-    //init form
+    // init form
     this.updateProductForm = this.formBuilder.group({
       code: ['', Validators.required],
       name: ['', Validators.required],
@@ -54,16 +54,16 @@ export class UpdateproductComponent implements OnInit {
       tax_id: ['', Validators.required],
       status: ['', Validators.required]
     });
-    //asign id product to search data
+    // asign id product to search data
     this.idProduct = localStorage.getItem('idProduct');
-    //eject ws search product for id
+    // eject ws search product for id
     this.getProductDataId();
-    //init select category
+    // init select category
     this.getAllDataCategory();
-    //init select tax
+    // init select tax
     this.getAllDataTax();
   }
-  //get form controls
+  // get form controls
   get f() { return this.updateProductForm.controls; }
   onSubmit() {
     this.submitted = true;
@@ -71,22 +71,29 @@ export class UpdateproductComponent implements OnInit {
     if (this.updateProductForm.invalid) {
       return;
     } else {
-      this.productService.updateProduct(this.idProduct, this.updateProductForm.value.code, this.updateProductForm.value.name, this.updateProductForm.value.net_price, this.updateProductForm.value.category_id, this.updateProductForm.value.tax_id, this.updateProductForm.value.status)
+      this.productService.updateProduct(
+        this.idProduct,
+        this.updateProductForm.value.code,
+        this.updateProductForm.value.name,
+        this.updateProductForm.value.net_price,
+        this.updateProductForm.value.category_id,
+        this.updateProductForm.value.tax_id,
+        this.updateProductForm.value.status)
         .subscribe(data => {
-          if (data.respuesta == "Success") {
-            this.router.navigate(['/listproduct'])
+          if (data.respuesta === 'Success') {
+            this.router.navigate(['/listproducts']);
           } else {
-            this.msgerr = "error al actualizar el producto";
+            this.msgerr = 'error al actualizar el producto';
           }
-        })
+        });
     }
   }
-  //obtain data product for id
+  // obtain data product for id
   getProductDataId() {
     this.productService.getDataProductForId(this.idProduct)
       .subscribe(data => {
         if (data != null) {
-          //add values to the form
+          // add values to the form
           this.updateProductForm.get('code').setValue(data.rows[0].code);
           this.updateProductForm.get('name').setValue(data.rows[0].name);
           this.updateProductForm.get('net_price').setValue(data.rows[0].net_price);
@@ -96,27 +103,27 @@ export class UpdateproductComponent implements OnInit {
         }
       });
   }
-  //obtain all data from the category
+  // obtain all data from the category
   getAllDataCategory() {
-    //send to search api backend all category
+    // send to search api backend all category
     this.categoryService.getAllDataCategory()
       .subscribe(data => {
-        //populate list json 
+        // populate list json
         console.log(data);
         this.listCategory = data.rows;
       });
   }
-  //obtain all data from the tax
+  // obtain all data from the tax
   getAllDataTax() {
-    //send to search api backend all tax
+    // send to search api backend all tax
     this.taxService.getAllDataTax()
       .subscribe(data => {
-        //populate list json 
+        // populate list json
         console.log(data);
         this.listTax = data.rows;
       });
   }
-  //clear alert err
+  // clear alert err
   closeAlertErr(): void {
     this.msgerr = '';
   }

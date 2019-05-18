@@ -34,15 +34,15 @@ export class ListmodulesComponent implements OnInit {
   }
   // redirect to create module
   createModule() {
-    this.router.navigate(['/createmodules'])
+    this.router.navigate(['/createmodule'])
   }
   // redirect to update module
   updateModule(id) {
     // almacenamos el id
     localStorage.setItem('idModule', id);
-    this.router.navigate(['/updatemodules'])
+    this.router.navigate(['/updatemodule'])
   }
-  
+
   // delete module
   deleteModule(id) {
 
@@ -79,7 +79,7 @@ export class ListmodulesComponent implements OnInit {
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 3000
+                timer: 2000
               });
             }
           });

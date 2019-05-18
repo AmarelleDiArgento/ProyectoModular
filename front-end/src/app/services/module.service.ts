@@ -11,40 +11,44 @@ export class ModuleService {
   params;
   // service to api mysql get all modules
   getAllDataModules() {
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
+    const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    const options = new RequestOptions({ headers: headers });
     return this.http.get('http://localhost:3000/getdatamodulo/', options)
       .map((response: Response) => response.json());
   }
   // service to api mysql get module for id
   getDataModulesForId(module_id) {
     this.params = 'module_id=' + module_id;
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
+    const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    const options = new RequestOptions({ headers: headers });
     return this.http.post('http://localhost:3000/getdatamodulo/', this.params, options)
       .map((response: Response) => response.json());
   }
   // service to api mysql create module
-  createModules(name) {
-    this.params = 'name=' + name;
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
+  createModules(name, status) {
+    let s;
+    if (status) { s = 1; } else { s = 0; }
+    this.params = 'name=' + name + '&status=' + s;
+    const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    const options = new RequestOptions({ headers: headers });
     return this.http.post('http://localhost:3000/createmodulo/', this.params, options)
       .map((response: Response) => response.json());
   }
   // service to api mysql update modules
-  updateModules(module_id, name) {
-    this.params = 'module_id=' + module_id + '&name=' + name;
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
+  updateModules(module_id, name, status) {
+    let s;
+    if (status) { s = 1; } else { s = 0; }
+    this.params = 'module_id=' + module_id + '&name=' + name + '&status=' + s;
+    const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    const options = new RequestOptions({ headers: headers });
     return this.http.post('http://localhost:3000/updatemodulo/', this.params, options)
       .map((response: Response) => response.json());
   }
   // service to api mysql delete modules
   deleteModules(module_id) {
     this.params = 'module_id=' + module_id;
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
+    const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    const options = new RequestOptions({ headers: headers });
     return this.http.post('http://localhost:3000/deletemodulo/', this.params, options)
       .map((response: Response) => response.json());
   }

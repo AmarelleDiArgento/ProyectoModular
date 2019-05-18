@@ -60,7 +60,7 @@ export class UpdateprivilegeComponent implements OnInit {
       });
     // asign id privilege to search data
     //console.log(localStorage);
-    
+
     this.idPrivilege = localStorage.getItem('idPrivilege');
     // eject ws search user for id
     this.getPrivilegeDataId();
@@ -87,7 +87,7 @@ export class UpdateprivilegeComponent implements OnInit {
         this.updatePrivilegeForm.value.icon,
         this.updatePrivilegeForm.value.route,
         this.updatePrivilegeForm.value.status
-        )
+      )
         .subscribe(data => {
           // tslint:disable-next-line: triple-equals
           if (data.respuesta == 'Success') {
@@ -111,7 +111,6 @@ export class UpdateprivilegeComponent implements OnInit {
           this.updatePrivilegeForm.get('icon').setValue(data.rows[0].icon);
           this.updatePrivilegeForm.get('route').setValue(data.rows[0].route);
           this.updatePrivilegeForm.get('status').setValue(data.rows[0].status);
-          console.log(this.updatePrivilegeForm.get('status').value);
         }
       });
   }

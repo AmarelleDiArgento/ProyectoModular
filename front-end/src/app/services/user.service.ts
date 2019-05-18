@@ -37,7 +37,7 @@ export class UserService {
     this.params = 'user_id=' + user_id + '&username=' + username + '&email=' + email + '&password=' + password + '&rol_id=' + rol_id + '&status=' + status + '';
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.put('http://localhost:3000/updateuser/', this.params, options)
+    return this.http.post('http://localhost:3000/updateuser/', this.params, options)
       .map((response: Response) => response.json())
   }
   // service to api mysql delete users
