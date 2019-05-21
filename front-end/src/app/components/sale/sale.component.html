@@ -1,0 +1,61 @@
+<!-- header -->
+<app-header></app-header>
+<!-- end header -->
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-4"></div>
+    <div class="col-md-4" id="create">
+      <form [formGroup]="registerSalesForm" (ngSubmit)="onSubmit()">
+        <h3>Crear Sale</h3>
+        <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
+          <a class="close" (click)="closeAlertErr()">
+            &times;
+          </a>
+          <h6>{{msgerr}}</h6>
+        </div>
+        <div class="form-group">
+          <label for="date">Nombre</label>
+          <input type="date" class="form-control" id="date" formControlName="date"
+            [ngClass]="{ 'is-invalid': submitted && f.date.errors }" placeholder="Enter date">
+          <span>
+            <div *ngIf="submitted && f.date.errors">
+              <div *ngIf="f.date.errors.required"> <label id="error">Error el nombre es requerido </label></div>
+            </div>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="pod_id">Pod</label>
+          <input type="text" class="form-control" id="pod_id" formControlName="pod_id"
+            [ngClass]="{ 'is-invalid': submitted && f.pod_id.errors }" placeholder="Enter pod_id">
+          <span>
+            <div *ngIf="submitted && f.pod_id.errors">
+              <div *ngIf="f.pod_id.errors.required"> <label id="error">Error el nombre es requerido </label></div>
+            </div>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="user_id">User</label>
+          <input type="text" class="form-control" id="user_id" formControlName="user_id"
+            [ngClass]="{ 'is-invalid': submitted && f.user_id.errors }" placeholder="Enter rol user_id">
+          <span>
+            <div *ngIf="submitted && f.user_id.errors">
+              <div *ngIf="f.user_id.errors.required"> <label id="error">Error el nombre es requerido </label></div>
+            </div>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="client_id">Cliente</label>
+          <input type="text" class="form-control" id="client_id" formControlName="client_id"
+            [ngClass]="{ 'is-invalid': submitted && f.client_id.errors }" placeholder="Enter rol client_id">
+          <span>
+            <div *ngIf="submitted && f.client_id.errors">
+              <div *ngIf="f.client_id.errors.required"> <label id="error">Error el nombre es requerido </label></div>
+            </div>
+          </span>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Crear</button>
+      </form>
+    </div>
+  </div>
+</div>

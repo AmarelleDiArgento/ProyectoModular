@@ -86,6 +86,30 @@ END$$
 
 DELIMITER ;
 
+-- ------------------------------------------------------------
+-- PROCEDURE ROL PERMISSIONS
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS rolpermissions;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE rolpermissions (
+  _rol_id INT(11) 
+)
+BEGIN
+
+SELECT rp.rp_privilege_id,rp.rp_rol_id,rp.view,rp.create,rp.update,
+    rp.delete,pv.name as privilege_name,pv.module_id,pv.icon,pv.route,
+    pv.status as status_privilege,md.name as module_name, md.status as status_module 
+    FROM rol_privilege rp 
+    INNER JOIN  privilege pv ON rp.rp_privilege_id = pv.privilege_id 
+    INNER JOIN  module md ON md.module_id = pv.module_id  
+    WHERE md.status = 1 and pv.status = 1 and rp.rp_rol_id  = 1;
+
+END$$
+
+DELIMITER ;
+
 
 -- ------------------------------------------------------------------------------------------------------------------------
 -- CATEGORY PROCEDURE :D
@@ -240,8 +264,9 @@ DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE userone (_user_id INT)
 BEGIN
-SELECT  u.user_id, u.username, u.email, u.password, u.rol_id, u.status, u.create_time, u.update_time
+SELECT  u.user_id, u.username, u.email, u.password, u.rol_id as rol_id, r.name as rol_name, u.status, u.create_time, u.update_time
 FROM proyectomodular.user AS u
+inner join rol as r on u.rol_id = r.rol_id
 WHERE user_id = _user_id;
 END$$
 
@@ -274,9 +299,30 @@ USE proyectomodular$$
 CREATE PROCEDURE userall ()
 BEGIN
 
-SELECT  u.user_id, u.username, u.email, u.password, u.rol_id, u.status, u.create_time, u.update_time
-FROM proyectomodular.user AS u;
+SELECT  u.user_id, u.username, u.email, u.password, u.rol_id as rol_id, r.name as rol_name, u.status, u.create_time, u.update_time
+FROM proyectomodular.user AS u
+inner join rol as r on u.rol_id = r.rol_id;
 
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE USER Login
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS userlogin;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE userlogin (
+  _email VARCHAR(255),
+  _password VARCHAR(255)
+)
+BEGIN
+select user_id, username, u.rol_id as rol_id, r.name as rol_name, status  
+from user as u 
+inner join rol as r on u.rol_id = r.rol_id 
+where email = _email and password = _password;
 END$$
 
 DELIMITER ;
@@ -438,13 +484,36 @@ DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE productone (_product_id INT)
 BEGIN
-SELECT p.product_id,p.code,p.name,p.net_price,p.category_id,p.tax_id,p.status
+
+SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, p.tax_id, t.name as tax_name, t.percent as tax_percent, p.status
 FROM proyectomodular.product AS p
-WHERE product_id = _product_id;
+inner join tax as t on p.tax_id = t.tax_id
+inner join category as c on p.category_id = c.category_id
+WHERE p.product_id = _product_id ;
 END$$
 
 DELIMITER ;
 
+-- ------------------------------------------------------------
+-- PROCEDURE PRODUCT ONE BY CODE
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS productonebycode;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE productonebycode (
+_code varchar(100)
+)
+BEGIN
+
+SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, p.tax_id, t.name as tax_name, t.percent as tax_percent, p.status
+FROM proyectomodular.product AS p
+inner join tax as t on p.tax_id = t.tax_id
+inner join category as c on p.category_id = c.category_id
+WHERE p.code = _code ;
+END$$
+
+DELIMITER ;
 -- ------------------------------------------------------------
 -- PROCEDURE PRODUCT DELETE BY ID
 -- ------------------------------------------------------------
@@ -472,8 +541,10 @@ USE proyectomodular$$
 CREATE PROCEDURE productall ()
 BEGIN
 
-SELECT  p.product_id,p.code,p.name,p.net_price,p.category_id,p.tax_id,p.status
-FROM proyectomodular.product AS p;
+SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, p.tax_id, t.name as tax_name, t.percent as tax_percent, p.status
+FROM proyectomodular.product AS p
+inner join tax as t on p.tax_id = t.tax_id
+inner join category as c on p.category_id = c.category_id;
 
 END$$
 

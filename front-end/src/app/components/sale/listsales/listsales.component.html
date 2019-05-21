@@ -1,0 +1,44 @@
+<!-- header -->
+<app-header></app-header>
+<!-- end header -->
+<div class="container-fluid">
+  <div class="col-md-12">
+    <br>
+    <h3>Listado de Salees</h3>
+  </div>
+  <div class="col-md-12">
+    <br>
+    <button type="button" (click)="createSale()" class="btn btn-primary">Crear Sale</button>
+  </div>
+  <div class="col-md-12">
+    <br>
+    <table class="table table-striped text-center">
+      <thead class="flip-header">
+        <tr class="text-center">
+          <th>Id</th>
+          <th>Fecha</th>
+          <th>Punto de venta</th>
+          <th>Usuario</th>
+          <th>Cliente</th>
+          <th colspan="2" >Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listSale">
+          <td>{{item.sale_id}}</td>
+          <td>{{item.date}}</td>
+          <td>{{item.pod_id}}</td>
+          <td>{{item.user_id}}</td>
+          <td>{{item.client_id}}</td>
+          <td class="text-center">
+            <i class="fa fa-edit text-center" style="font-size: 1em;" title="Modificar"
+              (click)="updateSale(item.sale_id)"></i></td>
+              <td class="text-center">
+            <i class="fa fa-trash text-center" style="font-size: 1em;" title="Eliminar"
+              (click)="deleteSale(item.sale_id)"></i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

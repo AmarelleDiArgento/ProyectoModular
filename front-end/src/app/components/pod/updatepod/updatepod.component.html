@@ -1,0 +1,80 @@
+<!-- header -->
+<app-header></app-header>
+<!-- end header -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4" id="update">
+      <form [formGroup]="updatePodForm" (ngSubmit)="onSubmit()">
+        <h3>Crear Modulo</h3>
+        <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
+          <a class="close" (click)="closeAlertErr()">
+            &times;
+          </a>
+          <h6>{{msgerr}}</h6>
+        </div>
+        <div class="form-group">
+            <label for="pod_id">pod_id </label>
+            <input type="text" class="form-control" id="pod_id" formControlName="pod_id"
+              [ngClass]="{ 'is-invalid': submitted && f.pod_id.errors }" placeholder="Enter pod_id" readonly>
+            <span>
+              <div *ngIf="submitted && f.pod_id.errors">
+                <div *ngIf="f.pod_id.errors.required"> <label id="error">Error el usuario es requerido </label></div>
+              </div>
+            </span>
+          </div>
+        <div class="form-group">
+          <label for="name">name </label>
+          <input type="text" class="form-control" id="name" formControlName="name"
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Enter name" >
+          <span>
+            <div *ngIf="submitted && f.name.errors">
+              <div *ngIf="f.name.errors.required"> <label id="error">Error el usuario es requerido </label></div>
+            </div>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="address">direccion </label>
+          <input type="text" class="form-control" id="address" formControlName="address"
+            [ngClass]="{ 'is-invalid': submitted && f.address.errors }" placeholder="Enter address">
+          <span>
+            <div *ngIf="submitted && f.address.errors">
+              <div *ngIf="f.address.errors.required"> <label id="error">Error el usuario es requerido </label></div>
+            </div>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="phone">telefono </label>
+          <input type="text" class="form-control" id="phone" formControlName="phone"
+            [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="Enter phone">
+          <span>
+            <div *ngIf="submitted && f.phone.errors">
+              <div *ngIf="f.phone.errors.required"> <label id="error">Error el usuario es requerido </label></div>
+            </div>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="status">Estado</label>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input form-control" id="status" 
+              formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+            <label class="custom-control-label" for="status">
+              <ng-container *ngIf="status else elseTemplate">
+                Activo
+              </ng-container>
+              <ng-template #elseTemplate>
+                Inactivo
+              </ng-template>
+            </label>
+          </div>
+          <span>
+            <div *ngIf="submitted && f.status.errors">
+              <div *ngIf="f.status.errors.required"> <label id="error">Error el estado es requerido</label></div>
+            </div>
+          </span>
+        </div>
+        <button type="submit" class="btn btn-warning btn-lg btn-block">Actualizar</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -8,9 +8,11 @@ connection.connect();
 var saleModel = {}
 
 saleModel.createSale = function (saleData, callback) {
-
-  var query = 'insert into sale (date, pod_id, user_id, cliente_id) values ("' + saleData.date + '",' + saleData.pod_id + ',"' + saleData.user_id + '", "' + userData.cliente_id + '");';
+  
+  var query = 'insert into sale (date, pod_id, user_id, client_id) values ("' + saleData.date + '",' + saleData.pod_id + ',"' + saleData.user_id + '", "' + saleData.client_id + '");';
+  
   if (connection) {
+
     connection.query(query, function (error, rows) {
       if (error) {
         callback(null, {
@@ -40,7 +42,7 @@ saleModel.createSale = function (saleData, callback) {
 
 
 saleModel.updateSale = function (saleData, callback) {
-  var query = "UPDATE sale SET   date = '" + saleData.date + "', pod_id = " + saleData.pod_id + ", user_id = '" + saleData.user_id + "', cliente_id= " + saleData.cliente_id + "    where sale_id='" + saleData.sale_id + "' ";
+  var query = "UPDATE sale SET   date = '" + saleData.date + "', pod_id = " + saleData.pod_id + ", user_id = '" + saleData.user_id + "', client_id= " + saleData.client_id + "    where sale_id='" + saleData.sale_id + "' ";
   if (connection) {
     connection.query(query, function (error, rows) {
       console.log(rows);
@@ -105,7 +107,7 @@ saleModel.deleteSale = function (saleData, callback) {
 
 
 saleModel.dataSale = function (saleData, callback) {
-  var query = "SELECT sale_id, date, pod_id, user_id, cliente_id from sale where sale_id= '" + saleData.sale_id + "' ";
+  var query = "SELECT sale_id, date, pod_id, user_id, client_id from sale where sale_id= '" + saleData.sale_id + "' ";
   if (connection) {
     connection.query(query, function (error, rows) {
       if (error) {
@@ -137,7 +139,7 @@ saleModel.dataSale = function (saleData, callback) {
 }
 
 saleModel.dataAllSale = function (saleData, callback) {
-  var query = "SELECT sale_id, date, pod_id, user_id, cliente_id from sale ";
+  var query = "SELECT sale_id, date, pod_id, user_id, client_id from sale ";
   if (connection) {
     connection.query(query, function (error, rows) {
       if (error) {

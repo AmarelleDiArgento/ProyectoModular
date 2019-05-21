@@ -37,6 +37,12 @@ import { UpdatetaxComponent } from './components/tax/updatetax/updatetax.compone
 import { ProductComponent } from './components/product/product.component';
 import { ListproductComponent } from './components/product/listproduct/listproduct.component';
 import { UpdateproductComponent } from './components/product/updateproduct/updateproduct.component';
+import { SaleComponent } from './components/sale/sale.component';
+import { ListsalesComponent } from './components/sale/listsales/listsales.component';
+import { UpdatesaleComponent } from './components/sale/updatesale/updatesale.component';
+import { PodComponent } from './components/pod/pod.component';
+import { ListpodsComponent } from './components/pod/listpods/listpods.component';
+import { UpdatepodComponent } from './components/pod/updatepod/updatepod.component';
 
 //service
 import { AuthService } from './services/auth.service';
@@ -47,6 +53,8 @@ import { ModuleService } from './services/module.service';
 import { CategoryService } from './services/category.service';
 import { TaxService } from './services/tax.service';
 import { ProductService } from './services/product.service';
+import { SaleService } from './services/sale.service';
+import { PodService } from './services/pod.service';
 
 
 
@@ -79,7 +87,14 @@ import { ProductService } from './services/product.service';
     UpdatetaxComponent,
     ProductComponent,
     ListproductComponent,
-    UpdateproductComponent
+    UpdateproductComponent,
+    PodComponent,
+    SaleComponent,
+    ListsalesComponent,
+    UpdatesaleComponent,
+    ListpodsComponent,
+    UpdatepodComponent,
+    ListpodsComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +104,18 @@ import { ProductService } from './services/product.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService, UserService, RolService, CategoryService, TaxService, ProductService, PrivilegeService, ModuleService],
+  providers: [
+    AuthService,
+    UserService,
+    RolService,
+    CategoryService,
+    TaxService,
+    ProductService,
+    PrivilegeService,
+    ModuleService,
+    SaleService,
+    PodService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

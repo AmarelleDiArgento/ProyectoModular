@@ -1,0 +1,100 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
+// service auth
+import { SaleService } from '../../../services/sale.service';
+
+@Component({
+  selector: 'app-updatesale',
+  templateUrl: './updatesale.component.html',
+  styleUrls: ['./updatesale.component.css']
+})
+export class UpdatesaleComponent implements OnInit {
+
+  // vars msj
+  msgerr: string = '';
+  // var submitted
+  submitted = false;
+  // var form
+  updateSaleForm: FormGroup;
+  // list data auth 
+  listSale: {};
+  // id user
+  idSale = '';
+  // rows vacio
+  rows = [];
+  // vars form update user
+  sale_id = '';
+  name = '';
+
+  constructor(private http: Http, private formBuilder: FormBuilder, private saleService: SaleService, private router: Router) { }
+
+  ngOnInit() {
+    // init form
+    this.updateSaleForm = this.formBuilder.group({
+      sale_id: ['', Validators.required],
+      date: ['', Validators.required],
+      pod_id: ['', Validators.required],
+      user_id: ['', Validators.required],
+      client_id: ['', Validators.required],
+    });
+    // asign id sale to search data
+    this.idSale = localStorage.getItem('idSale');
+    // eject ws search user for id
+    this.getSaleDataId();
+    // console.log('Cargamos el formulario o_o');
+  }
+  // get form contsales
+  get f() {
+    // console.log('Llegue a la lectura el formulario');
+    return this.updateSaleForm.controls;
+  }
+
+  onSubmit() {
+    // console.log('Llegue al metodo');
+
+    this.submitted = true;
+    // error here if form is invalid
+    if (this.updateSaleForm.invalid) {
+      return;
+    } else {
+      this.saleService.updateSale(
+        this.updateSaleForm.value.sale_id,
+        this.updateSaleForm.value.date,
+        this.updateSaleForm.value.pod_id,
+        this.updateSaleForm.value.user_id,
+        this.updateSaleForm.value.client_id,
+      )
+        .subscribe(data => {
+          // tslint:disable-next-line: triple-equals
+          if (data.respuesta == 'Success') {
+            this.router.navigate(['/listsales']);
+          } else {
+            this.msgerr = 'error al actualizar sale';
+          }
+        })
+    }
+
+  }
+  // obtain data sale for id
+  getSaleDataId() {
+    this.saleService.getDataSaleForId(this.idSale)
+      .subscribe(data => {
+        if (data != null) {
+          // add values to the form
+          console.log(data);
+
+          this.updateSaleForm.get('sale_id').setValue(data.rows[0].sale_id);
+          this.updateSaleForm.get('date').setValue(data.rows[0].date);
+          this.updateSaleForm.get('pod_id').setValue(data.rows[0].pod_id);
+          this.updateSaleForm.get('user_id').setValue(data.rows[0].user_id);
+          this.updateSaleForm.get('client_id').setValue(data.rows[0].client_id);
+        }
+      });
+  }
+  // clear alert err
+  closeAlertErr(): void {
+    this.msgerr = '';
+  }
+}

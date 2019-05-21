@@ -1,7 +1,7 @@
 USE proyectomodular;
 
 -- ------------------------------------------------------------
--- ROLL INSERT
+-- ROL INSERT
 -- ------------------------------------------------------------
  call proyectomodular.rolins('Administrador');
  call proyectomodular.rolins('Vendedor');
@@ -12,6 +12,7 @@ USE proyectomodular;
 -- call proyectomodular.rolone(?);
 -- call proyectomodular.roldel(?);
 -- call proyectomodular.rolall();
+-- call proyectomodular.rolpermissions()
 
 -- ------------------------------------------------------------
 -- CATEGORY INSERT
@@ -36,9 +37,10 @@ call proyectomodular.userins('1020123', 'Prueba', 'prueba@prueba.com', "é61ë62
 -- call proyectomodular.userone(?);
 -- call proyectomodular.userdel(?);
 -- call proyectomodular.userall();
+-- call proyectomodular.userlogin(?, ?)
 
 -- ------------------------------------------------------------
--- ROLL INSERT
+-- TAX INSERT
 -- ------------------------------------------------------------
  call proyectomodular.taxins('Consumo', 8.00);
  call proyectomodular.taxins('IVA', 16.00 );
@@ -56,10 +58,12 @@ call proyectomodular.userins('1020123', 'Prueba', 'prueba@prueba.com', "é61ë62
 call proyectomodular.productins('1010101010', 'Papas', '1200', 1, 1, 1);
 call proyectomodular.productins('111111111', 'Arroz', '2000', 1, 2, 1);
 call proyectomodular.productins('000000000', 'Queso', '1400', 1, 3, 1);
+
 -- call proyectomodular.productins(?, ?, ?, ?, ?, ?);
 -- call proyectomodular.productupd(?, ?, ?, ?, ?, ?, ?);
 -- call proyectomodular.productall();
 -- call proyectomodular.productone(?);
+-- call proyectomodular.productonebycode(?);
 -- call proyectomodular.productdel(?);
 
 -- ------------------------------------------------------------

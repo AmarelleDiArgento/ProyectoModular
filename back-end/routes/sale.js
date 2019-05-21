@@ -5,12 +5,14 @@ var sale = require('../Modules/sale')
 
 //create sale
 router.post('/createsale', function (req, res, next) {
+    
     var saleData = {
         date: req.body.date,
         pod_id: req.body.pod_id,
         user_id: req.body.user_id,
-        cliente_id: req.body.cliente_id
+        client_id: req.body.client_id
     }
+    
     sale.createSale(saleData, function (error, data) {
         if (error) {
             res.status(504).jsonp({
@@ -28,7 +30,7 @@ router.post('/updatesale', function (req, res, next) {
         date: req.body.date,
         pod_id: req.body.pod_id,
         user_id: req.body.user_id,
-        cliente_id: req.body.cliente_id
+        client_id: req.body.client_id
     }
     sale.updateSale(saleData, function (error, data) {
         if (error) {

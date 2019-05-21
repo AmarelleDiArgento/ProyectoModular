@@ -40,7 +40,7 @@ podModel.createPod = function (podData, callback) {
 
 
 podModel.updatePod = function (podData, callback) {
-  var query = "UPDATE pod SET   name = '" + podData.name + "', address = " + podData.address + ", phone = '" + podData.phone + "', status= " + podData.status + "    where pod_id='" + podData.pod_id + "' ";
+  var query = "UPDATE pod SET   name = '" + podData.name + "', address = '" + podData.address + "', phone = '" + podData.phone + "', status= " + podData.status + "    where pod_id='" + podData.pod_id + "' ";
   if (connection) {
     connection.query(query, function (error, rows) {
       console.log(rows);
