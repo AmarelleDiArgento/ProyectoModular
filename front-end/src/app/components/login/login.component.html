@@ -1,42 +1,29 @@
-
-<div class="container-fluid">
-
-<!-- Dropdown Structure -->
-<ul id="dropdown1" class="dropdown-content">
-    <li><a href="#!">one</a></li>
-    <li><a href="#!">two</a></li>
-    <li class="divider"></li>
-    <li><a href="#!">three</a></li>
+<div class="slider fullscreen">
+  <ul class="slides">
+    <li>
+      <img src="../../../assets/backgroung.jpg"> <!-- random image -->
+    </li>
+    <li>
+      <img src="https://lorempixel.com/580/250/nature/2"> <!-- random image -->
+    </li>
+    <li>
+      <img src="https://lorempixel.com/580/250/nature/3"> <!-- random image -->
+    </li>
+    <li>
+      <img src="https://lorempixel.com/580/250/nature/4"> <!-- random image -->
+    </li>
   </ul>
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#!" class="brand-logo">Logo</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <!-- Dropdown Trigger -->
-        <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div class="imagen">
-    <p>hola</p>
-  </div>
-
-            
-  <div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4" id="login">
+</div>           
+  <div class="row login">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <h3>Login</h3>
+        <h3 class="center conforta">LOGIN</h3>
         <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
             <a class="close" (click)="closeAlertErr()">
                &times;
             </a>
           <h6>{{msgerr}}</h6>
          </div>
-        <div class="form-group">
+        <div class="">
           <label for="exampleInputEmail1">Email </label>
           <input type="email" class="form-control" id="email" formControlName="email"
             [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Enter email">
@@ -46,7 +33,7 @@
             </div>
           </span>
         </div>
-        <div class="form-group">
+        <div class="">
           <label for="exampleInputPassword1">Password</label>
           <input type="password" class="form-control" id="password" formControlName="password"
             [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Password">
@@ -56,8 +43,8 @@
             </div>
           </span>
         </div>
-        <button type="submit" class="btn btn-success btn-lg btn-block">Ingresar</button>
+        <div class=" center">
+          <button type="submit" class="btn btn-success btn-lg btn-block center">Ingresar</button>
+        </div>       
       </form>
-    </div>
   </div>
-</div>

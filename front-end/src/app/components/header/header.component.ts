@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
+declare var $ : any;
+
 //service auth
 import { AuthService } from '../../services/auth.service';
 
@@ -20,12 +22,18 @@ export class HeaderComponent implements OnInit {
   constructor(private http: Http, private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    $(document).ready(function(){
+      $(".dropdown-trigger").dropdown();
+      $('.slider').slider({
+        indicators:false
+      });
+  });
     //asign rol user to search data from menu
     this.idSesionRol = localStorage.getItem('idSesionRol');
     //init service validation menu
     this.getUserValidateMenuRol();
   }
-
+  
   //obtain data validate menu
   getUserValidateMenuRol() {
     //send to ws api mysql search data for rol user

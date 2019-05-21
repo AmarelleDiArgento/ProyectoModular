@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -17,6 +17,21 @@
             <a class="dropdown-item" [routerLink] = "['/']" >Salir</a>
           </div>
         </li>
+      </ul>
+    </div>
+  </nav> -->
+  <ul id="navbarNavDropdown"  class="dropdown-content">
+    <li><a href="#!">two</a></li>
+    <li class="divider"></li>
+    <li><a href="#!">three</a></li>
+  </ul>
+  <nav>
+    <div class="nav-wrapper blue-grey ">
+      <a href="#!" class="brand-logo conforta">Proyecto modular</a>
+      <ul class="right hide-on-med-and-down">
+        <li *ngFor="let item of listMenuAuth"><a class="conforta" [routerLink] = "['/',item.route]" >{{item.privilege_name}}</a></li>
+        <!-- Dropdown Trigger -->
+        <li><a class="dropdown-trigger" href="#!" data-target="navbarNavDropdown">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
     </div>
   </nav>

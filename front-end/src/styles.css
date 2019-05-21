@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face{
+    font-family: 'Comfortaa[wght]';
+    src: 
+      local('../font/Comfortaa[wght].ttf'),
+      url('../src/assets/font/Comfortaa[wght].ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  .conforta{
+    font-family: 'Comfortaa[wght]';
+  }
+  table{
+    box-shadow: 0 0 7px 3px black;
+    border-radius: 5px 5px;
+  }

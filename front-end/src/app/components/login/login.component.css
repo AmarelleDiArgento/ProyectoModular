@@ -1,10 +1,21 @@
-#login{
-    padding-top: 150px;
+.login{
+    position: absolute;
+    z-index: 6;
+    top: 25%;
+    left: 35%;
+    width: 30%;
 }
 #error{
     color: red;
 }
 
 .container-fluid {
-    background-image: url("../../../assets/imagen.jpg");
+    background-image: url("../../../assets/backgroung.jpg");
+    background-size: 100%;
+}
+form{
+    border-radius: 6%;
+    background: white;
+    padding: 11%;
+    box-shadow: 0 0 14px 2px black;
 }

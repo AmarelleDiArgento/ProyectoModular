@@ -34,6 +34,9 @@ export class LoginComponent implements OnInit {
 
     $(document).ready(function(){
       $(".dropdown-trigger").dropdown();
+      $('.slider').slider({
+        indicators:false
+      });
   });
 
 
