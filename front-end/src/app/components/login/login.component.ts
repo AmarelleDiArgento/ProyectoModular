@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
+declare var $ : any;
 //service auth
 import { AuthService } from '../../services/auth.service';
 
@@ -29,6 +30,13 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+
+
+    $(document).ready(function(){
+      $(".dropdown-trigger").dropdown();
+  });
+
+
   }
   //get form controls
   get f() { return this.loginForm.controls; }

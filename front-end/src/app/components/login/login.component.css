@@ -4,3 +4,7 @@
 #error{
     color: red;
 }
+
+.container-fluid {
+    background-image: url("../../../assets/imagen.jpg");
+}
