@@ -11,6 +11,16 @@
     font-family: 'Comfortaa[wght]';
   }
   table{
-    box-shadow: 0 0 7px 3px black;
+    box-shadow: 0 0 3px 0px black;
     border-radius: 5px 5px;
+  }
+  nav{
+      background: #1C2B36 !important;
+  }
+  th{
+      text-align: center !important;
+  }
+  thead{
+      background: #b2bec3;
+      color: white;
   }
