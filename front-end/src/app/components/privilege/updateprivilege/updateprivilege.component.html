@@ -1,7 +1,7 @@
 <!-- header -->
 <app-header></app-header>
 <!-- end header -->
-<div class="container-fluid">
+<div class="container">
   <div class="row">
 
     <div class="col-md-4"></div>
@@ -24,8 +24,22 @@
             </div>
           </span>
         </div>
-
-        <div class="form-group">
+        <div class="input-field col s12">
+          <select id="module_id" formControlName="module_id"
+          [ngClass]="{ 'is-invalid': submitted && f.module_id.errors}">
+            <option value="" disabled selected>Selecione un modulo</option>
+            <option *ngFor="let m of listModule" [ngValue]="m.module_id">
+              {{ m.name}}
+            </option>
+          </select>
+          <span>
+            <div *ngIf="submitted && f.module_id.errors">
+              <div *ngIf="f.module_id.errors.required"> <label id="error">Error el modulo es requerido</label></div>
+            </div>
+          </span>
+          <label for="name">Modulo</label>
+        </div>
+        <!-- <div class="form-group">
           <label for="name">Modulo</label>
           <select class="form-control" id="module_id" formControlName="module_id"
             [ngClass]="{ 'is-invalid': submitted && f.module_id.errors}">
@@ -40,7 +54,7 @@
             </div>
           </span>
 
-        </div>
+        </div> -->
 
         <div class="form-group">
           <label for="name">Icono</label>
