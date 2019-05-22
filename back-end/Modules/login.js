@@ -11,6 +11,8 @@ connection.connect();
 
 var loginModel = {}
 
+let login = `call proyectomodular.userlogin(?,?);`;
+
 loginModel.getUserLogin = function (userData, callback) {
 
   var pass;
@@ -19,10 +21,11 @@ loginModel.getUserLogin = function (userData, callback) {
     pass = hash
   })
 
-  var query = "select user_id, username, rol_id, status  from user where email = '" + userData.email + "' and password = '" + pass + "' "
-  //console.log(userData.email + 'pass: ' + pass);
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(login, [
+      userData.email,
+      pass
+    ], function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
@@ -30,6 +33,7 @@ loginModel.getUserLogin = function (userData, callback) {
         })
       } else {
         if (rows.length != 0) {
+          rows = rows[0];
           var jsonObj = {
             rows,
             respuesta: "Success"
