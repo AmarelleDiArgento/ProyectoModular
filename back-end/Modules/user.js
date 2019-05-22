@@ -11,6 +11,12 @@ connection.connect();
 
 var userModel = {}
 
+let ins = `call proyectomodular.userins(?,?,?,?,?,?);`;
+let upd = `call proyectomodular.userupd(?,?,?,?,?,?);`;
+let del = `call proyectomodular.userdel(?);`;
+let all = `call proyectomodular.userall();`;
+let one = `call proyectomodular.userone(?);`;
+
 userModel.createUser = function (userData, callback) {
   var pass;
   enigma.genHash(valorEncriptación, key, userData.password, function (error, hash) {
@@ -18,15 +24,22 @@ userModel.createUser = function (userData, callback) {
     pass = hash
   })
 
-  var query = 'insert into user (user_id, username, email, password, rol_id, status) values ("' + userData.user_id + '","' + userData.username + '","' + userData.email + '", "' + pass + '", ' + userData.rol_id + ', "' + userData.status + '");';
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(ins, [
+      userData.user_id,
+      userData.username,
+      userData.email,
+      pass,
+      userData.rol_id,
+      userData.status
+    ], function (error, rows) {
       if (error) {
         callback(null, {
           "respuesta": error
         })
       } else {
         if (rows.length != 0) {
+          rows = rows[0];
           var jsonObj = {
             respuesta: "Success"
           }
@@ -54,10 +67,16 @@ userModel.updateUser = function (userData, callback) {
     if (error) return console.error(error)
     pass = hash
   })
-  var query = "UPDATE user SET   user_id = '" + userData.user_id + "', username = '" + userData.username + "', email = '" + userData.email + "', password = '" + pass + "', rol_id= " + userData.rol_id + " , status = '" + userData.status + "' , update_time = CURRENT_TIMESTAMP   where user_id='" + userData.user_id + "' ";
+
   if (connection) {
-    connection.query(query, function (error, rows) {
-      console.log(rows);
+    connection.query(upd, [
+      userData.user_id,
+      userData.username,
+      userData.email,
+      pass,
+      userData.rol_id,
+      userData.status
+    ], function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
@@ -65,6 +84,7 @@ userModel.updateUser = function (userData, callback) {
         })
       } else {
         if (rows.length != 0) {
+          rows = rows[0];
           var jsonObj = {
             respuesta: "Success"
           }
@@ -87,9 +107,8 @@ userModel.updateUser = function (userData, callback) {
 
 
 userModel.deleteUser = function (userData, callback) {
-  var query = "DELETE  from user where user_id=" + userData.user_id + " ";
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(del, userData.user_id, function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
@@ -97,6 +116,7 @@ userModel.deleteUser = function (userData, callback) {
         })
       } else {
         if (rows.length != 0) {
+          rows = rows[0];
           var jsonObj = {
             respuesta: "Success"
           }
@@ -119,9 +139,8 @@ userModel.deleteUser = function (userData, callback) {
 
 
 userModel.dataUser = function (userData, callback) {
-  var query = "select user_id, username, email, rol_id, status, create_time, update_time from user where user_id= '" + userData.user_id + "' ";
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(one, userData.user_id, function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
@@ -129,6 +148,7 @@ userModel.dataUser = function (userData, callback) {
         })
       } else {
         if (rows.length != 0) {
+          rows = rows[0];
           var jsonObj = {
             rows,
             respuesta: "Success"
@@ -151,9 +171,8 @@ userModel.dataUser = function (userData, callback) {
 }
 
 userModel.dataAllUser = function (userData, callback) {
-  var query = "select user_id, username, email, rol_id, status, create_time, update_time from user ";
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(all, function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
@@ -161,6 +180,7 @@ userModel.dataAllUser = function (userData, callback) {
         })
       } else {
         if (rows.length != 0) {
+          rows = rows[0];
           var jsonObj = {
             rows,
             respuesta: "Success"
