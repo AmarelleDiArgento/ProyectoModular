@@ -75,7 +75,7 @@
             [ngClass]="{ 'is-invalid': submitted && f.pod_id.errors }">
             <option value="" disabled selected>Seleccione puntos de venta</option>
             <option *ngFor="let p of listPod" [ngValue]="p.pod_id">
-              {{ p.name}}
+              {{p.name}}
             </option>
           </select>
           <label for="pod_id">Punto de venta</label>

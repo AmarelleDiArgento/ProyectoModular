@@ -35,16 +35,13 @@
         </div>
         <div class="form-group">
           <label for="name">Estado</label>
-          <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input form-control" id="status" formControlName="status"
-              [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
-            <label class="custom-control-label" for="status">
-              <ng-container *ngIf="status === 1 else elseTemplate">
-                Activo
-              </ng-container>
-              <ng-template #elseTemplate>
-                Inactivo
-              </ng-template>
+          <div class="switch">
+            <label>
+              Inactivo
+              <input type="checkbox" class="form-control" id="status" ngModel="checked" formControlName="status"
+                [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+              <span class="lever"></span>
+              Activo
             </label>
           </div>
           <span>

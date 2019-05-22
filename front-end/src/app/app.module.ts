@@ -43,6 +43,7 @@ import { UpdatesaleComponent } from './components/sale/updatesale/updatesale.com
 import { PodComponent } from './components/pod/pod.component';
 import { ListpodsComponent } from './components/pod/listpods/listpods.component';
 import { UpdatepodComponent } from './components/pod/updatepod/updatepod.component';
+import { RolprivilegeComponent } from './components/rol/rolprivilege/rolprivilege.component';
 
 //service
 import { AuthService } from './services/auth.service';
@@ -55,6 +56,7 @@ import { TaxService } from './services/tax.service';
 import { ProductService } from './services/product.service';
 import { SaleService } from './services/sale.service';
 import { PodService } from './services/pod.service';
+import { RolprivilegeService } from './services/rolprivilege.service';
 
 
 
@@ -94,7 +96,8 @@ import { PodService } from './services/pod.service';
     UpdatesaleComponent,
     ListpodsComponent,
     UpdatepodComponent,
-    ListpodsComponent
+    ListpodsComponent,
+    RolprivilegeComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +117,8 @@ import { PodService } from './services/pod.service';
     PrivilegeService,
     ModuleService,
     SaleService,
-    PodService
+    PodService,
+    RolprivilegeService
   ],
   bootstrap: [AppComponent]
 })

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
+declare var $: any;
 // service auth
 import { PrivilegeService } from '../../../services/privilege.service';
 // service auth
@@ -65,6 +66,10 @@ export class UpdateprivilegeComponent implements OnInit {
     // eject ws search user for id
     this.getPrivilegeDataId();
     // console.log('Cargamos el formulario o_o');
+
+    $(document).ready(function () {
+      $('select').formSelect();
+    });
   }
   // get form contprivileges
   get f() {

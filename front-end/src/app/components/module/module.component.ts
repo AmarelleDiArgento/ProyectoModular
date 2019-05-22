@@ -28,7 +28,7 @@ export class ModuleComponent implements OnInit {
     // init form
     this.registerModulesForm = this.formBuilder.group({
       name: ['', Validators.required],
-      status: ['', Validators.required],
+      status: ['', Validators.required]
     });
   }
   // get form controls

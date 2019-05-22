@@ -42,6 +42,12 @@ export class ListrolComponent implements OnInit {
     localStorage.setItem('idRol', id);
     this.router.navigate(['/updaterol'])
   }
+  // redirect to update rol
+  updateRolPrivilege(id) {
+    // almacenamos el id
+    localStorage.setItem('idRol', id);
+    this.router.navigate(['/rolprivilege'])
+  }
   
   // delete rol
   deleteRol(id) {

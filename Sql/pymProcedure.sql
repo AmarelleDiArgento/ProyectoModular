@@ -841,9 +841,11 @@ _rp_rol_id int(11)
 )
 BEGIN
 
-SELECT  rp.rp_privilege_id, rp.rp_rol_id, rp.view, rp.create, rp.update, rp.delete
-FROM proyectomodular.rol_privilege AS rp
-WHERE rp.rp_rol_id = _rp_rol_id;
+SELECT  rp.rp_privilege_id, p.name as privilege_name, rp.rp_rol_id, r.name as rol_name, rp.view, rp.create, rp.update, rp.delete
+FROM proyectomodular.rol as r
+inner join proyectomodular.rol_privilege AS rp on r.rol_id = rp.rp_rol_id
+inner join proyectomodular.privilege as p on rp.rp_privilege_id = p.privilege_id
+WHERE rp.rp_rol_id = _rp_rol_id and p.status = 1;
 END$$
 
 DELIMITER ;

@@ -17,6 +17,7 @@ import { UpdateusersComponent } from './components/register/updateusers/updateus
 import { RolComponent } from './components/rol/rol.component';
 import { ListrolComponent } from './components/rol/listrol/listrol.component';
 import { UpdaterolComponent } from './components/rol/updaterol/updaterol.component';
+import { RolprivilegeComponent } from './components/rol/rolprivilege/rolprivilege.component';
 
 import { ListprivilegeComponent } from './components/privilege/listprivilege/listprivilege.component';
 import { UpdateprivilegeComponent } from './components/privilege/updateprivilege/updateprivilege.component';
@@ -46,6 +47,7 @@ import { UpdatepodComponent } from './components/pod/updatepod/updatepod.compone
 import { SaleComponent } from './components/sale/sale.component';
 import { ListsalesComponent } from './components/sale/listsales/listsales.component';
 import { UpdatesaleComponent } from './components/sale/updatesale/updatesale.component';
+
 
 // const routes
 const routes: Routes = [
@@ -178,6 +180,10 @@ const routes: Routes = [
     {
         path: 'listpods',
         component: ListpodsComponent,
+    },
+    {
+        path: 'rolprivilege',
+        component: RolprivilegeComponent,
     }
 
 

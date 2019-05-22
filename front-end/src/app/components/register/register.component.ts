@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
 
     // obtain all data from the register pods
-    this.getAllDataPod();
+    this.getAllDataPodandRol();
     // init form
     this.registerUsersForm = this.formBuilder.group({
       user_id: ['', Validators.required],
@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
       estado: ['', Validators.required]
     });
   }
-  getAllDataPod() {
+  getAllDataPodandRol() {
 
     // send to search api backend all pods
     this.podService.getAllDataPod()
