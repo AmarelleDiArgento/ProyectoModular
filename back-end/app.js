@@ -72,7 +72,9 @@ app.post('/createuser', user)
 app.post('/updateuser', user)
 app.post('/deleteuser', user)
 app.post('/getdatauser', user)
+app.post('/getdatapoduser', user)
 app.get('/getdatauser', user)
+
 //urls rol
 app.post('/createrol', rol)
 app.post('/updaterol', rol)

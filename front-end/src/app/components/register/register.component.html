@@ -13,7 +13,7 @@
           </a>
           <h6>{{msgerr}}</h6>
         </div>
-        <div class="form-group">
+        <div class="form-group input-field col s12">
           <label for="user_id">Documento</label>
           <input type="text" class="form-control" id="user_id" formControlName="user_id"
             [ngClass]="{ 'is-invalid': submitted && f.user_id.errors }" placeholder="Enter document">
@@ -23,7 +23,7 @@
             </div>
           </span>
         </div>
-        <div class="form-group">
+        <div class="form-group input-field col s12">
           <label for="username">Username </label>
           <input type="text" class="form-control" id="username" formControlName="username"
             [ngClass]="{ 'is-invalid': submitted && f.username.errors }" placeholder="Enter username">
@@ -33,7 +33,7 @@
             </div>
           </span>
         </div>
-        <div class="form-group">
+        <div class="form-group input-field col s12">
           <label for="email">Email </label>
           <input type="email" class="form-control" id="email" formControlName="email"
             [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Enter email">
@@ -43,7 +43,7 @@
             </div>
           </span>
         </div>
-        <div class="form-group">
+        <div class="form-group input-field col s12">
           <label for="password">Password</label>
           <input type="password" class="form-control" id="password" formControlName="password"
             [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Password">
@@ -53,28 +53,47 @@
             </div>
           </span>
         </div>
-        <div class="form-group">
-          <label for="username">Rol </label>
+        <div class="form-group input-field col s12">
           <select class="form-control" id="rol" formControlName="rol"
             [ngClass]="{ 'is-invalid': submitted && f.rol.errors }">
-            <option value="">Seleccione</option>
-            <option value="1">Administrador</option>
-            <option value="2">Usuario</option>
+            <option value="" disabled selected>Seleccione rol</option>
+            <option *ngFor="let r of listRol" [ngValue]="r.rol_id">
+              {{ r.name}}
+            </option>
           </select>
+          <label for="username">Rol </label>
           <span>
             <div *ngIf="submitted && f.rol.errors">
               <div *ngIf="f.rol.errors.required"> <label id="error">Error el rol es requerido </label></div>
             </div>
           </span>
         </div>
-        <div class="form-group">
-          <label for="username">Estado</label>
+
+        <div class="form-group input-field col s12">
+
+          <select multiple class="form-control" id="pod_id" formControlName="pod_id"
+            [ngClass]="{ 'is-invalid': submitted && f.pod_id.errors }">
+            <option value="" disabled selected>Seleccione puntos de venta</option>
+            <option *ngFor="let p of listPod" [ngValue]="p.pod_id">
+              {{ p.name}}
+            </option>
+          </select>
+          <label for="pod_id">Punto de venta</label>
+          <span>
+            <div *ngIf="submitted && f.pod_id.errors">
+              <div *ngIf="f.pod_id.errors.required"> <label id="error">Error el rol es requerido </label></div>
+            </div>
+          </span>
+        </div>
+
+        <div class="form-group input-field col s12">
           <select class="form-control" id="estado" formControlName="estado"
             [ngClass]="{ 'is-invalid': submitted && f.estado.errors }">
-            <option value="">Seleccione</option>
+            <option value="" disabled selected>Seleccione estado</option>
             <option value="1">Activo</option>
             <option value="0">Inactivo</option>
           </select>
+          <label for="username">Estado</label>
           <span>
             <div *ngIf="submitted && f.estado.errors">
               <div *ngIf="f.estado.errors.required"> <label id="error">Error el estado es requerido </label></div>

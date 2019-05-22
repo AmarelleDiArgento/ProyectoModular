@@ -75,6 +75,22 @@ router.post('/getdatauser', function (req, res, next) {
   })
 })
 
+//get pod user
+router.post('/getdatapoduser', function (req, res, next) {
+  var userData = {
+    user_id: req.body.user_id
+  }
+  user.dataPodUser(userData, function (error, data) {
+    if (error) {
+      res.status(504).jsonp({
+        "error": error
+      })
+    } else {
+      res.status(200).jsonp(data)
+    }
+  })
+})
+
 //get all user 
 router.get('/getdatauser', function (req, res, next) {
     var userData = {}

@@ -16,6 +16,7 @@ let upd = `call proyectomodular.userupd(?,?,?,?,?,?);`;
 let del = `call proyectomodular.userdel(?);`;
 let all = `call proyectomodular.userall();`;
 let one = `call proyectomodular.userone(?);`;
+let poduser = 'call proyectomodular.pod_userallpodbyuser(?);'
 
 userModel.createUser = function (userData, callback) {
   var pass;
@@ -141,6 +142,39 @@ userModel.deleteUser = function (userData, callback) {
 userModel.dataUser = function (userData, callback) {
   if (connection) {
     connection.query(one, userData.user_id, function (error, rows) {
+      if (error) {
+        console.log(error)
+        callback(null, {
+          "respuesta": "Error de conexión"
+        })
+      } else {
+        if (rows.length != 0) {
+          rows = rows[0];
+          var jsonObj = {
+            rows,
+            respuesta: "Success"
+          }
+          callback(null, jsonObj)
+        } else {
+          console.log("Error la consulta no arroja datos")
+          callback(null, {
+            "respuesta": "Error la consulta no arroja datos"
+          })
+        }
+      }
+    })
+  } else {
+    console.log("No se conecto con servidor")
+    callback(null, {
+      "Respuesta": "Error en Conexion"
+    })
+  }
+}
+
+
+userModel.dataPodUser = function (userData, callback) {
+  if (connection) {
+    connection.query(poduser, userData.user_id, function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
