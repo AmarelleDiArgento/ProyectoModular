@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
+declare var $: any;
 // service product
 import { ProductService } from '../../../services/product.service';
 // service  category
@@ -45,6 +46,9 @@ export class UpdateproductComponent implements OnInit {
     private categoryService: CategoryService,
     private taxService: TaxService, private router: Router) { }
   ngOnInit() {
+    $(document).ready(function () {
+      $('select').formSelect();
+    });
     // init form
     this.updateProductForm = this.formBuilder.group({
       code: ['', Validators.required],

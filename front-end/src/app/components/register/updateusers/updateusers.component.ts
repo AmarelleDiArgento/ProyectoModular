@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
+declare var $: any;
 // service auth
 import { UserService } from '../../../services/user.service';
 
@@ -35,6 +36,9 @@ export class UpdateusersComponent implements OnInit {
   constructor(private http: Http, private formBuilder: FormBuilder, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
+    $(document).ready(function () {
+      $('select').formSelect();
+    });
     // init form
     this.updateUsersForm = this.formBuilder.group({
       user_id: ['', Validators.required],

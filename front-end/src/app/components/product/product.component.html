@@ -56,13 +56,13 @@
             </div>
           </span>
         </div>
-        <div class="form-group">
-          <label for="tax_id">Impuesto</label>
+        <div class="form-group ">          
           <select class="form-control" id="tax_id" formControlName="tax_id"
             [ngClass]="{ 'is-invalid': submitted && f.tax_id.errors }">
             <option value="" selected>Seleccione el impuesto</option>
             <option *ngFor="let tax of listTax" value="{{tax.tax_id}}">{{tax.name}}</option>
           </select>
+          <label for="tax_id">Impuesto</label>
           <span>
             <div *ngIf="submitted && f.tax_id.errors">
               <div *ngIf="f.tax_id.errors.required"> <label id="error">Error el impuesto es requerido </label></div>
@@ -70,19 +70,22 @@
           </span>
         </div>
         <div class="form-group">
-          <label for="status">Estado</label>
-          <select class="form-control" id="status" formControlName="status"
-            [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
-            <option value="">Seleccione</option>
-            <option value="1">Activo</option>
-            <option value="2">Inactivo</option>
-          </select>
-          <span>
-            <div *ngIf="submitted && f.status.errors">
-              <div *ngIf="f.status.errors.required"> <label id="error">Error el estado es requerido </label></div>
+            <label for="status">Estado</label>
+            <div class="switch">
+              <label>
+                Inactivo
+                <input type="checkbox" class="form-control" id="estado" formControlName="status"
+                [ngClass]="{ 'is-invalid': submitted && f.estado.errors }">
+                <span class="lever"></span>
+                Activo
+              </label>
             </div>
-          </span>
-        </div>
+            <span>
+              <div *ngIf="submitted && f.status.errors">
+                <div *ngIf="f.status.errors.required"> <label id="error">Error el estado es requerido</label></div>
+              </div>
+            </span>
+          </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block">Crear</button>
       </form>
     </div>
