@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
-declare var $: any;
 //service 
 import { ProductService } from '../../../services/product.service';
+//service excel
+import {ExcelService} from '../../../services/excel.service';
 
 @Component({
   selector: 'app-listproduct',
@@ -15,16 +16,15 @@ export class ListproductComponent implements OnInit {
 
   //list data ws product 
   listProduct: {};
+  //array from excel data
+  listExcelProduct: any[];
 
-  constructor(private http: Http, private formBuilder: FormBuilder, private productService: ProductService, private router: Router) {
+  constructor(private http: Http, private formBuilder: FormBuilder, private productService: ProductService, private excelService: ExcelService, private router: Router) {
     //get data
     this.getAllData();
   }
 
   ngOnInit() {
-    $(document).ready(function () {
-      $('select').formSelect();
-    });
   }
 
   //obtain all data from the product
@@ -35,6 +35,8 @@ export class ListproductComponent implements OnInit {
         //populate list json 
         console.log(data);
         this.listProduct = data.rows;
+        //populate excel data
+        this.listExcelProduct = data.rows;
       });
   }
   //redirect to create product
@@ -58,4 +60,8 @@ export class ListproductComponent implements OnInit {
         }
       });
   }
+  //export to file excel
+  exportAsXLSX():void {
+    this.excelService.exportAsExcelFile(this.listExcelProduct, 'ReporteProductos');
+ }
 }
