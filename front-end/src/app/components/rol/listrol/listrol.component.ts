@@ -73,7 +73,7 @@ export class ListrolComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 2000,
                 onClose: () => {
-                  // redirect 
+                  // redirect
                   location.reload();
                 }
               });
@@ -89,7 +89,7 @@ export class ListrolComponent implements OnInit {
             }
           });
       }
-    })
+    });
 
     // send to api backend delete rol for id
 

@@ -36,8 +36,10 @@ userModel.createUser = function (userData, callback) {
     ], function (error, rows) {
       if (error) {
         callback(null, {
-          "respuesta": error
+          "respuesta": error.message
         })
+        console.log(error.message);
+        
       } else {
         if (rows.length != 0) {
           rows = rows[0];

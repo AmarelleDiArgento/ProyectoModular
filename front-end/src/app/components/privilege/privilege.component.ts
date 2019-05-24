@@ -74,22 +74,28 @@ export class PrivilegeComponent implements OnInit {
         this.registerPrivilegesForm.value.route,
         this.registerPrivilegesForm.value.status
       ).subscribe(data => {
-        console.log(data);
 
         if (data.respuesta === 'Success') {
-          // redirect to home menu
-          this.router.navigate(['/listprivileges'])
-        } else {
-
           Swal.fire({
-            type: 'error',
-            title: 'Ups!, algo salio mal: \n' + data.respuesta.sqlMessage,
+            type: 'success',
+            title: 'Registro exitoso',
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000
+            timer: 2000
           });
-          this.msgerr = 'Error al crear el rol';
+          // redirect to home menu
+          this.router.navigate(['/listprivileges'])
+        } else {
+          Swal.fire({
+            type: 'error',
+            title: 'Ups!, algo salio mal: \n' + data.respuesta,
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          this.msgerr = 'Error al crear el provilegio';
         }
       });
     }
