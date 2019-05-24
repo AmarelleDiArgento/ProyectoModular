@@ -2,15 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
-<<<<<<< Updated upstream
-//service 
-=======
 import Swal from 'sweetalert2';
 declare var $: any;
 // service
->>>>>>> Stashed changes
 import { ProductService } from '../../../services/product.service';
-//service excel
+// service excel
 import {ExcelService} from '../../../services/excel.service';
 
 @Component({
@@ -22,16 +18,12 @@ export class ListproductComponent implements OnInit {
 
   // list data ws product
   listProduct: {};
-  //array from excel data
+  // array from excel data
   listExcelProduct: any[];
 
-<<<<<<< Updated upstream
-  constructor(private http: Http, private formBuilder: FormBuilder, private productService: ProductService, private excelService: ExcelService, private router: Router) {
-    //get data
-=======
-  constructor(private http: Http, private formBuilder: FormBuilder, private productService: ProductService, private router: Router) {
+  constructor(
+    private http: Http, private formBuilder: FormBuilder, private productService: ProductService, private excelService: ExcelService, private router: Router) {
     // get data
->>>>>>> Stashed changes
     this.getAllData();
   }
 
@@ -46,7 +38,7 @@ export class ListproductComponent implements OnInit {
         // populate list json
         console.log(data);
         this.listProduct = data.rows;
-        //populate excel data
+        // populate excel data
         this.listExcelProduct = data.rows;
       });
   }
@@ -105,7 +97,7 @@ export class ListproductComponent implements OnInit {
       }
     });
   }
-  //export to file excel
+  // export to file excel
   exportAsXLSX():void {
     this.excelService.exportAsExcelFile(this.listExcelProduct, 'ReporteProductos');
  }
