@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 // service auth
 import { PodService } from '../../services/pod.service';
 
@@ -51,10 +52,27 @@ export class PodComponent implements OnInit {
         this.registerPodsForm.value.status
         )
         .subscribe(data => {
+
           if (data.respuesta === 'Success') {
+            Swal.fire({
+              type: 'success',
+              title: 'Registro exitoso',
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000
+            });
             // redirect to home menu
             this.router.navigate(['/listpods'])
           } else {
+            Swal.fire({
+              type: 'error',
+              title: 'Ups!, algo salio mal: \n' + data.respuesta,
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000
+            });
             this.msgerr = 'Error al crear el pod';
           }
         });

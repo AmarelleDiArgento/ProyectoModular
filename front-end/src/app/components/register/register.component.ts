@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 declare var $: any;
 // service auth
 import { UserService } from '../../services/user.service';
@@ -31,7 +32,7 @@ export class RegisterComponent implements OnInit {
   constructor(private http: Http, private formBuilder: FormBuilder,
     private userService: UserService,
     private podService: PodService,
-    private rolService: RolService,  private router: Router) { }
+    private rolService: RolService, private router: Router) { }
 
   ngOnInit() {
 
@@ -43,9 +44,9 @@ export class RegisterComponent implements OnInit {
       username: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
-      rol: ['', Validators.required],
+      rol_id: ['', Validators.required],
       pod_id: ['', Validators.required],
-      estado: ['', Validators.required]
+      status: ['', Validators.required]
     });
   }
   getAllDataPodandRol() {
@@ -55,15 +56,14 @@ export class RegisterComponent implements OnInit {
       .subscribe(data => {
         // populate list json pod
         this.listPod = data.rows;
-        console.log(data.rows);
 
       });
-      // send to search api backend all rols
-      this.rolService.getAllDataRols()
-        .subscribe(data => {
-          // populate list json rol
-          this.listRol = data.rows;
-        });
+    // send to search api backend all rols
+    this.rolService.getAllDataRols()
+      .subscribe(data => {
+        // populate list json rol
+        this.listRol = data.rows;
+      });
 
     $(document).ready(function () {
       $('select').formSelect();
@@ -79,20 +79,38 @@ export class RegisterComponent implements OnInit {
     if (this.registerUsersForm.invalid) {
       return;
     } else {
+      console.log(this.registerUsersForm.value.pod_id);
+      
       // send to api backend create user
       this.userService.createUsers(
         this.registerUsersForm.value.user_id,
         this.registerUsersForm.value.username,
         this.registerUsersForm.value.email,
         this.registerUsersForm.value.password,
-        this.registerUsersForm.value.rol,
-        this.registerUsersForm.value.estado)
+        this.registerUsersForm.value.rol_id,
+        this.registerUsersForm.value.status)
         .subscribe(data => {
           if (data.respuesta === 'Success') {
+            Swal.fire({
+              type: 'success',
+              title: 'Registro exitoso',
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000
+            });
             // redirect to home menu
-            this.router.navigate(['/listusers']);
+            this.router.navigate(['/listusers'])
           } else {
-            this.msgerr = 'Error al crear el usuario';
+            Swal.fire({
+              type: 'error',
+              title: 'Ups!, algo salio mal: \n' + data.respuesta,
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000
+            });
+            this.msgerr = 'Error al crear el usuario \n' + data.respuesta;
           }
         });
     }

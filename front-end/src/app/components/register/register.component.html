@@ -54,8 +54,8 @@
           </span>
         </div>
         <div class="form-group input-field col s12">
-          <select class="form-control" id="rol" formControlName="rol"
-            [ngClass]="{ 'is-invalid': submitted && f.rol.errors }">
+          <select class="form-control" id="rol_id" formControlName="rol_id"
+            [ngClass]="{ 'is-invalid': submitted && f.rol_id.errors }">
             <option value="" disabled selected>Seleccione rol</option>
             <option *ngFor="let r of listRol" [ngValue]="r.rol_id">
               {{ r.name}}
@@ -63,8 +63,8 @@
           </select>
           <label for="username">Rol </label>
           <span>
-            <div *ngIf="submitted && f.rol.errors">
-              <div *ngIf="f.rol.errors.required"> <label id="error">Error el rol es requerido </label></div>
+            <div *ngIf="submitted && f.rol_id.errors">
+              <div *ngIf="f.rol_id.errors.required"> <label id="error">Error el rol es requerido </label></div>
             </div>
           </span>
         </div>
@@ -81,28 +81,28 @@
           <label for="pod_id">Punto de venta</label>
           <span>
             <div *ngIf="submitted && f.pod_id.errors">
-              <div *ngIf="f.pod_id.errors.required"> <label id="error">Error el rol es requerido </label></div>
+              <div *ngIf="f.pod_id.errors.required"> <label id="error">Error el pod es requerido </label></div>
             </div>
           </span>
         </div>
 
         <div class="form-group">
-            <label for="name">Estado</label>
-            <div class="switch">
-              <label>
-                Inactivo
-                <input type="checkbox" class="form-control" id="estado" formControlName="estado"
-                [ngClass]="{ 'is-invalid': submitted && f.estado.errors }">
-                <span class="lever"></span>
-                Activo
-              </label>
-            </div>
-            <span>
-              <div *ngIf="submitted && f.status.errors">
-                <div *ngIf="f.status.errors.required"> <label id="error">Error el estado es requerido</label></div>
-              </div>
-            </span>
+          <label for="status">Estado</label>
+          <div class="switch">
+            <label>
+              Inactivo
+              <input type="checkbox" class="form-control" id="status" formControlName="status"
+                [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+              <span class="lever"></span>
+              Activo
+            </label>
           </div>
+          <span>
+            <div *ngIf="submitted && f.status.errors">
+            </div>
+              <div *ngIf="f.status.errors.required"> <label id="error">Error el estado es requerido</label></div>
+          </span>
+        </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block btn-full">Crear</button>
       </form>
     </div>

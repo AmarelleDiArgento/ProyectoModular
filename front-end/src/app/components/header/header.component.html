@@ -20,21 +20,20 @@
       </ul>
     </div>
   </nav> -->
-
-
-  
-  <ul id="navbarNavDropdown"  class="dropdown-content">
-    <li><a href="#!">two</a></li>
-    <li class="divider"></li>
-    <li><a href="#!">three</a></li>
-  </ul>
-  <nav>
-    <div class="nav-wrapper ">
-      <a href="#!" class="brand-logo conforta"><b class="teal-text text-darken-3">Proyecto</b> modular</a>
-      <ul class="right hide-on-med-and-down">
-        <li *ngFor="let item of listMenuAuth"><a class="conforta" [routerLink] = "['/',item.route]" >{{item.privilege_name}}</a></li>
-        <!-- Dropdown Trigger -->
-        <li><a class="dropdown-trigger" href="#!" data-target="navbarNavDropdown">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
-      </ul>
-    </div>
-  </nav>
+<ul id="navbarNavDropdown" class="dropdown-content">
+  <li><a class="dropdown-item" [routerLink]="['/']">Perfil</a></li>
+  <li class="divider"></li>
+  <li><a class="dropdown-item" [routerLink]="['/']">Salir</a></li>
+</ul>
+<nav>
+  <div class="nav-wrapper ">
+    <a href="#!" class="brand-logo conforta"><b class="teal-text text-darken-3">Proyecto</b> modular</a>
+    <ul class="right hide-on-med-and-down">
+      <li *ngFor="let item of listMenuAuth"><a class="conforta"
+          [routerLink]="['/',item.route]">{{item.privilege_name}}</a></li>
+      <!-- Dropdown Trigger -->
+      <li><a class="dropdown-trigger" href="#!" data-target="navbarNavDropdown">Opciones<i
+            class="material-icons right">arrow_drop_down</i></a></li>
+    </ul>
+  </div>
+</nav>

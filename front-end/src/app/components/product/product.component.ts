@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 declare var $: any;
 // service product
 import { ProductService } from '../../services/product.service';
@@ -70,11 +71,27 @@ export class ProductComponent implements OnInit {
         this.registerProductForm.value.tax_id,
         this.registerProductForm.value.status)
         .subscribe(data => {
-          console.log(data);
+
           if (data.respuesta === 'Success') {
-            // redirect
-            this.router.navigate(['/listproducts']);
+            Swal.fire({
+              type: 'success',
+              title: 'Registro exitoso',
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000
+            });
+            // redirect to home menu
+            this.router.navigate(['/listproducts'])
           } else {
+            Swal.fire({
+              type: 'error',
+              title: 'Ups!, algo salio mal: \n' + data.respuesta,
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000
+            });
             this.msgerr = 'Error al crear el producto';
           }
         });
@@ -86,8 +103,8 @@ export class ProductComponent implements OnInit {
     this.categoryService.getAllDataCategory()
       .subscribe(data => {
         // populate list json
-        console.log(data);
         this.listCategory = data.rows;
+        console.log(this.listCategory);
       });
   }
   // obtain all data from the tax
