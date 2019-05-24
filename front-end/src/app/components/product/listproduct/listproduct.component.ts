@@ -4,10 +4,13 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 declare var $: any;
+declare var dt: any;
+
+
 // service
 import { ProductService } from '../../../services/product.service';
 // service excel
-import {ExcelService} from '../../../services/excel.service';
+import { ExcelService } from '../../../services/excel.service';
 
 @Component({
   selector: 'app-listproduct',
@@ -40,6 +43,17 @@ export class ListproductComponent implements OnInit {
         this.listProduct = data.rows;
         // populate excel data
         this.listExcelProduct = data.rows;
+      });
+
+      $(document).ready(function() {
+        $('#example').DataTable( {
+          columnDefs: [
+            {
+              targets: [ 0, 1, 2 ],
+              className: 'mdl-data-table__cell--non-numeric'
+            }
+          ]
+        } );
       });
   }
   // redirect to create product
@@ -98,7 +112,7 @@ export class ListproductComponent implements OnInit {
     });
   }
   // export to file excel
-  exportAsXLSX():void {
+  exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listExcelProduct, 'ReporteProductos');
- }
+  }
 }
