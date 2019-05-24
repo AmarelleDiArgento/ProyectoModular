@@ -1,7 +1,7 @@
 <!-- header -->
 <app-header></app-header>
 <!-- end header -->
-<div class="container">
+<!-- <div class="container">
   <div class="col-md-12">
     <br>
     <h3 class="conforta">Listado de Usuarios</h3>
@@ -40,5 +40,52 @@
           </tr>
         </tbody>
       </table>
+  </div>
+</div> -->
+
+
+<div class="row">
+  <div id="admin" class="col s12">
+    <div class="card material-table">
+      <div class="table-header">
+        <span class="table-title conforta">Listado de Usuarios</span>
+        <div class="actions">
+          <a (click)="createUser()" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>
+          <!-- <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a> -->
+        </div>
+      </div>
+      <table id="datatable" class="striped responsive-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Fecha Creacion</th>
+            <th>Fecha Actualizacion</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <tr *ngFor="let item of listUser">
+            <td>{{item.user_id}}</td>
+            <td>{{item.username}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.rol_id}}</td>
+            <td>{{item.status}}</td>
+            <td>{{item.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{item.update_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td class="">
+              <!-- <i class="fa fa-edit text-center" style="font-size: 1em;" title="Modificar" (click)="updateUser(item.user_id)"></i>
+              <i class="fa fa-trash text-center" style="font-size: 1em;" title="Eliminar" (click)="deleteUser(item.user_id)"></i> -->
+              <i class="material-icons" title="Modificar" (click)="updateUser(item.user_id)">edit</i>&nbsp;
+              <i class="material-icons" title="Eliminar" (click)="deleteUser(item.user_id)">delete</i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
