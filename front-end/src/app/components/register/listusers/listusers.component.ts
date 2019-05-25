@@ -31,7 +31,6 @@ export class ListusersComponent implements OnInit {
     this.userService.getAllDataUsers()
       .subscribe(data => {
         // populate list json users
-        // console.log(data);
         this.listUser = data.rows;
       });
 
