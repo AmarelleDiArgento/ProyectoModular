@@ -50,7 +50,7 @@ export class ListusersComponent implements OnInit {
   // delete user
   deleteUser(id) {
     // send to api backend delete user for id
-    localStorage.Id;
+    // localStorage.Id;
     this.userService.deleteUsers(id)
       .subscribe(data => {
         if (data.respuesta === 'Success') {

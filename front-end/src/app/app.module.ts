@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ExcelService } from './services/excel.service'; 
+import { AgGridModule } from 'ag-grid-angular';
 
 // components
 import { LoginComponent } from './components/login/login.component';
@@ -57,7 +59,6 @@ import { ProductService } from './services/product.service';
 import { SaleService } from './services/sale.service';
 import { PodService } from './services/pod.service';
 import { RolprivilegeService } from './services/rolprivilege.service';
-import { ExcelService } from './services/excel.service'; 
 
 
 
@@ -106,7 +107,8 @@ import { ExcelService } from './services/excel.service';
     HttpModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgGridModule.withComponents([])
   ],
   providers: [
     AuthService,

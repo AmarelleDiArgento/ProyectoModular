@@ -2,60 +2,14 @@
 <app-header></app-header>
 <!-- end header -->
 <div class="container">
-  <div class="col-md-12">
-    <br>
-    <h3>Listado de Privilegios</h3>
-  </div>
-  <div class="col-md-12">
-    <br>
-    <button type="button" (click)="createPrivilege()" class="btn btn-primary">Crear Privilegio</button>
-  </div>
-  <div class="col-md-12">
-    <br>
-    <table class="striped responsive-table">
-      <thead class="">
-        <tr>
-          <th>Id</th>
-          <th>Nombre</th>
-          <th>Modulo</th>
-          <th>Icono</th>
-          <th>Ruta</th>
-          <th>Status</th>
-          <th colspan="2">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of listPrivilege">
-          <td>{{item.privilege_id}}</td>
-          <td>{{item.name}}</td>
-          <td>{{item.module_id}}</td>
-          <td>{{item.icon}}</td>
-          <td>{{item.route}}</td>
-          <td>
-            <ng-container *ngIf="item.status === 1; else elseTemplate">
-              <span style="color: greenyellow;">
-                <i class="fas fa-circle"></i>
-              </span>
-            </ng-container>
-            <ng-template #elseTemplate>
-              <span style="color: gray;">
-                <i class="fas fa-circle"></i>
-              </span>
-            </ng-template>
-          </td>
 
-          <td class="text-center">
-            <button type="button" class="btn btn-primary" (click)="updatePrivilege(item.privilege_id)">
-              <i class="fa fa-edit text-center" style="font-size: 1em;" title="Modificar"></i>
-            </button>
-          </td>
-          <td class="text-center">
-            <button type="button" class="btn btn-warning" (click)="deletePrivilege(item.privilege_id)">
-              <i class="fa fa-trash text-center" style="font-size: 1em;" title="Eliminar"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <ag-grid-angular 
+    style="width: 100%; height: 800px;" 
+    class="ag-theme-material"
+    [rowData]="listPrivilege" 
+    [columnDefs]="columnDefs"
+    >
+</ag-grid-angular>
+
+  
 </div>

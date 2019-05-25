@@ -13,8 +13,19 @@ import { PrivilegeService } from '../../../services/privilege.service';
 })
 export class ListprivilegeComponent implements OnInit {
 
+  columnDefs = [
+    { headerName: 'privilege_id', field: 'privilege_id', sortable: true, filter: true },
+    { headerName: 'name', field: 'name', sortable: true, filter: true },
+    { headerName: 'module_id', field: 'module_id', sortable: true, filter: true },
+    { headerName: 'icon', field: 'icon', sortable: true, filter: true },
+    { headerName: 'route', field: 'route', sortable: true, filter: true },
+    { headerName: 'status', field: 'status', sortable: true, filter: true }
+  ];
+
+  rowData = [];
+
   // list data ws privilege 
-  listPrivilege: {};
+  listPrivilege: [];
 
   constructor(private http: Http, private formBuilder: FormBuilder, private privilegeService: PrivilegeService, private router: Router) {
     this.getAllData();
