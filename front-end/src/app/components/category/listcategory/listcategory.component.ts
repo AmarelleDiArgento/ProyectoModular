@@ -16,10 +16,11 @@ export class ListcategoryComponent implements OnInit {
  listCategory: {};
 
  constructor(private http: Http, private formBuilder: FormBuilder, private categoryService: CategoryService, private router: Router) {
-   this.getAllData();
+   
   }
 
  ngOnInit() {
+  this.getAllData();
  }
 
  // obtain all data from the category
@@ -49,7 +50,7 @@ export class ListcategoryComponent implements OnInit {
    .subscribe(data => {
      if (data.respuesta === 'Success') {
        // redirect
-       location.reload();
+       this.ngOnInit();
      }
    });
  }

@@ -28,10 +28,11 @@ export class ListprivilegeComponent implements OnInit {
   listPrivilege: [];
 
   constructor(private http: Http, private formBuilder: FormBuilder, private privilegeService: PrivilegeService, private router: Router) {
-    this.getAllData();
+    
   }
 
   ngOnInit() {
+    this.getAllData();
   }
 
   // obtain all data from the register privileges
@@ -84,7 +85,7 @@ export class ListprivilegeComponent implements OnInit {
                 timer: 2000,
                 onClose: () => {
                   // redirect 
-                  location.reload();
+                  this.ngOnInit();
                 }
               });
             } else {

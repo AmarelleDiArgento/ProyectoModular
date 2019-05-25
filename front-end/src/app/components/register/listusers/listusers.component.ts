@@ -19,10 +19,11 @@ export class ListusersComponent implements OnInit {
   listUser: {};
 
   constructor(private http: Http, private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
-    this.getAllData();
+  
   }
 
   ngOnInit() {
+    this.getAllData();
   }
 
   // obtain all data from the register users
@@ -54,7 +55,7 @@ export class ListusersComponent implements OnInit {
       .subscribe(data => {
         if (data.respuesta === 'Success') {
           // redirect
-          location.reload();
+          this.ngOnInit();
         }
       });
   }

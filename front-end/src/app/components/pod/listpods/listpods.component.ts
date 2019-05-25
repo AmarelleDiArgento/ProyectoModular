@@ -17,10 +17,11 @@ export class ListpodsComponent implements OnInit {
   listPod: {};
 
   constructor(private http: Http, private formBuilder: FormBuilder, private podService: PodService, private router: Router) {
-    this.getAllData();
+    
   }
 
   ngOnInit() {
+    this.getAllData();
   }
 
   // obtain all data from the register pods
@@ -68,7 +69,7 @@ export class ListpodsComponent implements OnInit {
                 timer: 2000,
                 onClose: () => {
                   // redirect 
-                  location.reload();
+                  this.ngOnInit();
                 }
               });
             } else {
