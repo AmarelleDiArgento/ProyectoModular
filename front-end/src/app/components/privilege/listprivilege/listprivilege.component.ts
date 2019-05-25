@@ -52,12 +52,12 @@ export class ListprivilegeComponent implements OnInit {
     private http: Http,
     private formBuilder: FormBuilder,
     private privilegeService: PrivilegeService,
-    private excelService: ExcelService,
     private router: Router) {
-    this.getAllData();
+    private excelService: ExcelService,
   }
 
   ngOnInit() {
+    this.getAllData();
   }
   externalFilterChanged() {
 
@@ -118,8 +118,8 @@ export class ListprivilegeComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 2000,
                 onClose: () => {
-                  // redirect
-                  location.reload();
+                  // redirect 
+                  this.ngOnInit();
                 }
               });
             } else {

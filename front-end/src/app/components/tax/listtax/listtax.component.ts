@@ -16,11 +16,12 @@ export class ListtaxComponent implements OnInit {
   listTax: {};
 
   constructor(private http: Http, private formBuilder: FormBuilder, private taxService: TaxService, private router: Router) {
-    // get data
-    this.getAllData();
+    
   }
 
   ngOnInit() {
+    // get data
+    this.getAllData();
   }
 
   // obtain all data from the tax
@@ -50,7 +51,7 @@ export class ListtaxComponent implements OnInit {
       .subscribe(data => {
         if (data.respuesta === 'Success') {
           // redirect
-          location.reload();
+          this.ngOnInit();
         }
       });
   }

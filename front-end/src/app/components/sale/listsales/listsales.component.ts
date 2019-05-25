@@ -17,10 +17,11 @@ export class ListsalesComponent implements OnInit {
   listSale: {};
 
   constructor(private http: Http, private formBuilder: FormBuilder, private saleService: SaleService, private router: Router) {
-    this.getAllData();
+    
   }
 
   ngOnInit() {
+    this.getAllData();
   }
 
   // obtain all data from the register sales
@@ -68,7 +69,7 @@ export class ListsalesComponent implements OnInit {
                 timer: 2000,
                 onClose: () => {
                   // redirect 
-                  location.reload();
+                  this.ngOnInit();
                 }
               });
             } else {

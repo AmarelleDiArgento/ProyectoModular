@@ -17,10 +17,11 @@ export class ListmodulesComponent implements OnInit {
   listModule: {};
 
   constructor(private http: Http, private formBuilder: FormBuilder, private moduleService: ModuleService, private router: Router) {
-    this.getAllData();
+    
   }
 
   ngOnInit() {
+    this.getAllData();
   }
 
   // obtain all data from the register modules
@@ -69,7 +70,7 @@ export class ListmodulesComponent implements OnInit {
                 timer: 2000,
                 onClose: () => {
                   // redirect 
-                  location.reload();
+                  this.ngOnInit();
                 }
               });
             } else {

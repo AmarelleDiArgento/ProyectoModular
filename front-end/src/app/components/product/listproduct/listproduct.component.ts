@@ -25,11 +25,12 @@ export class ListproductComponent implements OnInit {
 
   constructor(
     private http: Http, private formBuilder: FormBuilder, private productService: ProductService, private excelService: ExcelService, private router: Router) {
-    // get data
-    this.getAllData();
+    
   }
 
   ngOnInit() {
+    // get data
+    this.getAllData();
   }
 
   // obtain all data from the product
@@ -83,7 +84,7 @@ export class ListproductComponent implements OnInit {
                 timer: 2000,
                 onClose: () => {
                   // redirect
-                  location.reload();
+                  this.ngOnInit();
                 }
               });
             } else {

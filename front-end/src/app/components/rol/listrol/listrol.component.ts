@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { NgZone } from '@angular/core';
 // service auth
 import { RolService } from '../../../services/rol.service';
 
@@ -16,11 +17,12 @@ export class ListrolComponent implements OnInit {
   // list data ws rol 
   listRol: {};
 
-  constructor(private http: Http, private formBuilder: FormBuilder, private rolService: RolService, private router: Router) {
-    this.getAllData();
+  constructor(private zone: NgZone,private http: Http, private formBuilder: FormBuilder, private rolService: RolService, private router: Router) {
+
   }
 
   ngOnInit() {
+    this.getAllData();
   }
 
   // obtain all data from the register rols
@@ -74,7 +76,7 @@ export class ListrolComponent implements OnInit {
                 timer: 2000,
                 onClose: () => {
                   // redirect
-                  location.reload();
+                  this.ngOnInit();
                 }
               });
             } else {
