@@ -4,7 +4,6 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 declare var $: any;
-declare var dt: any;
 
 
 // service
@@ -45,16 +44,6 @@ export class ListproductComponent implements OnInit {
         this.listExcelProduct = data.rows;
       });
 
-      $(document).ready(function() {
-        $('#example').DataTable( {
-          columnDefs: [
-            {
-              targets: [ 0, 1, 2 ],
-              className: 'mdl-data-table__cell--non-numeric'
-            }
-          ]
-        } );
-      });
   }
   // redirect to create product
   createProduct() {
@@ -116,3 +105,4 @@ export class ListproductComponent implements OnInit {
     this.excelService.exportAsExcelFile(this.listExcelProduct, 'ReporteProductos');
   }
 }
+

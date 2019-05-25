@@ -39,7 +39,7 @@ privilegeModel.createprivilege = function (privData, callback) {
                         }
                         callback(null, jsonObj)
                     } else {
-                        console.log("Error no se pudo insertar")
+                        console.log("Error no se pudo insertar \n" + error.sqlState)
                         callback(null, {
                             "respuesta": "Error no se pudo insertar"
                         })
@@ -47,7 +47,7 @@ privilegeModel.createprivilege = function (privData, callback) {
                 }
             })
     } else {
-        console.log("No se conecto con servidor")
+        console.log("No se conecto con servidor \n" + error.sqlState)
         callback(null, {
             "Respuesta": "Error en Conexion"
         })
@@ -67,9 +67,7 @@ privilegeModel.updateprivilege = function (privData, callback) {
                 privData.status
             ],
             function (error, rows) {
-                console.log(rows);
                 if (error) {
-                    console.log(error)
                     callback(null, {
                         "respuesta": "Error de conexión"
                     })
@@ -81,7 +79,7 @@ privilegeModel.updateprivilege = function (privData, callback) {
                         }
                         callback(null, jsonObj)
                     } else {
-                        console.log("Error")
+                        console.log("Error \n" + error.sqlState)
                         callback(null, {
                             "respuesta": "Error al actualizar"
                         })
@@ -89,7 +87,7 @@ privilegeModel.updateprivilege = function (privData, callback) {
                 }
             })
     } else {
-        console.log("No se conecto con servidor")
+        console.log("No se conecto con servidor \n" + error.sqlState)
         callback(null, {
             "Respuesta": "Error en Conexion"
         })
@@ -100,7 +98,6 @@ privilegeModel.deleteprivilege = function (privData, callback) {
     if (connection) {
         connection.query(del, privData.privilege_id, function (error, rows) {
             if (error) {
-                console.log(error)
                 callback(null, {
                     "respuesta": "Error de conexión"
                 })
@@ -112,7 +109,7 @@ privilegeModel.deleteprivilege = function (privData, callback) {
                     }
                     callback(null, jsonObj)
                 } else {
-                    console.log("Error")
+                    console.log("Error \n" + error.sqlState)
                     callback(null, {
                         "respuesta": "Error al eliminar"
                     })
@@ -120,7 +117,7 @@ privilegeModel.deleteprivilege = function (privData, callback) {
             }
         })
     } else {
-        console.log("No se conecto con servidor")
+        console.log("No se conecto con servidor \n" + error.sqlState)
         callback(null, {
             "Respuesta": "Error en Conexion"
         })
@@ -131,7 +128,6 @@ privilegeModel.dataprivilege = function (privData, callback) {
     if (connection) {
         connection.query(one, privData.privilege_id, function (error, rows) {
             if (error) {
-                console.log(error)
                 callback(null, {
                     "respuesta": "Error de conexión"
                 })
@@ -144,7 +140,7 @@ privilegeModel.dataprivilege = function (privData, callback) {
                     }
                     callback(null, jsonObj)
                 } else {
-                    console.log("Error la consulta no arroja datos")
+                    console.log("Error la consulta no arroja datos \n" + error.sqlState)
                     callback(null, {
                         "respuesta": "Error la consulta no arroja datos"
                     })
@@ -152,7 +148,7 @@ privilegeModel.dataprivilege = function (privData, callback) {
             }
         })
     } else {
-        console.log("No se conecto con servidor")
+        console.log("No se conecto con servidor \n" + error.sqlState)
         callback(null, {
             "Respuesta": "Error en Conexion"
         })
@@ -163,7 +159,6 @@ privilegeModel.dataAllprivilege = function (privData, callback) {
     if (connection) {
         connection.query(all, function (error, rows) {
             if (error) {
-                console.log(error)
                 callback(null, {
                     "respuesta": "Error de conexión"
                 })
@@ -176,7 +171,7 @@ privilegeModel.dataAllprivilege = function (privData, callback) {
                     }
                     callback(null, jsonObj)
                 } else {
-                    console.log("Error la consulta no arroja datos")
+                    console.log("Error la consulta no arroja datos \n" + error.sqlState)
                     callback(null, {
                         "respuesta": "Error no hay datos"
                     })
@@ -184,7 +179,7 @@ privilegeModel.dataAllprivilege = function (privData, callback) {
             }
         })
     } else {
-        console.log("No se conecto con servidor")
+        console.log("No se conecto con servidor \n" + error.sqlState)
         callback(null, {
             "Respuesta": "Error en Conexion"
         })

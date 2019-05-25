@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+declare var $: any;
 // service auth
 import { PrivilegeService } from '../../services/privilege.service';
 // service auth
@@ -29,14 +30,10 @@ export class PrivilegeComponent implements OnInit {
   constructor(private http: Http, private formBuilder: FormBuilder,
     private privilegeService: PrivilegeService, private moduleService: ModuleService, private router: Router) { }
 
-  // obtain all data from the register modules
-  SelectData() {
-    // send to search api backend all modules
-
-  }
-
   ngOnInit() {
     // init form
+    console.log('entre');
+
     this.registerPrivilegesForm = this.formBuilder.group({
       name: ['', Validators.required],
       module_id: ['', Validators.required],
@@ -54,13 +51,15 @@ export class PrivilegeComponent implements OnInit {
       });
 
 
+    $(document).ready(function () {
+      $('select').formSelect();
+    });
   }
   // get form controls
   get f() { return this.registerPrivilegesForm.controls; }
 
   // submit form
   onSubmit() {
-
     this.submitted = true;
     // error here if form is invalid
     if (this.registerPrivilegesForm.invalid) {
@@ -85,7 +84,7 @@ export class PrivilegeComponent implements OnInit {
             timer: 2000
           });
           // redirect to home menu
-          this.router.navigate(['/listprivileges'])
+          this.router.navigate(['/listprivileges']);
         } else {
           Swal.fire({
             type: 'error',
@@ -95,7 +94,7 @@ export class PrivilegeComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000
           });
-          this.msgerr = 'Error al crear el provilegio';
+          this.msgerr = 'Error al crear el provilegio \n' + data.respuesta;
         }
       });
     }

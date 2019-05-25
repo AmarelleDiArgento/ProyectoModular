@@ -6,6 +6,11 @@ import Swal from 'sweetalert2';
 // service auth
 import { PrivilegeService } from '../../../services/privilege.service';
 
+// service
+import { ProductService } from '../../../services/product.service';
+// service excel
+import { ExcelService } from '../../../services/excel.service';
+
 @Component({
   selector: 'app-listprivilege',
   templateUrl: './listprivilege.component.html',
@@ -14,26 +19,53 @@ import { PrivilegeService } from '../../../services/privilege.service';
 export class ListprivilegeComponent implements OnInit {
 
   columnDefs = [
-    { headerName: 'privilege_id', field: 'privilege_id', sortable: true, filter: true },
-    { headerName: 'name', field: 'name', sortable: true, filter: true },
-    { headerName: 'module_id', field: 'module_id', sortable: true, filter: true },
-    { headerName: 'icon', field: 'icon', sortable: true, filter: true },
-    { headerName: 'route', field: 'route', sortable: true, filter: true },
-    { headerName: 'status', field: 'status', sortable: true, filter: true }
+    { headerName: 'ID', field: 'privilege_id', sortable: true, filter: true },
+    { headerName: 'Nombre', field: 'name', sortable: true, filter: true }, // , , valueGetter: "'zz' + data.c.name"},
+    // or use the object value, so value passed around is an object
+    // {
+    //     headerName: 'D',
+    //     field: 'd',
+    //     cellRenderer: 'boldRenderer',
+    //     // this is needed to avoid toString=[object,object] result with objects
+    //     getQuickFilterText: function(params) {
+    //         return params.value.name;
+    //     }
+    // }, },
+    { headerName: 'Modulo', field: 'module_name', sortable: true, filter: true },
+    { headerName: 'Icono', field: 'icon', sortable: true, filter: true },
+    { headerName: 'Ruta', field: 'route', sortable: true, filter: true },
+    { headerName: 'Estado', field: 'status', sortable: true, filter: true }
   ];
 
   rowData = [];
 
-  // list data ws privilege 
-  listPrivilege: [];
+  texto: string = 'hiddensearch';
+  estadoPositivo: boolean = true;
 
-  constructor(private http: Http, private formBuilder: FormBuilder, private privilegeService: PrivilegeService, private router: Router) {
+
+  // list data ws privilege
+  listPrivilege: [];
+  // array from excel data
+  listExcelPrivilege: any[];
+
+  constructor(
+    private http: Http,
+    private formBuilder: FormBuilder,
+    private privilegeService: PrivilegeService,
+    private excelService: ExcelService,
+    private router: Router) {
     this.getAllData();
   }
 
   ngOnInit() {
   }
+  externalFilterChanged() {
 
+  }
+  cambiaEstado() {
+    this.texto = (this.estadoPositivo) ? '' : 'hiddensearch';
+    this.estadoPositivo = !this.estadoPositivo;
+  }
   // obtain all data from the register privileges
   getAllData() {
     // send to search api backend all privileges
@@ -43,17 +75,19 @@ export class ListprivilegeComponent implements OnInit {
         console.log(data.rows);
 
         this.listPrivilege = data.rows;
+
+        this.listExcelPrivilege = data.rows;
       });
   }
   // redirect to create privilege
   createPrivilege() {
-    this.router.navigate(['/createprivilege'])
+    this.router.navigate(['/createprivilege']);
   }
   // redirect to update privilege
   updatePrivilege(id) {
     // almacenamos el id
     localStorage.setItem('idPrivilege', id);
-    this.router.navigate(['/updateprivilege'])
+    this.router.navigate(['/updateprivilege']);
   }
   showModal() {
 
@@ -72,6 +106,7 @@ export class ListprivilegeComponent implements OnInit {
       confirmButtonText: 'Si, eliminalo!'
     }).then((result) => {
       if (result.value) {
+        // send to api backend delete privilege for id
         this.privilegeService.deleteprivileges(id)
           .subscribe(data => {
             if (data.respuesta === 'Success') {
@@ -83,7 +118,7 @@ export class ListprivilegeComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 2000,
                 onClose: () => {
-                  // redirect 
+                  // redirect
                   location.reload();
                 }
               });
@@ -99,9 +134,10 @@ export class ListprivilegeComponent implements OnInit {
             }
           });
       }
-    })
-
-    // send to api backend delete privilege for id
-
+    });
+  }
+  // export to file excel
+  exportAsXLSX(): void {
+    this.excelService.exportAsExcelFile(this.listExcelPrivilege, 'ReportePrivilegios');
   }
 }

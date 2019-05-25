@@ -13,6 +13,8 @@ router.post('/createprivilege', function (req, res, next) {
     route: req.body.route,
     status: req.body.status
   }
+  console.log('Route' + priData.status);
+
   privilege.createprivilege(priData, function (error, data) {
     if (error) {
       res.status(504).jsonp({
@@ -81,13 +83,13 @@ router.post('/getdataprivilege', function (req, res, next) {
 router.get('/getdataprivilege', function (req, res, next) {
   var priData = {}
   privilege.dataAllprivilege(priData, function (error, data) {
-  if (error) {
-    res.status(504).jsonp({
-      "error": error
-    })
-  } else {
-    res.status(200).jsonp(data)
-  }
-})
+    if (error) {
+      res.status(504).jsonp({
+        "error": error
+      })
+    } else {
+      res.status(200).jsonp(data)
+    }
+  })
 })
 module.exports = router;

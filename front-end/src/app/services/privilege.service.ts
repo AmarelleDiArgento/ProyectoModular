@@ -25,13 +25,13 @@ export class PrivilegeService {
   }
   // service to api mysql create privilege
   createprivileges(name, id_module, icon, route, status) {
+    let s = 0;
+    if (status) { s = 1; } else { s = 0;}
     this.params = 'name=' + name +
       '&module_id=' + id_module +
       '&icon=' + icon +
       '&route=' + route +
-      '&status=' + status;
-    console.log(this.params);
-
+      '&status=' + s;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post('http://localhost:3000/createprivilege/', this.params, options)
@@ -40,11 +40,7 @@ export class PrivilegeService {
   // service to api mysql update privileges
   updateprivileges(privilege_id, name, id_module, icon, route, status) {
     let s = 0;
-    if (status) {
-      s = 1
-    } else {
-      s = 0
-    }
+    if (status) { s = 1; } else { s = 0;}
     this.params = 'privilege_id=' + privilege_id +
       '&name=' + name +
       '&module_id=' + id_module +
