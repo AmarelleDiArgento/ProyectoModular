@@ -11,8 +11,6 @@ import { ExcelService } from './services/excel.service';
 import { AgGridModule } from 'ag-grid-angular';
 
 
-import { AggridComponent } from './components/aggrid/aggrid.component';
-import { CustomizedcellComponent } from './components/aggrid/customizedcell/customizedcell.component';
 
 // components
 import { LoginComponent } from './components/login/login.component';
@@ -103,9 +101,7 @@ import { RolprivilegeService } from './services/rolprivilege.service';
     ListpodsComponent,
     UpdatepodComponent,
     ListpodsComponent,
-    RolprivilegeComponent,
-    AggridComponent,
-    CustomizedcellComponent
+    RolprivilegeComponent
   ],
   imports: [
     BrowserModule,
