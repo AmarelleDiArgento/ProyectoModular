@@ -11,6 +11,7 @@ import { PrivilegeService } from '../../../services/privilege.service';
 import { ProductService } from '../../../services/product.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
+import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 
 @Component({
   selector: 'app-listprivilege',
@@ -22,7 +23,7 @@ export class ListprivilegeComponent implements OnInit {
 
   private gridApi;
   private gridColumnApi;
-
+  private components;
   private columnDefs;
   private autoGroupColumnDef;
   private defaultColDef;
@@ -31,16 +32,16 @@ export class ListprivilegeComponent implements OnInit {
   private pivotPanelShow;
   private paginationPageSize;
   private paginationNumberFormatter;
-  private rowData: [];
 
 
   // list data ws privilege
   listPrivilege: [];
   // array from excel data
   listExcelPrivilege: any[];
-  texto: string = 'hiddensearch';
-  filtro: boolean = true;
-  lineas: number = 10;
+  texto = 'hiddensearch';
+  filtro = true;
+  lineas = 10;
+  private searchFilter;
 
   constructor(
     private http: Http,
@@ -49,15 +50,28 @@ export class ListprivilegeComponent implements OnInit {
     private excelService: ExcelService,
     private router: Router) {
     this.columnDefs = [
-      { headerName: 'ID', field: 'privilege_id', sortable: true, filter: true, filterParams: { newRowsAction: 'keep' } , width: 100},
-      { headerName: 'Nombre', field: 'name', sortable: true, filter: true },
-      { headerName: 'Modulo', field: 'module_name', sortable: true, filter: true },
-      { headerName: 'Icono', field: 'icon', sortable: true, filter: true },
-      { headerName: 'Ruta', field: 'route', sortable: true, filter: true },
-      { headerName: '', field: 'status', sortable: true, filter: true, width: 48 },
-      { headerName: 'Accion', field: 'privilege_id', sortable: true, filter: true, width: 120 },
-      { headerName: '', field: 'privilege_id', sortable: true, filter: true, width: 48 }
+      { headerName: 'ID', field: 'privilege_id', sortable: true },
+      { headerName: 'Nombre', field: 'name', sortable: true },
+      { headerName: 'Modulo', field: 'module_name', sortable: true },
+      { headerName: 'Icono', field: 'icon', sortable: true },
+      { headerName: 'Ruta', field: 'route', sortable: true },
+      {
+        headerName: '',
+        field: 'status',
+        sortable: true,
+        width: 48,
+        cellRendererParams: {
+          suppressCount: true,
+          checkbox: true,
+          innerRenderer: 'statusIcon',
+          suppressDoubleClickExpand: true
+        }
+      },
+      { headerName: 'Accion', field: 'privilege_id', sortable: true, width: 120 },
+      { headerName: '', field: 'privilege_id', sortable: true, width: 48 }
     ];
+    this.components = { statusIcon: getStatusIcon() };
+
     this.defaultColDef = {
       pagination: true,
       suppressRowClickSelection: true,
@@ -90,7 +104,20 @@ export class ListprivilegeComponent implements OnInit {
     this.texto = (this.filtro) ? '' : 'hiddensearch';
     this.filtro = !this.filtro;
   }
+  quickSearch() {
+    console.log(this.searchFilter);
+    this.gridApi.setQuickFilter(this.searchFilter);
+  }
 
+  renderUpdate() {
+  }
+  renderDelete() {
+
+  }
+
+  renderStatus() {
+
+  }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -101,25 +128,67 @@ export class ListprivilegeComponent implements OnInit {
         // populate list json privilege
         console.log(data.rows);
 
-        this.rowData = data.rows;
         this.listPrivilege = data.rows;
 
-        this.listExcelPrivilege = data.rows;
       });
   }
+  // export to file excel
+  exportAsXLSX(): void {
+    this.excelService.exportAsExcelFile(this.listPrivilege, 'ReportePrivilegios');
+  }
+}
+
+function getStatusIcon() {
+  function SimpleCellRenderer() {}
+
+  SimpleCellRenderer.prototype.init = function(params) {
+    var tempDiv = document.createElement("div");
+    
+    if (params.value === 1) {
+
+      tempDiv.innerHTML = `
+      <span style="color: greenyellow;">
+        <i class="fas fa-circle"></i>
+      </span>`;
+    } else {
+
+      tempDiv.innerHTML = `
+      <span style="color: gray;">
+        <i class="fas fa-circle"></i>
+      </span>
+      `;
+    }
+    this.eGui = tempDiv.firstChild;
+  };
+
+  SimpleCellRenderer.prototype.getGui = function() {
+    return this.eGui;
+  };
+  return SimpleCellRenderer;
 }
 
 
 
 
+// -----------------------------------------------------------------------------------------
 
+
+
+
+
+
+
+
+// `<i class="material-icons" title="Modificar" (click)="updateUser(${params.value})">edit</i>&nbsp;`;
+// <i class="material-icons" title="Modificar" (click)="updateUser(item.user_id)">edit</i>&nbsp;
+// <i class="material-icons" title="Eliminar" (click)="deleteUser(item.user_id)">delete</i>
 //   columnDefs = [
-//     { headerName: 'ID', field: 'privilege_id', sortable: true, filter: true },
-//     { headerName: 'Nombre', field: 'name', sortable: true, filter: true },
-//     { headerName: 'Modulo', field: 'module_name', sortable: true, filter: true },
-//     { headerName: 'Icono', field: 'icon', sortable: true, filter: true },
-//     { headerName: 'Ruta', field: 'route', sortable: true, filter: true },
-//     { headerName: 'Estado', field: 'status', sortable: true, filter: true }
+//     { headerName: 'ID', field: 'privilege_id', sortable: true },
+//     { headerName: 'Nombre', field: 'name', sortable: true },
+//     { headerName: 'Modulo', field: 'module_name', sortable: true },
+//     { headerName: 'Icono', field: 'icon', sortable: true },
+//     { headerName: 'Ruta', field: 'route', sortable: true },
+//     { headerName: 'Estado', field: 'status', sortable: true }
 //   ];
 
 //   rowData = [];
@@ -213,7 +282,7 @@ export class ListprivilegeComponent implements OnInit {
 //                 showConfirmButton: false,
 //                 timer: 2000,
 //                 onClose: () => {
-//                   // redirect 
+//                   // redirect
 //                   this.ngOnInit();
 //                 }
 //               });

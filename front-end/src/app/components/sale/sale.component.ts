@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
+declare var $: any;
 // service auth
 import { SaleService } from '../../services/sale.service';
 
@@ -26,12 +28,52 @@ export class SaleComponent implements OnInit {
 
   ngOnInit() {
     // init form
-    this.registerSalesForm = this.formBuilder.group({
-      date: ['', Validators.required],
-      pod_id: ['', Validators.required],
-      user_id: ['', Validators.required],
-      client_id: ['', Validators.required],
-    });
+    // this.registerSalesForm = this.formBuilder.group({
+    //   date: ['', Validators.required],
+    //   pod_id: ['', Validators.required],
+    //   user_id: ['', Validators.required],
+    //   client_id: ['', Validators.required],
+    // });
+
+
+    
+        $('.parallax').parallax();
+        $('.sidenav').sidenav();
+        $('.collapsible').collapsible();
+        $('.modal').modal();
+        $('select').formSelect();
+        $('.slider').slider();
+        $('.datepicker').datepicker();
+        $('.fixed-action-btn').floatingActionButton();
+        $(".dropdown-trigger").dropdown();
+        $('.tooltipped').tooltip();
+        $('.tabs').tabs();
+        $('.chips').chips();
+      $('.chips-initial').chips({
+        data: [{
+          tag: 'Apple',
+        }, {
+          tag: 'Microsoft',
+        }, {
+          tag: 'Google',
+        }],
+      });
+      $('.chips-placeholder').chips({
+        placeholder: 'Enter a tag',
+        secondaryPlaceholder: '+Tag',
+      });
+      $('.chips-autocomplete').chips({
+        autocompleteOptions: {
+          data: {
+            'Apple': null,
+            'Microsoft': null,
+            'Google': null
+          },
+          limit: Infinity,
+          minLength: 1
+        }
+      });
+
   }
   // get form contsales
   get f() { return this.registerSalesForm.controls; }
