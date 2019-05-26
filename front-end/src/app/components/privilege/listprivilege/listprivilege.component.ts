@@ -49,14 +49,14 @@ export class ListprivilegeComponent implements OnInit {
     private excelService: ExcelService,
     private router: Router) {
     this.columnDefs = [
-      { headerName: 'ID', field: 'privilege_id', sortable: true, filter: true, filterParams: { newRowsAction: 'keep' } },
+      { headerName: 'ID', field: 'privilege_id', sortable: true, filter: true, filterParams: { newRowsAction: 'keep' } , width: 100},
       { headerName: 'Nombre', field: 'name', sortable: true, filter: true },
       { headerName: 'Modulo', field: 'module_name', sortable: true, filter: true },
       { headerName: 'Icono', field: 'icon', sortable: true, filter: true },
       { headerName: 'Ruta', field: 'route', sortable: true, filter: true },
-      { headerName: 'Estado', field: 'status', sortable: true, filter: true },
-      { headerName: 'Editar', field: 'privilege_id', sortable: true, filter: true },
-      { headerName: 'Eliminar', field: 'privilege_id', sortable: true, filter: true }
+      { headerName: '', field: 'status', sortable: true, filter: true, width: 48 },
+      { headerName: 'Accion', field: 'privilege_id', sortable: true, filter: true, width: 120 },
+      { headerName: '', field: 'privilege_id', sortable: true, filter: true, width: 48 }
     ];
     this.defaultColDef = {
       pagination: true,

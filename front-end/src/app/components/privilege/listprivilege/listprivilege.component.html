@@ -24,12 +24,12 @@
           </div>
         </div>
         <div class="row {{texto}}">
-          <div class="input-field col s10">
-            <i class="material-icons prefix">search</i>
-            <input id="icon_prefix" type="search" class="validate" required>
-            <label for="icon_prefix">Buscar </label>
-            <i class="material-icons" (click)="cambiaEstado()">close</i>
-          </div>
+            <div class="input-field col s10">
+              <i class="material-icons prefix">search</i>
+              <input id="icon_prefix" type="search" class="validate" required>
+              <label for="icon_prefix">Buscar </label>
+              <i class="material-icons" (click)="cambiaEstado()">close</i>
+            </div>
 
           <div class="input-field col s2 ">
             <select class="centered" (change)="onPageSizeChanged($event.target.value)">
