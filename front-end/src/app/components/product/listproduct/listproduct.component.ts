@@ -25,7 +25,7 @@ export class ListproductComponent implements OnInit {
 
   constructor(
     private http: Http, private formBuilder: FormBuilder, private productService: ProductService, private excelService: ExcelService, private router: Router) {
-    
+
   }
 
   ngOnInit() {
