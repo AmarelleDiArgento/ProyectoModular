@@ -433,13 +433,13 @@ CREATE PROCEDURE productins (
   _name varchar(255),
   _net_price varchar(45),
   _category_id int(11),
-  _tax_id int(11),
+  _image VARCHAR(250),
   _status tinyint(4)
 )
 BEGIN
-INSERT INTO proyectomodular.product (code,name,net_price,category_id,tax_id,status) 
+INSERT INTO proyectomodular.product (code,name,net_price,category_id,image,status) 
 VALUES
-(_code,_name,_net_price,_category_id,_tax_id,_status);
+(_code,_name,_net_price,_category_id,_image,_status);
 END$$
 
 DELIMITER ;
@@ -452,12 +452,12 @@ DROP procedure IF EXISTS productupd;
 DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE productupd (
-  _product_id int(11),
+  _product_id BIGINT,
   _code varchar(100),
   _name varchar(255),
   _net_price varchar(45),
   _category_id int(11),
-  _tax_id int(11),
+  _image VARCHAR(250),
   _status tinyint(4))
 BEGIN
 
@@ -467,7 +467,7 @@ code=_code,
 name=_name,
 net_price=_net_price,
 category_id=_category_id,
-tax_id=_tax_id,
+image =_image,
 status=_status
 WHERE 
 product_id = _product_id;
@@ -482,12 +482,15 @@ DROP procedure IF EXISTS productone;
 
 DELIMITER $$
 USE proyectomodular$$
-CREATE PROCEDURE productone (_product_id INT)
+CREATE PROCEDURE productone (
+_product_id BIGINT
+)
 BEGIN
 
-SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, p.tax_id, t.name as tax_name, t.percent as tax_percent, p.status
+SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, t.tax_id, t.name as tax_name, t.percent as tax_percent, p.status
 FROM proyectomodular.product AS p
-inner join tax as t on p.tax_id = t.tax_id
+inner join product_tax as pt on p.product_id = pt.pt_product_id
+inner join tax as t on pt.pt_tax_id = t.tax_id
 inner join category as c on p.category_id = c.category_id
 WHERE p.product_id = _product_id ;
 END$$
@@ -506,14 +509,41 @@ _code varchar(100)
 )
 BEGIN
 
-SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, p.tax_id, t.name as tax_name, t.percent as tax_percent, p.status
+SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, t.tax_id, t.name as tax_name, t.percent as tax_percent, p.status
 FROM proyectomodular.product AS p
-inner join tax as t on p.tax_id = t.tax_id
+inner join product_tax as pt on p.product_id = pt.pt_product_id
+inner join tax as t on pt.pt_tax_id = t.tax_id
 inner join category as c on p.category_id = c.category_id
 WHERE p.code = _code ;
 END$$
 
 DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE PRODUCT ONE BY CODE OR ID
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS productonebycodeorid;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE productonebycodeorid (
+_codeOrId varchar(100)
+)
+BEGIN
+
+declare codeOrIdN int;
+SET codeOrIdN = (CAST(_codeOrId as UNSIGNED));
+
+SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, t.tax_id, t.name as tax_name, t.percent as tax_percent, p.status
+FROM proyectomodular.product AS p
+inner join product_tax as pt on p.product_id = pt.pt_product_id
+inner join tax as t on pt.pt_tax_id = t.tax_id
+inner join category as c on p.category_id = c.category_id
+WHERE p.code = _codeOrId or p.product_id = @codeOrIdN;
+END$$
+
+DELIMITER ;
+
 -- ------------------------------------------------------------
 -- PROCEDURE PRODUCT DELETE BY ID
 -- ------------------------------------------------------------
@@ -521,7 +551,7 @@ DROP procedure IF EXISTS productdel;
 
 DELIMITER $$
 USE proyectomodular$$
-CREATE PROCEDURE productdel (_product_id INT)
+CREATE PROCEDURE productdel (_product_id BIGINT)
 BEGIN
 
 DELETE FROM proyectomodular.product
@@ -541,9 +571,10 @@ USE proyectomodular$$
 CREATE PROCEDURE productall ()
 BEGIN
 
-SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, p.tax_id, t.name as tax_name, t.percent as tax_percent, p.status
+SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, t.tax_id, t.name as tax_name, t.percent as tax_percent, p.status
 FROM proyectomodular.product AS p
-inner join tax as t on p.tax_id = t.tax_id
+inner join product_tax as pt on p.product_id = pt.pt_product_id
+inner join tax as t on pt.pt_tax_id = t.tax_id
 inner join category as c on p.category_id = c.category_id;
 
 END$$
@@ -859,15 +890,18 @@ DROP procedure IF EXISTS podins;
 DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE podins (
-  _name varchar(120),
-  _address varchar(255),
-  _phone varchar(12),
-  _status tinyint(4)
-)
-BEGIN
-INSERT INTO proyectomodular.pod (name,address,phone,status) 
+  _code varchar(5),
+  _name VARCHAR(255),
+  _address VARCHAR(255),
+  _phone VARCHAR(12),
+  _billing_limit BIGINT,
+  _status TINYINT(4)
+  )
+BEGIN  
+  
+INSERT INTO proyectomodular.pod (code, name, address, phone, billing_limit, status, create_time, update_time) 
 VALUES
-(_name,_address,_phone,_status);
+(_code, _name, _address, _phone, _billing_limit, _status, NOW(), NOW());
 END$$
 
 DELIMITER ;
@@ -880,20 +914,25 @@ DROP procedure IF EXISTS podupd;
 DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE podupd (
-  _pod_id int(11),
-  _name varchar(120),
-  _address varchar(255),
-  _phone varchar(12),
-  _status tinyint(4)
+  _pod_id INT(11),
+  _code varchar(5),
+  _name VARCHAR(255),
+  _address VARCHAR(255),
+  _phone VARCHAR(12),
+  _billing_limit BIGINT,
+  _status TINYINT(4)
 )
 BEGIN
 
 UPDATE proyectomodular.pod
 SET  
-  name = _name,
-  address = _address, 
-  phone = _phone,
-  status = _status
+code = _code,
+name = _name,
+address = _address,
+phone = _phone,
+billing_limit = _billing_limit,
+status = _status,
+update_time = NOW()
 WHERE 
 pod_id = _pod_id;
 END$$
@@ -909,7 +948,7 @@ DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE podone (_pod_id INT)
 BEGIN
-SELECT  p.name,p.address,p.phone,p.status
+SELECT  p.pod_id, p.code, p.name, p.address, p.phone, p.billing_limit, p.status, p.create_time, p.update_time
 FROM proyectomodular.pod AS p
 WHERE pod_id = _pod_id;
 END$$
@@ -943,7 +982,7 @@ USE proyectomodular$$
 CREATE PROCEDURE podall ()
 BEGIN
 
-SELECT  p.name,p.address,p.phone,p.status
+SELECT  p.pod_id, p.code, p.name, p.address, p.phone, p.billing_limit, p.status, p.create_time, p.update_time
 FROM proyectomodular.pod AS p;
 
 END$$

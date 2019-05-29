@@ -6,9 +6,6 @@ import Swal from 'sweetalert2';
 declare var $: any;
 // service auth
 import { PrivilegeService } from '../../../services/privilege.service';
-
-// service
-import { ProductService } from '../../../services/product.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
@@ -38,6 +35,7 @@ export class ListprivilegeComponent implements OnInit {
   listPrivilege: [];
   // array from excel data
   listExcelPrivilege: any[];
+
   texto = 'hiddensearch';
   filtro = true;
   lineas = 10;
@@ -70,7 +68,7 @@ export class ListprivilegeComponent implements OnInit {
       { headerName: 'Accion', field: 'privilege_id', sortable: true, width: 120 },
       { headerName: '', field: 'privilege_id', sortable: true, width: 48 }
     ];
-    this.components = { statusIcon: getStatusIcon() };
+    this.components = { statusIcon: MyCellRenderer  () };
 
     this.defaultColDef = {
       pagination: true,
@@ -87,7 +85,7 @@ export class ListprivilegeComponent implements OnInit {
     this.pivotPanelShow = 'always';
     this.paginationPageSize = 10;
     this.paginationNumberFormatter = function (params) {
-      return '[' + params.value.toLocaleString() + ']';
+      return '' + params.value.toLocaleString() + '';
     };
   }
 
@@ -138,34 +136,83 @@ export class ListprivilegeComponent implements OnInit {
   }
 }
 
-function getStatusIcon() {
-  function SimpleCellRenderer() {}
 
-  SimpleCellRenderer.prototype.init = function(params) {
-    var tempDiv = document.createElement("div");
+// function to act as a class
+function MyCellRenderer () {}
+
+// gets called once before the renderer is used
+MyCellRenderer.prototype.init = function(params) {
+  console.log(' 1 Hola');
+    // create the cell
+    this.eGui = document.createElement('div');
+    this.eGui.innerHTML = '<span class="my-css-class"><button class="btn-simple">Push Me</button><span class="my-value"></span></span>';
+
+    // get references to the elements we want
+    this.eButton = this.eGui.querySelector('.btn-simple');
+    this.eValue = this.eGui.querySelector('.my-value');
+
+    // set value into cell
+    this.eValue.innerHTML = params.valueFormatted ? params.valueFormatted : params.value;
+
+    // add event listener to button
+    this.eventListener = function() {
+        console.log('button was clicked!!');
+    };
+    this.eButton.addEventListener('click', this.eventListener);
+};
+
+// gets called once when grid ready to insert the element
+MyCellRenderer.prototype.getGui = function() {
+  console.log(' 2 Hola');
+  return this.eGui;
+};
+
+// gets called whenever the user gets the cell to refresh
+MyCellRenderer.prototype.refresh = function(params) {
+  console.log(' 3 Hola');  
+  // set value into cell again
+    this.eValue.innerHTML = params.valueFormatted ? params.valueFormatted : params.value;
+    // return true to tell the grid we refreshed successfully
+    return true;
+};
+
+// gets called when the cell is removed from the grid
+MyCellRenderer.prototype.destroy = function() {
+  console.log(' 4 Hola');
+    // do cleanup, remove event listener from button
+    this.eButton.removeEventListener('click', this.eventListener);
+};
+
+
+
+// function getStatusIcon() {
+//   function SimpleCellRenderer() {}
+
+//   SimpleCellRenderer.prototype.init = function(params) {
+//     var tempDiv = document.createElement("div");
     
-    if (params.value === 1) {
+//     if (params.value === 1) {
 
-      tempDiv.innerHTML = `
-      <span style="color: greenyellow;">
-        <i class="fas fa-circle"></i>
-      </span>`;
-    } else {
+//       tempDiv.innerHTML = `
+//       <span style="color: greenyellow;">
+//         <i class="fas fa-circle"></i>
+//       </span>`;
+//     } else {
 
-      tempDiv.innerHTML = `
-      <span style="color: gray;">
-        <i class="fas fa-circle"></i>
-      </span>
-      `;
-    }
-    this.eGui = tempDiv.firstChild;
-  };
+//       tempDiv.innerHTML = `
+//       <span style="color: gray;">
+//         <i class="fas fa-circle"></i>
+//       </span>
+//       `;
+//     }
+//     this.eGui = tempDiv.firstChild;
+//   };
 
-  SimpleCellRenderer.prototype.getGui = function() {
-    return this.eGui;
-  };
-  return SimpleCellRenderer;
-}
+//   SimpleCellRenderer.prototype.getGui = function() {
+//     return this.eGui;
+//   };
+//   return SimpleCellRenderer;
+// }
 
 
 

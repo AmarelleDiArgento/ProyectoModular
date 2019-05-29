@@ -55,9 +55,9 @@ call proyectomodular.userins('1020123', 'Prueba', 'prueba@prueba.com', "é61ë62
 -- ------------------------------------------------------------
 -- PRODUCT INSERT
 -- ------------------------------------------------------------
-call proyectomodular.productins('1010101010', 'Papas', '1200', 1, 1, 1);
-call proyectomodular.productins('111111111', 'Arroz', '2000', 1, 2, 1);
-call proyectomodular.productins('000000000', 'Queso', '1400', 1, 3, 1);
+call proyectomodular.productins('1010101010', 'Papas', '1200', 1, 'https://images.rappi.com/products/949957-1551195546652.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('111111111', 'Arroz', '2000', 1, 'https://images.rappi.com/products/1351206-1551364455.png?d=200x200', 1);
+call proyectomodular.productins('000000000', 'Queso', '1400', 1, 'https://images.rappi.com/products/730077-1-1464281372.png?d=200x200&e=webp', 1);
 
 -- call proyectomodular.productins(?, ?, ?, ?, ?, ?);
 -- call proyectomodular.productupd(?, ?, ?, ?, ?, ?, ?);
@@ -132,9 +132,10 @@ call proyectomodular.rol_privilegeins(9, 2, 1, 1, 1, 1);
 -- POD INSERT
 -- ------------------------------------------------------------
 
-call proyectomodular.podins('Americas 68', 'Av Americas No 68 36 lc 101', '4441234', 1);
--- call proyectomodular.podins(?, ?, ?, ?);
--- call proyectomodular.podupd(?, ?, ?, ? , ?);
+call proyectomodular.podins('A68', 'Americas 68', 'Av Americas No 68 36 lc 101', '4561234', 1000, 1);
+
+-- call proyectomodular.podins(?, ?, ?, ?, ?, ?);
+-- call proyectomodular.podupd(?, ?, ?, ?, ?, ?, ?);
 -- call proyectomodular.podone(?);
 -- call proyectomodular.podall();
 -- call proyectomodular.poddel(?);
