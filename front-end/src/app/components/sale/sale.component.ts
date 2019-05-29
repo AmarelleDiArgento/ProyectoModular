@@ -25,7 +25,13 @@ export class SaleComponent implements OnInit {
   // list data auth
   listSale: {};
   listCategory: {};
+
+  client;
+  sale_id;
   listProduct: {};
+
+  listSaleProduct: any[];
+
 
   constructor(private http: Http,
     private formBuilder: FormBuilder,
@@ -36,25 +42,36 @@ export class SaleComponent implements OnInit {
 
   ngOnInit() {
 
-   // send to search api backend all category
-   this.categoryService.getAllDataCategory()
-   .subscribe(data => {
-      // populate list json
-       console.log(data);
-      this.listCategory = data.rows;
-   });
-
-   // send to search api backend all category
-   this.productService.getAllDataProduct()
-   .subscribe(data => {
-      // populate list json
-       console.log(data);
-      this.listProduct = data.rows;
-   });
-
     this.init();
-  }
+    // send to search api backend all category
+    this.categoryService.getAllDataCategory()
+      .subscribe(data => {
+        // populate list json
+        console.log(data);
+        this.listCategory = data.rows;
+      });
 
+    // send to search api backend all category
+    this.productService.getAllDataProduct()
+      .subscribe(data => {
+        // populate list json
+        console.log(data);
+        this.listProduct = data.rows;
+      });
+
+
+    $(document).ready(function () {
+      $('.tabs').tabs();
+    });
+
+
+  }
+  addproduct(value) {
+    console.log(value);
+    this.listSaleProduct.push({value});
+    console.log(this.listSaleProduct);
+
+  }
 
   // get form contsales
   get f() { return this.registerSalesForm.controls; }
@@ -91,42 +108,7 @@ export class SaleComponent implements OnInit {
 
   init() {
 
-    $('.parallax').parallax();
-    $('.sidenav').sidenav();
-    $('.collapsible').collapsible();
-    $('.modal').modal();
-    $('select').formSelect();
-    $('.slider').slider();
-    $('.datepicker').datepicker();
-    $('.fixed-action-btn').floatingActionButton();
-    $('.dropdown-trigger').dropdown();
-    $('.tooltipped').tooltip();
-    $('.tabs').tabs();
-    $('.chips').chips();
-    $('.chips-initial').chips({
-      data: [{
-        tag: 'Apple',
-      }, {
-        tag: 'Microsoft',
-      }, {
-        tag: 'Google',
-      }],
-    });
-    $('.chips-placeholder').chips({
-      placeholder: 'Enter a tag',
-      secondaryPlaceholder: '+Tag',
-    });
-    $('.chips-autocomplete').chips({
-      autocompleteOptions: {
-        data: {
-          'Apple': null,
-          'Microsoft': null,
-          'Google': null
-        },
-        limit: Infinity,
-        minLength: 1
-      }
-    });
+
 
   }
 }

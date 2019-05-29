@@ -1,99 +1,38 @@
 <!-- header -->
 <app-header></app-header>
-<!-- end header 
-<div class="container">
-  <div class="row">
+<!-- end header -->
 
-    <div class="col-md-4"></div>
-    <div class="col-md-4" id="create">
-      <form [formGroup]="registerSalesForm" (ngSubmit)="onSubmit()">
-        <h3>Crear Sale</h3>
-        <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
-          <a class="close" (click)="closeAlertErr()">
-            &times;
-          </a>
-          <h6>{{msgerr}}</h6>
-        </div>
-        <div class="form-group">
-          <label for="date">Nombre</label>
-          <input type="date" class="form-control" id="date" formControlName="date"
-            [ngClass]="{ 'is-invalid': submitted && f.date.errors }" placeholder="Enter date">
-          <span>
-            <div *ngIf="submitted && f.date.errors">
-              <div *ngIf="f.date.errors.required"> <label id="error">Error el nombre es requerido </label></div>
-            </div>
-          </span>
-        </div>
-        <div class="form-group">
-          <label for="pod_id">Pod</label>
-          <input type="text" class="form-control" id="pod_id" formControlName="pod_id"
-            [ngClass]="{ 'is-invalid': submitted && f.pod_id.errors }" placeholder="Enter pod_id">
-          <span>
-            <div *ngIf="submitted && f.pod_id.errors">
-              <div *ngIf="f.pod_id.errors.required"> <label id="error">Error el nombre es requerido </label></div>
-            </div>
-          </span>
-        </div>
-        <div class="form-group">
-          <label for="user_id">User</label>
-          <input type="text" class="form-control" id="user_id" formControlName="user_id"
-            [ngClass]="{ 'is-invalid': submitted && f.user_id.errors }" placeholder="Enter rol user_id">
-          <span>
-            <div *ngIf="submitted && f.user_id.errors">
-              <div *ngIf="f.user_id.errors.required"> <label id="error">Error el nombre es requerido </label></div>
-            </div>
-          </span>
-        </div>
-        <div class="form-group">
-          <label for="client_id">Cliente</label>
-          <input type="text" class="form-control" id="client_id" formControlName="client_id"
-            [ngClass]="{ 'is-invalid': submitted && f.client_id.errors }" placeholder="Enter rol client_id">
-          <span>
-            <div *ngIf="submitted && f.client_id.errors">
-              <div *ngIf="f.client_id.errors.required"> <label id="error">Error el nombre es requerido </label></div>
-            </div>
-          </span>
-        </div>
-        <button type="submit" class="btn btn-primary btn-lg btn-block btn-full">Crear</button>
-      </form>
-    </div>
-  </div>
-</div>
--->
 <div class="row ">
   <div class="col m8 s12">
     <ul class="tabs">
-      <li class="tab col s3"><a href="#test1">categoria</a></li>
-      <li class="tab col s3"><a href="#test2">categoria</a></li>
-      <li class="tab col s3"><a href="#test4">categoria</a></li>
+      <li class="tab col s3" *ngFor="let c of listCategory"><a href="#tab{{c.category_id}}">{{c.name}}</a></li>
     </ul>
-    <div id="test1" class="col s12">
+    <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12">
       <div class="products center">
-        <div class="col m3 s12" style="padding: 1%;">
-          <div class="z-depth-2 col padding0">
-            <img src="img/producto.jfif" class="products" width="100%">
-            <p><b>producto</b></p>
-            <p><b>$ 2.000</b></p>
+        <div class="col m3 s12" style="padding: 1%;" *ngFor="let p of listProduct">
+          <div class="z-depth-2 col padding0" *ngIf="c.category_id === p.category_id">
+            <img src="{{p.image}}" class="products" width="100%">
+            <p><b>{{p.name}}</b></p>
+            <p><b>$ {{p.net_price}}</b></p>
             <div class="input-field col s6">
               <input type="number" name="points" value="1" step="1">
               <label for="first_name">Cantidad</label>
             </div>
             <div class="col s6 center">
-              <a class="waves-effect waves-light btn" style="width: 100%; margin: 1% 0%"><i
-                  class="material-icons prefix">shopping_cart</i></a>
+              <a class="waves-effect waves-light btn" style="width: 100%; margin: 1% 0%"
+                (click)="addproduct(p)">
+                <i class="material-icons prefix">shopping_cart</i>
+              </a>
             </div>
           </div>
         </div>
-
       </div>
     </div>
-
-
   </div>
   <div class="col m4 s12 z-depth-2">
     <h2 class="center">LOGO</h2>
     <div class="row" style="margin-bottom: 0;">
-      <form>
+      <form class="from-none">
         <div class="input-field col s12">
           <i class="material-icons prefix">center_focus_strong</i>
           <input id="icon_prefix" type="text" class="validate">
@@ -101,47 +40,24 @@
         </div>
       </form>
     </div>
-    <div class="productos">
-      <ul class="collection">
-        <li class="collection-item avatar">
-          <img src="img/producto.jfif" alt="" class="circle">
-          <span class="title">Producto</span>
-          <p>$ 2.000</p>
-          <a href="#!" class="secondary-content red-text text-darken-4"><i class="material-icons ">cancel</i></a>
+    <div class="productos" >
+      <ul class="collection" *ngFor="let sp of listSaleProduct">
+        <li class="collection-item avatar" >
+            <img src="{{sp.image}}" alt="" class="circle">
+            <span class="title">{{sp.name}}</span>
+            <p>$ {{sp.net_price}}</p>
+            <a href="#!" class="secondary-content red-text text-darken-4"><i class="material-icons ">cancel</i></a>
         </li>
       </ul>
-      <ul class="collection">
-        <li class="collection-item avatar">
-          <img src="img/producto.jfif" alt="" class="circle">
-          <span class="title">Producto</span>
-          <p>$ 2.000</p>
-          <a href="#!" class="secondary-content red-text text-darken-4"><i class="material-icons ">cancel</i></a>
-        </li>
-      </ul>
-      <ul class="collection">
-        <li class="collection-item avatar">
-          <img src="img/producto.jfif" alt="" class="circle">
-          <span class="title">Producto</span>
-          <p>$ 2.000</p>
-          <a href="#!" class="secondary-content red-text text-darken-4"><i class="material-icons ">cancel</i></a>
-        </li>
-      </ul>
-      <ul class="collection">
-        <li class="collection-item avatar">
-          <img src="img/producto.jfif" alt="" class="circle">
-          <span class="title">Producto</span>
-          <p>$ 2.000</p>
-          <a href="#!" class="secondary-content red-text text-darken-4"><i class="material-icons ">cancel</i></a>
-        </li>
-      </ul>
+
     </div>
     <div>
-      <form action="#">
+      <form action="#" class="from-none">
         <p class="center"><b>Forma de Pago</b></p>
         <div class="col m6 s6">
           <p>
             <label>
-              <input type="checkbox" />
+              <input type="radio" name="pago1" />
               <span><i class="material-icons ">payment</i>Tarjeta</span>
             </label>
           </p>
@@ -149,7 +65,7 @@
         <div class="col m6 s6">
           <p>
             <label>
-              <input type="checkbox" checked="checked" />
+              <input type="radio" name="pago1" />
 
               <span><i class="material-icons ">monetization_on</i>Efectivo</span>
             </label>
