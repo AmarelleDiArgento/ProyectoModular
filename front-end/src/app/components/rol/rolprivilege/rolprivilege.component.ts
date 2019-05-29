@@ -38,6 +38,8 @@ export class RolprivilegeComponent implements OnInit {
   deleteCheck = 0;
 
   constructor(private http: Http, private formBuilder: FormBuilder, private privilegeService: PrivilegeService, private rolService: RolService, private rolprivilegeService: RolprivilegeService, private router: Router) {
+  //list privilege
+  this.getAllDataPrivilege();
   }
 
   ngOnInit() {
