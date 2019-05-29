@@ -9,10 +9,10 @@ router.post('/createrolprivilege', function (req, res, next) {
     var rolData = {
         rp_privilege_id: req.body.rp_privilege_id,
         rp_rol_id: req.body.rp_rol_id,
-        name: req.body.view,
-        name: req.body.create,
-        name: req.body.update,
-        name: req.body.delete
+        view: req.body.view,
+        create: req.body.create,
+        update: req.body.update,
+        delete: req.body.delete
     }
     rol.createrol(rolData, function (error, data) {
         if (error) {
@@ -26,14 +26,14 @@ router.post('/createrolprivilege', function (req, res, next) {
 })
 
 //update rol
-router.put('/updaterolprivilege', function (req, res, next) {
+router.post('/updaterolprivilege', function (req, res, next) {
     var rolData = {
         rp_privilege_id: req.body.rp_privilege_id,
         rp_rol_id: req.body.rp_rol_id,
-        name: req.body.view,
-        name: req.body.create,
-        name: req.body.update,
-        name: req.body.delete
+        view: req.body.view,
+        create: req.body.create,
+        update: req.body.update,
+        delete: req.body.delete
     }
     rol.updateRol(rolData, function (error, data) {
         if (error) {
@@ -47,7 +47,7 @@ router.put('/updaterolprivilege', function (req, res, next) {
 })
 
 //delete rol
-router.delete('/deleterolprivilege', function (req, res, next) {
+router.post('/deleterolprivilege', function (req, res, next) {
     var rolData = {
         rp_privilege_id: req.body.rp_privilege_id,
         rp_rol_id: req.body.rp_rol_id

@@ -18,6 +18,7 @@ import { RolComponent } from './components/rol/rol.component';
 import { ListrolComponent } from './components/rol/listrol/listrol.component';
 import { UpdaterolComponent } from './components/rol/updaterol/updaterol.component';
 import { RolprivilegeComponent } from './components/rol/rolprivilege/rolprivilege.component';
+import { ListrolprivilegeComponent } from './components/rol/rolprivilege/listrolprivilege/listrolprivilege.component';
 
 import { ListprivilegeComponent } from './components/privilege/listprivilege/listprivilege.component';
 import { UpdateprivilegeComponent } from './components/privilege/updateprivilege/updateprivilege.component';
@@ -182,9 +183,15 @@ const routes: Routes = [
         component: ListpodsComponent,
     },
     {
-        path: 'rolprivilege',
+        path: 'createrolprivilege',
         component: RolprivilegeComponent,
+    },
+    {
+        path: 'listrolprivileges',
+        component: ListrolprivilegeComponent,
     }
+
+
 
 
 

@@ -1,0 +1,150 @@
+<!-- header -->
+<app-header></app-header>
+<!-- end header -->
+<div class="container">
+  <div class="col-md-12">
+    <br>
+    <h3>Privilegios del Rol</h3>
+    <br>
+    <button type="button" (click)="createRolPrivilege()" class="btn btn-primary">Crear</button>
+    <div class="col-md-12">
+      <br>
+      <table class="striped responsive-table centered">
+        <thead class="">
+          <tr>
+            <th>Rol</th>
+            <th>Privilegio</th>
+            <th>Ver</th>
+            <th>Crear</th>
+            <th>Modificar</th>
+            <th>Eliminar</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let rp of listRolPrivilege">
+
+            <td>{{rp.rol_name}}</td>
+            <td>{{rp.privilege_name}} </td>
+
+            <td>
+              <div class="switch">
+                <label>
+                  Inactivo
+                  <ng-container *ngIf="rp.view == 1">
+                    <input checked type="checkbox"
+                      (change)="updateRolPrivilege(rp.rp_privilege_id, rp.rp_rol_id,0,rp.create,rp.update,rp.delete)"
+                      class="form-control" id="view">
+                  </ng-container>
+                  <ng-container *ngIf="rp.view == 0">
+                    <input type="checkbox"
+                      (change)="updateRolPrivilege(rp.rp_privilege_id, rp.rp_rol_id,1,rp.create,rp.update,rp.delete)"
+                      class="form-control" id="view">
+                  </ng-container>
+                  <span class="lever"></span>
+                  Activo
+                </label>
+              </div>
+              <span>
+                <div *ngIf="submitted && f.status.errors">
+                  <div *ngIf="f.view.errors.required"> <label id="error">Check requerido</label></div>
+                </div>
+              </span>
+            </td>
+
+            <td>
+              <div class="switch">
+                <label>
+                  Inactivo
+                  <ng-container *ngIf="rp.create == 1">
+                    <input checked type="checkbox"
+                      (change)="updateRolPrivilege(rp.rp_privilege_id, rp.rp_rol_id,rp.view,0,rp.update,rp.delete)"
+                      class="form-control" id="create">
+                  </ng-container>
+                  <ng-container *ngIf="rp.create == 0">
+                    <input type="checkbox"
+                      (change)="updateRolPrivilege(rp.rp_privilege_id, rp.rp_rol_id,rp.view,1,rp.update,rp.delete)"
+                      class="form-control" id="create">
+                  </ng-container>
+                  <span class="lever"></span>
+                  Activo
+                </label>
+              </div>
+              <span>
+                <div *ngIf="submitted && f.status.errors">
+                  <div *ngIf="f.create.errors.required"> <label id="error">Check requerido</label></div>
+                </div>
+              </span>
+            </td>
+
+
+            <td>
+              <div class="switch">
+                <label>
+                  Inactivo
+                  <ng-container *ngIf="rp.update == 1">
+                    <input checked type="checkbox"
+                      (change)="updateRolPrivilege(rp.rp_privilege_id, rp.rp_rol_id,rp.view,rp.create,0,rp.delete)"
+                      class="form-control" id="update">
+                  </ng-container>
+                  <ng-container *ngIf="rp.update == 0">
+                    <input type="checkbox"
+                      (change)="updateRolPrivilege(rp.rp_privilege_id, rp.rp_rol_id,rp.view,rp.create,1,rp.delete)"
+                      class="form-control" id="update">
+                  </ng-container>
+                  <span class="lever"></span>
+                  Activo
+                </label>
+              </div>
+              <span>
+                <div *ngIf="submitted && f.status.errors">
+                  <div *ngIf="f.update.errors.required"> <label id="error">Check requerido</label></div>
+                </div>
+              </span>
+            </td>
+
+
+
+            <td>
+              <div class="switch">
+                <label>
+                  Inactivo
+                  <ng-container *ngIf="rp.delete == 1">
+                    <input checked type="checkbox"
+                      (change)="updateRolPrivilege(rp.rp_privilege_id, rp.rp_rol_id,rp.view,rp.create,rp.update,0)"
+                      class="form-control" id="delete">
+                  </ng-container>
+                  <ng-container *ngIf="rp.delete == 0">
+                    <input type="checkbox"
+                    (change)="updateRolPrivilege(rp.rp_privilege_id, rp.rp_rol_id,rp.view,rp.create,rp.update,1)"
+                    class="form-control" id="delete">
+                  </ng-container>
+                  <span class="lever"></span>
+                  Activo
+                </label>
+              </div>
+              <span>
+                <div *ngIf="submitted && f.status.errors">
+                  <div *ngIf="f.delete.errors.required"> <label id="error">Check requerido</label></div>
+                </div>
+              </span>
+            </td>
+            <td>
+              <i class="material-icons" title="Eliminar Registro"
+                (click)="deleteRolPrivilege(rp.rp_privilege_id, rp.rp_rol_id)">delete</i>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-12">
+      <br>
+
+      <br>
+      <br>
+      <br>
+    </div>
+  </div>
+</div>

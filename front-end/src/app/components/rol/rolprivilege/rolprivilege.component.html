@@ -2,135 +2,75 @@
 <app-header></app-header>
 <!-- end header -->
 <div class="container">
-  <div class="col-md-12">
-    <br>
-    <h3>Privilegios del Rol</h3>
-    <div class="col-md-12">
-      <br>
-      <table class="striped responsive-table centered">
-        <thead class="">
-          <tr>
-            <th>Rol</th>
-            <th>Privilegio</th>
-            <th>Ver</th>
-            <th>Crear</th>
-            <th>Modificar</th>
-            <th>Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
+  <div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-3" id="create">
+      <form [formGroup]="registerRolsPrivilegeForm" (ngSubmit)="onSubmit()">
+        <h4>Crear privilegio de rol</h4>
+        
+        <div class="form-group">
+          <label for="privilege_id">Modulo</label>
+          <select class="form-control" id="privilege_id" formControlName="privilege_id"
+            [ngClass]="{ 'is-invalid': submitted && f.privilege_id.errors }">
+            <option value="" selected>Seleccione el modulo</option>
+            <option *ngFor="let pv of listPrivileges" value="{{pv.privilege_id}}">{{pv.name}}</option>
+          </select>
+          <span>
+            <div *ngIf="submitted && f.privilege_id.errors">
+              <div *ngIf="f.privilege_id.errors.required"> <label id="error">Error el modulo es requerido </label></div>
+            </div>
+          </span>
+        </div>
 
-          <tr *ngFor="let rp of listRolPrivilege">
+        <div class="form-group">
+          <label for="name">Ver</label>
+          <div class="switch">
+            <label>
+              Inactivo
+              <input  type="checkbox" class="form-control" [checked]="true" id="view" formControlName="view">
+              <span class="lever"></span>
+              Activo
+            </label>
+          </div>
+        </div>
 
-            <td>{{rp.rol_name}}</td>
-            <td>{{rp.privilege_name}} </td>
+        <div class="form-group">
+          <label for="name">Crear</label>
+          <div class="switch">
+            <label>
+              Inactivo
+              <input  type="checkbox" class="form-control" [checked]="true" id="create" formControlName="create">
+              <span class="lever"></span>
+              Activo
+            </label>
+          </div>
+        </div>
 
-            <td>
-              <div class="switch">
-                <label>
-                  Inactivo
-                  <ng-container *ngIf="rp.view == 1; else elseTemplate">
+        <div class="form-group">
+          <label for="name">Modificar</label>
+          <div class="switch">
+            <label>
+              Inactivo
+              <input  type="checkbox" class="form-control" [checked]="true" id="update" formControlName="update">
+              <span class="lever"></span>
+              Activo
+            </label>
+          </div>
+        </div>
 
-                    <input checked type="checkbox" class="form-control" id="view">
-                  </ng-container>
-                  <ng-template #elseTemplate>
-
-                    <input type="checkbox" class="form-control" id="view">
-                  </ng-template>
-
-                  <span class="lever"></span>
-                  Activo
-                </label>
-              </div>
-              <span>
-                <div *ngIf="submitted && f.status.errors">
-                  <div *ngIf="f.view.errors.required"> <label id="error">Check requerido</label></div>
-                </div>
-              </span>
-            </td>
-
-            <td>
-              <div class="switch">
-                <label>
-                  Inactivo
-                  <ng-container *ngIf="rp.create == 1; else elseTemplate">
-
-                    <input checked type="checkbox" class="form-control" id="create">
-                  </ng-container>
-                  <ng-template #elseTemplate>
-
-                    <input type="checkbox" class="form-control" id="create">
-                  </ng-template>
-
-                  <span class="lever"></span>
-                  Activo
-                </label>
-              </div>
-              <span>
-                <div *ngIf="submitted && f.status.errors">
-                  <div *ngIf="f.create.errors.required"> <label id="error">Check requerido</label></div>
-                </div>
-              </span>
-            </td>
-
-
-            <td>
-              <div class="switch">
-                <label>
-                  Inactivo
-                  <ng-container *ngIf="rp.update == 1; else elseTemplate">
-
-                    <input checked type="checkbox" class="form-control" id="update">
-                  </ng-container>
-                  <ng-template #elseTemplate>
-
-                    <input type="checkbox" class="form-control" id="update">
-                  </ng-template>
-
-                  <span class="lever"></span>
-                  Activo
-                </label>
-              </div>
-              <span>
-                <div *ngIf="submitted && f.status.errors">
-                  <div *ngIf="f.update.errors.required"> <label id="error">Check requerido</label></div>
-                </div>
-              </span>
-            </td>
-
-
-
-            <td>
-              <div class="switch">
-                <label>
-                  Inactivo
-                  <ng-container *ngIf="rp.delete == 1; else elseTemplate">
-
-                    <input checked type="checkbox" class="form-control" id="delete">
-                  </ng-container>
-                  <ng-template #elseTemplate>
-
-                    <input type="checkbox" class="form-control" id="delete">
-                  </ng-template>
-
-                  <span class="lever"></span>
-                  Activo
-                </label>
-              </div>
-              <span>
-                <div *ngIf="submitted && f.status.errors">
-                  <div *ngIf="f.delete.errors.required"> <label id="error">Check requerido</label></div>
-                </div>
-              </span>
-            </td>
-
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-md-12">
-      <br>
-     <!-- <button type="button" (click)="createRol()" class="btn btn-primary">Actualizar</button> -->
+        <div class="form-group">
+          <label for="name">Eliminar</label>
+          <div class="switch">
+            <label>
+              Inactivo
+              <input  type="checkbox" class="form-control" [checked]="true" id="delete" formControlName="delete">
+              <span class="lever"></span>
+              Activo
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block btn-full">Crear</button>
+      </form>
     </div>
   </div>
 </div>

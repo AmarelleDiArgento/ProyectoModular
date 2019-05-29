@@ -31,7 +31,6 @@ import { UpdateprivilegeComponent } from './components/privilege/updateprivilege
 import { ModuleComponent } from './components/module/module.component';
 import { ListmodulesComponent } from './components/module/listmodules/listmodules.component';
 import { UpdatemodulesComponent } from './components/module/updatemodules/updatemodules.component';
-// service
 import { CategoryComponent } from './components/category/category.component';
 import { ListcategoryComponent } from './components/category/listcategory/listcategory.component';
 import { UpdatecategoryComponent } from './components/category/updatecategory/updatecategory.component';
@@ -48,6 +47,7 @@ import { PodComponent } from './components/pod/pod.component';
 import { ListpodsComponent } from './components/pod/listpods/listpods.component';
 import { UpdatepodComponent } from './components/pod/updatepod/updatepod.component';
 import { RolprivilegeComponent } from './components/rol/rolprivilege/rolprivilege.component';
+import { ListrolprivilegeComponent } from './components/rol/rolprivilege/listrolprivilege/listrolprivilege.component';
 
 //service
 import { AuthService } from './services/auth.service';
@@ -61,6 +61,7 @@ import { ProductService } from './services/product.service';
 import { SaleService } from './services/sale.service';
 import { PodService } from './services/pod.service';
 import { RolprivilegeService } from './services/rolprivilege.service';
+
 
 
 
@@ -101,7 +102,8 @@ import { RolprivilegeService } from './services/rolprivilege.service';
     ListpodsComponent,
     UpdatepodComponent,
     ListpodsComponent,
-    RolprivilegeComponent
+    RolprivilegeComponent,
+    ListrolprivilegeComponent
   ],
   imports: [
     BrowserModule,
