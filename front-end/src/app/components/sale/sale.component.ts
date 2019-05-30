@@ -8,6 +8,8 @@ declare var $: any;
 import { SaleService } from '../../services/sale.service';
 import { CategoryService } from '../../services/category.service';
 import { ProductService } from '../../services/product.service';
+import { forEach } from '@angular/router/src/utils/collection';
+import { exists } from 'fs';
 
 @Component({
   selector: 'app-sale',
@@ -29,9 +31,12 @@ export class SaleComponent implements OnInit {
   client;
   sale_id;
   listProduct: {};
+  gross_price = 0;
+  tax_price = 0;
+  total_price = 0;
 
-  listSaleProduct: any[];
-
+  listSaleProduct: any[][] = [];
+  listSaleProductB: [];
 
   constructor(private http: Http,
     private formBuilder: FormBuilder,
@@ -47,7 +52,7 @@ export class SaleComponent implements OnInit {
     this.categoryService.getAllDataCategory()
       .subscribe(data => {
         // populate list json
-        console.log(data);
+        //console.log(data);
         this.listCategory = data.rows;
       });
 
@@ -55,7 +60,7 @@ export class SaleComponent implements OnInit {
     this.productService.getAllDataProduct()
       .subscribe(data => {
         // populate list json
-        console.log(data);
+        //console.log(data);
         this.listProduct = data.rows;
       });
 
@@ -66,13 +71,37 @@ export class SaleComponent implements OnInit {
 
 
   }
-  addproduct(value) {
-    console.log(value);
-    this.listSaleProduct.push({value});
-    console.log(this.listSaleProduct);
+  addProduct(p) {
+    console.log(p);
+    let exists: boolean = false;
+    let cont: number = 0;
+    let index: number = 0;
+
+    for (let i = 0; i < this.listSaleProduct.length; i++) {
+      if (this.listSaleProduct[i][0] === p.product_id) {
+        index = i;
+        exists = true;
+        cont = this.listSaleProduct[i][4] + 1;
+      }
+    }
+    if (exists) {
+      this.listSaleProduct[index][4] = cont;
+    } else {
+      this.listSaleProduct.push([p.product_id, p.name, p.net_price, p.image, 1]);
+    }
+
+    this.total_price = this.total_price + p.net_price;
+    this.tax_price = this.tax_price + (p.net_price * (p.tax_percent / 100));
+    this.gross_price = this.total_price - this.tax_price;
 
   }
-
+  deleteProduct(id) {
+    for (let i = 0; i < this.listSaleProduct.length; i++) {
+      if (this.listSaleProduct[i][0] === id) {
+        this.listSaleProduct[i].splice(0, this.listSaleProduct[i].length);
+      }
+    }
+  }
   // get form contsales
   get f() { return this.registerSalesForm.controls; }
 

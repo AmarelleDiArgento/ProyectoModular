@@ -9,20 +9,21 @@
     </ul>
     <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12">
       <div class="products center">
-        <div class="col m3 s12" style="padding: 1%;" *ngFor="let p of listProduct">
-          <div class="z-depth-2 col padding0" *ngIf="c.category_id === p.category_id">
-            <img src="{{p.image}}" class="products" width="100%">
-            <p><b>{{p.name}}</b></p>
-            <p><b>$ {{p.net_price}}</b></p>
-            <div class="input-field col s6">
-              <input type="number" name="points" value="1" step="1">
-              <label for="first_name">Cantidad</label>
-            </div>
-            <div class="col s6 center">
-              <a class="waves-effect waves-light btn" style="width: 100%; margin: 1% 0%"
-                (click)="addproduct(p)">
-                <i class="material-icons prefix">shopping_cart</i>
-              </a>
+        <div *ngFor="let p of listProduct">
+          <div class="col m3 s12" style="padding: 1%;" *ngIf="c.category_id === p.category_id">
+            <div class="z-depth-2 col padding0">
+              <img src="{{p.image}}" class="products" width="100%">
+              <p><b>{{p.name}}</b></p>
+              <p><b>$ {{p.net_price}}</b></p>
+              <div class="input-field col s6">
+                <input type="number" name="points" value="1" step="1">
+                <label for="first_name">Cantidad</label>
+              </div>
+              <div class="col s6 center">
+                <a class="waves-effect waves-light btn" style="width: 100%; margin: 1% 0%" (click)="addProduct(p)">
+                  <i class="material-icons prefix">shopping_cart</i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -40,13 +41,21 @@
         </div>
       </form>
     </div>
-    <div class="productos" >
+    <div class="productos">
       <ul class="collection" *ngFor="let sp of listSaleProduct">
-        <li class="collection-item avatar" >
-            <img src="{{sp.image}}" alt="" class="circle">
-            <span class="title">{{sp.name}}</span>
-            <p>$ {{sp.net_price}}</p>
-            <a href="#!" class="secondary-content red-text text-darken-4"><i class="material-icons ">cancel</i></a>
+        <li class="collection-item avatar">
+          <img src="{{sp[3]}}" alt="" class="circle">
+          <span class="title">{{sp[1]}} x {{sp[4]}}</span>
+          <p>$ {{sp[2] * sp[4]}}</p>
+          <span class="badge teal white-text">-</span>
+          <span class="badge ">
+            <div class="input-field col s6">
+              <input type="number" name="points" value="1" step="1" value="{{sp[4]}}">
+              <label for="first_name">Cantidad</label>
+            </div>
+          </span>
+          <span class="badge teal white-text">+</span>
+          <a href="#!" class="secondary-content red-text text-darken-4" (click)="deleteProduct(sp[0])" ><i class="material-icons ">cancel</i></a>
         </li>
       </ul>
 
@@ -75,15 +84,15 @@
     </div>
     <div class="col s12">
       <p class="left">Total impuesto</p>
-      <h5 class="center">$ 200</h5>
+      <h5 class="center">$ {{tax_price}}</h5>
     </div>
     <div class="col s12">
       <p class="left">Total Compra</p>
-      <h5 class="center">$ 200</h5>
+      <h5 class="center">$ {{gross_price}}</h5>
     </div>
     <div class="col s12">
       <p class="left">Total</p>
-      <h2 class="center">$ 23.000</h2>
+      <h2 class="center">$ {{total_price}}</h2>
     </div>
     <div class="col s12">
       <a class="waves-effect waves-light btn" style="width: 100%; margin: 1%">Facturar</a>

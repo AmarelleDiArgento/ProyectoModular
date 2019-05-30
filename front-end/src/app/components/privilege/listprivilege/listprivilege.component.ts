@@ -8,7 +8,6 @@ declare var $: any;
 import { PrivilegeService } from '../../../services/privilege.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
-import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 
 @Component({
   selector: 'app-listprivilege',
@@ -68,7 +67,7 @@ export class ListprivilegeComponent implements OnInit {
       { headerName: 'Accion', field: 'privilege_id', sortable: true, width: 120 },
       { headerName: '', field: 'privilege_id', sortable: true, width: 48 }
     ];
-    this.components = { statusIcon: MyCellRenderer  () };
+    this.components = { statusIcon: MyCellRenderer() };
 
     this.defaultColDef = {
       pagination: true,
@@ -103,7 +102,6 @@ export class ListprivilegeComponent implements OnInit {
     this.filtro = !this.filtro;
   }
   quickSearch() {
-    console.log(this.searchFilter);
     this.gridApi.setQuickFilter(this.searchFilter);
   }
 
@@ -124,63 +122,64 @@ export class ListprivilegeComponent implements OnInit {
     this.privilegeService.getAllDataprivileges()
       .subscribe(data => {
         // populate list json privilege
-        console.log(data.rows);
-
         this.listPrivilege = data.rows;
-
       });
   }
   // export to file excel
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listPrivilege, 'ReportePrivilegios');
   }
+  // redirect to create privilege
+  createPrivilege() {
+    this.router.navigate(['/createprivilege']);
+  }
 }
 
 
 // function to act as a class
-function MyCellRenderer () {}
+function MyCellRenderer() { }
 
 // gets called once before the renderer is used
-MyCellRenderer.prototype.init = function(params) {
+MyCellRenderer.prototype.init = function (params) {
   console.log(' 1 Hola');
-    // create the cell
-    this.eGui = document.createElement('div');
-    this.eGui.innerHTML = '<span class="my-css-class"><button class="btn-simple">Push Me</button><span class="my-value"></span></span>';
+  // create the cell
+  this.eGui = document.createElement('div');
+  this.eGui.innerHTML = '<span class="my-css-class"><button class="btn-simple">Push Me</button><span class="my-value"></span></span>';
 
-    // get references to the elements we want
-    this.eButton = this.eGui.querySelector('.btn-simple');
-    this.eValue = this.eGui.querySelector('.my-value');
+  // get references to the elements we want
+  this.eButton = this.eGui.querySelector('.btn-simple');
+  this.eValue = this.eGui.querySelector('.my-value');
 
-    // set value into cell
-    this.eValue.innerHTML = params.valueFormatted ? params.valueFormatted : params.value;
+  // set value into cell
+  this.eValue.innerHTML = params.valueFormatted ? params.valueFormatted : params.value;
 
-    // add event listener to button
-    this.eventListener = function() {
-        console.log('button was clicked!!');
-    };
-    this.eButton.addEventListener('click', this.eventListener);
+  // add event listener to button
+  this.eventListener = function () {
+    console.log('button was clicked!!');
+  };
+  this.eButton.addEventListener('click', this.eventListener);
 };
 
 // gets called once when grid ready to insert the element
-MyCellRenderer.prototype.getGui = function() {
+MyCellRenderer.prototype.getGui = function () {
   console.log(' 2 Hola');
   return this.eGui;
 };
 
 // gets called whenever the user gets the cell to refresh
-MyCellRenderer.prototype.refresh = function(params) {
-  console.log(' 3 Hola');  
+MyCellRenderer.prototype.refresh = function (params) {
+  console.log(' 3 Hola');
   // set value into cell again
-    this.eValue.innerHTML = params.valueFormatted ? params.valueFormatted : params.value;
-    // return true to tell the grid we refreshed successfully
-    return true;
+  this.eValue.innerHTML = params.valueFormatted ? params.valueFormatted : params.value;
+  // return true to tell the grid we refreshed successfully
+  return true;
 };
 
 // gets called when the cell is removed from the grid
-MyCellRenderer.prototype.destroy = function() {
+MyCellRenderer.prototype.destroy = function () {
   console.log(' 4 Hola');
-    // do cleanup, remove event listener from button
-    this.eButton.removeEventListener('click', this.eventListener);
+  // do cleanup, remove event listener from button
+  this.eButton.removeEventListener('click', this.eventListener);
 };
 
 
@@ -190,7 +189,7 @@ MyCellRenderer.prototype.destroy = function() {
 
 //   SimpleCellRenderer.prototype.init = function(params) {
 //     var tempDiv = document.createElement("div");
-    
+
 //     if (params.value === 1) {
 
 //       tempDiv.innerHTML = `
@@ -290,10 +289,7 @@ MyCellRenderer.prototype.destroy = function() {
 //     });
 
 //   }
-//   // redirect to create privilege
-//   createPrivilege() {
-//     this.router.navigate(['/createprivilege']);
-//   }
+
 //   // redirect to update privilege
 //   updatePrivilege(id) {
 //     // almacenamos el id
