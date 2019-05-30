@@ -7,8 +7,10 @@ declare var $: any;
 
 // service auth
 import { UserService } from '../../../services/user.service';
+// service Excel
 import { ExcelService } from '../../../services/excel.service';
-import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+//print service
+import { PrintService } from '../../../services/print.service';
 
 @Component({
   selector: 'app-listusers',
@@ -40,6 +42,8 @@ export class ListusersComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private excelService: ExcelService,
+    private printService: PrintService,
+  
     private router: Router) {
     this.columnDefs = [
       { headerName: 'ID', field: 'user_id', sortable: true },
@@ -58,7 +62,8 @@ export class ListusersComponent implements OnInit {
           suppressDoubleClickExpand: true
         }
       },
-      { headerName: 'Fecha creación', field: 'create_time', sortable: true,
+      {
+        headerName: 'Fecha creación', field: 'create_time', sortable: true,
         width: 190,
         filter: "agDateColumnFilter",
         filterParams: {
@@ -179,6 +184,11 @@ export class ListusersComponent implements OnInit {
   }
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listExcelUser, 'Reporteusuarios');
+  }
+  //service to print
+  printFile(){
+  
+    this.printService.print();
   }
 }
 function getStatusIcon() { }
