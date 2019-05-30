@@ -1,7 +1,7 @@
 <!-- header -->
 <app-header></app-header>
 <!-- end header -->
-<div class="container">
+<!-- <div class="container">
   <div class="col-md-12">
     <br>
     <h3>Listado de Modules</h3>
@@ -46,5 +46,69 @@
         </tr>
       </tbody>
     </table>
+  </div>
+</div> -->
+<div class="">
+  <div class="row">
+    <div id="admin" class="col s12">
+      <div class="card material-table">
+        <div class="table-header">
+          <span class="table-title conforta">Listado de Modulos</span>
+          <div class="actions">
+
+            <a title="Nuevo modulo" (click)="createModule()"
+              class=" modal-trigger waves-effect btn-flat nopadding">
+              <i class="fas fa-plus-circle"></i>
+            </a>
+
+            <a title="Filtro" (click)="cambiaEstado()" class="search-toggle waves-effect btn-flat nopadding">
+              <i class="fas fa-filter"></i>
+            </a>
+
+            <a title="Exportar Excel" (click)="exportAsXLSX()" class=" modal-trigger waves-effect btn-flat nopadding">
+              <i class="fas fa-file-excel"></i>
+            </a>
+          </div>
+        </div>
+        <div class="row {{texto}}">
+            <div class="input-field col s10">
+              <i class="material-icons prefix">search</i>
+              <input id="icon_prefix" type="search" style="padding-left: 10px;" (keyup)="quickSearch()" [(ngModel)]="searchFilter" class="validate" required>
+              <label for="icon_prefix">Buscar </label>
+              <i class="material-icons" (click)="cambiaEstado()">close</i>
+            </div>
+
+          <div class="input-field col s2 ">
+            <select class="centered" (change)="onPageSizeChanged($event.target.value)">
+              <option value="5">5</option>
+              <option selected value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+            <label>Mostrar: </label>
+          </div>
+        </div>
+
+        <div class="table striped center">
+          <ag-grid-angular 
+          style="width: 100%; height: 700px;" 
+          class="ag-theme-material" [columnDefs]="columnDefs"
+          [rowSelection]="rowSelection" 
+          [pagination]="true" 
+          [paginationPageSize]="paginationPageSize"
+          [paginationNumberFormatter]="paginationNumberFormatter" 
+          [rowData]="listModule"
+          [animateRows]="true"
+          [components]="components"
+          (gridReady)="onGridReady($event)">
+        </ag-grid-angular>
+        </div>
+
+        <!--<ag-grid-angular style="height: 650px" class="striped responsive-table ag-theme-material"
+          [rowData]="listPrivilege" [columnDefs]="columnDefs" [pagination]="true" [paginationPageSize]="lineas">
+        </ag-grid-angular>-->
+      </div>
+    </div>
   </div>
 </div>
