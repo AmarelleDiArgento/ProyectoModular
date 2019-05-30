@@ -7,6 +7,8 @@ declare var $: any;
 
 // service auth
 import { UserService } from '../../../services/user.service';
+//print service
+import { PrintService } from '../../../services/print.service';
 
 @Component({
   selector: 'app-listusers',
@@ -18,7 +20,7 @@ export class ListusersComponent implements OnInit {
   // list data ws user
   listUser: {};
 
-  constructor(private http: Http, private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
+  constructor(private http: Http, private formBuilder: FormBuilder, private userService: UserService, private printService: PrintService, private router: Router) {
   
   }
 
@@ -58,5 +60,9 @@ export class ListusersComponent implements OnInit {
           this.ngOnInit();
         }
       });
+  }
+  //service to print
+  printFile(){
+    this.printService.print();
   }
 }

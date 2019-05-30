@@ -61,6 +61,7 @@ import { ProductService } from './services/product.service';
 import { SaleService } from './services/sale.service';
 import { PodService } from './services/pod.service';
 import { RolprivilegeService } from './services/rolprivilege.service';
+import { PrintService } from './services/print.service';
 
 
 
@@ -127,6 +128,7 @@ import { RolprivilegeService } from './services/rolprivilege.service';
     PodService,
     RolprivilegeService,
     ExcelService,
+    PrintService,
   ],
   bootstrap: [AppComponent]
 })
