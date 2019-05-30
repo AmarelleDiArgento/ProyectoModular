@@ -10,6 +10,7 @@ declare var $: any;
 import { ProductService } from '../../../services/product.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
+import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 
 @Component({
   selector: 'app-listproduct',
@@ -17,33 +18,127 @@ import { ExcelService } from '../../../services/excel.service';
   styleUrls: ['./listproduct.component.css']
 })
 export class ListproductComponent implements OnInit {
-
+  private gridApi;
+  private gridColumnApi;
+  private components;
+  private columnDefs;
+  private autoGroupColumnDef;
+  private defaultColDef;
+  private rowSelection;
+  private rowGroupPanelShow;
+  private pivotPanelShow;
+  private paginationPageSize;
+  private paginationNumberFormatter;
   // list data ws product
   listProduct: {};
   // array from excel data
   listExcelProduct: any[];
-
+  texto = 'hiddensearch';
+  filtro = true;
+  lineas = 10;
+  private searchFilter;
   constructor(
-    private http: Http, private formBuilder: FormBuilder, private productService: ProductService, private excelService: ExcelService, private router: Router) {
+    private http: Http,
+    private formBuilder: FormBuilder,
+    private productService: ProductService,
+    private excelService: ExcelService,
+    private router: Router) {
+      this.columnDefs = [
+        { headerName: 'ID', field: 'product_id', sortable: true },
+        { headerName: 'Codigo', field: 'name', sortable: true },
+        { headerName: 'Nombre', field: 'name', sortable: true },
+        { headerName: 'Precio', field: 'net_price', sortable: true },
+        { headerName: 'Categoria', field: 'category_id', sortable: true },
+        { headerName: 'Impuesto', field: 'tax_id', sortable: true },
+        {
+          headerName: '',
+          field: 'status',
+          sortable: true,
+          width: 48,
+          cellRendererParams: {
+            suppressCount: true,
+            checkbox: true,
+            innerRenderer: 'statusIcon',
+            suppressDoubleClickExpand: true
+          }
+        },
+        { headerName: 'Accion', field: 'product_id', sortable: true, width: 120 },
+        { headerName: '', field: 'product_id', sortable: true, width: 48 }
+      ];
+      this.components = { statusIcon: getStatusIcon() };
 
+      this.defaultColDef = {
+        pagination: true,
+        suppressRowClickSelection: true,
+        enableRangeSelection: true,
+        editable: true,
+        enablePivot: true,
+        enableValue: true,
+        sortable: true,
+        resizable: true,
+        filter: true
+      };
+      this.rowSelection = 'multiple';
+      this.pivotPanelShow = 'always';
+      this.paginationPageSize = 10;
+      this.paginationNumberFormatter = function (params) {
+        return '[' + params.value.toLocaleString() + ']';
+      };
   }
 
   ngOnInit() {
     // get data
-    this.getAllData();
+    // this.getAllData();
+    $(document).ready(function () {
+      $('select').formSelect();
+    });
+  }
+  onPageSizeChanged(value) {
+    this.gridApi.paginationSetPageSize(Number(value));
+  }
+  cambiaEstado() {
+    this.texto = (this.filtro) ? '' : 'hiddensearch';
+    this.filtro = !this.filtro;
+  }
+  quickSearch() {
+    console.log(this.searchFilter);
+    this.gridApi.setQuickFilter(this.searchFilter);
   }
 
+  renderUpdate() {
+  }
+  renderDelete() {
+
+  }
+
+  renderStatus() {
+
+  }
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+
+    // send to search api backend all privileges
+    this.productService.getAllDataProduct()
+      .subscribe(data => {
+        // populate list json privilege
+        console.log(data.rows);
+
+        this.listProduct = data.rows;
+        this.listExcelProduct = data.rows;
+      });
+  }
   // obtain all data from the product
   getAllData() {
     // send to search api backend all product
-    this.productService.getAllDataProduct()
-      .subscribe(data => {
-        // populate list json
-        console.log(data);
-        this.listProduct = data.rows;
-        // populate excel data
-        this.listExcelProduct = data.rows;
-      });
+    // this.productService.getAllDataProduct()
+    //   .subscribe(data => {
+    //     // populate list json
+    //     console.log(data);
+    //     this.listProduct = data.rows;
+    //     // populate excel data
+    //     this.listExcelProduct = data.rows;
+    //   });
 
   }
   // redirect to create product
@@ -106,4 +201,4 @@ export class ListproductComponent implements OnInit {
     this.excelService.exportAsExcelFile(this.listExcelProduct, 'ReporteProductos');
   }
 }
-
+function getStatusIcon() {}
