@@ -29,11 +29,12 @@
         </div>
       </div>
     </div>
+
   </div>
   <div class="col m4 s12 z-depth-2">
     <h2 class="center">LOGO</h2>
     <div class="row" style="margin-bottom: 0;">
-      <form class="from-none">
+      <form>
         <div class="input-field col s12">
           <i class="material-icons prefix">center_focus_strong</i>
           <input id="icon_prefix" type="text" class="validate">
@@ -55,18 +56,19 @@
             </div>
           </span>
           <span class="badge teal white-text">+</span>
-          <a href="#!" class="secondary-content red-text text-darken-4" (click)="deleteProduct(sp[0])" ><i class="material-icons ">cancel</i></a>
+          <a href="#!" class="secondary-content red-text text-darken-4" (click)="deleteProduct(sp[0])"><i
+              class="material-icons ">cancel</i></a>
         </li>
       </ul>
 
     </div>
     <div>
-      <form action="#" class="from-none">
+      <form action="#">
         <p class="center"><b>Forma de Pago</b></p>
         <div class="col m6 s6">
           <p>
             <label>
-              <input type="radio" name="pago1" />
+              <input type="checkbox" />
               <span><i class="material-icons ">payment</i>Tarjeta</span>
             </label>
           </p>

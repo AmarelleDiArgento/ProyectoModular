@@ -9,8 +9,8 @@ connection.connect();
 var rolModel = {}
 
 
-let ins = `call proyectomodular.rol_privilegeins(?,?,?,?,?,?,?);`;
-let upd = `call proyectomodular.rol_privilegeupd(?,?,?,?,?,?,?);`;
+let ins = `call proyectomodular.rol_privilegeins(?,?,?,?,?,?);`;
+let upd = `call proyectomodular.rol_privilegeupd(?,?,?,?,?,?);`;
 let del = `call proyectomodular.rol_privilegedel(?,?);`;
 let all = `call proyectomodular.rol_privilegeall(?);`;
 let one = `call proyectomodular.rol_privilegeone(?,?);`;
