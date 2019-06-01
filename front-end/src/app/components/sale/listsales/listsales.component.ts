@@ -18,18 +18,18 @@ import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/r
   styleUrls: ['./listsales.component.css']
 })
 export class ListsalesComponent implements OnInit {
-  private gridApi;
-  private gridColumnApi;
-  private components;
-  private columnDefs;
-  private autoGroupColumnDef;
-  private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
-  private paginationPageSize;
-  private paginationNumberFormatter;
-  private frameworkComponents;
+  gridApi;
+  gridColumnApi;
+  components;
+  columnDefs;
+  autoGroupColumnDef;
+  defaultColDef;
+  rowSelection;
+  rowGroupPanelShow;
+  pivotPanelShow;
+  paginationPageSize;
+  paginationNumberFormatter;
+  frameworkComponents;
 
   // list data ws sale
   listSale: {};
@@ -38,7 +38,7 @@ export class ListsalesComponent implements OnInit {
   texto = 'hiddensearch';
   filtro = true;
   lineas = 10;
-  private searchFilter;
+  searchFilter;
   constructor(private http: Http,
     private formBuilder: FormBuilder,
     private saleService: SaleService,

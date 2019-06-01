@@ -21,25 +21,25 @@ import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutt
   styleUrls: ['./listrol.component.css']
 })
 export class ListrolComponent implements OnInit {
-  private gridApi;
-  private gridColumnApi;
-  private components;
-  private columnDefs;
-  private autoGroupColumnDef;
-  private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
-  private paginationPageSize;
-  private paginationNumberFormatter;
-  private frameworkComponents;
+  gridApi;
+  gridColumnApi;
+  components;
+  columnDefs;
+  autoGroupColumnDef;
+  defaultColDef;
+  rowSelection;
+  rowGroupPanelShow;
+  pivotPanelShow;
+  paginationPageSize;
+  paginationNumberFormatter;
+  frameworkComponents;
   // list data ws rol
   listRol: [];
-  
+
   texto = 'hiddensearch';
   filtro = true;
   lineas = 10;
-  private searchFilter;
+  searchFilter;
   constructor(private zone: NgZone,
     private http: Http,
     private formBuilder: FormBuilder,
@@ -97,7 +97,7 @@ export class ListrolComponent implements OnInit {
       $('select').formSelect();
     });
   }
-  
+
   onPageSizeChanged(value) {
     this.gridApi.paginationSetPageSize(Number(value));
   }
@@ -130,7 +130,7 @@ export class ListrolComponent implements OnInit {
   createRol() {
     this.router.navigate(['/createrol']);
   }
-  
+
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listRol, 'Reporteroles');
   }

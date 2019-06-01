@@ -17,7 +17,7 @@ export class UserService {
       .map((response: Response) => response.json())
   }
   // service to api mysql get user for id
-  getDataUsersForId(user_id) {
+  getDataUserForId(user_id) {
     this.params = 'user_id=' + user_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });

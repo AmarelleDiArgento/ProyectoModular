@@ -8,6 +8,7 @@ declare var $: any;
 import { SaleService } from '../../services/sale.service';
 import { CategoryService } from '../../services/category.service';
 import { ProductService } from '../../services/product.service';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -27,12 +28,18 @@ export class SaleComponent implements OnInit {
   listSale: {};
   listCategory: {};
 
-  client;
+  client_id;
+  client: {};
+
   sale_id;
+
+  idPod;
+  idUser;
   listProduct: {};
   gross_price = 0;
   tax_price = 0;
   total_price = 0;
+  seeker;
 
   listSaleProduct: any[][] = [];
   listSaleProductB: [];
@@ -42,16 +49,18 @@ export class SaleComponent implements OnInit {
     private saleService: SaleService,
     private categoryService: CategoryService,
     private productService: ProductService,
+    private userService: UserService,
     private router: Router) { }
 
   ngOnInit() {
 
-    this.init();
+    this.idUser = localStorage.getItem('idSesionUser');
+    this.idPod = localStorage.getItem('idPod');
     // send to search api backend all category
     this.categoryService.getAllDataCategory()
       .subscribe(data => {
         // populate list json
-        //console.log(data);
+        // console.log(data);
         this.listCategory = data.rows;
       });
 
@@ -59,35 +68,53 @@ export class SaleComponent implements OnInit {
     this.productService.getAllDataProduct()
       .subscribe(data => {
         // populate list json
-        //console.log(data);
+        // console.log(data);
         this.listProduct = data.rows;
       });
 
-
     $(document).ready(function () {
       $('.tabs').tabs();
+      $('.modal').modal();
+      $('select').formSelect();
     });
 
 
   }
+
+  // obtain data user for id
+  clientSearch(e) {
+    if (e.keyCode === 13 && !e.shiftKey) {
+      // send to ws api mysql search data user for id
+      this.userService.getDataUserForId(this.client_id)
+        .subscribe(data => {
+          if (data != null) {
+            console.log(data);
+            this.client = data.rows[0];
+            this.onSubmit();
+          } else {
+          }
+        });
+    }
+  }
+
   totals() {
-    let total: number = 0;
-    let tax: number = 0;
+    let total = 0;
+    let tax = 0;
 
     for (let i = 0; i < this.listSaleProduct.length; i++) {
       total = total + this.listSaleProduct[i][4];
-      tax = tax + this.listSaleProduct[i][5]
+      tax = tax + this.listSaleProduct[i][5];
     }
-    this.tax_price = tax;
-    this.total_price = total;
-    this.gross_price = total - tax;
+    this.tax_price = number_format(tax, 2);
+    this.total_price = number_format(total, 0);
+    this.gross_price = number_format(total - tax, 2);
   }
   addProduct(p) {
     console.log(p);
-    let exists: boolean = false;
-    let cont: number = 0;
-    let index: number = 0;
-    let tax_price: number = 0;
+    let exists = false;
+    let cont = 0;
+    let index = 0;
+    let tax_price = 0;
 
     for (let i = 0; i < this.listSaleProduct.length; i++) {
       if (this.listSaleProduct[i][0] === p.product_id) {
@@ -96,7 +123,7 @@ export class SaleComponent implements OnInit {
         cont = this.listSaleProduct[i][3] + 1;
       }
     }
-    tax_price = (p.net_price * (p.tax_percent / 100));
+    tax_price = p.net_price - (p.net_price / (1 + (p.tax_percent / 100)));
     if (exists) {
       this.listSaleProduct[index][3] = cont;
       this.listSaleProduct[index][4] = p.net_price * cont;
@@ -144,6 +171,22 @@ export class SaleComponent implements OnInit {
 
     this.totals();
   }
+
+  productSearch(e) {
+
+    if (e.keyCode === 13 && !e.shiftKey) {
+
+      console.log(this.seeker);
+      // tslint:disable-next-line: forin
+      for (const i in this.listProduct) {
+        if (this.listProduct[i].product_id === parseInt(this.seeker, 10)
+          || this.listProduct[i].code === this.seeker) {
+          this.addProduct(this.listProduct[i]);
+        }
+      }
+    }
+    this.seeker = '';
+  }
   // get form contsales
   get f() { return this.registerSalesForm.controls; }
 
@@ -151,35 +194,78 @@ export class SaleComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     console.log('clic');
+    // send to api backend create user
+    this.saleService.createSale(
+      this.idPod,
+      this.idUser,
+      this.client_id
+    )
+      .subscribe(data => {
+        if (data.respuesta === 'Success') {
+          console.log(data);
+          this.sale_id = data.rows[0].sale_id;
+        } else {
+          console.log(data);
+          Swal.fire({
+            title: 'Ups!',
+            text: 'Usuario no registrado',
+            type: 'error',
+            showCancelButton: true,
+            confirmButtonText: 'Registrar'
+          }).then((result) => {
+            if (result.value) {
+              $('#clientRegister').modal('open');
+            }
+          });
+        }
+      });
+  }
 
-    // error here if form is invalid
-    if (this.registerSalesForm.invalid) {
-      return;
-    } else {
-      // send to api backend create user
-      this.saleService.createSale(
-        this.registerSalesForm.value.date,
-        this.registerSalesForm.value.pod_id,
-        this.registerSalesForm.value.user_id,
-        this.registerSalesForm.value.client_id,
+
+  sale() {
+
+    for (let i = 0; i < this.listSaleProduct.length; i++) {
+
+      this.saleService.createSaleProduct(
+        this.sale_id,
+        this.listSaleProduct[i][0],
+        this.listSaleProduct[i][3]
       )
         .subscribe(data => {
           if (data.respuesta === 'Success') {
-            // redirect to home menu
-            this.router.navigate(['/listsales']);
+            console.log(this.listSaleProduct[i][1] + ' Ok!');
           } else {
-            this.msgerr = 'Error al crear el sale';
+            console.log(this.listSaleProduct[i][1] + ' Error!');
+            console.log(data.respuesta);
+
           }
+
         });
     }
+  }
+}
+// function format number
+function number_format(amount, decimals) {
 
+  amount += ''; // por si pasan un numero en vez de un string
+  amount = parseFloat(amount.replace(/[^0-9\.]/g, '')); // elimino cualquier cosa que no sea numero o punto
+
+  decimals = decimals || 0; // por si la variable no fue fue pasada
+
+  // si no es un numero o es igual a cero retorno el mismo cero
+  if (isNaN(amount) || amount === 0) {
+    return parseFloat('0').toFixed(decimals);
   }
 
+  // si es mayor o menor que cero retorno el valor formateado como numero
+  amount = '' + amount.toFixed(decimals);
 
+  let amount_parts = amount.split('.'),
+    regexp = /(\d+)(\d{3})/;
 
-  init() {
-
-
-
+  while (regexp.test(amount_parts[0])) {
+    amount_parts[0] = amount_parts[0].replace(regexp, '$1' + ',' + '$2');
   }
+
+  return amount_parts.join('.');
 }

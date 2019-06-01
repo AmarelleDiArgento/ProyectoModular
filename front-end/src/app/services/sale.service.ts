@@ -25,8 +25,8 @@ export class SaleService {
       .map((response: Response) => response.json())
   }
   // service to api mysql create sale
-  createSale(date, pod_id, user_id, client_id) {
-    this.params = 'date=' + date + '&pod_id=' + pod_id + '&user_id=' + user_id + '&client_id=' + client_id;
+  createSale(pod_id, user_id, client_id) {
+    this.params = 'pod_id=' + pod_id + '&user_id=' + user_id + '&client_id=' + client_id;
     console.log(this.params);
     
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
@@ -49,5 +49,15 @@ export class SaleService {
     let options = new RequestOptions({ headers: headers });
     return this.http.post('http://localhost:3000/deletesale/', this.params, options)
       .map((response: Response) => response.json())
+  }
+  createSaleProduct(sale_id, product_id, quantity){
+    this.params = 'sale_id=' + sale_id + '&product_id=' + product_id + '&quantity=' + quantity;
+    console.log(this.params);
+    
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post('http://localhost:3000/createsaleproduct/', this.params, options)
+      .map((response: Response) => response.json())
+
   }
 }

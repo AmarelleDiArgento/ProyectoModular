@@ -6,12 +6,20 @@ var connection = mysql.createConnection(config.db);
 connection.connect();
 
 var saleProductModel = {}
+let ins = `call proyectomodular.sale_productins(?,?,?);`;
+let upd = `call proyectomodular.sale_productup(?,?,?);`;
+let del = `call proyectomodular.sale_productdel(?,?)`;
+let all = `call proyectomodular.sale_productall();`;
+let one = `call proyectomodular.sale_productall(?);`;
 
 saleProductModel.createSaleProduct = function (saleData, callback) {
 
-  var query = 'insert into sale_product (sp_sale_sale_id, quantity) values (' + saleData.sp_sale_sale_id + ',' + saleData.quantity + ');';
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(ins,[
+      saleData.sale_id,
+      saleData.product_id,
+      saleData.quantity
+    ], function (error, rows) {
       if (error) {
         callback(null, {
           "respuesta": error

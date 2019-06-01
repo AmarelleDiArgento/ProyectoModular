@@ -20,18 +20,18 @@ import { RenderStatusComponent } from '../../aggridrender/render-status/render-s
 })
 export class ListpodsComponent implements OnInit {
 
-  private gridApi;
-  private gridColumnApi;
-  private components;
-  private columnDefs;
-  private autoGroupColumnDef;
-  private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
-  private paginationPageSize;
-  private paginationNumberFormatter;
-  private frameworkComponents;
+  gridApi;
+  gridColumnApi;
+  components;
+  columnDefs;
+  autoGroupColumnDef;
+  defaultColDef;
+  rowSelection;
+  rowGroupPanelShow;
+  pivotPanelShow;
+  paginationPageSize;
+  paginationNumberFormatter;
+  frameworkComponents;
 
   // list data ws pod
   listPod: [];
@@ -39,17 +39,17 @@ export class ListpodsComponent implements OnInit {
   texto = 'hiddensearch';
   filtro = true;
   lineas = 10;
-  private searchFilter;
+  searchFilter;
   constructor(private http: Http,
     private formBuilder: FormBuilder,
     private podService: PodService,
     private excelService: ExcelService,
     private router: Router) {
     this.columnDefs = [
-      { headerName: 'Nombre', field: 'name', sortable: true, width:100 },
+      { headerName: 'Nombre', field: 'name', sortable: true, width: 100 },
       { headerName: 'Codigo', field: 'code', sortable: true, width: 100 },
       { headerName: 'Dirección', field: 'address', sortable: true, width: 300 },
-      { headerName: 'Teléfono', field: 'phone', sortable: true, width: 200  },
+      { headerName: 'Teléfono', field: 'phone', sortable: true, width: 200 },
       { headerName: 'Limite de facturacion', field: 'billing_limit', sortable: true, width: 200 },
       {
         headerName: 'Estado',

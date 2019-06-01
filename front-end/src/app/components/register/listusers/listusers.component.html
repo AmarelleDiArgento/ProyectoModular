@@ -2,85 +2,40 @@
 <app-header></app-header>
 <!-- end header -->
 
-<!-- <div class="row">
-  <div id="admin" class="col s12">
-    <div class="card material-table">
-      <div class="table-header">
-        <span class="table-title conforta">Listado de Usuarios</span>
-        <div class="actions">
-          <a (click)="createUser()" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>
-          <a class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
-          
-        </div>
-      </div>
-      <table id="datatable" class="striped responsive-table">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Rol</th>
-            <th>Estado</th>
-            <th>Fecha Creacion</th>
-            <th>Fecha Actualizacion</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-          <tr *ngFor="let item of listUser">
-            <td>{{item.user_id}}</td>
-            <td>{{item.username}}</td>
-            <td>{{item.email}}</td>
-            <td>{{item.rol_name}}</td>
-            <td>{{item.status}}</td>
-            <td>{{item.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-            <td>{{item.update_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-            <td class="">
-              <i class="material-icons" title="Modificar" (click)="updateUser(item.user_id)">edit</i>&nbsp;
-              <i class="material-icons" title="Eliminar" (click)="deleteUser(item.user_id)">delete</i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div> -->
-
 <div class="">
-    <div class="row">
-      <div id="admin" class="col s12">
-        <div class="card material-table">
-          <div class="table-header">
-            <span class="table-title conforta">Listado de usuarios</span>
-            <div class="actions">
-  
-              <a title="Nuevo usuario" (click)="createUser()"
-                class=" modal-trigger waves-effect btn-flat nopadding">
-                <i class="fas fa-plus-circle"></i>
-              </a>
-  
-              <a title="Filtro" (click)="cambiaEstado()" class="search-toggle waves-effect btn-flat nopadding">
-                <i class="fas fa-filter"></i>
-              </a>
-  
-              <a title="Exportar Excel" (click)="exportAsXLSX()" class=" modal-trigger waves-effect btn-flat nopadding">
-                <i class="fas fa-file-excel"></i>
-              </a>
-              <i class="material-icons" title="Imprimir" (click)="printFile()">print</i>
-            </div>
+  <div class="row">
+    <div id="admin" class="col s12">
+      <div class="card material-table">
+        <div class="table-header">
+          <span class="table-title conforta">Listado de Usuarios</span>
+          <div class="actions">
+
+            <a title="Nuevo modulo" (click)="createUser()"
+              class=" modal-trigger waves-effect btn-flat nopadding">
+              <i class="fas fa-plus-circle"></i>
+            </a>
+
+            <a title="Filtro" (click)="cambiaEstado()" class="search-toggle waves-effect btn-flat nopadding">
+              <i class="fas fa-filter"></i>
+            </a>
+
+            <a title="Exportar Excel" (click)="exportAsXLSX()" class="modal-trigger waves-effect btn-flat nopadding">
+              <i class="fas fa-file-excel"></i>
+            </a>
+            <a title="Imprimir" (click)="printFile()" class="modal-trigger waves-effect btn-flat nopadding">
+            <i class="material-icons">print</i>
+          </a>
           </div>
         </div>
         <div class="row {{texto}}">
-          <div class="input-field col s10">
-            <i class="material-icons prefix">search</i>
-            <input id="icon_prefix" type="search" style="padding-left: 10px;" (keyup)="quickSearch()"
-              [(ngModel)]="searchFilter" class="validate" required>
-            <label for="icon_prefix">Buscar </label>
-            <i class="material-icons" (click)="cambiaEstado()">close</i>
-          </div>
+            <div class="input-field col s11">
+              <i class="material-icons prefix">search</i>
+              <input id="icon_prefix" type="search" style="padding-left: 10px;" (keyup)="quickSearch()" [(ngModel)]="searchFilter" class="validate" required>
+              <label for="icon_prefix">Buscar </label>
+              <i class="material-icons" (click)="cambiaEstado()">close</i>
+            </div>
 
-          <div class="input-field col s2 ">
+          <div class="input-field col s1 ">
             <select class="centered" (change)="onPageSizeChanged($event.target.value)">
               <option value="5">5</option>
               <option selected value="10">10</option>
@@ -91,19 +46,18 @@
             <label>Mostrar: </label>
           </div>
         </div>
+      <div class="table striped center">
+        <ag-grid-angular style="width: 100%; height: 700px;" class="ag-theme-material" [columnDefs]="columnDefs"
+          [rowSelection]="rowSelection" [pagination]="true" [paginationPageSize]="paginationPageSize"
+          [paginationNumberFormatter]="paginationNumberFormatter" [rowData]="listUser" [animateRows]="true"
+          [frameworkComponents]="frameworkComponents" (gridReady)="onGridReady($event)">
+        </ag-grid-angular>
+      </div>
 
-        <div class="table striped center">
-          <ag-grid-angular style="width: 100%; height: 700px;" class="ag-theme-material" [columnDefs]="columnDefs"
-            [rowSelection]="rowSelection" [pagination]="true" [paginationPageSize]="paginationPageSize"
-            [paginationNumberFormatter]="paginationNumberFormatter" [rowData]="listUser" [animateRows]="true"
-            [frameworkComponents]="frameworkComponents" (gridReady)="onGridReady($event)">
-          </ag-grid-angular>
-        </div>
 
-        <!--<ag-grid-angular style="height: 650px" class="striped responsive-table ag-theme-material"
+      <!--<ag-grid-angular style="height: 650px" class="striped responsive-table ag-theme-material"
             [rowData]="listPrivilege" [columnDefs]="columnDefs" [pagination]="true" [paginationPageSize]="lineas">
           </ag-grid-angular>-->
-      </div>
     </div>
   </div>
 </div>

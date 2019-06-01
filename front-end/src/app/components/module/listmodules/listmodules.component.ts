@@ -20,18 +20,18 @@ import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutt
 })
 export class ListmodulesComponent implements OnInit {
 
-  private gridApi;
-  private gridColumnApi;
-  private components;
-  private columnDefs;
-  private autoGroupColumnDef;
-  private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
-  private paginationPageSize;
-  private paginationNumberFormatter;
-  private frameworkComponents;
+   gridApi;
+   gridColumnApi;
+   components;
+   columnDefs;
+   autoGroupColumnDef;
+   defaultColDef;
+   rowSelection;
+   rowGroupPanelShow;
+   pivotPanelShow;
+   paginationPageSize;
+   paginationNumberFormatter;
+   frameworkComponents;
 
   // list data ws module 
   listModule: [];
@@ -39,7 +39,7 @@ export class ListmodulesComponent implements OnInit {
   texto = 'hiddensearch';
   filtro = true;
   lineas = 10;
-  private searchFilter;
+  searchFilter;
 
   constructor(private http: Http,
     private formBuilder: FormBuilder,

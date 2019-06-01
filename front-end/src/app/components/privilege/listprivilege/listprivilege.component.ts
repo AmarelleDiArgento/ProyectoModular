@@ -21,17 +21,17 @@ import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/r
 export class ListprivilegeComponent implements OnInit {
 
 
-  private gridApi;
-  private gridColumnApi;
-  private columnDefs;
-  private autoGroupColumnDef;
-  private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
-  private paginationPageSize;
-  private paginationNumberFormatter;
-  private frameworkComponents;
+  gridApi;
+  gridColumnApi;
+  columnDefs;
+  autoGroupColumnDef;
+  defaultColDef;
+  rowSelection;
+  rowGroupPanelShow;
+  pivotPanelShow;
+  paginationPageSize;
+  paginationNumberFormatter;
+  frameworkComponents;
 
 
   // list data ws privilege
@@ -42,7 +42,7 @@ export class ListprivilegeComponent implements OnInit {
   texto = 'hiddensearch';
   filtro = true;
   lineas = 10;
-  private searchFilter;
+  searchFilter;
 
   constructor(
     private http: Http,
@@ -60,7 +60,7 @@ export class ListprivilegeComponent implements OnInit {
         headerName: 'Estado',
         field: 'status',
         sortable: true,
-        cellRenderer: 'customizedStatusCell', 
+        cellRenderer: 'customizedStatusCell',
         width: 100
       },
       {
@@ -81,7 +81,7 @@ export class ListprivilegeComponent implements OnInit {
         }, width: 80
       }
     ];
-    
+
     this.frameworkComponents = {
       customizedStatusCell: RenderStatusComponent,
       customizedEditCell: RendereditbuttonComponent,

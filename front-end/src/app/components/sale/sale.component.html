@@ -31,13 +31,39 @@
     </div>
 
   </div>
-  <div class="col m4 s12 z-depth-2">
-    <h2 class="center">LOGO</h2>
+  <div class="col m4 s12 z-depth-1">
+    <h2 class="center">{{sale_id}}</h2>
     <div class="row" style="margin-bottom: 0;">
       <form class="from-none">
+
+
+        <ng-container *ngIf="client != null; else elseTemplate">
+          <div class="col s12">
+            <p class="left">Cliente: </p>
+            <h5 class="center">{{client.username}}</h5>
+          </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <form class="from-none">
+            <div class="input-field col s10">
+              <i class="material-icons prefix">person_pin</i>
+              <input id="client_id" name="client_id" (keypress)="clientSearch($event)" [(ngModel)]="client_id"
+                type="text" class="validate">
+              <label for="client_id">Documento</label>
+            </div>
+            <div class="input-field col s1">
+              <!-- Modal Trigger -->
+              <a class="waves-effect waves-light btn modal-trigger" href="#ClientRegister">
+                <i class="material-icons white-text">person_add</i>
+              </a>
+            </div>
+          </form>
+        </ng-template>
+
         <div class="input-field col s12">
           <i class="material-icons prefix">center_focus_strong</i>
-          <input id="icon_prefix" type="text" class="validate">
+          <input id="icon_prefix" name="seeker" (keypress)="productSearch($event)" [(ngModel)]="seeker" type="text"
+            class="validate">
           <label for="icon_prefix">Id o Codigo de barras</label>
         </div>
       </form>
@@ -45,29 +71,29 @@
     <div class="productos">
       <div *ngFor="let sp of listSaleProduct">
 
-      <ul class="collection" *ngIf="sp[3] > 0 ">
-        <li class="collection-item avatar">
-          <img src="{{sp[2]}}" alt="" class="circle">
-          <span class="title">{{sp[1]}} x {{sp[3]}}</span>
-          <p>$ {{sp[4]}}</p>
-          <span class="badge teal white-text" >
-            <a (click)="decreAmount(sp[0])">
-              <i class="material-icons white-text">remove</i>
-            </a>
-          </span>
-          <span class="badge">
-            {{sp[3]}}
-          </span>
-          <span class="badge teal white-text" >
-            <a (click)="increAmount(sp[0])" >
-              <i class="material-icons white-text">add</i>
-            </a>
-          </span>
-          <a class="secondary-content red-text text-darken-4" (click)="deleteProduct(sp[0])"><i
-              class="material-icons ">cancel</i></a>
-        </li>
-      </ul>
-    </div>
+        <ul class="collection" *ngIf="sp[3] > 0 ">
+          <li class="collection-item avatar">
+            <img src="{{sp[2]}}" alt="" class="circle">
+            <span class="title">{{sp[1]}} x {{sp[3]}}</span>
+            <p>$ {{sp[4]}}</p>
+            <span class="badge teal white-text">
+              <a (click)="decreAmount(sp[0])">
+                <i class="material-icons white-text">remove</i>
+              </a>
+            </span>
+            <span class="badge">
+              {{sp[3]}}
+            </span>
+            <span class="badge teal white-text">
+              <a (click)="increAmount(sp[0])">
+                <i class="material-icons white-text">add</i>
+              </a>
+            </span>
+            <a class="secondary-content red-text text-darken-4" (click)="deleteProduct(sp[0])"><i
+                class="material-icons ">cancel</i></a>
+          </li>
+        </ul>
+      </div>
 
     </div>
     <div>
@@ -76,7 +102,7 @@
         <div class="col m6 s6">
           <p>
             <label>
-              <input type="checkbox" />
+              <input name="waytopay" type="radio" checked />
               <span><i class="material-icons ">payment</i>Tarjeta</span>
             </label>
           </p>
@@ -84,8 +110,7 @@
         <div class="col m6 s6">
           <p>
             <label>
-              <input type="radio" name="pago1" />
-
+              <input name="waytopay" type="radio" />
               <span><i class="material-icons ">monetization_on</i>Efectivo</span>
             </label>
           </p>
@@ -105,7 +130,20 @@
       <h2 class="center">$ {{total_price}}</h2>
     </div>
     <div class="col s12">
-      <a class="waves-effect waves-light btn" style="width: 100%; margin: 1%">Facturar</a>
+      <a class="waves-effect waves-light btn" style="width: 100%; margin: 1%" (click)="sale()" >Facturar</a>
     </div>
+  </div>
+</div>
+
+
+
+<!-- Modal Structure -->
+<div id="clientRegister" class="modal">
+  <div class="modal-content">
+    <h4>Registrar Cliente</h4>
+    <p>Registra los datos del cliente</p>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
   </div>
 </div>

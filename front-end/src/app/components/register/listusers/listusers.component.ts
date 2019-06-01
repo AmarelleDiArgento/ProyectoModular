@@ -22,18 +22,18 @@ import { RenderStatusComponent } from '../../aggridrender/render-status/render-s
 })
 export class ListusersComponent implements OnInit {
 
-  private gridApi;
-  private gridColumnApi;
-  private components;
-  private columnDefs;
-  private autoGroupColumnDef;
-  private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
-  private paginationPageSize;
-  private paginationNumberFormatter;
-  private frameworkComponents;
+  gridApi;
+  gridColumnApi;
+  components;
+  columnDefs;
+  autoGroupColumnDef;
+  defaultColDef;
+  rowSelection;
+  rowGroupPanelShow;
+  pivotPanelShow;
+  paginationPageSize;
+  paginationNumberFormatter;
+  frameworkComponents;
 
   // list data ws user
   listUser: [];
@@ -41,7 +41,8 @@ export class ListusersComponent implements OnInit {
   texto = 'hiddensearch';
   filtro = true;
   lineas = 10;
-  private searchFilter;
+  searchFilter;
+
   constructor(private http: Http,
     private formBuilder: FormBuilder,
     private userService: UserService,
@@ -136,6 +137,8 @@ export class ListusersComponent implements OnInit {
     this.gridApi.paginationSetPageSize(Number(value));
   }
   cambiaEstado() {
+    console.log(this.filtro);
+
     this.texto = (this.filtro) ? '' : 'hiddensearch';
     this.filtro = !this.filtro;
   }

@@ -83,7 +83,7 @@ export class UpdateusersComponent implements OnInit {
   // obtain data user for id
   getUserDataId() {
     // send to ws api mysql search data user for id
-    this.userService.getDataUsersForId(this.idUser)
+    this.userService.getDataUserForId(this.idUser)
       .subscribe(data => {
         if (data != null) {
           // add values to the form

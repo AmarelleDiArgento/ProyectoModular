@@ -6,7 +6,8 @@ var saleproduct = require('../Modules/saleproduct')
 //create saleproduct
 router.post('/createsaleproduct', function (req, res, next) {
     var saleData = {
-        sp_sale_sale_id: req.body.sp_sale_sale_id,
+        sale_id: req.body.sale_id,
+        product_id: req.body.product_id,
         quantity: req.body.quantity
     }
     saleproduct.createSaleProduct(saleData, function (error, data) {
@@ -21,11 +22,14 @@ router.post('/createsaleproduct', function (req, res, next) {
 })
 //update saleproduct
 router.post('/updatesaleproduct', function (req, res, next) {
+    
+    
     var saleData = {
-        sp_product_id: req.body.sp_product_id,
-        sp_sale_sale_id: req.body.sp_sale_sale_id,
+        sale_id: req.body.sale_id,
+        product_id: req.body.product_id,
         quantity: req.body.quantity
     }
+    console.log(saleData);
     saleproduct.updateSaleProduct(saleData, function (error, data) {
         if (error) {
             res.status(504).jsonp({

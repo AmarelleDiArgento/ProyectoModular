@@ -7,7 +7,7 @@ import { ICellEditorAngularComp, ICellRendererAngularComp } from 'ag-grid-angula
   styleUrls: ['./render-status.component.css']
 })
 export class RenderStatusComponent implements OnInit, ICellRendererAngularComp {
-  private cellvalue: any;
+  cellvalue: any;
   constructor() { }
 
   ngOnInit() {

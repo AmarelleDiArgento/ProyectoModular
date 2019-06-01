@@ -7,7 +7,6 @@ var sale = require('../Modules/sale')
 router.post('/createsale', function (req, res, next) {
     
     var saleData = {
-        date: req.body.date,
         pod_id: req.body.pod_id,
         user_id: req.body.user_id,
         client_id: req.body.client_id

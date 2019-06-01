@@ -18,18 +18,18 @@ import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutt
   styleUrls: ['./listtax.component.css']
 })
 export class ListtaxComponent implements OnInit {
-  private gridApi;
-  private gridColumnApi;
-  private components;
-  private columnDefs;
-  private autoGroupColumnDef;
-  private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
-  private paginationPageSize;
-  private paginationNumberFormatter;
-  private frameworkComponents;
+  gridApi;
+  gridColumnApi;
+  components;
+  columnDefs;
+  autoGroupColumnDef;
+  defaultColDef;
+  rowSelection;
+  rowGroupPanelShow;
+  pivotPanelShow;
+  paginationPageSize;
+  paginationNumberFormatter;
+  frameworkComponents;
 
   // list data ws tax
   listTax: [];
@@ -37,58 +37,58 @@ export class ListtaxComponent implements OnInit {
   texto = 'hiddensearch';
   filtro = true;
   lineas = 10;
-  private searchFilter;
-  constructor(private http: Http, 
-    private formBuilder: FormBuilder, 
+  searchFilter;
+  constructor(private http: Http,
+    private formBuilder: FormBuilder,
     private taxService: TaxService,
     private excelService: ExcelService,
     private router: Router) {
-      this.columnDefs = [
-        { headerName: 'ID', field: 'tax_id', sortable: true },
-        { headerName: 'Nombre', field: 'name', sortable: true },
-        { headerName: 'Porcentaje', field: 'percent', sortable: true },
-        {
-          headerName: '',
-          field: 'tax_id',
-          cellRenderer: 'customizedEditCell',
-          cellRendererParams: {
-            name: 'tax',
-            Name: 'Tax'
-          }, width: 80
-        },
-        {
-          headerName: '', 
-          field: 'tax_id',
-          cellRenderer: 'customizedDeleteCell',
-          cellRendererParams: {
-            name: 'tax',
-            Name: 'Tax'
-          }, width: 80
-        }
-      ];
+    this.columnDefs = [
+      { headerName: 'ID', field: 'tax_id', sortable: true },
+      { headerName: 'Nombre', field: 'name', sortable: true },
+      { headerName: 'Porcentaje', field: 'percent', sortable: true },
+      {
+        headerName: '',
+        field: 'tax_id',
+        cellRenderer: 'customizedEditCell',
+        cellRendererParams: {
+          name: 'tax',
+          Name: 'Tax'
+        }, width: 80
+      },
+      {
+        headerName: '',
+        field: 'tax_id',
+        cellRenderer: 'customizedDeleteCell',
+        cellRendererParams: {
+          name: 'tax',
+          Name: 'Tax'
+        }, width: 80
+      }
+    ];
 
-      this.frameworkComponents = {
-        customizedEditCell: RendereditbuttonComponent,
-        customizedDeleteCell: RenderdeletebuttonComponent
-      };
+    this.frameworkComponents = {
+      customizedEditCell: RendereditbuttonComponent,
+      customizedDeleteCell: RenderdeletebuttonComponent
+    };
 
-      this.defaultColDef = {
-        pagination: true,
-        suppressRowClickSelection: true,
-        enableRangeSelection: true,
-        editable: true,
-        enablePivot: true,
-        enableValue: true,
-        sortable: true,
-        resizable: true,
-        filter: true
-      };
-      this.rowSelection = 'multiple';
-      this.pivotPanelShow = 'always';
-      this.paginationPageSize = 10;
-      this.paginationNumberFormatter = function (params) {
-        return '[' + params.value.toLocaleString() + ']';
-      };
+    this.defaultColDef = {
+      pagination: true,
+      suppressRowClickSelection: true,
+      enableRangeSelection: true,
+      editable: true,
+      enablePivot: true,
+      enableValue: true,
+      sortable: true,
+      resizable: true,
+      filter: true
+    };
+    this.rowSelection = 'multiple';
+    this.pivotPanelShow = 'always';
+    this.paginationPageSize = 10;
+    this.paginationNumberFormatter = function (params) {
+      return '[' + params.value.toLocaleString() + ']';
+    };
   }
 
   ngOnInit() {

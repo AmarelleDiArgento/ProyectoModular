@@ -24,7 +24,7 @@ import { UserService } from '../../../services/user.service';
   styleUrls: ['./renderdeletebutton.component.css']
 })
 export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngularComp {
-  private cellvalue: any;
+  cellvalue: any;
   private Name: string;
   private name: string;
   private Service;

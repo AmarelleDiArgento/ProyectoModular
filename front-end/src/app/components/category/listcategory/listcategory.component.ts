@@ -22,83 +22,83 @@ import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutt
 })
 export class ListcategoryComponent implements OnInit {
 
-  private gridApi;
-  private gridColumnApi;
-  private components;
-  private columnDefs;
-  private autoGroupColumnDef;
-  private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
-  private paginationPageSize;
-  private paginationNumberFormatter;
-  private frameworkComponents;
+  gridApi;
+  gridColumnApi;
+  components;
+  columnDefs;
+  autoGroupColumnDef;
+  defaultColDef;
+  rowSelection;
+  rowGroupPanelShow;
+  pivotPanelShow;
+  paginationPageSize;
+  paginationNumberFormatter;
+  frameworkComponents;
 
- // list data ws category
- listCategory: [];
+  // list data ws category
+  listCategory: [];
 
- texto = 'hiddensearch';
- filtro = true;
- lineas = 10;
- private searchFilter;
+  texto = 'hiddensearch';
+  filtro = true;
+  lineas = 10;
+  searchFilter;
 
- constructor(private http: Http,
-   private formBuilder: FormBuilder,
+  constructor(private http: Http,
+    private formBuilder: FormBuilder,
     private categoryService: CategoryService,
     private excelService: ExcelService,
-     private router: Router) {
-      this.columnDefs = [
-        { headerName: 'ID', field: 'category_id', sortable: true },
-        { headerName: 'Nombre', field: 'name', sortable: true },
-        {
-          headerName: '',
-          field: 'category_id',
-          cellRenderer: 'customizedEditCell',
-          cellRendererParams: {
-            name: 'category',
-            Name: 'Category'
-          }, width: 80
-        },
-        {
-          headerName: '', field: 'category_id',
-          cellRenderer: 'customizedDeleteCell',
-          cellRendererParams: {
-            name: 'category',
-            Name: 'Category'
-          }, width: 80
-        }
-      ];
+    private router: Router) {
+    this.columnDefs = [
+      { headerName: 'ID', field: 'category_id', sortable: true },
+      { headerName: 'Nombre', field: 'name', sortable: true },
+      {
+        headerName: '',
+        field: 'category_id',
+        cellRenderer: 'customizedEditCell',
+        cellRendererParams: {
+          name: 'category',
+          Name: 'Category'
+        }, width: 80
+      },
+      {
+        headerName: '', field: 'category_id',
+        cellRenderer: 'customizedDeleteCell',
+        cellRendererParams: {
+          name: 'category',
+          Name: 'Category'
+        }, width: 80
+      }
+    ];
 
-      this.frameworkComponents = {
-        customizedEditCell: RendereditbuttonComponent,
-        customizedDeleteCell: RenderdeletebuttonComponent
-      };
-  
-      this.defaultColDef = {
-        pagination: true,
-        suppressRowClickSelection: true,
-        enableRangeSelection: true,
-        editable: true,
-        enablePivot: true,
-        enableValue: true,
-        sortable: true,
-        resizable: true,
-        filter: true
-      };
-      this.rowSelection = 'multiple';
-      this.pivotPanelShow = 'always';
-      this.paginationPageSize = 10;
-      this.paginationNumberFormatter = function (params) {
-        return '[' + params.value.toLocaleString() + ']';
-      };
-    }
+    this.frameworkComponents = {
+      customizedEditCell: RendereditbuttonComponent,
+      customizedDeleteCell: RenderdeletebuttonComponent
+    };
 
- ngOnInit() {
-  $(document).ready(function () {
-    $('select').formSelect();
-  });
- }
+    this.defaultColDef = {
+      pagination: true,
+      suppressRowClickSelection: true,
+      enableRangeSelection: true,
+      editable: true,
+      enablePivot: true,
+      enableValue: true,
+      sortable: true,
+      resizable: true,
+      filter: true
+    };
+    this.rowSelection = 'multiple';
+    this.pivotPanelShow = 'always';
+    this.paginationPageSize = 10;
+    this.paginationNumberFormatter = function (params) {
+      return '[' + params.value.toLocaleString() + ']';
+    };
+  }
+
+  ngOnInit() {
+    $(document).ready(function () {
+      $('select').formSelect();
+    });
+  }
   onPageSizeChanged(value) {
     this.gridApi.paginationSetPageSize(Number(value));
   }
@@ -110,7 +110,7 @@ export class ListcategoryComponent implements OnInit {
     console.log(this.searchFilter);
     this.gridApi.setQuickFilter(this.searchFilter);
   }
-  
+
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -122,24 +122,24 @@ export class ListcategoryComponent implements OnInit {
         this.listCategory = data.rows;
       });
   }
- // obtain all data from the category
- getAllData() {
-   // send to search api backend all category
-   this.categoryService.getAllDataCategory()
-   .subscribe(data => {
-      // populate list json
-       console.log(data);
-      this.listCategory = data.rows;
-   });
- }
- // redirect to create category
- createCategory() {
-   this.router.navigate(['/createcategory']);
- }
- 
+  // obtain all data from the category
+  getAllData() {
+    // send to search api backend all category
+    this.categoryService.getAllDataCategory()
+      .subscribe(data => {
+        // populate list json
+        console.log(data);
+        this.listCategory = data.rows;
+      });
+  }
+  // redirect to create category
+  createCategory() {
+    this.router.navigate(['/createcategory']);
+  }
+
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listCategory, 'Reportecategorias');
   }
 }
 
-function getStatusIcon() {}
+function getStatusIcon() { }
