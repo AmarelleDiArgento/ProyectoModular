@@ -10,7 +10,7 @@
         <div class="actions">
           <a (click)="createUser()" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>
           <a class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
-          <i class="material-icons" title="Imprimir" (click)="printFile()">print</i>
+          
         </div>
       </div>
       <table id="datatable" class="striped responsive-table">
@@ -48,24 +48,27 @@
 </div> -->
 
 <div class="">
-  <div class="row">
-    <div id="admin" class="col s12">
-      <div class="card material-table">
-        <div class="table-header">
-          <span class="table-title conforta">Listado de usuarios</span>
-          <div class="actions">
-
-            <a title="Nuevo usuario" (click)="createUser()" class=" modal-trigger waves-effect btn-flat nopadding">
-              <i class="fas fa-plus-circle"></i>
-            </a>
-
-            <a title="Filtro" (click)="cambiaEstado()" class="search-toggle waves-effect btn-flat nopadding">
-              <i class="fas fa-filter"></i>
-            </a>
-
-            <a title="Exportar Excel" (click)="exportAsXLSX()" class=" modal-trigger waves-effect btn-flat nopadding">
-              <i class="fas fa-file-excel"></i>
-            </a>
+    <div class="row">
+      <div id="admin" class="col s12">
+        <div class="card material-table">
+          <div class="table-header">
+            <span class="table-title conforta">Listado de usuarios</span>
+            <div class="actions">
+  
+              <a title="Nuevo usuario" (click)="createUser()"
+                class=" modal-trigger waves-effect btn-flat nopadding">
+                <i class="fas fa-plus-circle"></i>
+              </a>
+  
+              <a title="Filtro" (click)="cambiaEstado()" class="search-toggle waves-effect btn-flat nopadding">
+                <i class="fas fa-filter"></i>
+              </a>
+  
+              <a title="Exportar Excel" (click)="exportAsXLSX()" class=" modal-trigger waves-effect btn-flat nopadding">
+                <i class="fas fa-file-excel"></i>
+              </a>
+              <i class="material-icons" title="Imprimir" (click)="printFile()">print</i>
+            </div>
           </div>
         </div>
         <div class="row {{texto}}">
