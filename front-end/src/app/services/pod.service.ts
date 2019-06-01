@@ -41,7 +41,7 @@ export class PodService {
       .map((response: Response) => response.json())
   }
   // service to api mysql delete pod
-  deletePod(pod_id) {
+  delete(pod_id) {
     this.params = 'pod_id=' + pod_id ;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });

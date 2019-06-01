@@ -7,27 +7,36 @@ connection.connect();
 
 var saleModel = {}
 
-saleModel.createSale = function (saleData, callback) {
-  
-  var query = 'insert into sale (date, pod_id, user_id, client_id) values ("' + saleData.date + '",' + saleData.pod_id + ',"' + saleData.user_id + '", "' + saleData.client_id + '");';
-  
-  if (connection) {
+let ins = `call proyectomodular.saleins(?,?,?);`;
+let upd = ``;
+let del = ``;
+let all = `call proyectomodular.saleall();`;
+let one = `call proyectomodular.saleone(?);`;
 
-    connection.query(query, function (error, rows) {
+saleModel.createSale = function (saleData, callback) {
+  if (connection) {
+    connection.query(ins, [
+      saleData.pod_id,
+      saleData.user_id,
+      saleData.client_id
+    ], function (error, rows) {
       if (error) {
+        console.log(error)
         callback(null, {
-          "respuesta": error
+          "respuesta": "Error de conexión"
         })
       } else {
         if (rows.length != 0) {
+          rows = rows[0];
           var jsonObj = {
+            rows,
             respuesta: "Success"
           }
           callback(null, jsonObj)
         } else {
-          console.log("Error no se pudo insertar")
+          console.log("Error la consulta no arroja datos")
           callback(null, {
-            "respuesta": "Error no se pudo insertar"
+            "respuesta": "Error la consulta no arroja datos"
           })
         }
       }
@@ -107,9 +116,8 @@ saleModel.deleteSale = function (saleData, callback) {
 
 
 saleModel.dataSale = function (saleData, callback) {
-  var query = "SELECT sale_id, date, pod_id, user_id, client_id from sale where sale_id= '" + saleData.sale_id + "' ";
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(one, saleData.sale_id, function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
@@ -117,6 +125,7 @@ saleModel.dataSale = function (saleData, callback) {
         })
       } else {
         if (rows.length != 0) {
+          rows = rows[0];
           var jsonObj = {
             rows,
             respuesta: "Success"
@@ -139,9 +148,8 @@ saleModel.dataSale = function (saleData, callback) {
 }
 
 saleModel.dataAllSale = function (saleData, callback) {
-  var query = "SELECT sale_id, date, pod_id, user_id, client_id from sale ";
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(all, function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
@@ -149,6 +157,7 @@ saleModel.dataAllSale = function (saleData, callback) {
         })
       } else {
         if (rows.length != 0) {
+          rows = rows[0];
           var jsonObj = {
             rows,
             respuesta: "Success"

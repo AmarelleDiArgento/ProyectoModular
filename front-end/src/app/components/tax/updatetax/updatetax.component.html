@@ -13,6 +13,16 @@
           </a>
           <h6>{{msgerr}}</h6>
         </div>
+        <div class="form-group">          
+          <input type="text" class="form-control" id="tax_id" formControlName="tax_id"
+            [ngClass]="{ 'is-invalid': submitted && f.tax_id.errors }" placeholder="Enter document" readonly>
+            <label for="tax_id">ID</label>
+          <span>
+            <div *ngIf="submitted && f.tax_id.errors">
+              <div *ngIf="f.tax_id.errors.required"> <label id="error">Error el documento es requerido </label></div>
+            </div>
+          </span>
+        </div>
         <div class="form-group">
           <label for="name">Nombre </label>
           <input type="text" class="form-control" id="name" formControlName="name"

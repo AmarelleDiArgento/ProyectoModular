@@ -11,6 +11,9 @@ import { UserService } from '../../../services/user.service';
 import { ExcelService } from '../../../services/excel.service';
 //print service
 import { PrintService } from '../../../services/print.service';
+import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
+import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
+import { RenderStatusComponent } from '../../aggridrender/render-status/render-status.component';
 
 @Component({
   selector: 'app-listusers',
@@ -30,10 +33,11 @@ export class ListusersComponent implements OnInit {
   private pivotPanelShow;
   private paginationPageSize;
   private paginationNumberFormatter;
+  private frameworkComponents;
+
   // list data ws user
-  listUser: {};
-  // array from excel data
-  listExcelUser: any[];
+  listUser: [];
+
   texto = 'hiddensearch';
   filtro = true;
   lineas = 10;
@@ -43,7 +47,7 @@ export class ListusersComponent implements OnInit {
     private userService: UserService,
     private excelService: ExcelService,
     private printService: PrintService,
-  
+
     private router: Router) {
     this.columnDefs = [
       { headerName: 'ID', field: 'user_id', sortable: true },
@@ -51,43 +55,57 @@ export class ListusersComponent implements OnInit {
       { headerName: 'Correo', field: 'email', sortable: true },
       { headerName: 'Rol', field: 'rol_name', sortable: true },
       {
-        headerName: '',
-        field: 'status',
+        headerName: 'Fecha creación',
+        field: 'create_time',
         sortable: true,
-        width: 48,
-        cellRendererParams: {
-          suppressCount: true,
-          checkbox: true,
-          innerRenderer: 'statusIcon',
-          suppressDoubleClickExpand: true
+        width: 190,
+        filter: 'agDateColumnFilter',
+        filterParams: {
+          comparator: filter
         }
       },
       {
-        headerName: 'Fecha creación', field: 'create_time', sortable: true,
+        headerName: 'Fecha modificación',
+        field: 'update_time',
+        sortable: true,
         width: 190,
-        filter: "agDateColumnFilter",
+        filter: 'agDateColumnFilter',
         filterParams: {
-          comparator: function (filterLocalDateAtMidnight, cellValue) {
-            var dateAsString = cellValue;
-            var dateParts = dateAsString.split("/");
-            var cellDate = new Date(Number(dateParts[2]), Number(dateParts[1]) - 1, Number(dateParts[0]));
-            if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
-              return 0;
-            }
-            if (cellDate < filterLocalDateAtMidnight) {
-              return -1;
-            }
-            if (cellDate > filterLocalDateAtMidnight) {
-              return 1;
-            }
-          }
+          comparator: filter
         }
       },
-      { headerName: 'Fecha modificación', field: 'update_time', sortable: true },
-      { headerName: 'Accion', field: 'user_id', sortable: true, width: 120 },
-      { headerName: '', field: 'user_id', sortable: true, width: 48 }
+      {
+        headerName: 'Estado',
+        field: 'status',
+        sortable: true,
+        cellRenderer: 'customizedStatusCell',
+        width: 100
+      },
+      {
+        headerName: '',
+        field: 'user_id',
+        cellRenderer: 'customizedEditCell',
+        cellRendererParams: {
+          name: 'user',
+          Name: 'User'
+        }, width: 80
+      },
+      {
+        headerName: '', field: 'user_id',
+        cellRenderer: 'customizedDeleteCell',
+        cellRendererParams: {
+          name: 'user',
+          Name: 'User'
+        }, width: 80
+      }
     ];
-    this.components = { statusIcon: getStatusIcon() };
+
+    this.frameworkComponents = {
+      customizedStatusCell: RenderStatusComponent,
+      customizedEditCell: RendereditbuttonComponent,
+      customizedDeleteCell: RenderdeletebuttonComponent
+    };
+
 
     this.defaultColDef = {
       pagination: true,
@@ -126,15 +144,6 @@ export class ListusersComponent implements OnInit {
     this.gridApi.setQuickFilter(this.searchFilter);
   }
 
-  renderUpdate() {
-  }
-  renderDelete() {
-
-  }
-
-  renderStatus() {
-
-  }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -146,20 +155,9 @@ export class ListusersComponent implements OnInit {
         console.log(data.rows);
 
         this.listUser = data.rows;
-        this.listExcelUser = data.rows;
       });
   }
-  // obtain all data from the register users
-  getAllData() {
-    // send to search api backend all users
-    this.userService.getAllDataUsers()
-      .subscribe(data => {
-        // populate list json users
-        this.listUser = data.rows;
-      });
 
-
-  }
   // redirect to create user
   createUser() {
     this.router.navigate(['/createuser']);
@@ -170,25 +168,30 @@ export class ListusersComponent implements OnInit {
     localStorage.setItem('idUser', id);
     this.router.navigate(['/updateuser']);
   }
-  // delete user
-  deleteUser(id) {
-    // send to api backend delete user for id
-    // localStorage.Id;
-    this.userService.deleteUsers(id)
-      .subscribe(data => {
-        if (data.respuesta === 'Success') {
-          // redirect
-          this.ngOnInit();
-        }
-      });
-  }
+
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.listExcelUser, 'Reporteusuarios');
+    this.excelService.exportAsExcelFile(this.listUser, 'Reporteusuarios');
   }
   //service to print
-  printFile(){
-  
+  printFile() {
     this.printService.print();
   }
 }
-function getStatusIcon() { }
+
+
+function filter(filterLocalDateAtMidnight, cellValue) {
+  var dateAsString = cellValue;
+  var datePartsA = dateAsString.split(' ');
+  var datePartsB = datePartsA[0].split('-');
+
+  var cellDate = new Date(Number(datePartsB[0]), Number(datePartsB[1]) - 1, Number(datePartsB[2]));
+  if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
+    return 0;
+  }
+  if (cellDate < filterLocalDateAtMidnight) {
+    return -1;
+  }
+  if (cellDate > filterLocalDateAtMidnight) {
+    return 1;
+  }
+}

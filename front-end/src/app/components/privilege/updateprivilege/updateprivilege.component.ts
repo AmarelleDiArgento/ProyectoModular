@@ -56,11 +56,11 @@ export class UpdateprivilegeComponent implements OnInit {
       .subscribe(data => {
         // populate list json module
         this.listModule = data.rows;
-        //console.log(this.listModule);
+        // console.log(this.listModule);
 
       });
     // asign id privilege to search data
-    //console.log(localStorage);
+    // console.log(localStorage);
 
     this.idPrivilege = localStorage.getItem('idPrivilege');
     // eject ws search user for id

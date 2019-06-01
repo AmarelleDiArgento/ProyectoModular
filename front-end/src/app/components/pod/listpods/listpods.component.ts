@@ -9,6 +9,9 @@ import { PodService } from '../../../services/pod.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
+import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
+import { RenderStatusComponent } from '../../aggridrender/render-status/render-status.component';
 
 @Component({
   selector: 'app-listpods',
@@ -28,10 +31,11 @@ export class ListpodsComponent implements OnInit {
   private pivotPanelShow;
   private paginationPageSize;
   private paginationNumberFormatter;
-  // list data ws pod 
-  listPod: {};
-  // array from excel data
-  listExcelPod: any[];
+  private frameworkComponents;
+
+  // list data ws pod
+  listPod: [];
+
   texto = 'hiddensearch';
   filtro = true;
   lineas = 10;
@@ -42,43 +46,59 @@ export class ListpodsComponent implements OnInit {
     private excelService: ExcelService,
     private router: Router) {
     this.columnDefs = [
-      { headerName: 'ID', field: 'pod_id', sortable: true },
-      { headerName: 'Nombre', field: 'name', sortable: true },
-      { headerName: 'Dirección', field: 'address', sortable: true },
-      { headerName: 'Teléfono', field: 'phone', sortable: true },
+      { headerName: 'Nombre', field: 'name', sortable: true, width:100 },
+      { headerName: 'Codigo', field: 'code', sortable: true, width: 100 },
+      { headerName: 'Dirección', field: 'address', sortable: true, width: 300 },
+      { headerName: 'Teléfono', field: 'phone', sortable: true, width: 200  },
+      { headerName: 'Limite de facturacion', field: 'billing_limit', sortable: true, width: 200 },
       {
-        headerName: '',
+        headerName: 'Estado',
         field: 'status',
         sortable: true,
-        width: 48,
-        cellRendererParams: {
-          suppressCount: true,
-          checkbox: true,
-          innerRenderer: 'statusIcon',
-          suppressDoubleClickExpand: true
-        }
+        cellRenderer: 'customizedStatusCell',
+        width: 100
       },
-      { headerName: 'Accion', field: 'pod_id', sortable: true, width: 120 },
-      { headerName: '', field: 'pod_id', sortable: true, width: 48 }
+      {
+        headerName: '',
+        field: 'pod_id',
+        cellRenderer: 'customizedEditCell',
+        cellRendererParams: {
+          name: 'pod',
+          Name: 'Pod'
+        }, width: 80
+      },
+      {
+        headerName: '', field: 'pod_id',
+        cellRenderer: 'customizedDeleteCell',
+        cellRendererParams: {
+          name: 'pod',
+          Name: 'Pod'
+        }, width: 80
+      }
     ];
-    this.components = { statusIcon: getStatusIcon() };
 
-    this.defaultColDef = {
-      pagination: true,
-      suppressRowClickSelection: true,
-      enableRangeSelection: true,
-      editable: true,
-      enablePivot: true,
-      enableValue: true,
-      sortable: true,
-      resizable: true,
-      filter: true
-    };
+    this.frameworkComponents = {
+      customizedStatusCell: RenderStatusComponent,
+      customizedEditCell: RendereditbuttonComponent,
+      customizedDeleteCell: RenderdeletebuttonComponent
+    },
+
+      this.defaultColDef = {
+        pagination: true,
+        suppressRowClickSelection: true,
+        enableRangeSelection: true,
+        editable: true,
+        enablePivot: true,
+        enableValue: true,
+        sortable: true,
+        resizable: true,
+        filter: true
+      };
     this.rowSelection = 'multiple';
     this.pivotPanelShow = 'always';
     this.paginationPageSize = 10;
     this.paginationNumberFormatter = function (params) {
-      return '[' + params.value.toLocaleString() + ']';
+      return params.value.toLocaleString();
     };
   }
 
@@ -100,15 +120,6 @@ export class ListpodsComponent implements OnInit {
     this.gridApi.setQuickFilter(this.searchFilter);
   }
 
-  renderUpdate() {
-  }
-  renderDelete() {
-
-  }
-
-  renderStatus() {
-
-  }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -120,7 +131,6 @@ export class ListpodsComponent implements OnInit {
         console.log(data.rows);
 
         this.listPod = data.rows;
-        this.listExcelPod = data.rows;
       });
   }
   // obtain all data from the register pods
@@ -136,62 +146,10 @@ export class ListpodsComponent implements OnInit {
   createPod() {
     this.router.navigate(['/createpod'])
   }
-  // redirect to update pod
-  updatePod(id) {
-    // almacenamos el id
-    localStorage.setItem('idPod', id);
-    this.router.navigate(['/updatepod'])
-  }
 
-  // delete pod
-  deletePod(id) {
-
-    Swal.fire({
-      title: 'Estas seguro?',
-      text: 'No podras recuperar los cambios',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminalo!'
-    }).then((result) => {
-      if (result.value) {
-        this.podService.deletePod(id)
-          .subscribe(data => {
-            if (data.respuesta === 'Success') {
-              Swal.fire({
-                type: 'success',
-                title: 'Eliminacion exitosa',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 2000,
-                onClose: () => {
-                  // redirect 
-                  this.ngOnInit();
-                }
-              });
-            } else {
-              Swal.fire({
-                type: 'error',
-                title: 'Ups!, algo salio mal: \n' + data.respuesta,
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 2000
-              });
-            }
-            
-          });
-      }
-    })
-    
-    // send to api backend delete pod for id
-
-  }
 
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.listExcelPod, 'Reportepod');
+    this.excelService.exportAsExcelFile(this.listPod, 'Reportepod');
   }
 }
 function getStatusIcon() { }

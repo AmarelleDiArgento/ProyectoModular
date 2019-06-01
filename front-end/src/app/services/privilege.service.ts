@@ -53,7 +53,7 @@ export class PrivilegeService {
       .map((response: Response) => response.json());
   }
   // service to api mysql delete privileges
-  deleteprivileges(privilege_id) {
+  delete(privilege_id) {
     this.params = 'privilege_id=' + privilege_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });

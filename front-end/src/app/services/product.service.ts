@@ -41,7 +41,7 @@ export class ProductService {
       .map((response: Response) => response.json())
   }
   //service to api mysql delete product
-  deleteProduct(product_id) {
+  delete(product_id) {
     this.params = 'product_id=' + product_id ;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });

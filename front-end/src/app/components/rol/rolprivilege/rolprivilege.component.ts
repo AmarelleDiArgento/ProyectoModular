@@ -67,7 +67,7 @@ export class RolprivilegeComponent implements OnInit {
   // obtain all data from the register rols
   getAllDataRol() {
     // send to search api backend all rols
-    this.rolService.getAllDataRols()
+    this.rolService.getAllDataRol()
       .subscribe(data => {
         // populate list json rol
         this.listRol = data.rows;

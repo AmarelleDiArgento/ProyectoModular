@@ -11,6 +11,9 @@ import { ProductService } from '../../../services/product.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { RenderStatusComponent } from '../../aggridrender/render-status/render-status.component';
+import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
+import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
 
 @Component({
   selector: 'app-listproduct',
@@ -29,10 +32,11 @@ export class ListproductComponent implements OnInit {
   private pivotPanelShow;
   private paginationPageSize;
   private paginationNumberFormatter;
+  private frameworkComponents;
+
   // list data ws product
-  listProduct: {};
-  // array from excel data
-  listExcelProduct: any[];
+  listProduct: [];
+  
   texto = 'hiddensearch';
   filtro = true;
   lineas = 10;
@@ -43,29 +47,37 @@ export class ListproductComponent implements OnInit {
     private productService: ProductService,
     private excelService: ExcelService,
     private router: Router) {
-      this.columnDefs = [
-        { headerName: 'ID', field: 'product_id', sortable: true },
-        { headerName: 'Codigo', field: 'name', sortable: true },
-        { headerName: 'Nombre', field: 'name', sortable: true },
-        { headerName: 'Precio', field: 'net_price', sortable: true },
-        { headerName: 'Categoria', field: 'category_id', sortable: true },
-        { headerName: 'Impuesto', field: 'tax_id', sortable: true },
-        {
-          headerName: '',
-          field: 'status',
-          sortable: true,
-          width: 48,
-          cellRendererParams: {
-            suppressCount: true,
-            checkbox: true,
-            innerRenderer: 'statusIcon',
-            suppressDoubleClickExpand: true
-          }
-        },
-        { headerName: 'Accion', field: 'product_id', sortable: true, width: 120 },
-        { headerName: '', field: 'product_id', sortable: true, width: 48 }
-      ];
-      this.components = { statusIcon: getStatusIcon() };
+    this.columnDefs = [
+      { headerName: 'ID', field: 'product_id', sortable: true },
+      { headerName: 'Codigo', field: 'name', sortable: true },
+      { headerName: 'Nombre', field: 'name', sortable: true },
+      { headerName: 'Precio', field: 'net_price', sortable: true },
+      { headerName: 'Categoria', field: 'category_name', sortable: true },
+      { headerName: 'Impuesto', field: 'tax_name', sortable: true },
+      {
+        headerName: '',
+        field: 'product_id',
+        cellRenderer: 'customizedEditCell',
+        cellRendererParams: {
+          name: 'product',
+          Name: 'Product'
+        }, width: 80
+      },
+      {
+        headerName: '', field: 'product_id',
+        cellRenderer: 'customizedDeleteCell',
+        cellRendererParams: {
+          name: 'product',
+          Name: 'Product'
+        }, width: 80
+      }
+    ];
+
+    this.frameworkComponents = {
+      customizedStatusCell: RenderStatusComponent,
+      customizedEditCell: RendereditbuttonComponent,
+      customizedDeleteCell: RenderdeletebuttonComponent
+    },
 
       this.defaultColDef = {
         pagination: true,
@@ -78,17 +90,15 @@ export class ListproductComponent implements OnInit {
         resizable: true,
         filter: true
       };
-      this.rowSelection = 'multiple';
-      this.pivotPanelShow = 'always';
-      this.paginationPageSize = 10;
-      this.paginationNumberFormatter = function (params) {
-        return '[' + params.value.toLocaleString() + ']';
-      };
+    this.rowSelection = 'multiple';
+    this.pivotPanelShow = 'always';
+    this.paginationPageSize = 10;
+    this.paginationNumberFormatter = function (params) {
+      return params.value.toLocaleString();
+    };
   }
 
   ngOnInit() {
-    // get data
-    // this.getAllData();
     $(document).ready(function () {
       $('select').formSelect();
     });
@@ -105,15 +115,6 @@ export class ListproductComponent implements OnInit {
     this.gridApi.setQuickFilter(this.searchFilter);
   }
 
-  renderUpdate() {
-  }
-  renderDelete() {
-
-  }
-
-  renderStatus() {
-
-  }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -122,83 +123,15 @@ export class ListproductComponent implements OnInit {
     this.productService.getAllDataProduct()
       .subscribe(data => {
         // populate list json privilege
-        console.log(data.rows);
-
         this.listProduct = data.rows;
-        this.listExcelProduct = data.rows;
       });
-  }
-  // obtain all data from the product
-  getAllData() {
-    // send to search api backend all product
-    // this.productService.getAllDataProduct()
-    //   .subscribe(data => {
-    //     // populate list json
-    //     console.log(data);
-    //     this.listProduct = data.rows;
-    //     // populate excel data
-    //     this.listExcelProduct = data.rows;
-    //   });
-
   }
   // redirect to create product
   createProduct() {
     this.router.navigate(['/createproduct']);
   }
-  // redirect to update product
-  updateProduct(id) {
-    // almacenamos el id
-    localStorage.setItem('idProduct', id);
-    this.router.navigate(['/updateproduct']);
-  }
-  // delete product
-  deleteProduct(id) {
 
-
-    Swal.fire({
-      title: 'Estas seguro?',
-      text: 'No podras recuperar los cambios',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminalo!'
-    }).then((result) => {
-      if (result.value) {
-
-        // send to api backend delete product for id
-        this.productService.deleteProduct(id)
-          .subscribe(data => {
-            if (data.respuesta === 'Success') {
-              Swal.fire({
-                type: 'success',
-                title: 'Eliminacion exitosa',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 2000,
-                onClose: () => {
-                  // redirect
-                  this.ngOnInit();
-                }
-              });
-            } else {
-              Swal.fire({
-                type: 'error',
-                title: 'Ups!, algo salio mal: \n' + data.respuesta,
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 2000
-              });
-            }
-          });
-      }
-    });
-  }
-  // export to file excel
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.listExcelProduct, 'ReporteProductos');
+    this.excelService.exportAsExcelFile(this.listProduct, 'ReporteProductos');
   }
 }
-function getStatusIcon() {}

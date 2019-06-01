@@ -133,6 +133,8 @@ call proyectomodular.rol_privilegeins(9, 2, 1, 1, 1, 1);
 -- ------------------------------------------------------------
 
 call proyectomodular.podins('A68', 'Americas 68', 'Av Americas No 68 36 lc 101', '4561234', 1000, 1);
+call proyectomodular.podins('ABY', 'Av Boyaca', 'Av Boyaca No 68 36 lc 101', '4561234', 1000, 1);
+call proyectomodular.podins('NQS', 'Av NQS', 'Av NQS No 68 36 lc 101', '4561234', 1000, 1);
 
 -- call proyectomodular.podins(?, ?, ?, ?, ?, ?);
 -- call proyectomodular.podupd(?, ?, ?, ?, ?, ?, ?);

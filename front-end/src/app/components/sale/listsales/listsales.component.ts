@@ -9,6 +9,8 @@ import { SaleService } from '../../../services/sale.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
+import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
 
 @Component({
   selector: 'app-listsales',
@@ -27,7 +29,9 @@ export class ListsalesComponent implements OnInit {
   private pivotPanelShow;
   private paginationPageSize;
   private paginationNumberFormatter;
-  // list data ws sale 
+  private frameworkComponents;
+
+  // list data ws sale
   listSale: {};
   // array from excel data
   listExcelsale: any[];
@@ -35,39 +39,67 @@ export class ListsalesComponent implements OnInit {
   filtro = true;
   lineas = 10;
   private searchFilter;
-  constructor(private http: Http, 
-    private formBuilder: FormBuilder, 
-    private saleService: SaleService, 
+  constructor(private http: Http,
+    private formBuilder: FormBuilder,
+    private saleService: SaleService,
     private excelService: ExcelService,
     private router: Router) {
-      this.columnDefs = [
-        { headerName: 'ID', field: 'sale_id', sortable: true },
-        { headerName: 'Fecha', field: 'date', sortable: true },
-        { headerName: 'punto de venta', field: 'pod_id', sortable: true },
-        { headerName: 'Usuario', field: 'user_id', sortable: true },
-        { headerName: 'Cliente', field: 'client_id', sortable: true },
-        { headerName: 'Accion', field: 'sale_id', sortable: true, width: 120 },
-        { headerName: '', field: 'sale_id', sortable: true, width: 48 }
-      ];
-      this.components = { statusIcon: getStatusIcon() };
+    this.columnDefs = [
+      {
+        headerName: 'Fecha', field: 'date', sortable: true,
+        filter: 'agDateColumnFilter',
+        filterParams: {
+          comparator: filter
+        }
+      },
+      { headerName: 'No.', field: 'invoice_num', sortable: true },
+      { headerName: 'punto de venta', field: 'pod_name', sortable: true },
+      { headerName: 'Usuario', field: 'user_name', sortable: true },
+      { headerName: 'Cliente', field: 'client_name', sortable: true },
+      { headerName: 'Impuesto', field: 'tax_price', sortable: true },
+      { headerName: 'Precio bruto', field: 'gross_price', sortable: true },
+      { headerName: 'Precio neto', field: 'net_price', sortable: true },
+      {
+        headerName: '',
+        field: 'sale_id',
+        cellRenderer: 'customizedEditCell',
+        cellRendererParams: {
+          name: 'sale',
+          Name: 'Sale'
+        }, width: 80
+      },
+      {
+        headerName: '', field: 'sale_id',
+        cellRenderer: 'customizedDeleteCell',
+        cellRendererParams: {
+          name: 'sale',
+          Name: 'Sale'
+        }, width: 80
+      }
+    ];
 
-      this.defaultColDef = {
-        pagination: true,
-        suppressRowClickSelection: true,
-        enableRangeSelection: true,
-        editable: true,
-        enablePivot: true,
-        enableValue: true,
-        sortable: true,
-        resizable: true,
-        filter: true
-      };
-      this.rowSelection = 'multiple';
-      this.pivotPanelShow = 'always';
-      this.paginationPageSize = 10;
-      this.paginationNumberFormatter = function (params) {
-        return '[' + params.value.toLocaleString() + ']';
-      };
+    this.frameworkComponents = {
+      customizedEditCell: RendereditbuttonComponent,
+      customizedDeleteCell: RenderdeletebuttonComponent
+    };
+
+    this.defaultColDef = {
+      pagination: true,
+      suppressRowClickSelection: true,
+      enableRangeSelection: true,
+      editable: true,
+      enablePivot: true,
+      enableValue: true,
+      sortable: true,
+      resizable: true,
+      filter: true
+    };
+    this.rowSelection = 'multiple';
+    this.pivotPanelShow = 'always';
+    this.paginationPageSize = 10;
+    this.paginationNumberFormatter = function (params) {
+      return '[' + params.value.toLocaleString() + ']';
+    };
   }
 
   ngOnInit() {
@@ -124,60 +156,24 @@ export class ListsalesComponent implements OnInit {
   createSale() {
     this.router.navigate(['/createsale'])
   }
-  // redirect to update sale
-  updateSale(id) {
-    // almacenamos el id
-    localStorage.setItem('idSale', id);
-    this.router.navigate(['/updatesale'])
-  }
-
-  // delete sale
-  deleteSale(id) {
-
-    Swal.fire({
-      title: 'Estas seguro?',
-      text: 'No podras recuperar los cambios',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminalo!'
-    }).then((result) => {
-      if (result.value) {
-        this.saleService.deleteSale(id)
-          .subscribe(data => {
-            if (data.respuesta === 'Success') {
-              Swal.fire({
-                type: 'success',
-                title: 'Eliminacion exitosa',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 2000,
-                onClose: () => {
-                  // redirect 
-                  this.ngOnInit();
-                }
-              });
-            } else {
-              Swal.fire({
-                type: 'error',
-                title: 'Ups!, algo salio mal: \n' + data.respuesta,
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 2000
-              });
-            }
-          });
-      }
-    })
-
-    // send to api backend delete sale for id
-
-  }
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listExcelsale, 'Reporteventas');
   }
 }
-function getStatusIcon() {}
+
+function filter(filterLocalDateAtMidnight, cellValue) {
+  var dateAsString = cellValue;
+  var datePartsA = dateAsString.split(' ');
+  var datePartsB = datePartsA[0].split('-');
+
+  var cellDate = new Date(Number(datePartsB[0]), Number(datePartsB[1]) - 1, Number(datePartsB[2]));
+  if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
+    return 0;
+  }
+  if (cellDate < filterLocalDateAtMidnight) {
+    return -1;
+  }
+  if (cellDate > filterLocalDateAtMidnight) {
+    return 1;
+  }
+}

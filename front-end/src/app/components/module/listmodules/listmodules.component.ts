@@ -9,6 +9,9 @@ import { ModuleService } from '../../../services/module.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { RenderStatusComponent } from '../../aggridrender/render-status/render-status.component';
+import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
+import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
 
 @Component({
   selector: 'app-listmodules',
@@ -28,15 +31,16 @@ export class ListmodulesComponent implements OnInit {
   private pivotPanelShow;
   private paginationPageSize;
   private paginationNumberFormatter;
+  private frameworkComponents;
 
   // list data ws module 
-  listModule: {};
-   // array from excel data
-   listExcelModule: any[];
-   texto = 'hiddensearch';
-   filtro = true;
-   lineas = 10;
-   private searchFilter;
+  listModule: [];
+
+  texto = 'hiddensearch';
+  filtro = true;
+  lineas = 10;
+  private searchFilter;
+
   constructor(private http: Http,
     private formBuilder: FormBuilder,
     private moduleService: ModuleService,
@@ -46,21 +50,36 @@ export class ListmodulesComponent implements OnInit {
       { headerName: 'ID', field: 'module_id', sortable: true },
       { headerName: 'Nombre', field: 'name', sortable: true },
       {
-        headerName: '',
+        headerName: 'Estado',
         field: 'status',
         sortable: true,
-        width: 48,
-        cellRendererParams: {
-          suppressCount: true,
-          checkbox: true,
-          innerRenderer: 'statusIcon',
-          suppressDoubleClickExpand: true
-        }
+        cellRenderer: 'customizedStatusCell',
+        width: 100
       },
-      { headerName: 'Accion', field: 'module_id', sortable: true, width: 120 },
-      { headerName: '', field: 'module_id', sortable: true, width: 48 }
+      {
+        headerName: '',
+        field: 'privilege_id',
+        cellRenderer: 'customizedEditCell',
+        cellRendererParams: {
+          name: 'privilege',
+          Name: 'Privilege'
+        }, width: 80
+      },
+      {
+        headerName: '', field: 'privilege_id',
+        cellRenderer: 'customizedDeleteCell',
+        cellRendererParams: {
+          name: 'privilege',
+          Name: 'Privilege'
+        }, width: 80
+      }
     ];
-    this.components = { statusIcon: getStatusIcon() };
+
+    this.frameworkComponents = {
+      customizedStatusCell: RenderStatusComponent,
+      customizedEditCell: RendereditbuttonComponent,
+      customizedDeleteCell: RenderdeletebuttonComponent
+    }
 
     this.defaultColDef = {
       pagination: true,
@@ -82,32 +101,25 @@ export class ListmodulesComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.getAllData();
+    // init select materializecss;
     $(document).ready(function () {
       $('select').formSelect();
     });
   }
+
   onPageSizeChanged(value) {
     this.gridApi.paginationSetPageSize(Number(value));
   }
+
   cambiaEstado() {
     this.texto = (this.filtro) ? '' : 'hiddensearch';
     this.filtro = !this.filtro;
   }
+
   quickSearch() {
-    console.log(this.searchFilter);
     this.gridApi.setQuickFilter(this.searchFilter);
   }
 
-  renderUpdate() {
-  }
-  renderDelete() {
-
-  }
-
-  renderStatus() {
-
-  }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -116,22 +128,7 @@ export class ListmodulesComponent implements OnInit {
     this.moduleService.getAllDataModules()
       .subscribe(data => {
         // populate list json privilege
-        console.log(data.rows);
-
         this.listModule = data.rows;
-        this.listExcelModule = data.rows;
-      });
-  }
-
-  // obtain all data from the register modules
-  getAllData() {
-    // send to search api backend all modules
-    this.moduleService.getAllDataModules()
-      .subscribe(data => {
-        // populate list json module
-        console.log(data.rows);
-        this.listModule = data.rows;
-        this.listExcelModule= data.rows;
       });
   }
 
@@ -139,61 +136,8 @@ export class ListmodulesComponent implements OnInit {
   createModule() {
     this.router.navigate(['/createmodule'])
   }
-  // redirect to update module
-  updateModule(id) {
-    // almacenamos el id
-    localStorage.setItem('idModule', id);
-    this.router.navigate(['/updatemodule'])
-  }
 
-  // delete module
-  deleteModule(id) {
-
-
-    Swal.fire({
-      title: 'Estas seguro?',
-      text: 'No podras recuperar los cambios',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminalo!'
-    }).then((result) => {
-      if (result.value) {
-        this.moduleService.deleteModules(id)
-          .subscribe(data => {
-            if (data.respuesta === 'Success') {
-              Swal.fire({
-                type: 'success',
-                title: 'Eliminacion exitosa',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 2000,
-                onClose: () => {
-                  // redirect 
-                  this.ngOnInit();
-                }
-              });
-            } else {
-              Swal.fire({
-                type: 'error',
-                title: 'Ups!, algo salio mal: \n' + data.respuesta,
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 2000
-              });
-            }
-          });
-      }
-    })
-
-    // send to api backend delete module for id
-
-  }
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.listExcelModule, 'Reportemodulos');
+    this.excelService.exportAsExcelFile(this.listModule, 'Reportemodulos');
   }
 }
-function getStatusIcon() {}

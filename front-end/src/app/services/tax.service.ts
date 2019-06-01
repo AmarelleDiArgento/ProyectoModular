@@ -41,7 +41,7 @@ export class TaxService {
       .map((response: Response) => response.json())
   }
   //service to api mysql delete tax
-  deleteTax(tax_id) {
+  delete(tax_id) {
     this.params = 'tax_id=' + tax_id ;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });

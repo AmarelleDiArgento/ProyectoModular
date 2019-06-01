@@ -42,7 +42,7 @@ export class RolComponent implements OnInit {
       return;
     } else {
       // send to api backend create user
-      this.rolService.createRols(this.registerRolsForm.value.name)
+      this.rolService.createRol(this.registerRolsForm.value.name)
         .subscribe(data => {
           if (data.respuesta === 'Success') {
             Swal.fire({

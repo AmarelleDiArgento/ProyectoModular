@@ -1,7 +1,7 @@
 <!-- header -->
 <app-header></app-header>
 <!-- end header -->
-<div class="container">
+<div class="">
   <div class="row">
     <div id="admin" class="col s12">
       <div class="card material-table">
@@ -53,7 +53,7 @@
           [paginationNumberFormatter]="paginationNumberFormatter" 
           [rowData]="listPrivilege"
           [animateRows]="true"
-          [components]="components"
+          [frameworkComponents]= "frameworkComponents"
           (gridReady)="onGridReady($event)">
         </ag-grid-angular>
         </div>

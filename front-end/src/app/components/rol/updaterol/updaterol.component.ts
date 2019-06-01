@@ -56,7 +56,7 @@ export class UpdaterolComponent implements OnInit {
     if (this.updateRolForm.invalid) {
       return;
     } else {
-      this.rolService.updateRols(
+      this.rolService.updateRol(
         this.updateRolForm.value.rol_id,
         this.updateRolForm.value.name
         )
@@ -73,7 +73,7 @@ export class UpdaterolComponent implements OnInit {
   }
   // obtain data rol for id
   getRolDataId() {
-    this.rolService.getDataRolsForId(this.idRol)
+    this.rolService.getDataRolForId(this.idRol)
       .subscribe(data => {
         if (data != null) {
           // add values to the form

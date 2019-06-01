@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
 
     // obtain all data from the register pods
-    this.getAllDataPodandRol();
+    this.getAllDataPodandUser();
     // init form
     this.registerUsersForm = this.formBuilder.group({
       user_id: ['', Validators.required],
@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
       status: ['', Validators.required]
     });
   }
-  getAllDataPodandRol() {
+  getAllDataPodandUser() {
 
     // send to search api backend all pods
     this.podService.getAllDataPod()
@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
 
       });
     // send to search api backend all rols
-    this.rolService.getAllDataRols()
+    this.rolService.getAllDataRol()
       .subscribe(data => {
         // populate list json rol
         this.listRol = data.rows;
@@ -74,13 +74,12 @@ export class RegisterComponent implements OnInit {
 
   // submit form
   onSubmit() {
+    let error,ok;
     this.submitted = true;
     // error here if form is invalid
     if (this.registerUsersForm.invalid) {
       return;
     } else {
-      console.log(this.registerUsersForm.value.pod_id);
-      
       // send to api backend create user
       this.userService.createUsers(
         this.registerUsersForm.value.user_id,
@@ -91,9 +90,18 @@ export class RegisterComponent implements OnInit {
         this.registerUsersForm.value.status)
         .subscribe(data => {
           if (data.respuesta === 'Success') {
+            for (const pod_id of this.registerUsersForm.value.pod_id) {
+              this.userService.assignPodUser(
+                this.registerUsersForm.value.user_id,
+                pod_id
+              ).subscribe(date => {
+                console.log(date);
+                
+              });
+            }
             Swal.fire({
               type: 'success',
-              title: 'Registro exitoso',
+              title: 'Registro exitoso \n ' + ok + error ,
               toast: true,
               position: 'top-end',
               showConfirmButton: false,
@@ -104,7 +112,7 @@ export class RegisterComponent implements OnInit {
           } else {
             Swal.fire({
               type: 'error',
-              title: 'Ups!, algo salio mal: \n' + data.respuesta,
+              title: 'Ups!, algo salio mal: \n' + data.respuesta.error ,
               toast: true,
               position: 'top-end',
               showConfirmButton: false,

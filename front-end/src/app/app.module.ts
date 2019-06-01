@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ExcelService } from './services/excel.service'; 
+import { ExcelService } from './services/excel.service';
 import { AgGridModule } from 'ag-grid-angular';
 
 
@@ -62,6 +62,10 @@ import { SaleService } from './services/sale.service';
 import { PodService } from './services/pod.service';
 import { RolprivilegeService } from './services/rolprivilege.service';
 import { PrintService } from './services/print.service';
+import { AggridrenderComponent } from './components/aggridrender/aggridrender.component';
+import { RenderStatusComponent } from './components/aggridrender/render-status/render-status.component';
+import { RendereditbuttonComponent } from './components/aggridrender/rendereditbutton/rendereditbutton.component';
+import { RenderdeletebuttonComponent } from './components/aggridrender/renderdeletebutton/renderdeletebutton.component';
 
 
 
@@ -104,7 +108,11 @@ import { PrintService } from './services/print.service';
     UpdatepodComponent,
     ListpodsComponent,
     RolprivilegeComponent,
-    ListrolprivilegeComponent
+    ListrolprivilegeComponent,
+    AggridrenderComponent,
+    RenderStatusComponent,
+    RendereditbuttonComponent,
+    RenderdeletebuttonComponent
   ],
   imports: [
     BrowserModule,
@@ -113,7 +121,11 @@ import { PrintService } from './services/print.service';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([
+      RenderStatusComponent,
+      RendereditbuttonComponent,
+      RenderdeletebuttonComponent
+    ])
   ],
   providers: [
     AuthService,

@@ -17,7 +17,7 @@ export class ModuleService {
       .map((response: Response) => response.json());
   }
   // service to api mysql get module for id
-  getDataModulesForId(module_id) {
+  getDataModuleForId(module_id) {
     this.params = 'module_id=' + module_id;
     const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     const options = new RequestOptions({ headers: headers });
@@ -25,7 +25,7 @@ export class ModuleService {
       .map((response: Response) => response.json());
   }
   // service to api mysql create module
-  createModules(name, status) {
+  createModule(name, status) {
     let s;
     if (status) { s = 1; } else { s = 0; }
     this.params = 'name=' + name + '&status=' + s;
@@ -35,7 +35,7 @@ export class ModuleService {
       .map((response: Response) => response.json());
   }
   // service to api mysql update modules
-  updateModules(module_id, name, status) {
+  updateModule(module_id, name, status) {
     let s;
     if (status) { s = 1; } else { s = 0; }
     this.params = 'module_id=' + module_id + '&name=' + name + '&status=' + s;
@@ -45,7 +45,7 @@ export class ModuleService {
       .map((response: Response) => response.json());
   }
   // service to api mysql delete modules
-  deleteModules(module_id) {
+  delete(module_id) {
     this.params = 'module_id=' + module_id;
     const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     const options = new RequestOptions({ headers: headers });

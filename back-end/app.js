@@ -74,6 +74,8 @@ app.post('/deleteuser', user)
 app.post('/getdatauser', user)
 app.post('/getdatapoduser', user)
 app.get('/getdatauser', user)
+app.post('/assignuserpod', user)
+app.post('/resetuserpod', user)
 
 //urls rol
 app.post('/createrol', rol)

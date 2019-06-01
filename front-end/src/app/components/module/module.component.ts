@@ -43,7 +43,7 @@ export class ModuleComponent implements OnInit {
       return;
     } else {
       // send to api backend create user
-      this.moduleService.createModules(
+      this.moduleService.createModule(
         this.registerModulesForm.value.name,
         this.registerModulesForm.value.status
         )

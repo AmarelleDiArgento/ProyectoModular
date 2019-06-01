@@ -16,6 +16,8 @@ let upd = `call proyectomodular.userupd(?,?,?,?,?,?);`;
 let del = `call proyectomodular.userdel(?);`;
 let all = `call proyectomodular.userall();`;
 let one = `call proyectomodular.userone(?);`;
+let podassign = 'call proyectomodular.pod_userins(?,?);'
+let podreset = 'call proyectomodular.pod_userdel(?);'
 let poduser = 'call proyectomodular.pod_userallpodbyuser(?);'
 
 userModel.createUser = function (userData, callback) {
@@ -39,7 +41,7 @@ userModel.createUser = function (userData, callback) {
           "respuesta": error.message
         })
         console.log(error.message);
-        
+
       } else {
         if (rows.length != 0) {
           rows = rows[0];
@@ -63,6 +65,43 @@ userModel.createUser = function (userData, callback) {
   }
 }
 
+userModel.assignUserPod = function (rolData, callback) {
+  
+
+  if (connection) {
+    connection.query(podassign, [
+      user_id,
+      pod_id
+    ], function (error, rows) {
+      console.log(user_id,pod_id);
+      if (error) {
+        console.log(error);
+        callback(null, {
+          "respuesta": error.sqlMessage
+        })
+      } else {
+        console.log('Aqui!!! 2');
+        if (rows.length != 0) {
+          rows = rows[0];
+          var jsonObj = {
+            respuesta: "Success"
+          }
+          callback(null, jsonObj)
+        } else {
+          console.log("Error no se pudo insertar")
+          callback(null, {
+            "respuesta": "Error no se pudo insertar"
+          })
+        }
+      }
+    })
+  } else {
+    console.log("No se conecto con servidor")
+    callback(null, {
+      "Respuesta": "Error en Conexion"
+    })
+  }
+}
 
 userModel.updateUser = function (userData, callback) {
   var pass;
@@ -108,7 +147,6 @@ userModel.updateUser = function (userData, callback) {
   }
 }
 
-
 userModel.deleteUser = function (userData, callback) {
   if (connection) {
     connection.query(del, userData.user_id, function (error, rows) {
@@ -140,6 +178,36 @@ userModel.deleteUser = function (userData, callback) {
   }
 }
 
+userModel.podUserReset = function (userData, callback) {
+  if (connection) {
+    connection.query(podreset, userData.user_id, function (error, rows) {
+      if (error) {
+        console.log(error)
+        callback(null, {
+          "respuesta": data.message
+        })
+      } else {
+        if (rows.length != 0) {
+          rows = rows[0];
+          var jsonObj = {
+            respuesta: "Success"
+          }
+          callback(null, jsonObj)
+        } else {
+          console.log("Error")
+          callback(null, {
+            "respuesta": "Error al eliminar"
+          })
+        }
+      }
+    })
+  } else {
+    console.log("No se conecto con servidor")
+    callback(null, {
+      "Respuesta": "Error en Conexion"
+    })
+  }
+}
 
 userModel.dataUser = function (userData, callback) {
   if (connection) {
@@ -172,7 +240,6 @@ userModel.dataUser = function (userData, callback) {
     })
   }
 }
-
 
 userModel.dataPodUser = function (userData, callback) {
   if (connection) {

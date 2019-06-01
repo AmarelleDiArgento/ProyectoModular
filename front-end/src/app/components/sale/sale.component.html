@@ -3,7 +3,7 @@
 <!-- end header -->
 
 <div class="row ">
-  <div class="col m8 s12">
+  <div class="col m8 s12 no-padding">
     <ul class="tabs">
       <li class="tab col s3" *ngFor="let c of listCategory"><a href="#tab{{c.category_id}}">{{c.name}}</a></li>
     </ul>
@@ -34,7 +34,7 @@
   <div class="col m4 s12 z-depth-2">
     <h2 class="center">LOGO</h2>
     <div class="row" style="margin-bottom: 0;">
-      <form>
+      <form class="from-none">
         <div class="input-field col s12">
           <i class="material-icons prefix">center_focus_strong</i>
           <input id="icon_prefix" type="text" class="validate">
@@ -43,27 +43,35 @@
       </form>
     </div>
     <div class="productos">
-      <ul class="collection" *ngFor="let sp of listSaleProduct">
+      <div *ngFor="let sp of listSaleProduct">
+
+      <ul class="collection" *ngIf="sp[3] > 0 ">
         <li class="collection-item avatar">
-          <img src="{{sp[3]}}" alt="" class="circle">
-          <span class="title">{{sp[1]}} x {{sp[4]}}</span>
-          <p>$ {{sp[2] * sp[4]}}</p>
-          <span class="badge teal white-text">-</span>
-          <span class="badge ">
-            <div class="input-field col s6">
-              <input type="number" name="points" value="1" step="1" value="{{sp[4]}}">
-              <label for="first_name">Cantidad</label>
-            </div>
+          <img src="{{sp[2]}}" alt="" class="circle">
+          <span class="title">{{sp[1]}} x {{sp[3]}}</span>
+          <p>$ {{sp[4]}}</p>
+          <span class="badge teal white-text" >
+            <a (click)="decreAmount(sp[0])">
+              <i class="material-icons white-text">remove</i>
+            </a>
           </span>
-          <span class="badge teal white-text">+</span>
-          <a href="#!" class="secondary-content red-text text-darken-4" (click)="deleteProduct(sp[0])"><i
+          <span class="badge">
+            {{sp[3]}}
+          </span>
+          <span class="badge teal white-text" >
+            <a (click)="increAmount(sp[0])" >
+              <i class="material-icons white-text">add</i>
+            </a>
+          </span>
+          <a class="secondary-content red-text text-darken-4" (click)="deleteProduct(sp[0])"><i
               class="material-icons ">cancel</i></a>
         </li>
       </ul>
+    </div>
 
     </div>
     <div>
-      <form action="#">
+      <form action="" class="from-none">
         <p class="center"><b>Forma de Pago</b></p>
         <div class="col m6 s6">
           <p>

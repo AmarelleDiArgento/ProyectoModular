@@ -46,9 +46,6 @@ export class UpdateproductComponent implements OnInit {
     private categoryService: CategoryService,
     private taxService: TaxService, private router: Router) { }
   ngOnInit() {
-    $(document).ready(function () {
-      $('select').formSelect();
-    });
     // init form
     this.updateProductForm = this.formBuilder.group({
       code: ['', Validators.required],
@@ -66,6 +63,11 @@ export class UpdateproductComponent implements OnInit {
     this.getAllDataCategory();
     // init select tax
     this.getAllDataTax();
+
+
+    $(document).ready(function () {
+      $('select').formSelect();
+    });
   }
   // get form controls
   get f() { return this.updateProductForm.controls; }

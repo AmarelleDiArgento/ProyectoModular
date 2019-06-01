@@ -7,11 +7,25 @@ connection.connect();
 
 var podModel = {}
 
+let ins = `call proyectomodular.podins(?, ?, ?, ?, ?, ?);`;
+let upd = `call proyectomodular.podupd(?, ?, ?, ?, ?, ?, ?)`;
+let del = `call proyectomodular.podone(?);`;
+let all = `call proyectomodular.podall();`;
+let one = `call proyectomodular.poddel(?);`;
+
+
 podModel.createPod = function (podData, callback) {
 
-  var query = 'insert into pod (name, address, phone, status) values ("' + podData.name + '","' + podData.address + '","' + podData.phone + '", ' + podData.status + ');';
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(ins, [
+      podData.code,
+      podData.name,
+      podData.address,
+      podData.phone,
+      podData.billing_limit,
+      podData.status
+
+    ], function (error, rows) {
       if (error) {
         callback(null, {
           "respuesta": error
@@ -40,9 +54,16 @@ podModel.createPod = function (podData, callback) {
 
 
 podModel.updatePod = function (podData, callback) {
-  var query = "UPDATE pod SET   name = '" + podData.name + "', address = '" + podData.address + "', phone = '" + podData.phone + "', status= " + podData.status + "    where pod_id='" + podData.pod_id + "' ";
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(upd, [
+      podData.pod_id,
+      podData.code,
+      podData.name,
+      podData.address,
+      podData.phone,
+      podData.billing_limit,
+      podData.status
+    ], function (error, rows) {
       console.log(rows);
       if (error) {
         console.log(error)
@@ -73,9 +94,8 @@ podModel.updatePod = function (podData, callback) {
 
 
 podModel.deletePod = function (podData, callback) {
-  var query = "DELETE  from pod where pod_id=" + podData.pod_id + " ";
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(del, podData.pod_id, function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
@@ -105,9 +125,8 @@ podModel.deletePod = function (podData, callback) {
 
 
 podModel.dataPod = function (podData, callback) {
-  var query = "SELECT pod_id, name, address, phone, status from pod where pod_id= '" + podData.pod_id + "' ";
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(one, podData.pod_id, function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
@@ -115,6 +134,7 @@ podModel.dataPod = function (podData, callback) {
         })
       } else {
         if (rows.length != 0) {
+          rows = rows[0];
           var jsonObj = {
             rows,
             respuesta: "Success"
@@ -137,9 +157,8 @@ podModel.dataPod = function (podData, callback) {
 }
 
 podModel.dataAllPod = function (saleData, callback) {
-  var query = "SELECT pod_id, name, address, phone, status from pod ";
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(all, function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
@@ -147,6 +166,7 @@ podModel.dataAllPod = function (saleData, callback) {
         })
       } else {
         if (rows.length != 0) {
+          rows = rows[0];
           var jsonObj = {
             rows,
             respuesta: "Success"

@@ -1,57 +1,6 @@
 <!-- header -->
 <app-header></app-header>
 <!-- end header -->
-<!-- <div class="container">
-  <div class="col-md-12">
-    <br>
-    <h3>Listado de Pod</h3>
-  </div>
-  <div class="col-md-12">
-    <br>
-    <button type="button" (click)="createPod()" class="btn btn-primary">Crear Pod</button>
-  </div>
-  <div class="col-md-12">
-    <br>
-    <table class="striped responsive-table">
-      <thead class="">
-        <tr class="center">
-          <th>Id</th>
-          <th>Punto</th>
-          <th>Direccion</th>
-          <th>Telefono</th>
-          <th>Estado</th>
-          <th colspan="2" >Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of listPod">
-          <td>{{item.pod_id}}</td>
-          <td>{{item.name}}</td>
-          <td>{{item.address}}</td>
-          <td>{{item.phone}}</td>
-          <td>
-              <ng-container *ngIf="item.status === 1; else elseTemplate">
-                <span style="color: greenyellow;">
-                  <i class="fas fa-circle"></i>
-                </span>
-              </ng-container>
-              <ng-template #elseTemplate>
-                <span style="color: gray;">
-                  <i class="fas fa-circle"></i>
-                </span>
-              </ng-template>
-            </td>
-          <td class="text-center">
-            <i class="fa fa-edit text-center" style="font-size: 1em;" title="Modificar"
-              (click)="updatePod(item.pod_id)"></i></td>
-              <td class="text-center">
-            <i class="fa fa-trash text-center" style="font-size: 1em;" title="Eliminar"
-              (click)="deletePod(item.pod_id)"></i></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div> -->
 
 <div class="">
   <div class="row">
@@ -61,8 +10,7 @@
           <span class="table-title conforta">Listado de Pod</span>
           <div class="actions">
 
-            <a title="Nuevo pod" (click)="createPod()"
-              class=" modal-trigger waves-effect btn-flat nopadding">
+            <a title="Nuevo pod" (click)="createPod()" class=" modal-trigger waves-effect btn-flat nopadding">
               <i class="fas fa-plus-circle"></i>
             </a>
 
@@ -76,12 +24,13 @@
           </div>
         </div>
         <div class="row {{texto}}">
-            <div class="input-field col s10">
-              <i class="material-icons prefix">search</i>
-              <input id="icon_prefix" type="search" style="padding-left: 10px;" (keyup)="quickSearch()" [(ngModel)]="searchFilter" class="validate" required>
-              <label for="icon_prefix">Buscar </label>
-              <i class="material-icons" (click)="cambiaEstado()">close</i>
-            </div>
+          <div class="input-field col s10">
+            <i class="material-icons prefix">search</i>
+            <input id="icon_prefix" type="search" style="padding-left: 10px;" (keyup)="quickSearch()"
+              [(ngModel)]="searchFilter" class="validate" required>
+            <label for="icon_prefix">Buscar </label>
+            <i class="material-icons" (click)="cambiaEstado()">close</i>
+          </div>
 
           <div class="input-field col s2 ">
             <select class="centered" (change)="onPageSizeChanged($event.target.value)">
@@ -96,18 +45,11 @@
         </div>
 
         <div class="table striped center">
-          <ag-grid-angular 
-          style="width: 100%; height: 700px;" 
-          class="ag-theme-material" [columnDefs]="columnDefs"
-          [rowSelection]="rowSelection" 
-          [pagination]="true" 
-          [paginationPageSize]="paginationPageSize"
-          [paginationNumberFormatter]="paginationNumberFormatter" 
-          [rowData]="listPod"
-          [animateRows]="true"
-          [components]="components"
-          (gridReady)="onGridReady($event)">
-        </ag-grid-angular>
+          <ag-grid-angular style="width: 100%; height: 700px;" class="ag-theme-material" [columnDefs]="columnDefs"
+            [rowSelection]="rowSelection" [pagination]="true" [paginationPageSize]="paginationPageSize"
+            [paginationNumberFormatter]="paginationNumberFormatter" [rowData]="listPod" [animateRows]="true"
+            [frameworkComponents]="frameworkComponents" (gridReady)="onGridReady($event)">
+          </ag-grid-angular>
         </div>
 
         <!--<ag-grid-angular style="height: 650px" class="striped responsive-table ag-theme-material"

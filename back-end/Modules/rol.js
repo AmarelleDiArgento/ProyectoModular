@@ -46,7 +46,6 @@ rolModel.createrol = function (rolData, callback) {
   }
 }
 
-
 rolModel.updateRol = function (rolData, callback) {
   if (connection) {
     connection.query(upd,

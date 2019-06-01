@@ -13,10 +13,10 @@
           </a>
           <h6>{{msgerr}}</h6>
         </div>
-        <div class="form-group">          
+        <div class="form-group">
+          <label for="user_id">Documento</label>
           <input type="text" class="form-control" id="user_id" formControlName="user_id"
             [ngClass]="{ 'is-invalid': submitted && f.user_id.errors }" placeholder="Enter document" readonly>
-            <label for="user_id">Documento</label>
           <span>
             <div *ngIf="submitted && f.user_id.errors">
               <div *ngIf="f.user_id.errors.required"> <label id="error">Error el documento es requerido </label></div>
@@ -69,15 +69,15 @@
         </div>
         <div class="form-group">
           <label for="username">estado</label>
-            <div class="switch">
-                <label>
-                  Inactivo
-                  <input class="form-control" id="estado" formControlName="estado"
-                  [ngClass]="{ 'is-invalid': submitted && f.estado.errors }" type="checkbox">
-                  <span class="lever"></span>
-                  Activo
-                </label>
-              </div>
+          <div class="switch">
+            <label>
+              Inactivo
+              <input class="form-control" id="estado" formControlName="estado"
+                [ngClass]="{ 'is-invalid': submitted && f.estado.errors }" type="checkbox">
+              <span class="lever"></span>
+              Activo
+            </label>
+          </div>
           <span>
             <div *ngIf="submitted && f.estado.errors">
               <div *ngIf="f.estado.errors.required"> <label id="error">Error el estado es requerido </label></div>

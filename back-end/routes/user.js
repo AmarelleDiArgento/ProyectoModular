@@ -24,6 +24,26 @@ router.post('/createuser', function (req, res, next) {
     }
   })
 })
+//assingn user pod
+router.post('/assignuserpod', function (req, res, next) {
+  var userData = {
+    user_id: req.body.user_id,
+    pod_id: req.body.pod_id
+  }
+  console.log(userData);
+  
+  user.assignUserPod(userData, function (error, data) {
+    if (error) {
+      console.log(error);
+      
+      res.status(504).jsonp({
+        "error": error
+      })
+    } else {
+      res.status(200).jsonp(data)
+    }
+  })
+})
 //update user
 router.post('/updateuser', function (req, res, next) {
   var userData = {
@@ -59,6 +79,21 @@ router.post('/deleteuser', function (req, res, next) {
     }
   })
 })
+//delete pod assign user
+router.post('/resetuserpod', function (req, res, next) {
+  var userData = {
+    user_id: req.body.user_id
+  }
+  user.podUserReset(userData, function (error, data) {
+    if (error) {
+      res.status(504).jsonp({
+        "error": error
+      })
+    } else {
+      res.status(200).jsonp(data)
+    }
+  })
+})
 //get user x id
 router.post('/getdatauser', function (req, res, next) {
   var userData = {
@@ -74,7 +109,6 @@ router.post('/getdatauser', function (req, res, next) {
     }
   })
 })
-
 //get pod user
 router.post('/getdatapoduser', function (req, res, next) {
   var userData = {
@@ -90,7 +124,6 @@ router.post('/getdatapoduser', function (req, res, next) {
     }
   })
 })
-
 //get all user 
 router.get('/getdatauser', function (req, res, next) {
     var userData = {}

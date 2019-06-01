@@ -9,6 +9,8 @@ import { TaxService } from '../../../services/tax.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
+import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
 
 @Component({
   selector: 'app-listtax',
@@ -27,11 +29,11 @@ export class ListtaxComponent implements OnInit {
   private pivotPanelShow;
   private paginationPageSize;
   private paginationNumberFormatter;
+  private frameworkComponents;
 
   // list data ws tax
-  listTax: {};
-  // array from excel data
-  listExcelTax: any[];
+  listTax: [];
+
   texto = 'hiddensearch';
   filtro = true;
   lineas = 10;
@@ -45,10 +47,30 @@ export class ListtaxComponent implements OnInit {
         { headerName: 'ID', field: 'tax_id', sortable: true },
         { headerName: 'Nombre', field: 'name', sortable: true },
         { headerName: 'Porcentaje', field: 'percent', sortable: true },
-        { headerName: 'Accion', field: 'tax_id', sortable: true, width: 120 },
-        { headerName: '', field: 'tax_id', sortable: true, width: 48 }
+        {
+          headerName: '',
+          field: 'tax_id',
+          cellRenderer: 'customizedEditCell',
+          cellRendererParams: {
+            name: 'tax',
+            Name: 'Tax'
+          }, width: 80
+        },
+        {
+          headerName: '', 
+          field: 'tax_id',
+          cellRenderer: 'customizedDeleteCell',
+          cellRendererParams: {
+            name: 'tax',
+            Name: 'Tax'
+          }, width: 80
+        }
       ];
-      this.components = { statusIcon: getStatusIcon() };
+
+      this.frameworkComponents = {
+        customizedEditCell: RendereditbuttonComponent,
+        customizedDeleteCell: RenderdeletebuttonComponent
+      };
 
       this.defaultColDef = {
         pagination: true,
@@ -70,8 +92,6 @@ export class ListtaxComponent implements OnInit {
   }
 
   ngOnInit() {
-    // get data
-    // this.getAllData();
     $(document).ready(function () {
       $('select').formSelect();
     });
@@ -88,15 +108,6 @@ export class ListtaxComponent implements OnInit {
     this.gridApi.setQuickFilter(this.searchFilter);
   }
 
-  renderUpdate() {
-  }
-  renderDelete() {
-
-  }
-
-  renderStatus() {
-
-  }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -105,45 +116,16 @@ export class ListtaxComponent implements OnInit {
     this.taxService.getAllDataTax()
       .subscribe(data => {
         // populate list json privilege
-        console.log(data.rows);
+        this.listTax = data.rows;
+      });
+  }
 
-        this.listTax = data.rows;
-        this.listExcelTax = data.rows;
-      });
-  }
-  // obtain all data from the tax
-  getAllData() {
-    // send to search api backend all tax
-    this.taxService.getAllDataTax()
-      .subscribe(data => {
-        // populate list json
-        // console.log(data);
-        this.listTax = data.rows;
-      });
-  }
   // redirect to create tax
   createTax() {
     this.router.navigate(['/createtax']);
   }
-  // redirect to update tax
-  updateTax(id) {
-    // almacenamos el id
-    localStorage.setItem('idTax', id);
-    this.router.navigate(['/updatetax']);
-  }
-  // delete tax
-  deleteTax(id) {
-    // send to api backend delete tax for id
-    this.taxService.deleteTax(id)
-      .subscribe(data => {
-        if (data.respuesta === 'Success') {
-          // redirect
-          this.ngOnInit();
-        }
-      });
-  }
+
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.listExcelTax, 'Reporteimpuestos');
+    this.excelService.exportAsExcelFile(this.listTax, 'Reporteimpuestos');
   }
 }
-function getStatusIcon() {}

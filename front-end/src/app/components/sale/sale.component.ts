@@ -8,8 +8,7 @@ declare var $: any;
 import { SaleService } from '../../services/sale.service';
 import { CategoryService } from '../../services/category.service';
 import { ProductService } from '../../services/product.service';
-import { forEach } from '@angular/router/src/utils/collection';
-import { exists } from 'fs';
+
 
 @Component({
   selector: 'app-sale',
@@ -71,36 +70,79 @@ export class SaleComponent implements OnInit {
 
 
   }
+  totals() {
+    let total: number = 0;
+    let tax: number = 0;
+
+    for (let i = 0; i < this.listSaleProduct.length; i++) {
+      total = total + this.listSaleProduct[i][4];
+      tax = tax + this.listSaleProduct[i][5]
+    }
+    this.tax_price = tax;
+    this.total_price = total;
+    this.gross_price = total - tax;
+  }
   addProduct(p) {
     console.log(p);
     let exists: boolean = false;
     let cont: number = 0;
     let index: number = 0;
+    let tax_price: number = 0;
 
     for (let i = 0; i < this.listSaleProduct.length; i++) {
       if (this.listSaleProduct[i][0] === p.product_id) {
         index = i;
         exists = true;
-        cont = this.listSaleProduct[i][4] + 1;
+        cont = this.listSaleProduct[i][3] + 1;
       }
     }
+    tax_price = (p.net_price * (p.tax_percent / 100));
     if (exists) {
-      this.listSaleProduct[index][4] = cont;
+      this.listSaleProduct[index][3] = cont;
+      this.listSaleProduct[index][4] = p.net_price * cont;
+      this.listSaleProduct[index][5] = tax_price * cont;
     } else {
-      this.listSaleProduct.push([p.product_id, p.name, p.net_price, p.image, 1]);
+      this.listSaleProduct.push([p.product_id, p.name, p.image, 1, p.net_price, tax_price, p.net_price, tax_price]);
     }
-
-    this.total_price = this.total_price + p.net_price;
-    this.tax_price = this.tax_price + (p.net_price * (p.tax_percent / 100));
-    this.gross_price = this.total_price - this.tax_price;
-
+    this.totals();
   }
+
   deleteProduct(id) {
     for (let i = 0; i < this.listSaleProduct.length; i++) {
       if (this.listSaleProduct[i][0] === id) {
-        this.listSaleProduct[i].splice(0, this.listSaleProduct[i].length);
+        this.listSaleProduct[i][3] = 0;
+        this.listSaleProduct[i][4] = 0;
+        this.listSaleProduct[i][5] = 0;
       }
     }
+
+    this.totals();
+  }
+
+  increAmount(id) {
+    for (let i = 0; i < this.listSaleProduct.length; i++) {
+      if (this.listSaleProduct[i][0] === id) {
+        const cont: number = this.listSaleProduct[i][3] + 1;
+        this.listSaleProduct[i][3] = cont;
+        this.listSaleProduct[i][4] = this.listSaleProduct[i][6] * cont;
+        this.listSaleProduct[i][5] = this.listSaleProduct[i][7] * cont;
+      }
+    }
+
+    this.totals();
+  }
+  decreAmount(id) {
+    for (let i = 0; i < this.listSaleProduct.length; i++) {
+      if (this.listSaleProduct[i][0] === id) {
+        const cont: number = this.listSaleProduct[i][3] - 1;
+        this.listSaleProduct[i][3] = cont;
+        this.listSaleProduct[i][4] = this.listSaleProduct[i][6] * cont;
+        this.listSaleProduct[i][5] = this.listSaleProduct[i][7] * cont;
+
+      }
+    }
+
+    this.totals();
   }
   // get form contsales
   get f() { return this.registerSalesForm.controls; }

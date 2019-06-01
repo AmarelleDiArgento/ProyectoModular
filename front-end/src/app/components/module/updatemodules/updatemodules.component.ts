@@ -58,7 +58,7 @@ export class UpdatemodulesComponent implements OnInit {
     if (this.updateModuleForm.invalid) {
       return;
     } else {
-      this.moduleService.updateModules(
+      this.moduleService.updateModule(
         this.updateModuleForm.value.module_id,
         this.updateModuleForm.value.name,
         this.updateModuleForm.value.status
@@ -76,7 +76,7 @@ export class UpdatemodulesComponent implements OnInit {
   }
   // obtain data module for id
   getModuleDataId() {
-    this.moduleService.getDataModulesForId(this.idModule)
+    this.moduleService.getDataModuleForId(this.idModule)
       .subscribe(data => {
         if (data != null) {
           // add values to the form

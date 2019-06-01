@@ -12,6 +12,8 @@ import { ProductService } from '../../../services/product.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
+import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
 
 @Component({
   selector: 'app-listcategory',
@@ -31,11 +33,11 @@ export class ListcategoryComponent implements OnInit {
   private pivotPanelShow;
   private paginationPageSize;
   private paginationNumberFormatter;
+  private frameworkComponents;
 
  // list data ws category
- listCategory: {};
- // array from excel data
- listExcelCategory: any[];
+ listCategory: [];
+
  texto = 'hiddensearch';
  filtro = true;
  lineas = 10;
@@ -49,10 +51,29 @@ export class ListcategoryComponent implements OnInit {
       this.columnDefs = [
         { headerName: 'ID', field: 'category_id', sortable: true },
         { headerName: 'Nombre', field: 'name', sortable: true },
-        { headerName: 'Accion', field: 'category_id', sortable: true, width: 120 },
-        { headerName: '', field: 'category_id', sortable: true, width: 48 }
+        {
+          headerName: '',
+          field: 'category_id',
+          cellRenderer: 'customizedEditCell',
+          cellRendererParams: {
+            name: 'category',
+            Name: 'Category'
+          }, width: 80
+        },
+        {
+          headerName: '', field: 'category_id',
+          cellRenderer: 'customizedDeleteCell',
+          cellRendererParams: {
+            name: 'category',
+            Name: 'Category'
+          }, width: 80
+        }
       ];
-      this.components = { statusIcon: getStatusIcon() };
+
+      this.frameworkComponents = {
+        customizedEditCell: RendereditbuttonComponent,
+        customizedDeleteCell: RenderdeletebuttonComponent
+      };
   
       this.defaultColDef = {
         pagination: true,
@@ -89,16 +110,7 @@ export class ListcategoryComponent implements OnInit {
     console.log(this.searchFilter);
     this.gridApi.setQuickFilter(this.searchFilter);
   }
-
-  renderUpdate() {
-  }
-  renderDelete() {
-
-  }
-
-  renderStatus() {
-
-  }
+  
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -107,11 +119,7 @@ export class ListcategoryComponent implements OnInit {
     this.categoryService.getAllDataCategory()
       .subscribe(data => {
         // populate list json privilege
-        console.log(data.rows);
-
         this.listCategory = data.rows;
-        this.listExcelCategory = data.rows;
-
       });
   }
  // obtain all data from the category
@@ -122,32 +130,15 @@ export class ListcategoryComponent implements OnInit {
       // populate list json
        console.log(data);
       this.listCategory = data.rows;
-      this.listExcelCategory = data.rows;
    });
  }
  // redirect to create category
  createCategory() {
    this.router.navigate(['/createcategory']);
  }
- // redirect to update category
- updateCategory(id) {
-   // almacenamos el id
-   localStorage.setItem('idCategory', id);
-   this.router.navigate(['/updatecategory']);
- }
- // delete category
- deleteCategory(id) {
-   // send to api backend delete category for id
-   this.categoryService.deleteCategory(id)
-   .subscribe(data => {
-     if (data.respuesta === 'Success') {
-       // redirect
-       this.ngOnInit();
-     }
-   });
- }
+ 
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.listExcelCategory, 'Reportecategorias');
+    this.excelService.exportAsExcelFile(this.listCategory, 'Reportecategorias');
   }
 }
 

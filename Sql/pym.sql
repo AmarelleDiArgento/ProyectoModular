@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS proyectomodular.sale (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS proyectomodular.sale_product (
   sp_product_id BIGINT NOT NULL,
-  sp_sale_sale_id INT(11) NOT NULL,
+  sp_sale_sale_id BIGINT NOT NULL,
   gross_price real,
   net_price real,
   quantity INT(11) NOT NULL DEFAULT 1,
