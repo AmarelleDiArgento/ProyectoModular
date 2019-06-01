@@ -10,7 +10,7 @@
         <div class="actions">
           <a (click)="createUser()" class="modal-trigger waves-effect btn-flat nopadding"><i class="material-icons">person_add</i></a>
           <a class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons">search</i></a>
-          <i class="material-icons" title="Imprimir" (click)="printFile()">print</i>
+          
         </div>
       </div>
       <table id="datatable" class="striped responsive-table">
@@ -67,6 +67,7 @@
               <a title="Exportar Excel" (click)="exportAsXLSX()" class=" modal-trigger waves-effect btn-flat nopadding">
                 <i class="fas fa-file-excel"></i>
               </a>
+              <i class="material-icons" title="Imprimir" (click)="printFile()">print</i>
             </div>
           </div>
           <div class="row {{texto}}">
