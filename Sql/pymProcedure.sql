@@ -391,7 +391,7 @@ SELECT rp.rp_privilege_id,rp.rp_rol_id,rp.view,rp.create,rp.update,
     FROM rol_privilege rp 
     INNER JOIN  privilege pv ON rp.rp_privilege_id = pv.privilege_id 
     INNER JOIN  module md ON md.module_id = pv.module_id  
-    WHERE md.status = 1 and pv.status = 1 and rp.rp_rol_id  = 1;
+    WHERE md.status = 1 and pv.status = 1 and rp.rp_rol_id  = _rol_id;
 
 END$$
 

@@ -104,15 +104,8 @@ call proyectomodular.privilegeins('Category', 3, 'extension', 'listcategorys', 1
 -- ROL_PRIVILEGE INSERT
 -- ------------------------------------------------------------
 
-call proyectomodular.rol_privilegeins(1, 1, 1, 1, 1, 1);
-call proyectomodular.rol_privilegeins(2, 1, 1, 1, 1, 1);
-call proyectomodular.rol_privilegeins(3, 1, 1, 1, 1, 1);
-call proyectomodular.rol_privilegeins(4, 1, 1, 1, 1, 1);
-call proyectomodular.rol_privilegeins(5, 1, 1, 1, 1, 1);
-call proyectomodular.rol_privilegeins(6, 1, 1, 1, 1, 1);
-call proyectomodular.rol_privilegeins(7, 1, 1, 1, 1, 1);
-call proyectomodular.rol_privilegeins(8, 1, 1, 1, 1, 1);
-call proyectomodular.rol_privilegeins(9, 1, 1, 1, 1, 1);
+call proyectomodular.rol_privilegeins(6, 3, 1, 1, 1, 1);
+
 call proyectomodular.rol_privilegeins(1, 2, 1, 1, 1, 1);
 call proyectomodular.rol_privilegeins(2, 2, 1, 1, 1, 1);
 call proyectomodular.rol_privilegeins(3, 2, 1, 1, 1, 1);

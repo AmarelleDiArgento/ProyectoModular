@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS proyectomodular.product (
   product_id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   code VARCHAR(45) UNIQUE NOT NULL,
   name VARCHAR(255) UNIQUE NOT NULL,
-  net_price VARCHAR(45) NOT NULL,
+  net_price real,
   category_id INT(11) NOT NULL,
   image VARCHAR(250) NULL,
   status TINYINT(4) NOT NULL,

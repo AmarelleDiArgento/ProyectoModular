@@ -66,7 +66,7 @@ export class ListrolComponent implements OnInit {
         }, width: 80
       },
       {
-        headerName: '', 
+        headerName: '',
         field: 'rol_id',
         cellRenderer: 'customizedSettingCell',
         cellRendererParams: {
