@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 declare var $: any;
 // service auth
 import { UserService } from '../../../services/user.service';
+import { PodService } from '../../../services/pod.service';
+import { RolService } from '../../../services/rol.service';
 
 @Component({
   selector: 'app-updateusers',
@@ -21,6 +23,10 @@ export class UpdateusersComponent implements OnInit {
   updateUsersForm: FormGroup;
   // list data auth
   listUser: {};
+  // list pod user 
+  listPod: {};
+  // list rol 
+  listRol: {};
   // id user
   idUser = '';
   // rows vacio
@@ -33,25 +39,47 @@ export class UpdateusersComponent implements OnInit {
   rol = '';
   estado = '';
 
-  constructor(private http: Http, private formBuilder: FormBuilder, private userService: UserService, private router: Router) { }
-
+  constructor(private http: Http,
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private podService: PodService,
+    private rolService: RolService,
+    private router: Router) { }
   ngOnInit() {
-    $(document).ready(function () {
-      $('select').formSelect();
-    });
     // init form
     this.updateUsersForm = this.formBuilder.group({
       user_id: ['', Validators.required],
       username: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
-      rol: ['', Validators.required],
-      estado: ['', Validators.required]
+      rol_id: ['', Validators.required],
+      pod_id: ['', Validators.required],
+      status: ['', Validators.required]
     });
     // asign id user to search data
     this.idUser = localStorage.getItem('idUser');
     // eject ws search user for id
     this.getUserDataId();
+
+
+    // send to search api backend all pods
+    this.podService.getAllDataPod()
+      .subscribe(data => {
+        // populate list json pod
+        this.listPod = data.rows;
+
+      });
+    // send to search api backend all rols
+    this.rolService.getAllDataRol()
+      .subscribe(data => {
+        // populate list json rol
+        this.listRol = data.rows;
+      });
+
+    $(document).ready(function () {
+      $('select').formSelect();
+    });
+
   }
   // get form controls
   get f() { return this.updateUsersForm.controls; }
@@ -90,6 +118,7 @@ export class UpdateusersComponent implements OnInit {
           this.updateUsersForm.get('user_id').setValue(data.rows[0].user_id);
           this.updateUsersForm.get('username').setValue(data.rows[0].username);
           this.updateUsersForm.get('email').setValue(data.rows[0].email);
+          this.updateUsersForm.get('password').setValue(data.rows[0].password);
         }
       });
   }

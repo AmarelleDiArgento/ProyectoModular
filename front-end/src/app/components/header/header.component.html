@@ -27,12 +27,12 @@
 </ul>
 <nav>
   <div class="nav-wrapper ">
-    <a href="#!" class="brand-logo conforta"><b class="teal-text text-darken-3">Proyecto</b> modular</a>
+    <a href="/home" class="brand-logo conforta"><b class="teal-text text-darken-3">Proyecto</b> modular</a>
     <ul class="right hide-on-med-and-down">
       <li *ngFor="let item of listMenuAuth"><a class="conforta"
           [routerLink]="['/',item.route]">{{item.privilege_name}}</a></li>
       <!-- Dropdown Trigger -->
-      <li><a class="dropdown-trigger" href="#!" data-target="navbarNavDropdown">Opciones<i
+      <li><a class="dropdown-trigger"  data-target="navbarNavDropdown">Opciones<i
             class="material-icons right">arrow_drop_down</i></a></li>
     </ul>
   </div>

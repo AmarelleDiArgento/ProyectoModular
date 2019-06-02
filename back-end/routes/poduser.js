@@ -11,6 +11,9 @@ router.post('/createpoduser', function (req, res, next) {
     ps_pod_id: req.body.ps_pod_id
   }
   poduser.createPodUser(podData, function (error, data) {
+    console.log('mod:',
+      req.body.ps_user_id,
+      req.body.ps_pod_id);
     if (error) {
       res.status(504).jsonp({
         "error": error
@@ -53,10 +56,10 @@ router.post('/deletepoduser', function (req, res, next) {
 })
 //get poduser x id
 router.post('/getdatapoduser', function (req, res, next) {
-    var podData = {
-        ps_user_id: req.body.ps_user_id
-      }
-      poduser.dataPodUser(podData, function (error, data) {
+  var podData = {
+    ps_user_id: req.body.ps_user_id
+  }
+  poduser.dataPodUser(podData, function (error, data) {
     if (error) {
       res.status(504).jsonp({
         "error": error
@@ -69,8 +72,8 @@ router.post('/getdatapoduser', function (req, res, next) {
 
 //get all poduser 
 router.get('/getdatapoduser', function (req, res, next) {
-    var podData = {}
-    poduser.dataAllPodUser(podData, function (error, data) {
+  var podData = {}
+  poduser.dataAllPodUser(podData, function (error, data) {
     if (error) {
       res.status(504).jsonp({
         "error": error

@@ -54,10 +54,12 @@ export class UserService {
   }
   // service to api mysql delete users
   assignPodUser(user_id,pod_id) {
-    this.params = 'user_id=' + user_id + '&pod_id=' + pod_id;
+    this.params = 'ps_user_id=' + user_id + '&ps_pod_id=' + pod_id;
+    console.log(this.params);
+    
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/assignuserpod/', this.params, options)
+    return this.http.post('http://localhost:3000/createpoduser/', this.params, options)
       .map((response: Response) => response.json())
   }
   // service to api mysql delete users
@@ -65,7 +67,7 @@ export class UserService {
     this.params = 'user_id=' + user_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/poduserreset/', this.params, options)
+    return this.http.post('http://localhost:3000/deletepoduser/', this.params, options)
       .map((response: Response) => response.json())
   }
 

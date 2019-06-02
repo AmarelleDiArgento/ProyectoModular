@@ -140,6 +140,7 @@ CREATE TABLE IF NOT EXISTS proyectomodular.rol_privilege (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS proyectomodular.sale (
   sale_id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  invoice_num BIGINT(20) NOT NULL,
   date DATETIME NULL DEFAULT NULL,
   pod_id INT(11) NOT NULL,
   cardpayment boolean default false,
@@ -162,14 +163,15 @@ CREATE TABLE IF NOT EXISTS proyectomodular.sale (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS proyectomodular.sale_product (
   sp_product_id BIGINT NOT NULL,
-  sp_sale_sale_id BIGINT NOT NULL,
+  sp_sale_id BIGINT NOT NULL,
   gross_price real,
+  tax_price real,
   net_price real,
   quantity INT(11) NOT NULL DEFAULT 1,
   CONSTRAINT fk_product_has_sale_product1 FOREIGN KEY (sp_product_id) REFERENCES proyectomodular.product (product_id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT fk_product_has_sale_sale1 FOREIGN KEY (sp_sale_sale_id) REFERENCES proyectomodular.sale (sale_id)
+  CONSTRAINT fk_product_has_sale1 FOREIGN KEY (sp_sale_id) REFERENCES proyectomodular.sale (sale_id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
