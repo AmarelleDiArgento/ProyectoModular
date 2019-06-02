@@ -3,6 +3,7 @@ USE proyectomodular;
 -- ------------------------------------------------------------
 -- ROL INSERT
 -- ------------------------------------------------------------
+ call proyectomodular.rolins('Cliente');
  call proyectomodular.rolins('Administrador');
  call proyectomodular.rolins('Vendedor');
  call proyectomodular.rolins('Almacenista');
@@ -43,7 +44,7 @@ call proyectomodular.userins('1020123', 'Prueba', 'prueba@prueba.com', "é61ë62
 -- TAX INSERT
 -- ------------------------------------------------------------
  call proyectomodular.taxins('Consumo', 8.00);
- call proyectomodular.taxins('IVA', 16.00 );
+ call proyectomodular.taxins('IVA', 19.00 );
  call proyectomodular.taxins('Lujo', 5.00);
 
 -- call proyectomodular.taxins(?,?);
@@ -83,15 +84,15 @@ call proyectomodular.moduleins('Product', 1);
 -- PRIVILEGE INSERT
 -- ------------------------------------------------------------
 
-call proyectomodular.privilegeins('User', 1, 'ico', 'listusers', 1);
-call proyectomodular.privilegeins('Rol', 1, 'ico1', 'listrols', 1);
-call proyectomodular.privilegeins('Privilege', 1, 'ico2', 'listprivileges', 1);
-call proyectomodular.privilegeins('Module', 1, 'ico3', 'listmodules', 1);
-call proyectomodular.privilegeins('Pod', 2, 'ico4', 'listpods', 1);
-call proyectomodular.privilegeins('Sale', 2, 'ico5', 'listsales', 1);
-call proyectomodular.privilegeins('Product', 3, 'ico6', 'listproducts', 1);
-call proyectomodular.privilegeins('Tax', 3, 'ico7', 'listtaxs', 1);
-call proyectomodular.privilegeins('Category', 3, 'ico8', 'listcategorys', 1);
+call proyectomodular.privilegeins('User', 1, 'people', 'listusers', 1);
+call proyectomodular.privilegeins('Rol', 1, 'assignment_ind', 'listrols', 1);
+call proyectomodular.privilegeins('Privilege', 1, 'view_list', 'listprivileges', 1);
+call proyectomodular.privilegeins('Module', 1, 'widgets', 'listmodules', 1);
+call proyectomodular.privilegeins('Pod', 2, 'store', 'listpods', 1);
+call proyectomodular.privilegeins('Sale', 2, 'local_grocery_store', 'listsales', 1);
+call proyectomodular.privilegeins('Product', 3, 'card_giftcard', 'listproducts', 1);
+call proyectomodular.privilegeins('Tax', 3, 'description', 'listtaxs', 1);
+call proyectomodular.privilegeins('Category', 3, 'extension', 'listcategorys', 1);
 
 -- call proyectomodular.privilegeins(?,?,?,?,?);
 -- call proyectomodular.privilegeupd(?,?,?,?,?,?);
@@ -132,12 +133,12 @@ call proyectomodular.rol_privilegeins(9, 2, 1, 1, 1, 1);
 -- POD INSERT
 -- ------------------------------------------------------------
 
-call proyectomodular.podins('A68', 'Americas 68', 'Av Americas No 68 36 lc 101', '4561234', 1000, 1);
-call proyectomodular.podins('ABY', 'Av Boyaca', 'Av Boyaca No 68 36 lc 101', '4561234', 1000, 1);
-call proyectomodular.podins('NQS', 'Av NQS', 'Av NQS No 68 36 lc 101', '4561234', 1000, 1);
+call proyectomodular.podins('AME', '890903938-8', 'Americas 68', 'Av Americas No 68 36 lc 101', '4561234', 1000, 1);
+call proyectomodular.podins('ABY', '860066942-7', 'Av Boyaca', 'Av Boyaca No 68 36 lc 101', '4561234', 1000, 1);
+call proyectomodular.podins('NQS', '860011153-6', 'Av NQS', 'Av NQS No 68 36 lc 101', '4561234', 1000, 1);
 
--- call proyectomodular.podins(?, ?, ?, ?, ?, ?);
--- call proyectomodular.podupd(?, ?, ?, ?, ?, ?, ?);
+-- call proyectomodular.podins(?, ?, ?, ?, ?, ?, ?);
+-- call proyectomodular.podupd(?, ?, ?, ?, ?, ?, ?, ?);
 -- call proyectomodular.podone(?);
 -- call proyectomodular.podall();
 -- call proyectomodular.poddel(?);
@@ -147,7 +148,14 @@ call proyectomodular.podins('NQS', 'Av NQS', 'Av NQS No 68 36 lc 101', '4561234'
 -- ------------------------------------------------------------
 
 call proyectomodular.pod_userins('1020123',1);
+call proyectomodular.pod_userins('1020123',2);
 -- call proyectomodular.pod_userins(?,?);
 -- call proyectomodular.pod_userins(?,?);
 -- call proyectomodular.pod_userallpodbyuser(?);
 -- call proyectomodular.pod_useralluserbypod(2);
+
+call proyectomodular.producttaxins(1, 1);
+call proyectomodular.producttaxins(2, 1);
+call proyectomodular.producttaxins(3, 1);
+call proyectomodular.producttaxins(3, 2);
+

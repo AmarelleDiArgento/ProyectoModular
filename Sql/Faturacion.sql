@@ -94,8 +94,8 @@ DROP procedure IF EXISTS sale_productins;
 DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE sale_productins (
-  _sp_product_id BIGINT,
   _sp_sale_id BIGINT,
+  _sp_product_id BIGINT,
   _quantity INT(11)
 )
 BEGIN
@@ -103,17 +103,19 @@ declare net real;
 declare gross real;
 declare tax real;
 
-select 	(net_price - (sum(t.percent)/100) * p.net_price) * _quantity into gross
+select 	(net_price / (1 + (sum(t.percent) /100))) * _quantity into gross
 from product as p 
 inner join product_tax as pt on p.product_id = pt.pt_product_id
 inner join tax as t on pt.pt_tax_id = t.tax_id
-where p.product_id = _sp_product_id;
+where p.product_id = _sp_product_id
+group by p.product_id;
 
-select ((sum(t.percent)/100) * p.net_price) * _quantity into tax
+select (p.net_price - (net_price / (1 + ((sum(t.percent) /100))))) * _quantity into tax
 from product as p 
 inner join product_tax as pt on p.product_id = pt.pt_product_id
 inner join tax as t on pt.pt_tax_id = t.tax_id
-where p.product_id = _sp_product_id;
+where p.product_id = _sp_product_id
+group by p.product_id;
 
 select net_price * _quantity into net
 from product as p
@@ -259,14 +261,20 @@ END$$
 
 DELIMITER ;
 
+
+
 call proyectomodular.saleins(1, '1070949', '1020123');
-call proyectomodular.sale_productins(3, 1, 4);
+call proyectomodular.sale_productins(1, 3, 4);
+call proyectomodular.sale_productins(1, 2, 1);
 call proyectomodular.sale_productins(2, 1, 1);
 
 call proyectomodular.saleins(1, '1070949', '1020123');
-call proyectomodular.saleins(1, 2, 1);
-call proyectomodular.saleins(2, 2, 5);
+call proyectomodular.sale_productins(2, 1, 1);
+call proyectomodular.sale_productins(2, 2, 5);
 
 call proyectomodular.saleins(1, '1070949', '1020123');
-call proyectomodular.saleins(1, 3, 1);
-call proyectomodular.saleins(3, 3, 1);
+call proyectomodular.sale_productins(60, 1, 1);
+call proyectomodular.sale_productins(60, 2, 1);
+call proyectomodular.sale_productins(60, 3, 1);
+call proyectomodular.sale_productins(3, 3, 1);
+

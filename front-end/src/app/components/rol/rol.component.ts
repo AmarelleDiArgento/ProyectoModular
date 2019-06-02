@@ -54,7 +54,7 @@ export class RolComponent implements OnInit {
               timer: 2000
             });
             // redirect to home menu
-            this.router.navigate(['/listrols'])
+            this.router.navigate(['/listrols']);
           } else {
             Swal.fire({
               type: 'error',

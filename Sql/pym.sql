@@ -19,12 +19,6 @@ USE proyectomodular ;
 CREATE TABLE IF NOT EXISTS proyectomodular.category (
   category_id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   name VARCHAR(100) UNIQUE NOT NULL);
--- -----------------------------------------------------
--- Table proyectomodular.category
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS proyectomodular.category (
-  category_id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  name VARCHAR(100) UNIQUE NOT NULL);
   
 -- -----------------------------------------------------
 -- Table proyectomodular.module
@@ -39,14 +33,15 @@ CREATE TABLE IF NOT EXISTS proyectomodular.module (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS proyectomodular.pod (
   pod_id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  nit varchar(15),
   code varchar(5),
   name VARCHAR(255) UNIQUE NULL UNIQUE,
   address VARCHAR(255) NULL DEFAULT NULL,
   phone VARCHAR(12) NULL DEFAULT NULL,
   billing_limit BIGINT,
   status TINYINT(4) NOT NULL,
-  create_time TIMESTAMP,
-  update_time TIMESTAMP)
+  create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  update_time TIMESTAMP NULL DEFAULT NULL)
 COMMENT = 'Point of sale';
 
 -- -----------------------------------------------------
@@ -79,10 +74,10 @@ CREATE TABLE IF NOT EXISTS proyectomodular.pod_user (
   ps_user_id VARCHAR(45) NOT NULL,
   ps_pod_id INT(11) NOT NULL,
   CONSTRAINT fk_user_has_pod_pod1 FOREIGN KEY (ps_pod_id) REFERENCES proyectomodular.pod (pod_id)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT fk_user_has_pod_user1 FOREIGN KEY (ps_user_id) REFERENCES proyectomodular.user (user_id)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
 
 -- -----------------------------------------------------
@@ -96,7 +91,7 @@ CREATE TABLE IF NOT EXISTS proyectomodular.privilege (
   route VARCHAR(75) UNIQUE NOT NULL,
   status TINYINT(4) NOT NULL,
   CONSTRAINT fk_privilege_module1 FOREIGN KEY (module_id) REFERENCES proyectomodular.module (module_id)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
 
 -- -----------------------------------------------------
@@ -120,7 +115,7 @@ CREATE TABLE IF NOT EXISTS proyectomodular.product (
   image VARCHAR(250) NULL,
   status TINYINT(4) NOT NULL,
   CONSTRAINT fk_product_category1 FOREIGN KEY (category_id) REFERENCES proyectomodular.category (category_id)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
     
 -- -----------------------------------------------------
@@ -134,10 +129,10 @@ CREATE TABLE IF NOT EXISTS proyectomodular.rol_privilege (
   `update` TINYINT(4) NOT NULL,
   `delete` TINYINT(4) NOT NULL,
   CONSTRAINT fk_privilege_has_rol_privilege1 FOREIGN KEY (rp_privilege_id) REFERENCES proyectomodular.privilege (privilege_id)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT fk_privilege_has_rol_rol1 FOREIGN KEY (rp_rol_id) REFERENCES proyectomodular.rol (rol_id)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
 
 -- -----------------------------------------------------
@@ -147,8 +142,11 @@ CREATE TABLE IF NOT EXISTS proyectomodular.sale (
   sale_id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   date DATETIME NULL DEFAULT NULL,
   pod_id INT(11) NOT NULL,
+  cardpayment boolean default false,
+  authorization VARCHAR(45),
   user_id VARCHAR(45) NOT NULL,
   client_id VARCHAR(45) NULL DEFAULT NULL,
+  accountant boolean default true,
   CONSTRAINT fk_sale_pod1 FOREIGN KEY (pod_id) REFERENCES proyectomodular.pod (pod_id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
@@ -176,24 +174,27 @@ CREATE TABLE IF NOT EXISTS proyectomodular.sale_product (
     ON UPDATE NO ACTION);
 
 -- -----------------------------------------------------
+-- Table proyectomodular.product_tax
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS proyectomodular.product_tax (
+  pt_product_id BIGINT NOT NULL,
+  pt_tax_id INT(11) NOT NULL,
+  CONSTRAINT fk_product_has_tax_product1 FOREIGN KEY (pt_product_id) REFERENCES proyectomodular.product (product_id)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_product_has_tax_tax1 FOREIGN KEY (pt_tax_id) REFERENCES proyectomodular.tax (tax_id)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
 -- Table proyectomodular.timestamps
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS proyectomodular.timestamps (
   create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
   update_time TIMESTAMP NULL DEFAULT NULL);
 
--- -----------------------------------------------------
--- Table proyectomodular.product_tax
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS proyectomodular.product_tax (
-  pt_product_id INT(11) NOT NULL,
-  pt_tax_id INT(11) NOT NULL,
-  CONSTRAINT fk_product_has_tax_product1 FOREIGN KEY (pt_product_id) REFERENCES proyectomodular.product (product_id)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT fk_product_has_tax_tax1 FOREIGN KEY (pt_tax_id) REFERENCES proyectomodular.tax (tax_id)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

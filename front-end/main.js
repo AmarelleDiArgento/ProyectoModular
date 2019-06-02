@@ -77,13 +77,13 @@ function handleSquirrelEvent(application) {
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 1360,
-    height: 760
+    width: 1366,
+    height: 768
   });
   // and load the index.html of the app. 
   win.loadFile('./dist/front-end/index.html');
   // Open the DevTools.
-  //win.webContents.openDevTools();
+  win.webContents.openDevTools();
   // Emitted when the window is closed.
   win.on('closed', () => {
     win = null

@@ -42,7 +42,6 @@ export class SaleComponent implements OnInit {
   seeker;
 
   listSaleProduct: any[][] = [];
-  listSaleProductB: [];
 
   constructor(private http: Http,
     private formBuilder: FormBuilder,
@@ -53,9 +52,17 @@ export class SaleComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    console.log('Hola!');
 
+    // this.tax_price = 0;
+    // this.total_price = 0;
+    // this.gross_price = 0;
+    // this.listSaleProduct = [];
+    // this.sale_id = null;
+    // this.client_id = null;
+    // this.client = {};
     this.idUser = localStorage.getItem('idSesionUser');
-    this.idPod = localStorage.getItem('idPod');
+    this.idPod = localStorage.getItem('idSesionPod');
     // send to search api backend all category
     this.categoryService.getAllDataCategory()
       .subscribe(data => {
@@ -223,7 +230,7 @@ export class SaleComponent implements OnInit {
 
 
   sale() {
-
+    let e = true;
     for (let i = 0; i < this.listSaleProduct.length; i++) {
 
       this.saleService.createSaleProduct(
@@ -237,10 +244,33 @@ export class SaleComponent implements OnInit {
           } else {
             console.log(this.listSaleProduct[i][1] + ' Error!');
             console.log(data.respuesta);
-
+            e = false;
           }
 
         });
+    }
+    if (e) {
+
+      Swal.fire({
+        type: 'success',
+        title: 'Venta exitosa',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      // redirect to home menu
+      this.ngOnInit();
+    } else {
+      Swal.fire({
+        type: 'error',
+        title: 'Ups!, algo salio mal',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000
+      });
+
     }
   }
 }
@@ -260,7 +290,7 @@ function number_format(amount, decimals) {
   // si es mayor o menor que cero retorno el valor formateado como numero
   amount = '' + amount.toFixed(decimals);
 
-  let amount_parts = amount.split('.'),
+  const amount_parts = amount.split('.'),
     regexp = /(\d+)(\d{3})/;
 
   while (regexp.test(amount_parts[0])) {

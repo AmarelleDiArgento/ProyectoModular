@@ -56,9 +56,9 @@ export class ListsalesComponent implements OnInit {
       { headerName: 'punto de venta', field: 'pod_name', sortable: true },
       { headerName: 'Usuario', field: 'user_name', sortable: true },
       { headerName: 'Cliente', field: 'client_name', sortable: true },
-      { headerName: 'Impuesto', field: 'tax_price', sortable: true },
-      { headerName: 'Precio bruto', field: 'gross_price', sortable: true },
-      { headerName: 'Precio neto', field: 'net_price', sortable: true },
+      { headerName: 'Impuesto', field: 'tax_price', sortable: true, valueFormatter: currencyFormatterdecimal },
+      { headerName: 'Precio bruto', field: 'gross_price', sortable: true, valueFormatter: currencyFormatterdecimal },
+      { headerName: 'Precio neto', field: 'net_price', sortable: true, valueFormatter: currencyFormatter },
       {
         headerName: '',
         field: 'sale_id',
@@ -176,4 +176,35 @@ function filter(filterLocalDateAtMidnight, cellValue) {
   if (cellDate > filterLocalDateAtMidnight) {
     return 1;
   }
+}
+
+function currencyFormatterdecimal(params) {
+  return '$ ' + formatNumberdecimal(params.value);
+}
+
+function formatNumberdecimal(number) {
+  // this puts commas into the number eg 1000 goes to 1,000,
+  // i pulled this from stack overflow, i have no idea how it works
+  return (
+    number
+      .toFixed(2) // always two decimal digits
+      .replace('.', ',') // replace decimal point character with ,
+      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+  ) // use . as a separator
+}
+
+
+function currencyFormatter(params) {
+  return '$ ' + formatNumber(params.value);
+}
+
+function formatNumber(number) {
+  // this puts commas into the number eg 1000 goes to 1,000,
+  // i pulled this from stack overflow, i have no idea how it works
+  return (
+    number
+      .toFixed(0) // always two decimal digits
+      .replace('.', ',') // replace decimal point character with ,
+      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+  ) // use . as a separator
 }

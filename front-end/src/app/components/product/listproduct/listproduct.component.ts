@@ -49,7 +49,7 @@ export class ListproductComponent implements OnInit {
     private router: Router) {
     this.columnDefs = [
       { headerName: 'ID', field: 'product_id', sortable: true },
-      { headerName: 'Codigo', field: 'name', sortable: true },
+      { headerName: 'Codigo', field: 'code', sortable: true },
       { headerName: 'Nombre', field: 'name', sortable: true },
       { headerName: 'Precio', field: 'net_price', sortable: true },
       { headerName: 'Categoria', field: 'category_name', sortable: true },
