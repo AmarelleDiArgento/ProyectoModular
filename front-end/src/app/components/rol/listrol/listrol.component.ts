@@ -9,10 +9,9 @@ declare var $: any;
 import { RolService } from '../../../services/rol.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
-import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
-import { RenderStatusComponent } from '../../aggridrender/render-status/render-status.component';
 import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
 import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
+import { RendersettingbuttonComponent } from '../../aggridrender/rendersettingbutton/rendersettingbutton.component';
 
 
 @Component({
@@ -65,11 +64,21 @@ export class ListrolComponent implements OnInit {
           name: 'rol',
           Name: 'Rol'
         }, width: 80
+      },
+      {
+        headerName: '', 
+        field: 'rol_id',
+        cellRenderer: 'customizedSettingCell',
+        cellRendererParams: {
+          name: 'rol',
+          Name: 'Rol'
+        }, width: 80
       }
     ];
     this.frameworkComponents = {
       customizedEditCell: RendereditbuttonComponent,
-      customizedDeleteCell: RenderdeletebuttonComponent
+      customizedDeleteCell: RenderdeletebuttonComponent,
+      customizedSettingCell: RendersettingbuttonComponent
     }
 
     this.defaultColDef = {

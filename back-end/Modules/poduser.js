@@ -7,11 +7,22 @@ connection.connect();
 
 var podUserModel = {}
 
-podUserModel.createPodUser = function (podData, callback) {
+let ins = `call proyectomodular.pod_userins(?,?);`;
+let upd = `call proyectomodular.pod_userupd(?,?);`;
+let del = `call proyectomodular.pod_userdel(?);`;
+let all = `call proyectomodular.pod_userins(?);`;
+let one = `call proyectomodular.pod_userins(?,?);`;
 
-  var query = 'insert into pod_user (ps_user_id, ps_pod_id) values ("' + podData.ps_user_id + '",' + podData.ps_pod_id + ');';
+podUserModel.createPodUser = function (podData, callback) {
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(ins, [
+      podData.ps_user_id,
+      podData.ps_pod_id
+    ], function (error, rows) {
+      console.log('mod:',
+        podData.ps_user_id,
+        podData.ps_pod_id);
+
       if (error) {
         callback(null, {
           "respuesta": error
@@ -40,9 +51,11 @@ podUserModel.createPodUser = function (podData, callback) {
 
 
 podUserModel.updatePodUser = function (podData, callback) {
-  var query = "UPDATE pod_user SET   ps_user_id = '" + podData.ps_user_id + "', ps_pod_id = " + podData.ps_pod_id + "    where ps_user_id='" + podData.ps_user_id + "' ";
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(upd, [
+      podData.ps_user_id,
+      podData.ps_pod_id
+    ], function (error, rows) {
       console.log(rows);
       if (error) {
         console.log(error)
@@ -73,9 +86,10 @@ podUserModel.updatePodUser = function (podData, callback) {
 
 
 podUserModel.deletePodUser = function (podData, callback) {
-  var query = "DELETE  from pod_user where ps_user_id=" + podData.ps_user_id + " ";
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(del, [
+      podData.ps_user_id
+    ], function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
@@ -105,9 +119,11 @@ podUserModel.deletePodUser = function (podData, callback) {
 
 
 podUserModel.dataPodUser = function (podData, callback) {
-  var query = "SELECT ps_user_id, ps_pod_id from pod_user   where ps_user_id= '" + podData.ps_user_id + "' ";
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(one, [
+      podData.ps_user_id,
+      podData.ps_pod_id
+    ], function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
@@ -137,9 +153,10 @@ podUserModel.dataPodUser = function (podData, callback) {
 }
 
 podUserModel.dataAllPodUser = function (saleData, callback) {
-  var query = "SELECT ps_user_id, ps_pod_id from pod_user ";
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(all, [
+      podData.ps_user_id
+    ], function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {

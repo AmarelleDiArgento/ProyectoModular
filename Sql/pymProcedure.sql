@@ -1009,7 +1009,7 @@ CREATE PROCEDURE rol_privilegeupd (
  _update TINYINT(4),
  _delete TINYINT(4))
 BEGIN
-UPDATE proyectomodular.rol_privilegeupd
+UPDATE proyectomodular.rol_privilege
 SET
  rp_privilege_id = _rp_privilege_id,
  rp_rol_id= _rp_rol_id,
@@ -1093,10 +1093,10 @@ out numfac bigint
 BEGIN
 declare num bigint;
 
-select max(u.invoice_num) + 1 into num 
+select max(p.invoice_num) + 1 into num 
 from (select invoice_num
 from sale as s 
-where s.pod_id = _pod_id) as u ;
+where s.pod_id = _pod_id) as p ;
 
 if num is not null then
 set numfac = num;

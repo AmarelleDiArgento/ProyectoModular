@@ -29,10 +29,12 @@ export class RegisterComponent implements OnInit {
   // list rol 
   listRol: {};
 
-  constructor(private http: Http, private formBuilder: FormBuilder,
+  constructor(private http: Http, 
+    private formBuilder: FormBuilder,
     private userService: UserService,
     private podService: PodService,
-    private rolService: RolService, private router: Router) { }
+    private rolService: RolService, 
+    private router: Router) { }
 
   ngOnInit() {
 
@@ -74,8 +76,8 @@ export class RegisterComponent implements OnInit {
 
   // submit form
   onSubmit() {
-    let error,ok;
     this.submitted = true;
+    let ErrorP: string = '';
     // error here if form is invalid
     if (this.registerUsersForm.invalid) {
       return;
@@ -88,37 +90,45 @@ export class RegisterComponent implements OnInit {
         this.registerUsersForm.value.password,
         this.registerUsersForm.value.rol_id,
         this.registerUsersForm.value.status)
-        .subscribe(data => {
-          if (data.respuesta === 'Success') {
+        .subscribe(dataU => {
+          if (dataU.respuesta === 'Success') {
             for (const pod_id of this.registerUsersForm.value.pod_id) {
+
               this.userService.assignPodUser(
                 this.registerUsersForm.value.user_id,
                 pod_id
-              ).subscribe(date => {
-                console.log(date);
-                
+              ).subscribe(dataP => {
+                if (dataU.respuesta != 'Success') {
+                  ErrorP += dataP.respuesta;
+                }
               });
             }
-            Swal.fire({
-              type: 'success',
-              title: 'Registro exitoso \n ' + ok + error ,
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 2000
-            });
-            // redirect to home menu
-            this.router.navigate(['/listusers'])
+            if (ErrorP === '') {
+              Swal.fire({
+                type: 'success',
+                title: 'Registro exitoso',
+                showConfirmButton: false,
+                timer: 2000
+              });
+              // redirect to home menu
+              this.router.navigate(['/listusers']);
+            } else {
+              Swal.fire({
+                type: 'error',
+                title: 'Ups!, algo salio mal: \n' + ErrorP,
+                showConfirmButton: false,
+                timer: 2000
+              });
+              this.msgerr = 'Error al crear el usuario \n' + ErrorP;
+            }
           } else {
             Swal.fire({
               type: 'error',
-              title: 'Ups!, algo salio mal: \n' + data.respuesta.error ,
-              toast: true,
-              position: 'top-end',
+              title: 'Ups!, algo salio mal: \n' + dataU.respuesta.error,
               showConfirmButton: false,
               timer: 2000
             });
-            this.msgerr = 'Error al crear el usuario \n' + data.respuesta;
+            this.msgerr = 'Error al crear el usuario \n' + dataU.respuesta;
           }
         });
     }

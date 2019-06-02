@@ -66,6 +66,8 @@ import { AggridrenderComponent } from './components/aggridrender/aggridrender.co
 import { RenderStatusComponent } from './components/aggridrender/render-status/render-status.component';
 import { RendereditbuttonComponent } from './components/aggridrender/rendereditbutton/rendereditbutton.component';
 import { RenderdeletebuttonComponent } from './components/aggridrender/renderdeletebutton/renderdeletebutton.component';
+import { RendersettingbuttonComponent } from './components/aggridrender/rendersettingbutton/rendersettingbutton.component';
+import { RendervisibilitybuttonComponent } from './components/aggridrender/rendervisibilitybutton/rendervisibilitybutton.component';
 
 
 
@@ -112,7 +114,9 @@ import { RenderdeletebuttonComponent } from './components/aggridrender/renderdel
     AggridrenderComponent,
     RenderStatusComponent,
     RendereditbuttonComponent,
-    RenderdeletebuttonComponent
+    RenderdeletebuttonComponent,
+    RendersettingbuttonComponent,
+    RendervisibilitybuttonComponent
   ],
   imports: [
     BrowserModule,
@@ -124,7 +128,9 @@ import { RenderdeletebuttonComponent } from './components/aggridrender/renderdel
     AgGridModule.withComponents([
       RenderStatusComponent,
       RendereditbuttonComponent,
-      RenderdeletebuttonComponent
+      RenderdeletebuttonComponent,
+      RendersettingbuttonComponent,
+      RendervisibilitybuttonComponent
     ])
   ],
   providers: [
