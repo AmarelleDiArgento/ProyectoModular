@@ -541,9 +541,17 @@ CREATE PROCEDURE pod_userins (
   _ps_pod_id int(11)
 )
 BEGIN
-INSERT INTO proyectomodular.pod_user (ps_user_id,ps_pod_id) 
-VALUES
-(_ps_user_id,_ps_pod_id);
+
+declare cont int;
+select  count(pt_product_id) into cont from product_tax where pt_product_id = _pt_product_id and pt_tax_id = _pt_tax_id;
+if cont then
+select 'duplicate record' as error;
+else 
+INSERT INTO proyectomodular.product_tax
+(pt_product_id, pt_tax_id) VALUES
+(_pt_product_id, _pt_tax_id);
+end if;
+
 END$$
 
 DELIMITER ;
@@ -987,9 +995,16 @@ CREATE PROCEDURE rol_privilegeins (
  _update TINYINT(4),
  _delete TINYINT(4))
 BEGIN
+
+declare cont int;
+select  count(rp_rol_id) into cont from rol_privilege where rp_privilege_id = _rp_privilege_id and rp_rol_id =_rp_rol_id;
+if cont then
+select 'duplicate record' as error;
+else 
 INSERT INTO proyectomodular.rol_privilege (rp_privilege_id, rp_rol_id, view, `create`,`update`,`delete`) 
-VALUES
-(_rp_privilege_id, _rp_rol_id, _view, _create,_update,_delete);
+VALUES (_rp_privilege_id, _rp_rol_id, _view, _create,_update,_delete);
+end if;
+
 END$$
 
 DELIMITER ;
@@ -1350,10 +1365,14 @@ CREATE PROCEDURE  producttaxins(
 )
 BEGIN
 
+declare cont int;
+select  count(pt_product_id) into cont from product_tax where pt_product_id = _pt_product_id and pt_tax_id = _pt_tax_id;
+if cont then
+select 'duplicate record' as error;
+else 
 INSERT INTO proyectomodular.product_tax
 (pt_product_id, pt_tax_id) VALUES
 (_pt_product_id, _pt_tax_id);
-
 
 END$$
 
