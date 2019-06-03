@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -20,6 +20,7 @@ import { RenderStatusComponent } from '../../aggridrender/render-status/render-s
   templateUrl: './listusers.component.html',
   styleUrls: ['./listusers.component.css']
 })
+@Injectable()
 export class ListusersComponent implements OnInit {
 
   gridApi;
@@ -151,16 +152,22 @@ export class ListusersComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
-    // send to search api backend all privileges
+    // send to search api backend all users
     this.userService.getAllDataUsers()
       .subscribe(data => {
-        // populate list json privilege
-        console.log(data.rows);
-
+        // populate list json users
         this.listUser = data.rows;
       });
   }
-
+  // obtain all data from the users
+  getAllData() {
+    // send to search api backend all users
+    this.userService.getAllDataUsers()
+      .subscribe(data => {
+        // populate list json users
+        this.listUser = data.rows;
+      });
+  }
   // redirect to create user
   createUser() {
     this.router.navigate(['/createuser']);

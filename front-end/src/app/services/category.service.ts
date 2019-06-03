@@ -41,7 +41,7 @@ export class CategoryService {
       .map((response: Response) => response.json())
   }
   //service to api mysql delete category
-  deleteCategory(category_id) {
+  delete(category_id) {
     this.params = 'category_id=' + category_id ;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });

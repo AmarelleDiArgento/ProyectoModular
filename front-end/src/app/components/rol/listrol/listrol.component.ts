@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -18,6 +18,10 @@ import { RendersettingbuttonComponent } from '../../aggridrender/rendersettingbu
   selector: 'app-listrol',
   templateUrl: './listrol.component.html',
   styleUrls: ['./listrol.component.css']
+})
+
+@Injectable({
+  providedIn: 'root'
 })
 export class ListrolComponent implements OnInit {
   gridApi;
@@ -101,7 +105,6 @@ export class ListrolComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.getAllData();
     $(document).ready(function () {
       $('select').formSelect();
     });
@@ -125,15 +128,15 @@ export class ListrolComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
-    // send to search api backend all privileges
+    // send to search api backend all rol
     this.rolService.getAllDataRol()
       .subscribe(data => {
-        // populate list json privilege
-        console.log(data.rows);
-
+        // populate list json rol
         this.listRol = data.rows;
       });
   }
+
+  
 
   // redirect to create rol
   createRol() {

@@ -1,13 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { Http, Response, Headers, RequestOptions } from '@angular/http';
+//generic libs
+import { Component, OnInit, NgZone} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
+//alerts
 import Swal from 'sweetalert2';
+//list uses to charge oninit components
+//import { ListusersComponent } from '../../../components/register/listusers/listusers.component';
+import { ListrolComponent } from '../../../components/rol/listrol/listrol.component';
+import { ListrolprivilegeComponent } from '../../../components/rol/rolprivilege/listrolprivilege/listrolprivilege.component';
+import { ListprivilegeComponent } from '../../../components/privilege/listprivilege/listprivilege.component';
+import { ListmodulesComponent } from '../../../components/module/listmodules/listmodules.component';
+import { ListcategoryComponent } from '../../../components/category/listcategory/listcategory.component';
+import { ListtaxComponent } from '../../../components/tax/listtax/listtax.component';
+import { ListproductComponent } from '../../../components/product/listproduct/listproduct.component';
+import { ListpodsComponent } from '../../../components/pod/listpods/listpods.component';
+import { ListsalesComponent } from '../../../components/sale/listsales/listsales.component';
+//jquery
 declare var $: any;
-
-
-// service auth
+//charge  services
 import { CategoryService } from '../../../services/category.service';
 import { ModuleService } from '../../../services/module.service';
 import { PodService } from '../../../services/pod.service';
@@ -23,13 +33,18 @@ import { UserService } from '../../../services/user.service';
   templateUrl: './renderdeletebutton.component.html',
   styleUrls: ['./renderdeletebutton.component.css']
 })
+
 export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngularComp {
   cellvalue: any;
   private Name: string;
   private name: string;
   private Service;
+  private Component;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private zone: NgZone,
     private categoryService: CategoryService,
     private moduleService: ModuleService,
     private podService: PodService,
@@ -38,7 +53,16 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
     private rolService: RolService,
     private userService: UserService,
     private saleService: SaleService,
-    private taxService: TaxService
+    private taxService: TaxService,
+    private listcategoryComponent: ListcategoryComponent,
+    private listrolComponent: ListrolComponent,
+    private listrolprivilegeComponent: ListrolprivilegeComponent,
+    private listprivilegeComponent: ListprivilegeComponent,
+    private listmodulesComponent: ListmodulesComponent,
+    private listtaxComponent: ListtaxComponent,
+    private listproductComponent: ListproductComponent,
+    private listpodsComponent: ListpodsComponent,
+    private listsalesComponent: ListsalesComponent
   ) { }
 
   ngOnInit() {
@@ -53,7 +77,7 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
     this.name = params.name;
     this.cellvalue = params.value;
     this.Service = eval('this.' + this.name + 'Service');
-
+    this.Component = eval('this.list' + this.name + 'Component');
   }
   delete() {
     Swal.fire({
@@ -79,8 +103,10 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
                 showConfirmButton: false,
                 timer: 2000,
                 onClose: () => {
-                  // redirect
-                  location.reload(true);
+                  //get oninit component to recharge info
+                  let component = this.Component;
+                  //recharge component init (redirection)
+                  component.getAllData();
                 }
               });
             } else {

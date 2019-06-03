@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,6 +16,9 @@ import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/r
   selector: 'app-listsales',
   templateUrl: './listsales.component.html',
   styleUrls: ['./listsales.component.css']
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class ListsalesComponent implements OnInit {
   gridApi;
@@ -107,6 +110,7 @@ export class ListsalesComponent implements OnInit {
     $(document).ready(function () {
       $('select').formSelect();
     });
+    this.getAllData();
   }
   onPageSizeChanged(value) {
     this.gridApi.paginationSetPageSize(Number(value));

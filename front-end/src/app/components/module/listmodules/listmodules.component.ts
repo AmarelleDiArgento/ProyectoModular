@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -17,6 +17,9 @@ import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutt
   selector: 'app-listmodules',
   templateUrl: './listmodules.component.html',
   styleUrls: ['./listmodules.component.css']
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class ListmodulesComponent implements OnInit {
 
@@ -105,6 +108,7 @@ export class ListmodulesComponent implements OnInit {
     $(document).ready(function () {
       $('select').formSelect();
     });
+    this.getAllData();
   }
 
   onPageSizeChanged(value) {
@@ -124,6 +128,16 @@ export class ListmodulesComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
+    // send to search api backend all privileges
+    this.moduleService.getAllDataModules()
+      .subscribe(data => {
+        // populate list json privilege
+        this.listModule = data.rows;
+      });
+  }
+
+  // obtain all data from the register pods
+  getAllData() {
     // send to search api backend all privileges
     this.moduleService.getAllDataModules()
       .subscribe(data => {

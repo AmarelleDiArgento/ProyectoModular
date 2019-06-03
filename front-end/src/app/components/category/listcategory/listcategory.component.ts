@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -19,6 +19,9 @@ import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutt
   selector: 'app-listcategory',
   templateUrl: './listcategory.component.html',
   styleUrls: ['./listcategory.component.css']
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class ListcategoryComponent implements OnInit {
 
@@ -98,6 +101,7 @@ export class ListcategoryComponent implements OnInit {
     $(document).ready(function () {
       $('select').formSelect();
     });
+    this.getAllData();
   }
   onPageSizeChanged(value) {
     this.gridApi.paginationSetPageSize(Number(value));

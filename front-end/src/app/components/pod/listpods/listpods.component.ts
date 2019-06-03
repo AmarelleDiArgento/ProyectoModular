@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -17,6 +17,9 @@ import { RenderStatusComponent } from '../../aggridrender/render-status/render-s
   selector: 'app-listpods',
   templateUrl: './listpods.component.html',
   styleUrls: ['./listpods.component.css']
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class ListpodsComponent implements OnInit {
 
@@ -107,6 +110,7 @@ export class ListpodsComponent implements OnInit {
     $(document).ready(function () {
       $('select').formSelect();
     });
+    this.getAllData();
   }
   onPageSizeChanged(value) {
     this.gridApi.paginationSetPageSize(Number(value));

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -19,6 +19,9 @@ import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutt
   selector: 'app-listproduct',
   templateUrl: './listproduct.component.html',
   styleUrls: ['./listproduct.component.css']
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class ListproductComponent implements OnInit {
   gridApi;
@@ -102,6 +105,7 @@ export class ListproductComponent implements OnInit {
     $(document).ready(function () {
       $('select').formSelect();
     });
+    this.getAllData();
   }
   onPageSizeChanged(value) {
     this.gridApi.paginationSetPageSize(Number(value));
@@ -125,6 +129,15 @@ export class ListproductComponent implements OnInit {
         // populate list json privilege
         this.listProduct = data.rows;
       });
+  }
+  // obtain all data from the privileges
+  getAllData() {
+     // send to search api backend all privileges
+     this.productService.getAllDataProduct()
+     .subscribe(data => {
+       // populate list json privilege
+       this.listProduct = data.rows;
+     });
   }
   // redirect to create product
   createProduct() {

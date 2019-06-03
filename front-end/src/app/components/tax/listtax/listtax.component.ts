@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,6 +16,9 @@ import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutt
   selector: 'app-listtax',
   templateUrl: './listtax.component.html',
   styleUrls: ['./listtax.component.css']
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class ListtaxComponent implements OnInit {
   gridApi;
@@ -95,6 +98,7 @@ export class ListtaxComponent implements OnInit {
     $(document).ready(function () {
       $('select').formSelect();
     });
+    this.getAllData();
   }
   onPageSizeChanged(value) {
     this.gridApi.paginationSetPageSize(Number(value));
@@ -112,14 +116,22 @@ export class ListtaxComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
-    // send to search api backend all privileges
+    // send to search api backend all tax
     this.taxService.getAllDataTax()
       .subscribe(data => {
-        // populate list json privilege
+        // populate list json tax
         this.listTax = data.rows;
       });
   }
-
+  // obtain all data from the register tax
+  getAllData() {
+    // send to search api backend all tax
+    this.taxService.getAllDataTax()
+      .subscribe(data => {
+        // populate list json tax
+        this.listTax = data.rows;
+      });
+  }
   // redirect to create tax
   createTax() {
     this.router.navigate(['/createtax']);

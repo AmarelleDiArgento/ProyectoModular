@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,6 +10,9 @@ import { RolprivilegeService } from '../../../../services/rolprivilege.service';
   selector: 'app-listrolprivilege',
   templateUrl: './listrolprivilege.component.html',
   styleUrls: ['./listrolprivilege.component.css']
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class ListrolprivilegeComponent implements OnInit {
 
@@ -114,8 +117,8 @@ updateRolPrivilegePrivilege(id) {
                showConfirmButton: false,
                timer: 2000,
                onClose: () => {
-                // redirect 
-                 location.reload();
+                /// reload data
+                this.ngOnInit();
               }
              });
           } else {

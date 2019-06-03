@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -17,6 +17,9 @@ import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/r
   selector: 'app-listprivilege',
   templateUrl: './listprivilege.component.html',
   styleUrls: ['./listprivilege.component.css']
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class ListprivilegeComponent implements OnInit {
 
@@ -108,10 +111,10 @@ export class ListprivilegeComponent implements OnInit {
   }
 
   ngOnInit() {
-
     $(document).ready(function () {
       $('select').formSelect();
     });
+    this.getAllData();
   }
   onPageSizeChanged(value) {
     this.gridApi.paginationSetPageSize(Number(value));
@@ -136,7 +139,15 @@ export class ListprivilegeComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-
+    // send to search api backend all privileges
+    this.privilegeService.getAllDataprivileges()
+      .subscribe(data => {
+        // populate list json privilege
+        this.listPrivilege = data.rows;
+      });
+  }
+  // obtain all data from the privileges
+  getAllData() {
     // send to search api backend all privileges
     this.privilegeService.getAllDataprivileges()
       .subscribe(data => {
