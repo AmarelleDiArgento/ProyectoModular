@@ -1,58 +1,88 @@
 /* You can add global styles to this file, and also import other style files */
-@font-face{
-    font-family: 'Comfortaa[wght]';
-    src: 
-      local('../font/Comfortaa[wght].ttf'),
-      url('../src/assets/font/Comfortaa[wght].ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-  .conforta{
-    font-family: 'Comfortaa[wght]';
-  }
-  /* table{
+@font-face {
+  font-family: 'Comfortaa[wght]';
+  src:
+    local('../font/Comfortaa[wght].ttf'),
+    url('../src/assets/font/Comfortaa[wght].ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Libre Barcode 128';
+  src:
+    local('../font/LibreBarcode128-Regular.ttf'),
+    url('../src/assets/font/LibreBarcode128-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+LibreBarcode128-Regular.ttf .conforta {
+  font-family: 'Comfortaa[wght]';
+
+}
+
+.barcode {
+  font-family: 'Libre Barcode 128', cursive;
+  font-size: 45px;
+  margin-top: 8px;
+  margin-bottom: 0px;
+  text-align: center !important;
+}
+
+/* table{
     box-shadow: 0 0 3px 0px black;
     border-radius: 5px 5px;
   } */
-  form{
-    box-shadow: 0 0 3px 0px black;
-    border-radius: 5px 5px;
-    padding: 3%;
-    margin-top: 2%;
-  }
-  nav{
-      background: #1C2B36 !important;
-  }
-  th, td{
-      text-align: center !important;
-  }
-  thead{
-      background: #b2bec3;
-      color: white !important;
-  }
-  .btn-full{
-    width: 100%;
-    margin-top: 2%;
-  }
-  .ag-theme-material .ag-header-cell-label .ag-header-cell-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;
-    font-family: 'Comfortaa[wght]';
-    text-shadow: 0 0 0px black;
+form {
+  box-shadow: 0 0 3px 0px black;
+  border-radius: 5px 5px;
+  padding: 3%;
+  margin-top: 2%;
 }
+
+nav {
+  background: #1C2B36 !important;
+}
+
+th,
+td {
+  text-align: center !important;
+}
+
+thead {
+  background: #b2bec3;
+  color: white !important;
+}
+
+.btn-full {
+  width: 100%;
+  margin-top: 2%;
+}
+
+.ag-theme-material .ag-header-cell-label .ag-header-cell-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  font-family: 'Comfortaa[wght]';
+  text-shadow: 0 0 0px black;
+}
+
 .ag-body-viewport .ag-center-cols-container {
-    display: block;
-    width: 100% !important;
+  display: block;
+  width: 100% !important;
 }
-.products{
+
+.products {
   padding: 2%;
 }
-.padding0{
+
+.padding0 {
   padding: 0 !important;
   margin: 2%;
 }
+
 .tabs .indicator {
   position: absolute;
   bottom: 0;
@@ -60,10 +90,13 @@
   background-color: #26a69a !important;
   will-change: left, right;
 }
-.tabs .tab a:hover, .tabs .tab a.active {
+
+.tabs .tab a:hover,
+.tabs .tab a.active {
   background-color: transparent;
   color: white;
 }
+
 .tabs .tab a {
   color: white;
   display: block;
@@ -76,21 +109,24 @@
   -webkit-transition: color .28s ease, background-color .28s ease;
   transition: color .28s ease, background-color .28s ease;
 }
+
 .tabs {
-position: relative;
-overflow-x: auto;
-overflow-y: hidden;
-height: 48px;
-width: 100%;
-background-color: #2c3e50;
-margin: 0 auto;
-white-space: nowrap;
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 48px;
+  width: 100%;
+  background-color: #2c3e50;
+  margin: 0 auto;
+  white-space: nowrap;
 }
-.productos{
+
+.productos {
   height: 300px;
   overflow: auto;
 }
-.from-none{
+
+.from-none {
   box-shadow: none !important;
   border-radius: 0 !important;
   padding: 0 !important;

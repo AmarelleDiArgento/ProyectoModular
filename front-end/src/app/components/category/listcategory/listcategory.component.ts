@@ -116,6 +116,8 @@ export class ListcategoryComponent implements OnInit {
   }
 
   onGridReady(params) {
+    console.log(params);
+    
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 

@@ -11,6 +11,7 @@ import { ExcelService } from '../../../services/excel.service';
 import { RenderStatusComponent } from '../../aggridrender/render-status/render-status.component';
 import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
 import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
+import { RendermaterialiconComponent } from '../../aggridrender/rendermaterialicon/rendermaterialicon.component';
 // personaliza render
 
 @Component({
@@ -54,10 +55,16 @@ export class ListprivilegeComponent implements OnInit {
     private excelService: ExcelService,
     private router: Router) {
     this.columnDefs = [
-      { headerName: 'ID', field: 'privilege_id', sortable: true },
+      { headerName: 'ID', field: 'privilege_id', sortable: true, width: 80 },
       { headerName: 'Nombre', field: 'name', sortable: true },
       { headerName: 'Modulo', field: 'module_name', sortable: true },
-      { headerName: 'Icono', field: 'icon', sortable: true },
+      { headerName: 'Icono', field: 'icon',
+        cellRenderer: 'customizedMaterialIcon',
+        cellRendererParams: {
+          name: 'privilege',
+          Name: 'Privilege'
+        }, width: 100
+      },
       { headerName: 'Ruta', field: 'route', sortable: true },
       {
         headerName: 'Estado',
@@ -88,7 +95,8 @@ export class ListprivilegeComponent implements OnInit {
     this.frameworkComponents = {
       customizedStatusCell: RenderStatusComponent,
       customizedEditCell: RendereditbuttonComponent,
-      customizedDeleteCell: RenderdeletebuttonComponent
+      customizedDeleteCell: RenderdeletebuttonComponent,
+      customizedMaterialIcon: RendermaterialiconComponent
     }
 
     this.defaultColDef = {

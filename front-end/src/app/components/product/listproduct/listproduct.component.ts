@@ -14,6 +14,7 @@ import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrie
 import { RenderStatusComponent } from '../../aggridrender/render-status/render-status.component';
 import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
 import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
+import { RenderbarcodeComponent } from '../../aggridrender/renderbarcode/renderbarcode.component';
 
 @Component({
   selector: 'app-listproduct',
@@ -52,7 +53,14 @@ export class ListproductComponent implements OnInit {
     private router: Router) {
     this.columnDefs = [
       { headerName: 'ID', field: 'product_id', sortable: true },
-      { headerName: 'Codigo', field: 'code', sortable: true },
+      {
+        headerName: 'Codigo', field: 'code',
+        cellRenderer: 'customizedBarCode',
+        cellRendererParams: {
+          name: 'product',
+          Name: 'Product'
+        }
+      },
       { headerName: 'Nombre', field: 'name', sortable: true },
       { headerName: 'Precio', field: 'net_price', sortable: true },
       { headerName: 'Categoria', field: 'category_name', sortable: true },
@@ -77,6 +85,7 @@ export class ListproductComponent implements OnInit {
     ];
 
     this.frameworkComponents = {
+      customizedBarCode: RenderbarcodeComponent,
       customizedStatusCell: RenderStatusComponent,
       customizedEditCell: RendereditbuttonComponent,
       customizedDeleteCell: RenderdeletebuttonComponent
