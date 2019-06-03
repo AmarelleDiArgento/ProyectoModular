@@ -68,6 +68,8 @@ import { RendereditbuttonComponent } from './components/aggridrender/rendereditb
 import { RenderdeletebuttonComponent } from './components/aggridrender/renderdeletebutton/renderdeletebutton.component';
 import { RendersettingbuttonComponent } from './components/aggridrender/rendersettingbutton/rendersettingbutton.component';
 import { RendervisibilitybuttonComponent } from './components/aggridrender/rendervisibilitybutton/rendervisibilitybutton.component';
+import { RenderbarcodeComponent } from './components/aggridrender/renderbarcode/renderbarcode.component';
+import { RendermaterialiconComponent } from './components/aggridrender/rendermaterialicon/rendermaterialicon.component';
 
 
 
@@ -116,7 +118,9 @@ import { RendervisibilitybuttonComponent } from './components/aggridrender/rende
     RendereditbuttonComponent,
     RenderdeletebuttonComponent,
     RendersettingbuttonComponent,
-    RendervisibilitybuttonComponent
+    RendervisibilitybuttonComponent,
+    RenderbarcodeComponent,
+    RendermaterialiconComponent
   ],
   imports: [
     BrowserModule,
@@ -130,7 +134,9 @@ import { RendervisibilitybuttonComponent } from './components/aggridrender/rende
       RendereditbuttonComponent,
       RenderdeletebuttonComponent,
       RendersettingbuttonComponent,
-      RendervisibilitybuttonComponent
+      RendervisibilitybuttonComponent,
+      RenderbarcodeComponent,
+      RendermaterialiconComponent
     ])
   ],
   providers: [
