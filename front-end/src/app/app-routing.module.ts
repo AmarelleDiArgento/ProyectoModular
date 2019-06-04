@@ -46,6 +46,7 @@ import { ListpodsComponent } from './components/pod/listpods/listpods.component'
 import { UpdatepodComponent } from './components/pod/updatepod/updatepod.component';
 
 import { SaleComponent } from './components/sale/sale.component';
+import { InvoiceComponent } from './components/sale/invoice/invoice.component';
 import { ListsalesComponent } from './components/sale/listsales/listsales.component';
 import { UpdatesaleComponent } from './components/sale/updatesale/updatesale.component';
 
@@ -159,6 +160,11 @@ const routes: Routes = [
     {
         path: 'createsale',
         component: SaleComponent,
+
+    },
+    {
+        path: 'invoiceprint',
+        component: InvoiceComponent,
 
     },
     {

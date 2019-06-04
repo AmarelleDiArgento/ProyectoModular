@@ -4,10 +4,8 @@ var enigma = require('enigma-code')
 
 const valorEncriptación = 8
 let key = '3456#@|#lM'
-
-var connection = mysql.createConnection(config.db);
-
-connection.connect();
+//init pool mysql
+var connection = mysql.createPool(config.db);
 
 var loginModel = {}
 

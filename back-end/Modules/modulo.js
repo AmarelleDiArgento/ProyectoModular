@@ -2,9 +2,8 @@ var mysql = require('mysql'),
     config = require("../config");
 
 
-var connection = mysql.createConnection(config.db);
-
-connection.connect();
+//init pool mysql
+var connection = mysql.createPool(config.db);
 
 var moduloModel = {}
 

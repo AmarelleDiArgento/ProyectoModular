@@ -677,8 +677,9 @@ DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE privilegeone (_privilege_id INT)
 BEGIN
-SELECT  p.privilege_id, p.name, p.module_id, p.icon, p.route, p.status
+SELECT  p.privilege_id, p.name, p.module_id, m.name as module_name, p.icon, p.route, p.status
 FROM proyectomodular.privilege AS p
+inner join module as m on p.module_id = m.module_id
 WHERE privilege_id = _privilege_id;
 END$$
 
@@ -711,8 +712,9 @@ USE proyectomodular$$
 CREATE PROCEDURE privilegeall ()
 BEGIN
 
-SELECT  p.privilege_id, p.name, p.module_id, p.icon, p.route, p.status
-FROM proyectomodular.privilege AS p;
+SELECT  p.privilege_id, p.name, p.module_id, m.name as module_name, p.icon, p.route, p.status
+FROM proyectomodular.privilege AS p
+inner join module as m on p.module_id = m.module_id;
 
 END$$
 
@@ -1309,7 +1311,8 @@ CREATE PROCEDURE saleone (
 )
 BEGIN
 
-	SELECT concat(po.code, ' - ', invoice_num) as invoice_num, s.sale_id, s.date, po.pod_id, po.name, s.user_id, u.username, s.client_id, c.username, sp.tax_price, sp.gross_price, sp.net_price
+	SELECT 	po.name as pod_name, po.nit, po.phone, po.address, po.code, s.invoice_num, s.sale_id, s.date, 
+			c.username as client_name, u.username as user_name, p.product_id, sp.quantity, p.name, sp.net_price
 	FROM pod as po 
 	inner join sale as s on po.pod_id = s.pod_id
 	inner join sale_product as sp on s.sale_id = sp.sp_sale_id

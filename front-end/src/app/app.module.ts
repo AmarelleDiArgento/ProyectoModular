@@ -70,6 +70,7 @@ import { RendersettingbuttonComponent } from './components/aggridrender/renderse
 import { RendervisibilitybuttonComponent } from './components/aggridrender/rendervisibilitybutton/rendervisibilitybutton.component';
 import { RenderbarcodeComponent } from './components/aggridrender/renderbarcode/renderbarcode.component';
 import { RendermaterialiconComponent } from './components/aggridrender/rendermaterialicon/rendermaterialicon.component';
+import { InvoiceComponent } from './components/sale/invoice/invoice.component';
 import { PreloadComponent } from './components/preload/preload.component';
 
 
@@ -123,6 +124,8 @@ import { PreloadComponent } from './components/preload/preload.component';
     RenderbarcodeComponent,
     RendermaterialiconComponent,
     PreloadComponent
+    RendermaterialiconComponent,
+    InvoiceComponent
   ],
   imports: [
     BrowserModule,
