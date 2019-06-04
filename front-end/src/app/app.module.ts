@@ -123,8 +123,7 @@ import { PreloadComponent } from './components/preload/preload.component';
     RendervisibilitybuttonComponent,
     RenderbarcodeComponent,
     RendermaterialiconComponent,
-    PreloadComponent
-    RendermaterialiconComponent,
+    PreloadComponent,
     InvoiceComponent
   ],
   imports: [

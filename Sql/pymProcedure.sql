@@ -543,13 +543,13 @@ CREATE PROCEDURE pod_userins (
 BEGIN
 
 declare cont int;
-select  count(pt_product_id) into cont from product_tax where pt_product_id = _pt_product_id and pt_tax_id = _pt_tax_id;
+select  count(ps_user_id) into cont from pod_user where ps_user_id  = _ps_user_id and ps_pod_id = _ps_pod_id;
 if cont then
 select 'duplicate record' as error;
 else 
 INSERT INTO proyectomodular.product_tax
-(pt_product_id, pt_tax_id) VALUES
-(_pt_product_id, _pt_tax_id);
+(ps_user_id, ps_pod_id) VALUES
+(_ps_user_id, _ps_pod_id);
 end if;
 
 END$$
@@ -1312,7 +1312,8 @@ CREATE PROCEDURE saleone (
 BEGIN
 
 	SELECT 	po.name as pod_name, po.nit, po.phone, po.address, po.code, s.invoice_num, s.sale_id, s.date, 
-			c.username as client_name, u.username as user_name, p.product_id, sp.quantity, p.name, sp.net_price
+			c.username as client_name, u.username as user_name, p.product_id, sp.quantity, p.name, sp.net_price,
+			sp.gross_price as gross_price, sp.tax_price
 	FROM pod as po 
 	inner join sale as s on po.pod_id = s.pod_id
 	inner join sale_product as sp on s.sale_id = sp.sp_sale_id
@@ -1320,7 +1321,7 @@ BEGIN
 	inner join user as u on s.user_id = u.user_id  
 	inner join user as c on s.client_id = c.user_id 
 	where s.sale_id = _sp_sale_id;
-	
+				
 END$$
 
 DELIMITER ;

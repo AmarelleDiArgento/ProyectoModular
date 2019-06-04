@@ -1,92 +1,91 @@
-<div class="center" style="width: 500px;">
-    {{listSale[zero].pod_name}} <br>
-    RAZON SOCIAL <br>
-    NIT: {{listSale[zero].nit}} TEL {{listSale[zero].phone}} <br>
-    {{listSale[zero].address}} <br>
-    <br>
-  
-    <div class="row left-align" style="height: 35px; margin: 0%">
-      <div class="col s12 center">FACTURA DE VENTAS</div>
-      <div class="col s12 center"></div>
+<div id="bill" class="center" style="width: 500px;">
+  {{listSale[zero].pod_name}} <br>
+  RAZON SOCIAL <br>
+  NIT: {{listSale[zero].nit}} TEL {{listSale[zero].phone}} <br>
+  {{listSale[zero].address}} <br>
+  <br>
+
+  <div class="row left-align" style="height: 35px; margin: 0%">
+    <div class="col s12 center">FACTURA DE VENTAS</div>
+    <div class="col s12 center"></div>
+  </div>
+  <br>
+
+  <div class="container">
+    <div class="row">
+      <div class="col s6">
+        Consecutivo: <br>
+        {{listSale[zero].sale_id}}<br>
+
+      </div>
+      <div class="col s6">
+        Fecha: {{listSale[zero].date}} <br>
+
+      </div>
     </div>
-    <br>
-  
-    <div class="container">
-      <div class="row">
-        <div class="col s6">
-          Consecutivo: <br>
-          {{listSale[zero].sale_id}}<br>
-  
-        </div>
-        <div class="col s6">
-          Fecha: {{listSale[zero].date}} <br>
-  
-        </div>
+    <div class="row">
+      Vendedor: {{listSale[zero].client_name}}<br>
+      Cliente: {{listSale[zero].user_name}}<br>
+      Forma de pago:<br>
+    </div>
+
+    <div class="row" style="height: 35px; margin: 0%">
+      <div class="col s2">Item</div>
+      <div class="col s2">Cant.</div>
+      <div class="col s5">Descripcion</div>
+      <div class="col s3">Total</div>
+    </div>
+    <div class="left-align">
+      <div class="row" style="height: 25px; margin: 0%" *ngFor="let s of listSale">
+
+        <div class="col s2">{{s.product_id}} </div>
+        <div class="col s2 center-align">{{s.quantity}}</div>
+        <div class="col s5">{{s.name}}</div>
+        <div class="col s3">$ {{s.net_price}}</div>
       </div>
-      <div class="row">
-        Vendedor: {{listSale[zero].client_name}}<br>
-        Cliente: {{listSale[zero].user_name}}<br>
-        Forma de pago:<br>
+    </div>
+
+    <div class="row left-align" style="height: 35px; margin: 0%">
+      <div class="col s9">TOTAL</div>
+      <div class="col s3">$ {{net_priceTotal}}</div>
+    </div>
+
+    <div class="row left-align" style="height: 35px; margin: 0%">
+      <div class="col s12 center">DETALLE DE VALORES</div>
+      <br>
+      <div>
+        <div class="col s8">IVA</div>
+        <div class="col s4 right-align">$ {{tax_priceTotal}}</div>
       </div>
-  
-      <div class="row" style="height: 35px; margin: 0%">
-        <div class="col s2">Item</div>
-        <div class="col s2">Cant.</div>
-        <div class="col s5">Descripcion</div>
-        <div class="col s3">Total</div>
+      <div>
+        <div class="col s8">BASE</div>
+        <div class="col s4 right-align">$ {{gross_priceTotal}}</div>
       </div>
-      <div class="left-align">
-        <div class="row" style="height: 25px; margin: 0%" *ngFor="let s of listSale">
-  
-          <div class="col s2">{{s.product_id}} </div>
-          <div class="col s2 center-align">{{s.quantity}}</div>
-          <div class="col s5">{{s.name}}</div>
-          <div class="col s3">$ {{s.net_price}}</div>
-        </div>
+    </div>
+    <br><br>
+    <div class="row" style="height: 35px; margin: 0%">
+      <div class="col s12 center">INFORMACION TRIBUTARIA</div>
+      <br>
+      <div>
+        <div class="col s2">%</div>
+        <div class="col s7">VLR BASE</div>
+        <div class="col s3">VLR IMP</div>
       </div>
-  
-      <div class="row left-align" style="height: 35px; margin: 0%">
-        <div class="col s9">TOTAL</div>
-        <div class="col s3">$ {{listSale[zero].netprice_total}}</div>
+      <div>
+        <div class="col s2">19.00</div>
+        <div class="col s7">{{gross_priceTotal}}</div>
+        <div class="col s3">{{tax_priceTotal}}</div>
       </div>
-  
-      <div class="row left-align" style="height: 35px; margin: 0%">
-        <div class="col s12 center">DETALLE DE VALORES</div>
-        <br>
-        <div>
-          <div class="col s8">IVA</div>
-          <div class="col s4 right-align">$ {{listSale[zero].tax_total}}</div>
-        </div>
-        <div>
-          <div class="col s8">BASE</div>
-          <div class="col s4 right-align">$ {{listSale[zero].grossprice_total}}</div>
-        </div>
-      </div>
+    </div>
+    <br><br>
+
+    <div class="row left-align" style="height: 35px; margin: 0%">
+      <div class="col s12 center">R DIAN 000000000000 12/05/19 </div>
+      <div class="col s12 center">RANGO 1 A 1000</div>
       <br><br>
-      <div class="row" style="height: 35px; margin: 0%">
-        <div class="col s12 center">INFORMACION TRIBUTARIA</div>
-        <br>
-        <div>
-          <div class="col s2">%</div>
-          <div class="col s7">VLR BASE</div>
-          <div class="col s3">VLR IMP</div>
-        </div>
-        <div>
-          <div class="col s2">19.00</div>
-          <div class="col s7">58.000</div>
-          <div class="col s3">12.000</div>
-        </div>
-      </div>
-      <br><br>
-  
-      <div class="row left-align" style="height: 35px; margin: 0%">
-        <div class="col s12 center">R DIAN 000000000000 12/05/19 </div>
-        <div class="col s12 center">RANGO 1 A 1000</div>
-        <br><br>
-        <br>
-        <div class="col s12 center">GRACIAS POR SU COMPRA</div>
-  
-      </div>
+      <br>
+      <div class="col s12 center">GRACIAS POR SU COMPRA</div>
+
     </div>
   </div>
-  
+</div>
