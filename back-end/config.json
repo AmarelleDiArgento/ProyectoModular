@@ -4,6 +4,7 @@
         "user": "proyectomodular",
         "password": "da12cb09fe566f2d6e131d7fb5c5c732",
         "database": "proyectomodular",
+        "connectionLimit": 200,
         "dateStrings": true,
         "multipleStatements": true
     }
