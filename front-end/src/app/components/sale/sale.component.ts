@@ -251,16 +251,9 @@ export class SaleComponent implements OnInit {
     }
     if (e) {
 
-      Swal.fire({
-        type: 'success',
-        title: 'Venta exitosa',
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 2000
-      });
-      // redirect to home menu
-      this.ngOnInit();
+      localStorage.setItem('idSale', this.sale_id);
+      this.router.navigate(['/invoiceprint']);
+
     } else {
       Swal.fire({
         type: 'error',

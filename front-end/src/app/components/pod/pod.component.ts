@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+declare var $: any;
 // service auth
 import { PodService } from '../../services/pod.service';
 
@@ -28,11 +29,18 @@ export class PodComponent implements OnInit {
   ngOnInit() {
     // init form
     this.registerPodsForm = this.formBuilder.group({
+      code: ['', Validators.required],
+      nit: ['', Validators.required],
+      rdian: ['', Validators.required],
+      daterdian: ['', Validators.required],
+      billing_limit: ['', Validators.required],
       name: ['', Validators.required],
       address: ['', Validators.required],
       phone: ['', Validators.required],
       status: ['', Validators.required]
     });
+
+    $('.datepicker').datepicker();
   }
   // get form contpods
   get f() { return this.registerPodsForm.controls; }
@@ -46,11 +54,16 @@ export class PodComponent implements OnInit {
     } else {
       // send to api backend create user
       this.podService.createPod(
+        this.registerPodsForm.value.code,
+        this.registerPodsForm.value.nit,
+        this.registerPodsForm.value.rdian,
+        this.registerPodsForm.value.daterdian,
+        this.registerPodsForm.value.billing_limit,
         this.registerPodsForm.value.name,
         this.registerPodsForm.value.address,
         this.registerPodsForm.value.phone,
         this.registerPodsForm.value.status
-        )
+      )
         .subscribe(data => {
 
           if (data.respuesta === 'Success') {
@@ -63,7 +76,7 @@ export class PodComponent implements OnInit {
               timer: 2000
             });
             // redirect to home menu
-            this.router.navigate(['/listpods'])
+            this.router.navigate(['/listpods']);
           } else {
             Swal.fire({
               type: 'error',

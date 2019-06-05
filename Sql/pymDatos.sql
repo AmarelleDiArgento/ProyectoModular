@@ -6,7 +6,6 @@ USE proyectomodular;
  call proyectomodular.rolins('Cliente');
  call proyectomodular.rolins('Administrador');
  call proyectomodular.rolins('Vendedor');
- call proyectomodular.rolins('Almacenista');
 
 -- call proyectomodular.rolins(?);
 -- call proyectomodular.rolupd(?, ?);
@@ -31,7 +30,9 @@ call proyectomodular.categoryins('Preparados');
 -- ------------------------------------------------------------
 -- USER INSERT
 -- ------------------------------------------------------------
-call proyectomodular.userins('1020123', 'Prueba', 'prueba@prueba.com', "é61ë62î63Þ64Û45Ú74ª134«45¬118­87®", 1, 1);
+call proyectomodular.userins('1020121', 'Cliente', 'cliente@prueba.com', "é61ë62î63Þ64Û45Ú74ª134«45¬118­87®", 1, 1);
+call proyectomodular.userins('1020122', 'Admin', 'admin@prueba.com', "é61ë62î63Þ64Û45Ú74ª134«45¬118­87®", 2, 1);
+call proyectomodular.userins('1020123', 'Vendedor', 'vendedor@prueba.com', "é61ë62î63Þ64Û45Ú74ª134«45¬118­87®", 3, 1);
 
 -- call proyectomodular.userins(?, ?, ?, ?, ?, ?);
 -- call proyectomodular.userupd(?, ?, ?, ?, ?, ?);
@@ -126,9 +127,9 @@ call proyectomodular.rol_privilegeins(9, 2, 1, 1, 1, 1);
 -- POD INSERT
 -- ------------------------------------------------------------
 
-call proyectomodular.podins('AME', '890903938-8', 'Americas 68', 'Av Americas No 68 36 lc 101', '4561234', 1000, 1);
-call proyectomodular.podins('ABY', '860066942-7', 'Av Boyaca', 'Av Boyaca No 68 36 lc 101', '4561234', 1000, 1);
-call proyectomodular.podins('NQS', '860011153-6', 'Av NQS', 'Av NQS No 68 36 lc 101', '4561234', 1000, 1);
+call proyectomodular.podins('AME', '890903938-8', '18762012523801', '2017-08-15', 1000, 'Americas 68', 'Av Americas No 68 36 lc 101', '4561234',  1);
+call proyectomodular.podins('ABY', '860066942-7', '76182802501231', '2016-09-25', 1000, 'Av Boyaca', 'Av Boyaca No 68 36 lc 101', '4561234',  1);
+call proyectomodular.podins('NQS', '860011153-6', '23765028180211', '2015-12-11', 1000, 'Av NQS', 'Av NQS No 68 36 lc 101', '4561234',  1);
 
 -- call proyectomodular.podins(?, ?, ?, ?, ?, ?, ?);
 -- call proyectomodular.podupd(?, ?, ?, ?, ?, ?, ?, ?);
@@ -140,8 +141,10 @@ call proyectomodular.podins('NQS', '860011153-6', 'Av NQS', 'Av NQS No 68 36 lc 
 -- POD_USER INSERT
 -- ------------------------------------------------------------
 
+call proyectomodular.pod_userins('1020122',1);
+call proyectomodular.pod_userins('1020122',2);
+call proyectomodular.pod_userins('1020122',3);
 call proyectomodular.pod_userins('1020123',1);
-call proyectomodular.pod_userins('1020123',2);
 -- call proyectomodular.pod_userins(?,?);
 -- call proyectomodular.pod_userins(?,?);
 -- call proyectomodular.pod_userallpodbyuser(?);
@@ -166,3 +169,5 @@ call proyectomodular.sale_productins(3, 1, 1);
 call proyectomodular.sale_productins(3, 2, 1);
 call proyectomodular.sale_productins(3, 3, 1);
 call proyectomodular.sale_productins(3, 3, 1);
+
+
