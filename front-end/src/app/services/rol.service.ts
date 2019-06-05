@@ -3,6 +3,8 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+//file vars globals
+import * as varsGlobals from '../../varsglobals';
 
 @Injectable()
 export class RolService {
@@ -13,7 +15,7 @@ export class RolService {
   getAllDataRol() {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get('http://localhost:3000/getdatarol/', options)
+    return this.http.get(varsGlobals.url +'/getdatarol/', options)
       .map((response: Response) => response.json());
   }
   // service to api mysql get rol for id
@@ -21,7 +23,7 @@ export class RolService {
     this.params = 'rol_id=' + rol_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/getdatarol/', this.params, options)
+    return this.http.post(varsGlobals.url +'/getdatarol/', this.params, options)
       .map((response: Response) => response.json());
   }
   // service to api mysql create rol
@@ -29,7 +31,7 @@ export class RolService {
     this.params = 'name=' + name;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/createrol/', this.params, options)
+    return this.http.post(varsGlobals.url +'/createrol/', this.params, options)
       .map((response: Response) => response.json());
   }
   // service to api mysql update rols
@@ -37,7 +39,7 @@ export class RolService {
     this.params = 'rol_id=' + rol_id + '&name=' + name;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/updaterol/', this.params, options)
+    return this.http.post(varsGlobals.url +'/updaterol/', this.params, options)
       .map((response: Response) => response.json());
   }
   // service to api mysql delete rols
@@ -45,7 +47,7 @@ export class RolService {
     this.params = 'rol_id=' + rol_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/deleterol/', this.params, options)
+    return this.http.post(varsGlobals.url +'/deleterol/', this.params, options)
       .map((response: Response) => response.json());
   }
 }

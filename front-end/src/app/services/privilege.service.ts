@@ -3,6 +3,8 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+//file vars globals
+import * as varsGlobals from '../../varsglobals';
 
 @Injectable()
 export class PrivilegeService {
@@ -12,7 +14,7 @@ export class PrivilegeService {
   getAllDataprivileges() {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get('http://localhost:3000/getdataprivilege/', options)
+    return this.http.get(varsGlobals.url +'/getdataprivilege/', options)
       .map((response: Response) => response.json());
   }
   // service to api mysql get privilege for id
@@ -20,7 +22,7 @@ export class PrivilegeService {
     this.params = 'privilege_id=' + privilege_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/getdataprivilege/', this.params, options)
+    return this.http.post(varsGlobals.url +'/getdataprivilege/', this.params, options)
       .map((response: Response) => response.json());
   }
   // service to api mysql create privilege
@@ -34,7 +36,7 @@ export class PrivilegeService {
       '&status=' + s;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/createprivilege/', this.params, options)
+    return this.http.post(varsGlobals.url +'/createprivilege/', this.params, options)
       .map((response: Response) => response.json());
   }
   // service to api mysql update privileges
@@ -49,7 +51,7 @@ export class PrivilegeService {
       '&status=' + s;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/updateprivilege/', this.params, options)
+    return this.http.post(varsGlobals.url +'/updateprivilege/', this.params, options)
       .map((response: Response) => response.json());
   }
   // service to api mysql delete privileges
@@ -57,7 +59,7 @@ export class PrivilegeService {
     this.params = 'privilege_id=' + privilege_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/deleteprivilege/', this.params, options)
+    return this.http.post(varsGlobals.url +'/deleteprivilege/', this.params, options)
       .map((response: Response) => response.json());
   }
 

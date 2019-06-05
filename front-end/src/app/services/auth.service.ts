@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import {Http,Response, Headers, RequestOptions } from '@angular/http';    
 import { Observable } from 'rxjs/Observable';  
 import 'rxjs/add/operator/map';  
-import 'rxjs/add/operator/do';  
+import 'rxjs/add/operator/do';
+//file vars globals
+import * as varsGlobals from '../../varsglobals';  
 
 @Injectable()
 export class AuthService {
@@ -14,7 +16,7 @@ export class AuthService {
      this.params = 'email=' + email + '&password=' + password + '';
      let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
      let options = new RequestOptions({ headers: headers });
-     return this.http.post('http://localhost:3000/auth/', this.params, options)
+     return this.http.post(varsGlobals.url +'/auth/', this.params, options)
        .map((response: Response) => response.json())
    }
    //service to mysql menu auth api
@@ -22,7 +24,7 @@ export class AuthService {
     this.params = 'rol=' + rol;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/getdatapermission', this.params, options)
+    return this.http.post(varsGlobals.url +'/getdatapermission', this.params, options)
       .map((response: Response) => response.json())
   }
 }
