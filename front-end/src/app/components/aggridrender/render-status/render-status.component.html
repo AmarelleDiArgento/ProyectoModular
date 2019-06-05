@@ -1,9 +1,9 @@
-<div class="center full-width" >
-  <ng-container *ngIf="cellvalue === 1; else elseTemplate">
-    <a><i class="material-icons lime-text accent-2 center-align">check_circle</i></a>
+<div class="center full-width center-flex" >
+  <ng-container *ngIf="cellvalue === 1; else elseTemplate" class="center-flex">
+    <a class="center-flex"><i class="material-icons lime-text accent-2 center-align">check_circle</i></a>
   </ng-container>
   <ng-template #elseTemplate>
-    <a><i class="material-icons grey-text accent-2 center-align">remove_circle</i></a>
+    <a class="center-flex"><i class="material-icons grey-text accent-2 center-align">remove_circle</i></a>
   </ng-template>
 
 </div>

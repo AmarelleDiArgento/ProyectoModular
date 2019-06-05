@@ -131,3 +131,9 @@ thead {
   padding: 0 !important;
   margin-top: 0 !important;
 }
+.center-flex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
