@@ -433,6 +433,28 @@ END$$
 DELIMITER ;
 
 -- ------------------------------------------------------------
+-- PROCEDURE CLIENT INSERT
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS usercliins;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE usercliins (
+_user_id VARCHAR(45) ,
+_username varchar(255),
+_email VARCHAR(255)
+)
+BEGIN
+
+INSERT INTO proyectomodular.user
+(user_id,username, email, rol_id, status, create_time, update_time)
+VALUES
+(_user_id,_username, _email, 1, 0, now(),now());
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
 -- PROCEDURE user UPDATE 
 -- ------------------------------------------------------------
 DROP procedure IF EXISTS userupd;

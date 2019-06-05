@@ -58,11 +58,11 @@ CREATE TABLE IF NOT EXISTS proyectomodular.rol (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS proyectomodular.user (
   user_id VARCHAR(45) PRIMARY KEY NOT NULL,
-  username VARCHAR(255) NULL DEFAULT NULL,
-  email VARCHAR(255) UNIQUE NULL DEFAULT NULL,
+  username VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
   password VARCHAR(255),
   rol_id INT(11) NOT NULL,
-  status TINYINT(4) NOT NULL,
+  status TINYINT(4) NOT NULL DEFAULT 1,
   create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
   update_time TIMESTAMP NULL DEFAULT NULL,
   CONSTRAINT fk_user_rol FOREIGN KEY (rol_id) REFERENCES proyectomodular.rol (rol_id)
