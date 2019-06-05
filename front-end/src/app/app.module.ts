@@ -72,6 +72,7 @@ import { RenderbarcodeComponent } from './components/aggridrender/renderbarcode/
 import { RendermaterialiconComponent } from './components/aggridrender/rendermaterialicon/rendermaterialicon.component';
 import { InvoiceComponent } from './components/sale/invoice/invoice.component';
 import { PreloadComponent } from './components/preload/preload.component';
+import { ClientregisterComponent } from './components/register/clientregister/clientregister.component';
 
 
 
@@ -124,7 +125,8 @@ import { PreloadComponent } from './components/preload/preload.component';
     RenderbarcodeComponent,
     RendermaterialiconComponent,
     PreloadComponent,
-    InvoiceComponent
+    InvoiceComponent,
+    ClientregisterComponent
   ],
   imports: [
     BrowserModule,

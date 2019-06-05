@@ -14,8 +14,6 @@ let one = `call proyectomodular.podone(?);`;
 
 
 podModel.createPod = function (podData, callback) {
-  console.log('llegue a al modulo');
-  console.log(podData);
   if (connection) {
     connection.query(ins, [
       podData.code,
@@ -32,9 +30,7 @@ podModel.createPod = function (podData, callback) {
         callback(null, {
 
           "respuesta": error
-        })
-        console.log(error);
-        
+        })        
       } else {
         if (rows.length != 0) {
           var jsonObj = {
@@ -72,9 +68,7 @@ podModel.updatePod = function (podData, callback) {
       podData.phone,
       podData.status
     ], function (error, rows) {
-      console.log(rows);
       if (error) {
-        console.log(error)
         callback(null, {
           "respuesta": "Error de conexión"
         })

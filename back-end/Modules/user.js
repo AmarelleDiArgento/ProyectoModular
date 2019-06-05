@@ -11,6 +11,7 @@ var connection = mysql.createPool(config.db);
 var userModel = {}
 
 let ins = `call proyectomodular.userins(?,?,?,?,?,?);`;
+let cli = `call proyectomodular.usercliins(?,?,?);`;
 let upd = `call proyectomodular.userupd(?,?,?,?,?,?);`;
 let del = `call proyectomodular.userdel(?);`;
 let all = `call proyectomodular.userall();`;
@@ -60,7 +61,42 @@ userModel.createUser = function (userData, callback) {
     })
   }
 }
+userModel.createClient = function (userData, callback) {
 
+  if (connection) {
+    connection.query(cli, [
+      userData.user_id,
+      userData.username,
+      userData.email
+    ], function (error, rows) {
+      if (error) {
+        callback(null, {
+          "respuesta": error.message
+        })
+        console.log(error.message);
+
+      } else {
+        if (rows.length != 0) {
+          rows = rows[0];
+          var jsonObj = {
+            respuesta: "Success"
+          }
+          callback(null, jsonObj)
+        } else {
+          console.log("Error no se pudo insertar")
+          callback(null, {
+            "respuesta": "Error no se pudo insertar"
+          })
+        }
+      }
+    })
+  } else {
+    console.log("No se conecto con servidor")
+    callback(null, {
+      "Respuesta": "Error en Conexion"
+    })
+  }
+}
 userModel.updateUser = function (userData, callback) {
   var pass;
   enigma.genHash(valorEncriptación, key, userData.password, function (error, hash) {

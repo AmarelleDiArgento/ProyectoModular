@@ -53,6 +53,7 @@ export class SaleComponent implements OnInit {
 
   ngOnInit() {
     console.log('Hola!');
+console.log(localStorage);
 
     // this.tax_price = 0;
     // this.total_price = 0;
@@ -87,21 +88,34 @@ export class SaleComponent implements OnInit {
 
 
   }
+  modalClose() {
+    console.log('Hola :D');
 
+    $('#ClientRegister').modal('close');
+    this.client_id = localStorage.getItem('idClient');
+    this.getClient();
+
+
+
+  }
   // obtain data user for id
   clientSearch(e) {
     if (e.keyCode === 13 && !e.shiftKey) {
       // send to ws api mysql search data user for id
-      this.userService.getDataUserForId(this.client_id)
-        .subscribe(data => {
-          if (data != null) {
-            console.log(data);
-            this.client = data.rows[0];
-            this.onSubmit();
-          } else {
-          }
-        });
+      this.getClient();
     }
+  }
+  getClient() {
+    this.userService.getDataUserForId(this.client_id)
+      .subscribe(data => {
+        if (data != null) {
+          console.log(data);
+          this.client = data.rows[0];
+          this.onSubmit();
+        } else {
+
+        }
+      });
   }
 
   totals() {
@@ -221,7 +235,8 @@ export class SaleComponent implements OnInit {
             confirmButtonText: 'Registrar'
           }).then((result) => {
             if (result.value) {
-              $('#clientRegister').modal('open');
+              localStorage.setItem('noClient', this.client_id);
+              $('#ClientRegister').modal('open');
             }
           });
         }

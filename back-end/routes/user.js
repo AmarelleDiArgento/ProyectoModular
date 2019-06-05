@@ -24,6 +24,23 @@ router.post('/createuser', function (req, res, next) {
     }
   })
 })
+//create client
+router.post('/createclient', function (req, res, next) {
+  var userData = {
+    user_id: req.body.user_id,
+    username: req.body.username,
+    email: req.body.email
+  }
+  user.createClient(userData, function (error, data) {
+    if (error) {
+      res.status(504).jsonp({
+        "error": error
+      })
+    } else {
+      res.status(200).jsonp(data)
+    }
+  })
+})
 //assingn user pod
 router.post('/assignuserpod', function (req, res, next) {
   var userData = {
@@ -31,11 +48,11 @@ router.post('/assignuserpod', function (req, res, next) {
     pod_id: req.body.pod_id
   }
   console.log(userData);
-  
+
   user.assignUserPod(userData, function (error, data) {
     if (error) {
       console.log(error);
-      
+
       res.status(504).jsonp({
         "error": error
       })
@@ -126,8 +143,8 @@ router.post('/getdatapoduser', function (req, res, next) {
 })
 //get all user 
 router.get('/getdatauser', function (req, res, next) {
-    var userData = {}
-    user.dataAllUser(userData, function (error, data) {
+  var userData = {}
+  user.dataAllUser(userData, function (error, data) {
     if (error) {
       res.status(504).jsonp({
         "error": error

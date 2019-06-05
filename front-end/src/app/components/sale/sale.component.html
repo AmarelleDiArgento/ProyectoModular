@@ -130,7 +130,7 @@
       <h2 class="center">$ {{total_price}}</h2>
     </div>
     <div class="col s12">
-      <a class="waves-effect waves-light btn" style="width: 100%; margin: 1%" (click)="sale()" >Facturar</a>
+      <a class="waves-effect waves-light btn" style="width: 100%; margin: 1%" (click)="sale()">Facturar</a>
     </div>
   </div>
 </div>
@@ -142,8 +142,10 @@
   <div class="modal-content">
     <h4>Registrar Cliente</h4>
     <p>Registra los datos del cliente</p>
+    <app-clientregister></app-clientregister>
+
   </div>
   <div class="modal-footer">
-    <a class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
+    <a class="waves-effect waves-green btn-flat" (click)="modalClose()">Cerrar</a>
   </div>
 </div>
