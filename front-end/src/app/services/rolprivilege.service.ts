@@ -3,6 +3,8 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+//file vars globals
+import * as varsGlobals from '../../varsglobals';
 
 @Injectable()
 
@@ -16,7 +18,7 @@ export class RolprivilegeService {
     this.params = 'rp_rol_id=' + rp_rol_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/getdatarolprivileges/', this.params, options)
+    return this.http.post(varsGlobals.url +'/getdatarolprivileges/', this.params, options)
       .map((response: Response) => response.json());
   }
 
@@ -25,7 +27,7 @@ export class RolprivilegeService {
     this.params = 'rp_rol_id=' + rp_rol_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/getdatarolprivileges/', this.params, options)
+    return this.http.post(varsGlobals.url +'/getdatarolprivileges/', this.params, options)
       .map((response: Response) => response.json());
   }
 
@@ -34,7 +36,7 @@ export class RolprivilegeService {
     this.params = 'rp_privilege_id=' + rp_privilege_id + '&rp_rol_id=' + rp_rol_id + '&view=' + viewrol + '&create=' + createrol + '&update=' + updaterol + '&delete=' + deleterol;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/createrolprivilege/', this.params, options)
+    return this.http.post(varsGlobals.url +'/createrolprivilege/', this.params, options)
       .map((response: Response) => response.json());
   }
   // service to api mysql update rols privileges
@@ -42,7 +44,7 @@ export class RolprivilegeService {
     this.params = 'rp_privilege_id=' + rp_privilege_id + '&rp_rol_id=' + rp_rol_id + '&view=' + viewrol + '&create=' + createrol + '&update=' + updaterol + '&delete=' + deleterol;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/updaterolprivilege/', this.params, options)
+    return this.http.post(varsGlobals.url +'/updaterolprivilege/', this.params, options)
       .map((response: Response) => response.json());
   }
   // service to api mysql deleterols privileges
@@ -50,7 +52,7 @@ export class RolprivilegeService {
     this.params = 'rp_privilege_id=' + rp_privilege_id + '&rp_rol_id=' + rp_rol_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/deleterolprivilege/', this.params, options)
+    return this.http.post(varsGlobals.url +'/deleterolprivilege/', this.params, options)
       .map((response: Response) => response.json());
   }
 

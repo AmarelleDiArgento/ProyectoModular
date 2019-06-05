@@ -3,6 +3,8 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+//file vars globals
+import * as varsGlobals from '../../varsglobals';
 
 @Injectable()
 export class PodService {
@@ -13,7 +15,7 @@ export class PodService {
   getAllDataPod() {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get('http://localhost:3000/getdatapod/', options)
+    return this.http.get(varsGlobals.url +'/getdatapod/', options)
       .map((response: Response) => response.json())
   }
   // service to api mysql get pod for id
@@ -21,7 +23,7 @@ export class PodService {
     this.params = 'pod_id=' + pod_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/getdatapod/', this.params, options)
+    return this.http.post(varsGlobals.url +'/getdatapod/', this.params, options)
       .map((response: Response) => response.json())
   }
   // service to api mysql create pod
@@ -33,7 +35,7 @@ export class PodService {
     console.log(this.params);
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/createpod/', this.params, options)
+    return this.http.post(varsGlobals.url +'/createpod/', this.params, options)
       .map((response: Response) => response.json())
   }
   // service to api mysql update pod
@@ -46,7 +48,7 @@ export class PodService {
 
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/updatepod/', this.params, options)
+    return this.http.post(varsGlobals.url +'/updatepod/', this.params, options)
       .map((response: Response) => response.json())
   }
   // service to api mysql delete pod
@@ -54,7 +56,7 @@ export class PodService {
     this.params = 'pod_id=' + pod_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/deletepod/', this.params, options)
+    return this.http.post(varsGlobals.url +'/deletepod/', this.params, options)
       .map((response: Response) => response.json())
   }
 }

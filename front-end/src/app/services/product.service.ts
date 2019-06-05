@@ -3,6 +3,8 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+//file vars globals
+import * as varsGlobals from '../../varsglobals';
 
 @Injectable()
 export class ProductService {
@@ -13,7 +15,7 @@ export class ProductService {
   getAllDataProduct() {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get('http://localhost:3000/getdataproduct/', options)
+    return this.http.get(varsGlobals.url +'/getdataproduct/', options)
       .map((response: Response) => response.json())
   }
  //service to api mysql get product for id
@@ -21,7 +23,7 @@ export class ProductService {
     this.params = 'product_id=' + product_id ;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/getdataproduct/', this.params, options)
+    return this.http.post(varsGlobals.url +'/getdataproduct/', this.params, options)
       .map((response: Response) => response.json())
   }
   //service to api mysql create product
@@ -29,7 +31,7 @@ export class ProductService {
     this.params = 'code=' + code +'&name=' + name +'&net_price=' + net_price +'&category_id=' + category_id +'&tax_id=' + tax_id +'&status=' + status;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/createproduct/', this.params, options)
+    return this.http.post(varsGlobals.url +'/createproduct/', this.params, options)
       .map((response: Response) => response.json())
   }
   //service to api mysql update product
@@ -37,7 +39,7 @@ export class ProductService {
     this.params = 'product_id=' + product_id +'&code=' + code +'&name=' + name +'&net_price=' + net_price +'&category_id=' + category_id +'&tax_id=' + tax_id +'&status=' + status ;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/updateproduct/', this.params, options)
+    return this.http.post(varsGlobals.url +'/updateproduct/', this.params, options)
       .map((response: Response) => response.json())
   }
   //service to api mysql delete product
@@ -45,7 +47,7 @@ export class ProductService {
     this.params = 'product_id=' + product_id ;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('http://localhost:3000/deleteproduct/', this.params, options)
+    return this.http.post(varsGlobals.url +'/deleteproduct/', this.params, options)
       .map((response: Response) => response.json())
   }
 }
