@@ -6,29 +6,31 @@ var connection = mysql.createPool(config.db);
 
 var podModel = {}
 
-let ins = `call proyectomodular.podins(?, ?, ?, ?, ?, ?);`;
-let upd = `call proyectomodular.podupd(?, ?, ?, ?, ?, ?, ?)`;
-let del = `call proyectomodular.podone(?);`;
+let ins = `call proyectomodular.podins(?, ?, ?, ?, ?, ?, ?, ?, ? );`;
+let upd = `call proyectomodular.podupd(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+let del = `call proyectomodular.poddel(?);`;
 let all = `call proyectomodular.podall();`;
-let one = `call proyectomodular.poddel(?);`;
+let one = `call proyectomodular.podone(?);`;
 
 
 podModel.createPod = function (podData, callback) {
-
   if (connection) {
     connection.query(ins, [
       podData.code,
+      podData.nit,
+      podData.rdian,
+      podData.daterdian,
+      podData.billing_limit,
       podData.name,
       podData.address,
       podData.phone,
-      podData.billing_limit,
       podData.status
-
     ], function (error, rows) {
       if (error) {
         callback(null, {
+
           "respuesta": error
-        })
+        })        
       } else {
         if (rows.length != 0) {
           var jsonObj = {
@@ -57,15 +59,16 @@ podModel.updatePod = function (podData, callback) {
     connection.query(upd, [
       podData.pod_id,
       podData.code,
+      podData.nit,
+      podData.rdian,
+      podData.daterdian,
+      podData.billing_limit,
       podData.name,
       podData.address,
       podData.phone,
-      podData.billing_limit,
       podData.status
     ], function (error, rows) {
-      console.log(rows);
       if (error) {
-        console.log(error)
         callback(null, {
           "respuesta": "Error de conexión"
         })

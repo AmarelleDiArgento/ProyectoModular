@@ -32,10 +32,8 @@ export class InvoiceComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.idSale = '1'; // localStorage.getItem('idSale');
+    this.idSale = localStorage.getItem('idSale');
     this.getSaleDataId();
-    this.printFile();
-    setTimeout ('redireccionar();', 5000);
 
     // this.router.navigate(['/createsale']);
   }
@@ -59,16 +57,18 @@ export class InvoiceComponent implements OnInit {
 
           this.gross_priceTotal = number_format(gross, 2);
           this.tax_priceTotal = number_format(tax, 2);
+
         }
+        this.printFile();
       });
   }
   // service to print
   printFile() {
+    setTimeout('this.redireccionar()', 5000);
     this.printService.print();
   }
 
 }
-
 
 // function format number
 function number_format(amount, decimals) {

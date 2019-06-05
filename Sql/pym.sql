@@ -33,12 +33,14 @@ CREATE TABLE IF NOT EXISTS proyectomodular.module (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS proyectomodular.pod (
   pod_id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  nit varchar(15),
-  code varchar(5),
-  name VARCHAR(255) UNIQUE NULL UNIQUE,
+  code varchar(5) NOT NULL UNIQUE,
+  nit varchar(15) NOT NULL UNIQUE,
+  rdian VARCHAR(45) NOT NULL UNIQUE,
+  daterdian date NOT NULL,
+  billing_limit BIGINT NOT NULL,
+  name VARCHAR(255) NOT NULL UNIQUE,
   address VARCHAR(255) NULL DEFAULT NULL,
   phone VARCHAR(12) NULL DEFAULT NULL,
-  billing_limit BIGINT,
   status TINYINT(4) NOT NULL,
   create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
   update_time TIMESTAMP NULL DEFAULT NULL)
@@ -56,11 +58,11 @@ CREATE TABLE IF NOT EXISTS proyectomodular.rol (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS proyectomodular.user (
   user_id VARCHAR(45) PRIMARY KEY NOT NULL,
-  username VARCHAR(255) NULL DEFAULT NULL,
-  email VARCHAR(255) UNIQUE NULL DEFAULT NULL,
+  username VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
   password VARCHAR(255),
   rol_id INT(11) NOT NULL,
-  status TINYINT(4) NOT NULL,
+  status TINYINT(4) NOT NULL DEFAULT 1,
   create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
   update_time TIMESTAMP NULL DEFAULT NULL,
   CONSTRAINT fk_user_rol FOREIGN KEY (rol_id) REFERENCES proyectomodular.rol (rol_id)
@@ -139,24 +141,25 @@ CREATE TABLE IF NOT EXISTS proyectomodular.rol_privilege (
 -- Table proyectomodular.sale
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS proyectomodular.sale (
-  sale_id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  invoice_num BIGINT(20) NOT NULL,
-  date DATETIME NULL DEFAULT NULL,
-  pod_id INT(11) NOT NULL,
-  cardpayment boolean default false,
-  authorization VARCHAR(45),
-  user_id VARCHAR(45) NOT NULL,
-  client_id VARCHAR(45) NULL DEFAULT NULL,
-  accountant boolean default true,
-  CONSTRAINT fk_sale_pod1 FOREIGN KEY (pod_id) REFERENCES proyectomodular.pod (pod_id)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT fk_sale_user1 FOREIGN KEY (user_id) REFERENCES proyectomodular.user (user_id)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT fk_sale_user2 FOREIGN KEY (client_id) REFERENCES proyectomodular.user (user_id)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    sale_id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    invoice_num BIGINT(20) NOT NULL,
+    date DATETIME NULL DEFAULT NULL,
+    pod_id INT(11) NOT NULL,
+    cardpayment BOOLEAN DEFAULT FALSE,
+    authorization VARCHAR(45),
+    user_id VARCHAR(45) NOT NULL,
+    client_id VARCHAR(45) NULL DEFAULT NULL,
+    accountant BOOLEAN DEFAULT TRUE,
+    CONSTRAINT fk_sale_pod1 FOREIGN KEY (pod_id)
+        REFERENCES proyectomodular.pod (pod_id)
+        ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_sale_user1 FOREIGN KEY (user_id)
+        REFERENCES proyectomodular.user (user_id)
+        ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_sale_user2 FOREIGN KEY (client_id)
+        REFERENCES proyectomodular.user (user_id)
+        ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 
 -- -----------------------------------------------------
 -- Table proyectomodular.sale_product

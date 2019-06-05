@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
-declare var $ : any;
+declare var $: any;
 // service auth
 import { AuthService } from '../../services/auth.service';
 
@@ -32,12 +32,12 @@ export class LoginComponent implements OnInit {
     });
 
 
-    $(document).ready(function(){
+    $(document).ready(function () {
       $('.dropdown-trigger').dropdown();
       $('.slider').slider({
-        indicators:false
+        indicators: false
       });
-  });
+    });
 
 
   }
@@ -53,8 +53,9 @@ export class LoginComponent implements OnInit {
       // send to search api backend email and password return msj
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
         .subscribe(data => {
+          console.log(data);
 
-          if (data.respuesta === 'Success') {
+          if (data.respuesta === 'Success' && data.rows[0] != null) {
             // storage the id
             localStorage.setItem('idSesionUser', data.rows[0].user_id);
             // storage the rol
@@ -62,7 +63,7 @@ export class LoginComponent implements OnInit {
             // storage the pod
             localStorage.setItem('idSesionPod', data.rows[0].pod_id);
             // redirect to home menu
-            this.router.navigate(['/home'])
+            this.router.navigate(['/home']);
           } else {
             this.msgerr = 'Error email o contraseña erronea';
           }

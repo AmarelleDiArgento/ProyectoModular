@@ -187,17 +187,21 @@ USE proyectomodular$$
 CREATE PROCEDURE podins (
   _code varchar(5),
   _nit varchar(15),
+  _rdian VARCHAR(45),
+  _daterdian date,
+  _billing_limit BIGINT,
   _name VARCHAR(255),
   _address VARCHAR(255),
   _phone VARCHAR(12),
-  _billing_limit BIGINT,
   _status TINYINT(4)
   )
 BEGIN  
-  
-INSERT INTO proyectomodular.pod (code, nit, name, address, phone, billing_limit, status, create_time, update_time) 
+
+INSERT INTO proyectomodular.pod
+(code, nit, rdian, daterdian, billing_limit, name, address, phone, status, create_time, update_time)
 VALUES
-(_code, _nit, _name, _address, _phone, _billing_limit, _status, NOW(), NOW());
+(_code, _nit, _rdian, _daterdian, _billing_limit, _name, _address, _phone, _status, now(), now());
+
 END$$
 
 DELIMITER ;
@@ -213,26 +217,30 @@ CREATE PROCEDURE podupd (
   _pod_id INT(11),
   _code varchar(5),
   _nit varchar(15),
+  _rdian VARCHAR(45),
+  _daterdian date,
+  _billing_limit BIGINT,
   _name VARCHAR(255),
   _address VARCHAR(255),
   _phone VARCHAR(12),
-  _billing_limit BIGINT,
   _status TINYINT(4)
 )
 BEGIN
 
 UPDATE proyectomodular.pod
-SET  
+SET
 code = _code,
 nit = _nit,
+rdian = _rdian,
+daterdian = _daterdian,
+billing_limit = _billing_limit,
 name = _name,
 address = _address,
 phone = _phone,
-billing_limit = _billing_limit,
 status = _status,
-update_time = NOW()
-WHERE 
-pod_id = _pod_id;
+update_time = now()
+WHERE pod_id = _pod_id;
+
 END$$
 
 DELIMITER ;
@@ -246,12 +254,15 @@ DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE podone (_pod_id INT)
 BEGIN
-SELECT  p.pod_id, p.nit, p.code, p.name, p.address, p.phone, p.billing_limit, p.status, p.create_time, p.update_time
-FROM proyectomodular.pod AS p
+
+SELECT pod.pod_id, pod.code, pod.nit, pod.rdian, pod.daterdian, pod.billing_limit, pod.name, pod.address, pod.phone, pod.status, pod.create_time, pod.update_time
+FROM proyectomodular.pod
 WHERE pod_id = _pod_id;
+
 END$$
 
-DELIMITER ;
+DELIMITER ;;
+
 
 -- ------------------------------------------------------------
 -- PROCEDURE POD DELETE BY ID
@@ -280,13 +291,12 @@ USE proyectomodular$$
 CREATE PROCEDURE podall ()
 BEGIN
 
-SELECT  p.pod_id, p.nit, p.code, p.name, p.address, p.phone, p.billing_limit, p.status, p.create_time, p.update_time
-FROM proyectomodular.pod AS p;
+SELECT pod.pod_id, pod.code, pod.nit, pod.rdian, pod.daterdian, pod.billing_limit, pod.name, pod.address, pod.phone, pod.status, pod.create_time, pod.update_time
+FROM proyectomodular.pod;
 
 END$$
 
 DELIMITER ;
-
 -- ------------------------------------------------------------------------------------------------------------------------
 -- ROLL PROCEDURE :D
 -- PROCEDURE ROLL INSERT
@@ -423,6 +433,28 @@ END$$
 DELIMITER ;
 
 -- ------------------------------------------------------------
+-- PROCEDURE CLIENT INSERT
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS usercliins;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE usercliins (
+_user_id VARCHAR(45) ,
+_username varchar(255),
+_email VARCHAR(255)
+)
+BEGIN
+
+INSERT INTO proyectomodular.user
+(user_id,username, email, rol_id, status, create_time, update_time)
+VALUES
+(_user_id,_username, _email, 1, 0, now(),now());
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
 -- PROCEDURE user UPDATE 
 -- ------------------------------------------------------------
 DROP procedure IF EXISTS userupd;
@@ -518,7 +550,7 @@ CREATE PROCEDURE userlogin (
   _password VARCHAR(255)
 )
 BEGIN
-select user_id, username, u.rol_id as rol_id, r.name as rol_name, status, pu.ps_pod_id as pod_id
+select user_id, username, u.rol_id as rol_id, r.name as rol_name, status, min(pu.ps_pod_id) as pod_id
 from user as u 
 inner join rol as r on u.rol_id = r.rol_id 
 inner join pod_user as pu on u.user_id = pu.ps_user_id
@@ -543,13 +575,13 @@ CREATE PROCEDURE pod_userins (
 BEGIN
 
 declare cont int;
-select  count(ps_user_id) into cont from pod_user where ps_user_id  = _ps_user_id and ps_pod_id = _ps_pod_id;
+select  count(_ps_user_id) into cont from pod_user where ps_user_id = _ps_user_id and _ps_pod_id = ps_pod_id;
 if cont then
 select 'duplicate record' as error;
 else 
-INSERT INTO proyectomodular.product_tax
-(ps_user_id, ps_pod_id) VALUES
-(_ps_user_id, _ps_pod_id);
+INSERT INTO proyectomodular.pod_user (ps_user_id,ps_pod_id) 
+VALUES
+(_ps_user_id,_ps_pod_id);
 end if;
 
 END$$
@@ -1377,7 +1409,7 @@ else
 INSERT INTO proyectomodular.product_tax
 (pt_product_id, pt_tax_id) VALUES
 (_pt_product_id, _pt_tax_id);
-
+end if;
 END$$
 
 DELIMITER ;

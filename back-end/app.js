@@ -69,6 +69,7 @@ app.use('/', indexRouter);
 app.post('/auth', login)
 //urls user
 app.post('/createuser', user)
+app.post('/createclient', user)
 app.post('/updateuser', user)
 app.post('/deleteuser', user)
 app.post('/getdatauser', user)

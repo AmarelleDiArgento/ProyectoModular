@@ -6,44 +6,95 @@
     <div class="col-md-4"></div>
     <div class="col-md-4" id="update">
       <form [formGroup]="registerPodsForm" (ngSubmit)="onSubmit()">
-        <h3>Crear Pod</h3>
+        <h3>Crear punto de venta</h3>
         <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
           <a class="close" (click)="closeAlertErr()">
             &times;
           </a>
           <h6>{{msgerr}}</h6>
         </div>
-        <div class="form-group">
-          <label for="name">name </label>
+        <div class="form-group col s2">
+          <label for="code">Codigo </label>
+          <input type="text" class="form-control" id="code" formControlName="code"
+            [ngClass]="{ 'is-invalid': submitted && f.code.errors }" placeholder="Enter code">
+          <span>
+            <div *ngIf="submitted && f.code.errors">
+              <div *ngIf="f.code.errors.required"> <label id="error">Error el codigo de punto de venta es requerido </label></div>
+            </div>
+          </span>
+        </div>
+        <div class="form-group col s4">
+          <label for="nit">NIT </label>
+          <input type="text" class="form-control" id="nit" formControlName="nit"
+            [ngClass]="{ 'is-invalid': submitted && f.nit.errors }" placeholder="Enter nit">
+          <span>
+            <div *ngIf="submitted && f.nit.errors">
+              <div *ngIf="f.nit.errors.required"> <label id="error">Error el NIT es requerido </label></div>
+            </div>
+          </span>
+        </div>
+        <div class="form-group col s6">
+          <label for="daterdian">Fecha de registro DIAN</label>
+          <input type="text" class="datepicker form-control" id="daterdian" formControlName="daterdian"
+            [ngClass]="{ 'is-invalid': submitted && f.daterdian.errors }" placeholder="Enter registro DIAN">
+          <span>
+            <div *ngIf="submitted && f.daterdian.errors">
+              <div *ngIf="f.daterdian.errors.required"> <label id="error">Error la fecha de registro DIAN es requerido </label></div>
+            </div>
+          </span>
+        </div>
+        <div class="form-group col s6">
+          <label for="rdian">Registro DIAN </label>
+          <input type="text" class="form-control" id="rdian" formControlName="rdian"
+            [ngClass]="{ 'is-invalid': submitted && f.rdian.errors }" placeholder="Enter registro DIAN">
+          <span>
+            <div *ngIf="submitted && f.rdian.errors">
+              <div *ngIf="f.rdian.errors.required"> <label id="error">Error el registro DIAN es requerido </label></div>
+            </div>
+          </span>
+        </div>
+
+        <div class="form-group col s6">
+          <label for="billing_limit">Limite de facturacion</label>
+          <input type="number" class="form-control" id="billing_limit" formControlName="billing_limit"
+            [ngClass]="{ 'is-invalid': submitted && f.billing_limit.errors }" placeholder="Enter registro DIAN">
+          <span>
+            <div *ngIf="submitted && f.billing_limit.errors">
+              <div *ngIf="f.billing_limit.errors.required"> <label id="error">Error el limite de facturacion es requerido </label></div>
+            </div>
+          </span>
+        </div>
+        <div class="form-group  col s12">
+          <label for="name">Nombre </label>
           <input type="text" class="form-control" id="name" formControlName="name"
             [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Enter name">
           <span>
             <div *ngIf="submitted && f.name.errors">
-              <div *ngIf="f.name.errors.required"> <label id="error">Error el usuario es requerido </label></div>
+              <div *ngIf="f.name.errors.required"> <label id="error">Error el nombre del punto de venta es requerido </label></div>
             </div>
           </span>
         </div>
-        <div class="form-group">
-          <label for="address">direccion </label>
+        <div class="form-group col s12">
+          <label for="address">Direccion </label>
           <input type="text" class="form-control" id="address" formControlName="address"
             [ngClass]="{ 'is-invalid': submitted && f.address.errors }" placeholder="Enter address">
           <span>
             <div *ngIf="submitted && f.address.errors">
-              <div *ngIf="f.address.errors.required"> <label id="error">Error el usuario es requerido </label></div>
+              <div *ngIf="f.address.errors.required"> <label id="error">Error la direccion es requerido </label></div>
             </div>
           </span>
         </div>
-        <div class="form-group">
-          <label for="phone">telefono </label>
+        <div class="form-group col s6">
+          <label for="phone">Telefono </label>
           <input type="text" class="form-control" id="phone" formControlName="phone"
             [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="Enter phone">
           <span>
             <div *ngIf="submitted && f.phone.errors">
-              <div *ngIf="f.phone.errors.required"> <label id="error">Error el usuario es requerido </label></div>
+              <div *ngIf="f.phone.errors.required"> <label id="error">Error el telefono es requerido </label></div>
             </div>
           </span>
         </div>
-        <div class="form-group">
+        <div class="form-group col s6">
           <label for="status">Estado</label>
           <div class="switch">
             <label>
