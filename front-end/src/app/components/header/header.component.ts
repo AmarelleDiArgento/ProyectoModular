@@ -4,7 +4,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 declare var $: any;
 
-//service auth
+// service auth
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -14,54 +14,59 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  //rol user
+  // rol user
   idSesionRol = '';
-  //id user
+  // id user
   idSesionUser = '';
-  //list data auth menu
+  // list data auth menu
   listMenuAuth: {};
 
-  constructor(private http: Http, private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor(
+    private http: Http,
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     $(document).ready(function () {
-      $(".dropdown-trigger").dropdown();
+      $('.dropdown-trigger').dropdown();
       $('.slider').slider({
         indicators: false
       });
     });
-    //asign rol user to search data from menu
+    // asign rol user to search data from menu
     this.idSesionRol = localStorage.getItem('idSesionRol');
-    //init service validation menu
+    // init service validation menu
     this.getUserValidateMenuRol();
-    //validate session
+    // validate session
     this.validateSession();
   }
 
-  //obtain data validate menu
+  // obtain data validate menu
   getUserValidateMenuRol() {
-    //send to ws api mysql search data for rol user
+    // send to ws api mysql search data for rol user
     this.authService.menu(this.idSesionRol)
       .subscribe(data => {
         if (data != null) {
-          //send json response to list
+          // send json response to list
           this.listMenuAuth = data.rows;
         }
       });
   }
-  //validate session user
+  // validate session user
   validateSession() {
-    //asign rol user to search data from menu
+    // asign rol user to search data from menu
     this.idSesionRol = localStorage.getItem('idSesionRol');
-    //asign rol user to search data from menu
+    // asign rol user to search data from menu
     this.idSesionUser = localStorage.getItem('idSesionUser');
     if (this.idSesionRol == null || this.idSesionUser == null) {
-      this.router.navigate(['/'])
+      this.router.navigate(['/']);
     }
   }
-  //close user session
+  // close user session
   closeSession() {
-    //remove items
+    // remove items
     localStorage.removeItem('idSesionRol');
     localStorage.removeItem('idSesionUser');
     localStorage.removeItem('idCategory');
@@ -72,8 +77,8 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('idRol');
     localStorage.removeItem('idSale');
     localStorage.removeItem('idTax');
-    //redirect to login
-    this.router.navigate(['/'])
+    // redirect to login
+    this.router.navigate(['/']);
   }
 
 }

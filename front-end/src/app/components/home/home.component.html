@@ -2,99 +2,24 @@
 <app-header></app-header>
 <!-- end header -->
 <!-- code html content home here!! -->
-  <div class="row container" style="margin-top: 3%;">
+<div class="row container" style="margin-top: 3%;">
+  <div *ngFor="let m of listMenuAuth">
+
+
+
     <div class="col m4 s12">
-        <a [routerLink]="['/listsales']" class="boton-home waves-effect waves-light sales">
+      <a [routerLink]="['/',m.route]" class="boton-home waves-effect {{m.privilege_name}}s">
         <div class="row ">
-            <div class="col m12 s12">
-                <i class="material-icons icono-boton">local_grocery_store</i>
-                <h2 class="conforta center text-boton" >Ventas</h2>
-            </div>
+          <div class="col m12 s12">
+            <i class="material-icons icono-boton">{{m.icon}}</i>
+            <h2 class="conforta center text-boton">{{m.privilege_name}}</h2>
+          </div>
         </div>
-        </a>
+      </a>
     </div>
-    <div class="col m4 s12">
-        <a [routerLink]="['/listusers']" class="boton-home waves-effect waves-light users">
-        <div class="row ">
-            <div class="col m12 s12">
-                <i class="material-icons icono-boton">people</i>
-                <h2 class="conforta center text-boton">Usuarios</h2>
-            </div>
-        </div>
-        </a>
-    </div>
-    <div class="col m4 s12">
-            <a [routerLink]="['/listproducts']" class="boton-home waves-effect waves-light products">
-            <div class="row ">
-                <div class="col m12 s12">
-                    <i class="material-icons icono-boton">card_giftcard</i>
-                    <h2 class="conforta center text-boton">Productos</h2>
-                </div>
-            </div>
-            </a>
-    </div>
+
+
+
+
   </div>
-  <div class="row container" style="margin-top: 3%;">
-    <div class="col m4 s12">
-            <a [routerLink]="['/listmodules']" class="boton-home waves-effect waves-light modules">
-            <div class="row ">
-                <div class="col m12 s12">
-                    <i class="material-icons icono-boton">widgets</i>
-                    <h2 class="conforta center text-boton">Modulos</h2>
-                </div>
-            </div>
-            </a>
-    </div>
-    <div class="col m4 s12">
-            <a [routerLink]="['/listtaxs']" class="boton-home waves-effect waves-light taxs">
-            <div class="row ">
-                <div class="col m12 s12">
-                    <i class="material-icons icono-boton">description</i>
-                    <h2 class="conforta center text-boton">Impuestos</h2>
-                </div>
-            </div>
-            </a>
-    </div>
-    <div class="col m4 s12">
-            <a [routerLink]="['/listrols']" class="boton-home waves-effect waves-light rols">
-            <div class="row ">
-                <div class="col m12 s12">
-                    <i class="material-icons icono-boton">assignment_ind</i>
-                    <h2 class="conforta center text-boton">Roles</h2>
-                </div>
-            </div>
-            </a>
-    </div>
-  </div>
-  <div class="row container" style="margin-top: 3%;">
-        <div class="col m4 s12">
-                <a [routerLink]="['/listprivileges']" class="boton-home waves-effect waves-light privileges">
-                <div class="row ">
-                    <div class="col m12 s12">
-                        <i class="material-icons icono-boton">view_list</i>
-                        <h2 class="conforta center text-boton">Privilegio</h2>
-                    </div>
-                </div>
-                </a>
-        </div>
-        <div class="col m4 s12">
-                <a [routerLink]="['/listpods']" class="boton-home waves-effect waves-light pods">
-                <div class="row ">
-                    <div class="col m12 s12">
-                        <i class="material-icons icono-boton">store</i>
-                        <h2 class="conforta center text-boton">Puntos</h2>
-                    </div>
-                </div>
-                </a>
-        </div>
-        <div class="col m4 s12">
-                <a [routerLink]="['/listcategorys']" class="boton-home waves-effect waves-light categorys">
-                <div class="row ">
-                    <div class="col m12 s12">
-                        <i class="material-icons icono-boton">extension</i>
-                        <h2 class="conforta center text-boton">Categoria</h2>
-                    </div>
-                </div>
-                </a>
-        </div>
-      </div>
+</div>

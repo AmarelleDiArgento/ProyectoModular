@@ -1,11 +1,10 @@
 //generic libs
-import { Component, OnInit, NgZone} from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 //alerts
 import Swal from 'sweetalert2';
 //list uses to charge oninit components
-//import { ListusersComponent } from '../../../components/register/listusers/listusers.component';
 import { ListrolComponent } from '../../../components/rol/listrol/listrol.component';
 import { ListrolprivilegeComponent } from '../../../components/rol/rolprivilege/listrolprivilege/listrolprivilege.component';
 import { ListprivilegeComponent } from '../../../components/privilege/listprivilege/listprivilege.component';
@@ -58,11 +57,11 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
     private listrolComponent: ListrolComponent,
     private listrolprivilegeComponent: ListrolprivilegeComponent,
     private listprivilegeComponent: ListprivilegeComponent,
-    private listmodulesComponent: ListmodulesComponent,
+    private listmoduleComponent: ListmodulesComponent,
     private listtaxComponent: ListtaxComponent,
     private listproductComponent: ListproductComponent,
-    private listpodsComponent: ListpodsComponent,
-    private listsalesComponent: ListsalesComponent
+    private listpodComponent: ListpodsComponent,
+    private listsaleComponent: ListsalesComponent
   ) { }
 
   ngOnInit() {

@@ -10,7 +10,7 @@ let ins = `call proyectomodular.pod_userins(?,?);`;
 let upd = `call proyectomodular.pod_userupd(?,?);`;
 let del = `call proyectomodular.pod_userdel(?);`;
 let all = `call proyectomodular.pod_userins(?);`;
-let one = `call proyectomodular.pod_userins(?,?);`;
+let one = `call proyectomodular.pod_userone(?,?);`;
 
 podUserModel.createPodUser = function (podData, callback) {
   if (connection) {

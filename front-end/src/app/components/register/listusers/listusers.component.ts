@@ -20,7 +20,11 @@ import { RenderStatusComponent } from '../../aggridrender/render-status/render-s
   templateUrl: './listusers.component.html',
   styleUrls: ['./listusers.component.css']
 })
-@Injectable()
+
+@Injectable({
+  providedIn: 'root'
+})
+
 export class ListusersComponent implements OnInit {
 
   gridApi;

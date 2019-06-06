@@ -108,6 +108,7 @@ export class ListrolComponent implements OnInit {
     $(document).ready(function () {
       $('select').formSelect();
     });
+    this.getAllData();
   }
 
   onPageSizeChanged(value) {
@@ -136,7 +137,15 @@ export class ListrolComponent implements OnInit {
       });
   }
 
-  
+  getAllData() {
+    // send to search api backend all category
+    this.rolService.getAllDataRol()
+      .subscribe(data => {
+        // populate list json
+        console.log(data);
+        this.listRol = data.rows;
+      });
+  }
 
   // redirect to create rol
   createRol() {
