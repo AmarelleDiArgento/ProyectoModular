@@ -5,6 +5,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    margin: 7px !important;
 }
 .icono-boton{
     font-size: 152px;
@@ -22,39 +23,39 @@
 .text-boton{
     text-shadow: 0px 4px 2px black;
 }
-.Sales{
+.sales{
     background: #e53935;
     border: solid #d32f2f;
 }
-.Users{
+.users{
     background: #3949ab;
     border: solid #303f9f;
 }
-.Products{
+.products{
     background: #00897b;
     border: solid #00796b;
 }
-.Modules{
+.modules{
     background: #f57c00;
     border: solid #ef6c00;
 }
-.Taxs{
+.taxs{
     background: #d81b60;
     border: solid #c2185b;
 }
-.Rols{
+.rols{
     background: #43a047;
     border: solid #388e3c;
 }
-.Privileges{
+.privileges{
     background: #9e9d24;
     border: solid #827717;
 }
-.Pods{
+.pods{
     background: #e64a19;
     border: solid #d84315;
 }
-.Categorys{
+.categorys{
     background: #ad1457;
     border: solid #880e4f;
 }

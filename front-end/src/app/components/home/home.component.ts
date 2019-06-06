@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   // list data auth menu
   listMenuAuth: {};
 
-  cont: number = 0;
+  cont = 0;
 
   ngOnInit() {
     // asign rol user to search data from menu
@@ -37,6 +37,10 @@ export class HomeComponent implements OnInit {
     this.getUserValidateMenuRol();
 
 
+  }
+  
+  contador() {
+    this.cont++;
   }
 
   // obtain data validate menu
