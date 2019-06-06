@@ -91,17 +91,11 @@
           <div class="switch">
             <label>
               Inactivo
-              <input type="checkbox" class="form-control" id="status" formControlName="status"
-                [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+              <input type="checkbox" class="form-control" id="status" formControlName="status">
               <span class="lever"></span>
               Activo
             </label>
           </div>
-          <span>
-            <div *ngIf="submitted && f.status.errors">
-            </div>
-              <div *ngIf="f.status.errors.required"> <label id="error">Error el estado es requerido</label></div>
-          </span>
         </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block btn-full">Crear</button>
       </form>

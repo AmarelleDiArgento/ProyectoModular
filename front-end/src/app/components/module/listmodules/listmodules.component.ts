@@ -61,19 +61,19 @@ export class ListmodulesComponent implements OnInit {
       },
       {
         headerName: '',
-        field: 'privilege_id',
+        field: 'module_id',
         cellRenderer: 'customizedEditCell',
         cellRendererParams: {
-          name: 'privilege',
-          Name: 'Privilege'
+          name: 'module',
+          Name: 'Module'
         }, width: 80
       },
       {
-        headerName: '', field: 'privilege_id',
+        headerName: '', field: 'module_id',
         cellRenderer: 'customizedDeleteCell',
         cellRendererParams: {
-          name: 'privilege',
-          Name: 'Privilege'
+          name: 'module',
+          Name: 'Module'
         }, width: 80
       }
     ];

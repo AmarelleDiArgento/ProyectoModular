@@ -47,7 +47,7 @@
         <div class="form-group input-field col s12">
           <select class="form-control" id="rol_id" formControlName="rol_id"
             [ngClass]="{ 'is-invalid': submitted && f.rol_id.errors }">
-            <option *ngFor="let r of listRol" [ngValue]="r.rol_id">
+            <option *ngFor="let r of listRol" [ngValue]="r.rol_id" >
               {{ r.name}}
             </option>
           </select>
@@ -81,17 +81,12 @@
           <div class="switch">
             <label>
               Inactivo
-              <input type="checkbox" class="form-control" id="status" formControlName="status" *ngIf="f.status.value === 1"
-                [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+              <input type="checkbox" class="form-control" id="status" formControlName="status" *ngIf="f.status.value === 1">
               <span class="lever"></span>
               Activo
             </label>
           </div>
-          <span>
-            <div *ngIf="submitted && f.status.errors">
-            </div>
-              <div *ngIf="f.status.errors.required"> <label id="error">Error el estado es requerido</label></div>
-          </span>
+
         </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block btn-full">Crear</button>
       </form>

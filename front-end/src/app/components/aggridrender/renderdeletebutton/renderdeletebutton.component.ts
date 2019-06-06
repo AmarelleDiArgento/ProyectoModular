@@ -1,10 +1,10 @@
-//generic libs
+// generic libs
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-//alerts
+// alerts
 import Swal from 'sweetalert2';
-//list uses to charge oninit components
+// list uses to charge oninit components
 import { ListrolComponent } from '../../../components/rol/listrol/listrol.component';
 import { ListrolprivilegeComponent } from '../../../components/rol/rolprivilege/listrolprivilege/listrolprivilege.component';
 import { ListprivilegeComponent } from '../../../components/privilege/listprivilege/listprivilege.component';
@@ -14,9 +14,10 @@ import { ListtaxComponent } from '../../../components/tax/listtax/listtax.compon
 import { ListproductComponent } from '../../../components/product/listproduct/listproduct.component';
 import { ListpodsComponent } from '../../../components/pod/listpods/listpods.component';
 import { ListsalesComponent } from '../../../components/sale/listsales/listsales.component';
-//jquery
+// import { ListusersComponent } from '../../../components/register/listusers/listusers.component';
+// jquery
 declare var $: any;
-//charge  services
+// charge  services
 import { CategoryService } from '../../../services/category.service';
 import { ModuleService } from '../../../services/module.service';
 import { PodService } from '../../../services/pod.service';
@@ -61,7 +62,8 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
     private listtaxComponent: ListtaxComponent,
     private listproductComponent: ListproductComponent,
     private listpodComponent: ListpodsComponent,
-    private listsaleComponent: ListsalesComponent
+    private listsaleComponent: ListsalesComponent// ,
+    // private listuserComponent: ListusersComponent
   ) { }
 
   ngOnInit() {
@@ -102,9 +104,9 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
                 showConfirmButton: false,
                 timer: 2000,
                 onClose: () => {
-                  //get oninit component to recharge info
+                  // get oninit component to recharge info
                   let component = this.Component;
-                  //recharge component init (redirection)
+                  // recharge component init (redirection)
                   component.getAllData();
                 }
               });
