@@ -49,3 +49,7 @@
   height: 300px;
   overflow: auto;
 }
+.div-producto{
+  overflow: hidden;
+  height: 270px;
+}
