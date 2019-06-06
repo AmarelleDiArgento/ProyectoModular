@@ -20,7 +20,7 @@ import { InventoryComponent } from './components/inventory/inventory.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { RegisterComponent } from './components/register/register.component';
-import { ListusersComponent } from './components/register/listusers/listusers.component';
+import { ListusersComponent } from './components/listusers/listusers.component';
 import { UpdateusersComponent } from './components/register/updateusers/updateusers.component';
 import { RolComponent } from './components/rol/rol.component';
 import { ListrolComponent } from './components/rol/listrol/listrol.component';
