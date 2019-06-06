@@ -137,3 +137,8 @@ thead {
   align-items: center;
   height: 100%;
 }
+.ag-root-wrapper-body.ag-layout-normal {
+  flex: 1 1 auto;
+  height: auto !important;
+  min-height: 0;
+}

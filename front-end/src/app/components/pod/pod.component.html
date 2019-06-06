@@ -13,7 +13,7 @@
           </a>
           <h6>{{msgerr}}</h6>
         </div>
-        <div class="form-group col s2">
+        <div class="form-group col s4">
           <label for="code">Codigo </label>
           <input type="text" class="form-control" id="code" formControlName="code"
             [ngClass]="{ 'is-invalid': submitted && f.code.errors }" placeholder="Enter code">
@@ -33,7 +33,7 @@
             </div>
           </span>
         </div>
-        <div class="form-group col s6">
+        <div class="form-group col s4">
           <label for="daterdian">Fecha de registro DIAN</label>
           <input type="text" class="datepicker form-control" id="daterdian" formControlName="daterdian"
             [ngClass]="{ 'is-invalid': submitted && f.daterdian.errors }" placeholder="Enter registro DIAN">
