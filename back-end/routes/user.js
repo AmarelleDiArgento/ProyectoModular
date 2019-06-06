@@ -155,4 +155,18 @@ router.get('/getdatauser', function (req, res, next) {
   })
 })
 
+//get all pod user 
+router.get('/getpoduser', function (req, res, next) {
+  var userData = {}
+  user.dataAllPodUser(userData, function (error, data) {
+    if (error) {
+      res.status(504).jsonp({
+        "error": error
+      })
+    } else {
+      res.status(200).jsonp(data)
+    }
+  })
+})
+
 module.exports = router;

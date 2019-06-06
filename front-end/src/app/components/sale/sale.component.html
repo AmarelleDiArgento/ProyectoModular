@@ -10,17 +10,13 @@
     <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12">
       <div class="products center">
         <div *ngFor="let p of listProduct">
-          <div class="col m3 s12" style="padding: 1%;" *ngIf="c.category_id === p.category_id">
-            <div class="z-depth-2 col padding0">
-              <img src="{{p.image}}" class="products" width="100%">
+          <div class="col m3 s12 div-producto" style="padding: 1%;" *ngIf="c.category_id === p.category_id">
+            <div class="z-depth-2 col padding0" style="width: 100%">
+              <img src="{{p.image}}" class="products" width="auto%" height="100px">
               <p><b>{{p.name}}</b></p>
               <p><b>$ {{p.net_price}}</b></p>
-              <div class="input-field col s6">
-                <input type="number" name="points" value="1" step="1">
-                <label for="first_name">Cantidad</label>
-              </div>
-              <div class="col s6 center">
-                <a class="waves-effect waves-light btn" style="width: 100%; margin: 1% 0%" (click)="addProduct(p)">
+              <div class="col s12 center">
+                <a class="waves-effect waves-light btn" style="width: 100%; margin: 2% 0%" (click)="addProduct(p)">
                   <i class="material-icons prefix">shopping_cart</i>
                 </a>
               </div>

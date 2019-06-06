@@ -92,4 +92,19 @@ router.get('/getdataproduct', function (req, res, next) {
   }
 })
 })
+
+//get all product tax 
+router.get('/getproductax', function (req, res, next) {
+  var productData = {}
+  product.dataAllProductTax(productData, function (error, data) {
+    if (error) {
+      res.status(504).jsonp({
+        "error": error
+      })
+    } else {
+      res.status(200).jsonp(data)
+    }
+  })
+})
+
 module.exports = router;

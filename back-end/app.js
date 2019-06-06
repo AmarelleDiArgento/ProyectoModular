@@ -77,6 +77,7 @@ app.post('/getdatapoduser', user)
 app.get('/getdatauser', user)
 app.post('/assignuserpod', user)
 app.post('/resetuserpod', user)
+app.get('/getpoduser', user)
 
 //urls rol
 app.post('/createrol', rol)
@@ -102,6 +103,7 @@ app.post('/updateproduct', product)
 app.post('/deleteproduct', product)
 app.post('/getdataproduct', product)
 app.get('/getdataproduct', product)
+app.get('/getproductax', product)
 //urls permission menu
 app.post('/getdatapermission', permission)
 //urls sale

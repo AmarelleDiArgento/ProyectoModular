@@ -192,4 +192,36 @@ productModel.dataAllproduct = function (prodData, callback) {
     }
 }
 
+productModel.dataAllProductTax = function (prodData, callback) {
+    var query = "SELECT tax.tax_id, tax.name FROM product_tax INNER JOIN product ON product_tax.pt_product_id = product.product_id INNER JOIN tax ON product_tax.pt_tax_id = tax.tax_id"
+    if (connection) {
+      connection.query(query, function (error, rows) {
+        if (error) {
+          console.log(error)
+          callback(null, {
+            "respuesta": "Error de conexión"
+          })
+        } else {
+          if (rows.length != 0) {
+            var jsonObj = {
+              rows,
+              respuesta: "Success"
+            }
+            callback(null, jsonObj)
+          } else {
+            console.log("Error la consulta no arroja datos")
+            callback(null, {
+              "respuesta": "Error no hay datos"
+            })
+          }
+        }
+      })
+    } else {
+      console.log("No se conecto con servidor")
+      callback(null, {
+        "Respuesta": "Error en Conexion"
+      })
+    }
+  }
+
 module.exports = productModel;

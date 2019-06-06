@@ -236,5 +236,37 @@ userModel.dataAllUser = function (userData, callback) {
   }
 }
 
+userModel.dataAllPodUser = function (userData, callback) {
+  var query = "SELECT pod.pod_id, pod.name FROM pod_user INNER JOIN user ON pod_user.ps_user_id = user.user_id INNER JOIN pod ON pod_user.ps_pod_id = pod.pod_id"
+  if (connection) {
+    connection.query(query, function (error, rows) {
+      if (error) {
+        console.log(error)
+        callback(null, {
+          "respuesta": "Error de conexión"
+        })
+      } else {
+        if (rows.length != 0) {
+          var jsonObj = {
+            rows,
+            respuesta: "Success"
+          }
+          callback(null, jsonObj)
+        } else {
+          console.log("Error la consulta no arroja datos")
+          callback(null, {
+            "respuesta": "Error no hay datos"
+          })
+        }
+      }
+    })
+  } else {
+    console.log("No se conecto con servidor")
+    callback(null, {
+      "Respuesta": "Error en Conexion"
+    })
+  }
+}
+
 
 module.exports = userModel;
