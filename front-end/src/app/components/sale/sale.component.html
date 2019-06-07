@@ -9,8 +9,27 @@
     </ul>
     <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12">
       <div class="products center">
+          
         <div *ngFor="let p of listProduct">
-          <div class="col m3 s12 div-producto" style="padding: 1%;" *ngIf="c.category_id === p.category_id">
+            <div class="col m4 s12" *ngIf="c.category_id === p.category_id">
+                <div class="card horizontal alto-productos">
+                  <div class="card-image center-product">
+                    <img src="{{p.image}}">
+                  </div>
+                  <div class="card-stacked">
+                    <div class="card-content">
+                      <p><b>{{p.name}}</b></p>
+                      <p><b>$ {{p.net_price}}</b></p>
+                    </div>
+                    <div class="card-action">
+                        <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="addProduct(p)">
+                          <i class="material-icons prefix">shopping_cart</i>
+                        </a>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          <!-- <div class="col m3 s12 div-producto" style="padding: 1%;" *ngIf="c.category_id === p.category_id">
             <div class="z-depth-2 col padding0" style="width: 100%">
               <img src="{{p.image}}" class="products" width="auto%" height="100px">
               <p><b>{{p.name}}</b></p>
@@ -21,20 +40,21 @@
                 </a>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
 
   </div>
   <div class="col m4 s12 z-depth-1">
-    <h2 class="center">{{sale_id}}</h2>
     <div class="row" style="margin-bottom: 0;">
       <form class="from-none">
 
-
+          <div class="col s4">
+              <h4 class="center">{{sale_id}}</h4>
+            </div>
         <ng-container *ngIf="client != null; else elseTemplate">
-          <div class="col s12">
+          <div class="col s8">
             <p class="left">Cliente: </p>
             <h5 class="center">{{client.username}}</h5>
           </div>
@@ -49,7 +69,7 @@
             </div>
             <div class="input-field col s1">
               <!-- Modal Trigger -->
-              <a class="waves-effect waves-light btn modal-trigger" href="#ClientRegister">
+              <a class="waves-effect waves-light btn-floating modal-trigger" href="#ClientRegister">
                 <i class="material-icons white-text">person_add</i>
               </a>
             </div>
@@ -65,33 +85,37 @@
       </form>
     </div>
     <div class="productos">
-      <div *ngFor="let sp of listSaleProduct">
-
-        <ul class="collection" *ngIf="sp[3] > 0 ">
-          <li class="collection-item avatar">
-            <img src="{{sp[2]}}" alt="" class="circle">
-            <span class="title">{{sp[1]}} x {{sp[3]}}</span>
-            <p>$ {{sp[4]}}</p>
-            <span class="badge teal white-text">
-              <a (click)="decreAmount(sp[0])">
-                <i class="material-icons white-text">remove</i>
+        <div *ngFor="let sp of listSaleProduct">
+          <div class="col s6">    
+          <ul class="collection" *ngIf="sp[3] > 0 ">
+            <li class="collection-item avatar">
+              <img src="{{sp[2]}}" alt="" class="circle">
+              <span class="title">{{sp[1]}} x {{sp[3]}}</span>
+              <p>$ {{sp[4]}}</p>
+              <div class="row" style="margin: 0">
+              <div class="badge teal darken-4 white-text col s4 center-flex">
+                <a (click)="decreAmount(sp[0])">
+                  <i class="material-icons white-text">remove</i>
+                </a>
+              </div>
+              <div class="badge center col s4">
+                {{sp[3]}}
+              </div>
+              <div class="badge teal darken-4 white-text col s4 center-flex">
+                <a (click)="increAmount(sp[0])">
+                  <i class="material-icons white-text">add</i>
+                </a>
+              </div>
+            </div>
+              <a class="secondary-content red-text text-darken-4" (click)="deleteProduct(sp[0])">
+                <i class="material-icons ">cancel</i>
               </a>
-            </span>
-            <span class="badge">
-              {{sp[3]}}
-            </span>
-            <span class="badge teal white-text">
-              <a (click)="increAmount(sp[0])">
-                <i class="material-icons white-text">add</i>
-              </a>
-            </span>
-            <a class="secondary-content red-text text-darken-4" (click)="deleteProduct(sp[0])"><i
-                class="material-icons ">cancel</i></a>
-          </li>
-        </ul>
-      </div>
-
+            </li>
+          </ul>
+        </div>
+        </div>    
     </div>
+   
     <div>
       <form action="" class="from-none">
         <p class="center"><b>Forma de Pago</b></p>
@@ -123,12 +147,13 @@
     </div>
     <div class="col s12">
       <p class="left">Total</p>
-      <h2 class="center">$ {{total_price}}</h2>
+      <h3 class="center">$ {{total_price}}</h3>
     </div>
     <div class="col s12">
-      <a class="waves-effect waves-light btn" style="width: 100%; margin: 1%" (click)="sale()">Facturar</a>
+      <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a>
     </div>
   </div>
+
 </div>
 
 
