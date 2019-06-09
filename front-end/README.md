@@ -22,7 +22,9 @@ npm run electron-build
 npm run electron
 
 -- error: sandbox -- 
-Solution: sudo sysctl kernel.unprivileged_userns_clone=1
+Solution: 
+cd node_modules/electron/dist/
+sudo sysctl kernel.unprivileged_userns_clone=1
 
 -----web run 
 ng serve 

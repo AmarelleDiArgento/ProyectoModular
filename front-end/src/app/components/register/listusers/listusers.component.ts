@@ -9,7 +9,7 @@ declare var $: any;
 import { UserService } from '../../../services/user.service';
 // service Excel
 import { ExcelService } from '../../../services/excel.service';
-//print service
+// print service
 import { PrintService } from '../../../services/print.service';
 import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
 import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
@@ -29,13 +29,9 @@ export class ListusersComponent implements OnInit {
 
   gridApi;
   gridColumnApi;
-  components;
   columnDefs;
-  autoGroupColumnDef;
   defaultColDef;
   rowSelection;
-  rowGroupPanelShow;
-  pivotPanelShow;
   paginationPageSize;
   paginationNumberFormatter;
   frameworkComponents;
@@ -43,10 +39,15 @@ export class ListusersComponent implements OnInit {
   // list data ws user
   listUser: [];
 
+  rowData: {};
+  selected: any[][] = [];
+
   texto = 'hiddensearch';
   filtro = true;
   lineas = 10;
   searchFilter;
+  width: number;
+  height: number;
 
   constructor(private http: Http,
     private formBuilder: FormBuilder,
@@ -125,7 +126,6 @@ export class ListusersComponent implements OnInit {
       filter: true
     };
     this.rowSelection = 'multiple';
-    this.pivotPanelShow = 'always';
     this.paginationPageSize = 10;
     this.paginationNumberFormatter = function (params) {
       return '[' + params.value.toLocaleString() + ']';
@@ -133,20 +133,63 @@ export class ListusersComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.getAllData();
+    // charge data
+    this.getAllData();
+
+    // init material class for select and floating action button
     $(document).ready(function () {
       $('select').formSelect();
+      $('.fixed-action-btn').floatingActionButton();
+      $('.tap-target').tapTarget();
+      $('.tap-target').tapTarget('open');
     });
+    this.width = window.innerWidth - 10; // ancho
+    this.height = window.innerHeight - (64 + 10) ; // alto
   }
+
+  onRowSelected(event) {
+    let exist: boolean = true;
+    for (let i = 0; i < this.selected.length; i++) {
+      const s = this.selected[i];
+      if (s[0] === event.node.data.user_id) {
+        console.log(s[0]);
+        exist = false;
+        break;
+      }
+    }
+    if (exist) {
+      this.selected.push([event.node.data.user_id, event.node.data.username]);
+    }
+    console.log(this.selected);
+
+  }
+
+  onRowUnSelected(id) {
+
+    for (let i = 0; i < this.selected.length; i++) {
+      const s = this.selected[i];
+      if (s[0] === id) {
+        s.splice(0, s.length);
+        break;
+      }
+    }
+    console.log(this.selected);
+
+  }
+
+
+  // paginator function
   onPageSizeChanged(value) {
     this.gridApi.paginationSetPageSize(Number(value));
   }
+  // hide quick filter
   cambiaEstado() {
     console.log(this.filtro);
 
     this.texto = (this.filtro) ? '' : 'hiddensearch';
     this.filtro = !this.filtro;
   }
+  // quick search filter
   quickSearch() {
     console.log(this.searchFilter);
     this.gridApi.setQuickFilter(this.searchFilter);
@@ -155,14 +198,9 @@ export class ListusersComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-
-    // send to search api backend all users
-    this.userService.getAllDataUsers()
-      .subscribe(data => {
-        // populate list json users
-        this.listUser = data.rows;
-      });
+    this.rowData = this.listUser;
   }
+
   // obtain all data from the users
   getAllData() {
     // send to search api backend all users
@@ -172,6 +210,7 @@ export class ListusersComponent implements OnInit {
         this.listUser = data.rows;
       });
   }
+
   // redirect to create user
   createUser() {
     this.router.navigate(['/createuser']);
@@ -186,19 +225,19 @@ export class ListusersComponent implements OnInit {
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listUser, 'Reporteusuarios');
   }
-  //service to print
+  // service to print
   printFile() {
     this.printService.print();
   }
 }
 
-
+// function filter for date
 function filter(filterLocalDateAtMidnight, cellValue) {
-  var dateAsString = cellValue;
-  var datePartsA = dateAsString.split(' ');
-  var datePartsB = datePartsA[0].split('-');
+  const dateAsString = cellValue;
+  const datePartsA = dateAsString.split(' ');
+  const datePartsB = datePartsA[0].split('-');
 
-  var cellDate = new Date(Number(datePartsB[0]), Number(datePartsB[1]) - 1, Number(datePartsB[2]));
+  const cellDate = new Date(Number(datePartsB[0]), Number(datePartsB[1]) - 1, Number(datePartsB[2]));
   if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
     return 0;
   }
