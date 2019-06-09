@@ -120,8 +120,8 @@ thead {
   white-space: nowrap;
 }
 
-.productos {
-  height: 300px;
+.alto-productos {
+  height: 220px;
   overflow: auto;
 }
 
@@ -141,6 +141,15 @@ thead {
   flex: 1 1 auto;
   height: auto !important;
   min-height: 0;
+}
+.center-product{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.productos{
+  height: 240px !important;
+  overflow: auto;
 }
 
 .page-loader {
