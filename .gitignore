@@ -69,3 +69,5 @@ front-end/package-lock\.json
 \.vscode/
 
 front-end/proyecto-modular-linux-x64/
+
+front-end/release-builds/

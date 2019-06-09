@@ -15,7 +15,29 @@
 
 <body>
   <!-- routes will be rendered here -->
-  <app-root></app-root>
+  <div class="page-loader" id="page-loader">
+    <div>
+      <div id="preloader">
+        <div id="loader"></div>
+      </div>
+      <p [routerLink]="['/home']" class="brand-logo conforta"><b class="teal-text text-darken-3">Proyecto</b> modular
+      </p>
+    </div>
+  </div>
+
+  <div class="main">
+    <app-root></app-root>
+  </div>
 </body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    $('.page-loader').delay(1700).fadeOut('slow');
+
+    $('.preloader-wrapper')
+      .delay(1700)
+      .fadeOut();
+  });
+
+</script>
 
 </html>

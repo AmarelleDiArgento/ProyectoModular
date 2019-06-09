@@ -53,7 +53,7 @@ export class SaleComponent implements OnInit {
 
   ngOnInit() {
     console.log('Hola!');
-console.log(localStorage);
+    console.log(localStorage);
 
     // this.tax_price = 0;
     // this.total_price = 0;
