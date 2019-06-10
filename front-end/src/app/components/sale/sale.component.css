@@ -53,3 +53,21 @@
   overflow: hidden;
   height: 270px;
 }
+.ventas{
+  position: absolute;
+  right: 0 !important;
+  height: 89%;
+  overflow: auto;
+}
+.totales{
+  align-items: center;
+  left: 0;
+  position: absolute;
+  bottom: 0px;
+  margin-bottom: 0;
+  width: 67%;
+  background: #1c2b36;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
