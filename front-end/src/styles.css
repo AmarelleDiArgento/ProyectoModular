@@ -148,7 +148,7 @@ thead {
   flex-direction: column;
 }
 .productos{
-  height: 240px !important;
+  height: 300px !important;
   overflow: auto;
 }
 

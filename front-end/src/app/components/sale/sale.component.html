@@ -46,7 +46,7 @@
     </div>
 
   </div>
-  <div class="col m4 s12 z-depth-1">
+  <div class="col m4 s12 z-depth-1 ventas">
     <div class="row" style="margin-bottom: 0;">
       <form class="from-none">
 
@@ -116,47 +116,56 @@
         </div>    
     </div>
    
-    <div>
-      <form action="" class="from-none">
-        <p class="center"><b>Forma de Pago</b></p>
-        <div class="col m6 s6">
-          <p>
-            <label>
-              <input name="waytopay" type="radio" checked />
-              <span><i class="material-icons ">payment</i>Tarjeta</span>
-            </label>
-          </p>
-        </div>
-        <div class="col m6 s6">
-          <p>
-            <label>
-              <input name="waytopay" type="radio" />
-              <span><i class="material-icons ">monetization_on</i>Efectivo</span>
-            </label>
-          </p>
-        </div>
-      </form>
-    </div>
-    <div class="col s12">
-      <p class="left">Total impuesto</p>
-      <h5 class="center">$ {{tax_price}}</h5>
-    </div>
-    <div class="col s12">
-      <p class="left">Total Compra</p>
-      <h5 class="center">$ {{gross_price}}</h5>
-    </div>
-    <div class="col s12">
-      <p class="left">Total</p>
-      <h3 class="center">$ {{total_price}}</h3>
-    </div>
-    <div class="col s12">
-      <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a>
+   
+    
+    <div class="col s12 center">
+        <a class="waves-effect waves-light btn modal-trigger" style="width: 100%; margin: 3% 0%;" href="#modal1">Facturar</a>
+      <!-- <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a> -->
     </div>
   </div>
 
 </div>
 
-
+  <div id="modal1" class="modal">
+      <div class="modal-content row">
+          <form action="" class="from-none">
+              <p class="center"><b>Forma de Pago</b></p>
+              <div class="col m6 s6">
+                <p>
+                  <label>
+                    <input name="waytopay" type="radio" checked />
+                    <span><i class="material-icons ">payment</i>Tarjeta</span>
+                  </label>
+                </p>
+              </div>
+              <div class="col m6 s6">
+                <p>
+                  <label>
+                    <input name="waytopay" type="radio" />
+                    <span><i class="material-icons ">monetization_on</i>Efectivo</span>
+                  </label>
+                </p>
+              </div>
+              <div class="col s12">
+                  <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a>
+              </div>
+            </form>
+      </div>
+    </div>
+<div class="row totales">
+    <div class="col s4">
+      <p class="left">Total impuesto</p>
+      <h5 class="center">$ {{tax_price}}</h5>
+    </div>
+    <div class="col s4">
+      <p class="left">Total Compra</p>
+      <h5 class="center">$ {{gross_price}}</h5>
+    </div>
+    <div class="col s4">
+      <p class="left">Total</p>
+      <h3 class="center">$ {{total_price}}</h3>
+    </div>
+  </div>
 
 <!-- Modal Structure -->
 <div id="ClientRegister" class="modal">
