@@ -107,4 +107,21 @@ router.get('/getproductax', function (req, res, next) {
   })
 })
 
+//update  product tax 
+router.post('/updateproductax', function (req, res, next) {
+  var productData = {
+    pt_product_id: req.body.pt_product_id,
+    pt_tax_id: req.body.pt_tax_id
+  }
+  product.updateProductTax(productData, function (error, data) {
+    if (error) {
+      res.status(504).jsonp({
+        "error": error
+      })
+    } else {
+      res.status(200).jsonp(data)
+    }
+  })
+})
+
 module.exports = router;
