@@ -169,4 +169,21 @@ router.get('/getpoduser', function (req, res, next) {
   })
 })
 
+//update  pod user
+router.post('/updatepoduser', function (req, res, next) {
+  var userData = {
+    ps_user_id: req.body.ps_user_id,
+    ps_pod_id: req.body.ps_pod_id
+  }
+  user.updatatePodUser(userData, function (error, data) {
+    if (error) {
+      res.status(504).jsonp({
+        "error": error
+      })
+    } else {
+      res.status(200).jsonp(data)
+    }
+  })
+})
+
 module.exports = router;

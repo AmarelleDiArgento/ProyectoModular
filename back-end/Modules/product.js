@@ -224,4 +224,36 @@ productModel.dataAllProductTax = function (prodData, callback) {
     }
   }
 
+  productModel.updateProductTax = function (prodData, callback) {
+    var query = "UPDATE product_tax SET pt_product_id="+prodData.pt_product_id+", pt_tax_id="+prodData.pt_tax_id+" WHERE pt_product_id="+prodData.pt_product_id+", pt_tax_id="+prodData.pt_tax_id+" "
+    if (connection) {
+      connection.query(query, function (error, rows) {
+        if (error) {
+          console.log(error)
+          callback(null, {
+            "respuesta": "Error de conexión"
+          })
+        } else {
+          if (rows.length != 0) {
+            var jsonObj = {
+              rows,
+              respuesta: "Success"
+            }
+            callback(null, jsonObj)
+          } else {
+            console.log("Error al actualizar")
+            callback(null, {
+              "respuesta": "Error al actualizar"
+            })
+          }
+        }
+      })
+    } else {
+      console.log("No se conecto con servidor")
+      callback(null, {
+        "Respuesta": "Error en Conexion"
+      })
+    }
+  }
+
 module.exports = productModel;

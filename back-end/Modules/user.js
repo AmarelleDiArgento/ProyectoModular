@@ -268,5 +268,36 @@ userModel.dataAllPodUser = function (userData, callback) {
   }
 }
 
+userModel.updatatePodUser = function (userData, callback) {
+  var query = "UPDATE pod_user SET ps_user_id="+userData.ps_user_id+", ps_pod_id="+userData.ps_pod_id+" WHERE ps_user_id="+userData.ps_user_id+", ps_pod_id="+userData.ps_pod_id+" "
+  if (connection) {
+    connection.query(query, function (error, rows) {
+      if (error) {
+        console.log(error)
+        callback(null, {
+          "respuesta": "Error de conexión"
+        })
+      } else {
+        if (rows.length != 0) {
+          var jsonObj = {
+            rows,
+            respuesta: "Success"
+          }
+          callback(null, jsonObj)
+        } else {
+          console.log("Error al actualizar")
+          callback(null, {
+            "respuesta": "Error al actualizar"
+          })
+        }
+      }
+    })
+  } else {
+    console.log("No se conecto con servidor")
+    callback(null, {
+      "Respuesta": "Error en Conexion"
+    })
+  }
+}
 
 module.exports = userModel;

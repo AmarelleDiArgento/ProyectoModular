@@ -1,5 +1,5 @@
 // generic libs
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 // alerts
@@ -14,7 +14,7 @@ import { ListtaxComponent } from '../../../components/tax/listtax/listtax.compon
 import { ListproductComponent } from '../../../components/product/listproduct/listproduct.component';
 import { ListpodsComponent } from '../../../components/pod/listpods/listpods.component';
 import { ListsalesComponent } from '../../../components/sale/listsales/listsales.component';
-// import { ListusersComponent } from '../../../components/register/listusers/listusers.component';
+import { ListusersComponent } from '../../../components/register/listusers/listusers.component';
 // jquery
 declare var $: any;
 // charge  services
@@ -33,7 +33,7 @@ import { UserService } from '../../../services/user.service';
   templateUrl: './renderdeletebutton.component.html',
   styleUrls: ['./renderdeletebutton.component.css']
 })
-
+@Injectable()
 export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngularComp {
   cellvalue: any;
   private Name: string;
@@ -62,8 +62,8 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
     private listtaxComponent: ListtaxComponent,
     private listproductComponent: ListproductComponent,
     private listpodComponent: ListpodsComponent,
-    private listsaleComponent: ListsalesComponent// ,
-    // private listuserComponent: ListusersComponent
+    private listsaleComponent: ListsalesComponent,
+    private listuserComponent: ListusersComponent
   ) { }
 
   ngOnInit() {
