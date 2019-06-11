@@ -60,6 +60,14 @@ call proyectomodular.userins('1020123', 'Vendedor', 'vendedor@prueba.com', "é61
 call proyectomodular.productins('1010101010', 'Papas', '1200', 1, 'https://images.rappi.com/products/949957-1551195546652.png?d=200x200&e=webp', 1);
 call proyectomodular.productins('111111111', 'Arroz', '2000', 1, 'https://images.rappi.com/products/1351206-1551364455.png?d=200x200', 1);
 call proyectomodular.productins('000000000', 'Queso', '1400', 1, 'https://images.rappi.com/products/730077-1-1464281372.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('432423422', 'Tomate', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('967352859', 'Cebolla', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('169673378', 'Empanadas', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('452019754', 'Salsa', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('108473291', 'Merengue', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('176403856', 'Burrito', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('756342910', 'Yuca', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('164859634', 'Uvas Pasas', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
 
 -- call proyectomodular.productins(?, ?, ?, ?, ?, ?);
 -- call proyectomodular.productupd(?, ?, ?, ?, ?, ?, ?);
@@ -153,7 +161,7 @@ call proyectomodular.pod_userins('1020123',1);
 call proyectomodular.producttaxins(1, 1);
 call proyectomodular.producttaxins(2, 1);
 call proyectomodular.producttaxins(3, 1);
-call proyectomodular.producttaxins(3, 2);
+call proyectomodular.producttaxins(3, 2);	
 
 call proyectomodular.saleins(1, '1020123', '1020123');
 call proyectomodular.sale_productins(1, 3, 4);
