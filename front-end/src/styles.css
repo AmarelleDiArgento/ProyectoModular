@@ -252,7 +252,9 @@ thead {
   -o-animation: spinr 1s linear infinite;
   animation: spinr 1s linear infinite;
 }
-
+form{
+  background: white;
+}
 @-webkit-keyframes spinr {
   0% {
     -webkit-transform: rotate(0deg);

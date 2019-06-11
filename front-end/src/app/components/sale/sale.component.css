@@ -54,6 +54,7 @@
   right: 0 !important;
   height: 93%;
   overflow: auto;
+  background: white;
 }
 .totales{
   align-items: center;
@@ -71,6 +72,7 @@
   overflow: auto;
   height: 30% !important;
   z-index: 2;
+  background: white;
 }
 .center-product{
   display: flex;
