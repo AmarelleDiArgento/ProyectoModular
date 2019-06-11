@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+const fs = require('fs');
 
 //routes
 var indexRouter = require('./routes/index');
@@ -150,6 +151,20 @@ app.post('/deletepoduser', poduser)
 app.post('/getdatapoduser', poduser)
 app.get('/getdatapoduser', poduser)
 
+
+//file text sql
+writeFile();
+//function create file
+function writeFile(){
+  var fileName = 'c://Monitoreo/file.txt';
+  fs.exists(fileName, function (exists) {
+      if(exists){
+          //no
+      } else {
+          fs.writeFileSync(fileName);
+      }
+  });
+}
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
