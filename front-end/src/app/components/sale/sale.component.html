@@ -7,7 +7,7 @@
     <ul class="tabs">
       <li class="tab col s3" *ngFor="let c of listCategory"><a href="#tab{{c.category_id}}">{{c.name}}</a></li>
     </ul>
-    <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12">
+    <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12" style="display: block; height: 48rem !important;">
       <div class="products center">
           
         <div *ngFor="let p of listProduct">

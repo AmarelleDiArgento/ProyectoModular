@@ -73,9 +73,6 @@ thead {
   width: 100% !important;
 }
 
-.products {
-  padding: 2%;
-}
 
 .padding0 {
   padding: 0 !important;
@@ -120,10 +117,6 @@ thead {
   white-space: nowrap;
 }
 
-.alto-productos {
-  height: 220px;
-  overflow: auto;
-}
 
 .from-none {
   box-shadow: none !important;
@@ -142,15 +135,7 @@ thead {
   height: auto !important;
   min-height: 0;
 }
-.center-product{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-.productos{
-  height: 300px !important;
-  overflow: auto;
-}
+
 
 .page-loader {
   position: fixed;
