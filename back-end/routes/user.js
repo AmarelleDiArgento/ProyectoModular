@@ -156,8 +156,10 @@ router.get('/getdatauser', function (req, res, next) {
 })
 
 //get all pod user 
-router.get('/getpoduser', function (req, res, next) {
-  var userData = {}
+router.post('/getpoduser', function (req, res, next) {
+  var userData = {
+    ps_user_id: req.body.ps_user_id
+  }
   user.dataAllPodUser(userData, function (error, data) {
     if (error) {
       res.status(504).jsonp({

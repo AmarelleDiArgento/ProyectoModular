@@ -237,7 +237,7 @@ userModel.dataAllUser = function (userData, callback) {
 }
 
 userModel.dataAllPodUser = function (userData, callback) {
-  var query = "SELECT pod.pod_id, pod.name FROM pod_user INNER JOIN user ON pod_user.ps_user_id = user.user_id INNER JOIN pod ON pod_user.ps_pod_id = pod.pod_id"
+  var query = "SELECT pod.pod_id, pod.name FROM pod_user INNER JOIN user ON pod_user.ps_user_id = user.user_id INNER JOIN pod ON pod_user.ps_pod_id = pod.pod_id where pod_user.ps_user_id="+userData.ps_user_id+" "
   if (connection) {
     connection.query(query, function (error, rows) {
       if (error) {
