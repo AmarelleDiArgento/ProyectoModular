@@ -144,7 +144,12 @@ export class SaleComponent implements OnInit {
         cont = this.listSaleProduct[i][3] + 1;
       }
     }
-    tax_price = p.net_price - (p.net_price / (1 + (p.tax_percent / 100)));
+    if (p.tax_percent === null) {
+      tax_price = 0;
+    } else {
+      tax_price = p.net_price - (p.net_price / (1 + (p.tax_percent / 100)));
+    }
+    
     if (exists) {
       this.listSaleProduct[index][3] = cont;
       this.listSaleProduct[index][4] = p.net_price * cont;

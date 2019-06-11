@@ -1002,8 +1002,8 @@ BEGIN
 
 SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, t.tax_id, t.name as tax_name, sum(t.percent) as tax_percent, p.status, p.image
 FROM proyectomodular.product AS p
-inner join product_tax as pt on p.product_id = pt.pt_product_id
-inner join tax as t on pt.pt_tax_id = t.tax_id
+left join product_tax as pt on p.product_id = pt.pt_product_id
+left join tax as t on pt.pt_tax_id = t.tax_id
 inner join category as c on p.category_id = c.category_id
 group by p.code;
 
