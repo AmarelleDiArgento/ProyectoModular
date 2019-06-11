@@ -41,6 +41,9 @@ export class SaleComponent implements OnInit {
   total_price = 0;
   seeker;
 
+  h;
+  w;
+
   listSaleProduct: any[][] = [];
 
   constructor(private http: Http,
@@ -89,7 +92,6 @@ export class SaleComponent implements OnInit {
 
   }
   modalClose() {
-    console.log('Hola :D');
 
     $('#ClientRegister').modal('close');
     this.client_id = localStorage.getItem('idClient');
@@ -105,6 +107,7 @@ export class SaleComponent implements OnInit {
       this.getClient();
     }
   }
+
   getClient() {
     this.userService.getDataUserForId(this.client_id)
       .subscribe(data => {
@@ -144,7 +147,12 @@ export class SaleComponent implements OnInit {
         cont = this.listSaleProduct[i][3] + 1;
       }
     }
-    tax_price = p.net_price - (p.net_price / (1 + (p.tax_percent / 100)));
+    if (p.tax_percent === null) {
+      tax_price = 0;
+    } else {
+      tax_price = p.net_price - (p.net_price / (1 + (p.tax_percent / 100)));
+    }
+
     if (exists) {
       this.listSaleProduct[index][3] = cont;
       this.listSaleProduct[index][4] = p.net_price * cont;
@@ -307,3 +315,35 @@ function number_format(amount, decimals) {
 
   return amount_parts.join('.');
 }
+
+
+var oldX = window.screenX,
+  oldY = window.screenY;
+
+/**
+ * Funcion que se ejecuta cada 500 milisegundos para comprovar si se ha
+ * movido la ventana de lugar
+ */
+var interval = setInterval(function () {
+  if (oldX != window.screenX || oldY != window.screenY) {
+    showInfo();
+  }
+
+  oldX = window.screenX;
+  oldY = window.screenY;
+}, 500);
+
+if (window.addEventListener) {
+  // navegadores que utilizan los estandares
+  window.addEventListener('resize', showInfo);
+}
+
+function showInfo() {
+
+  console.log('Altura de la ventana: ' + window.innerHeight);
+  console.log('Anchura interna de la ventana: ' + window.innerWidth);
+
+  document.getElementById('main').style.width = window.innerWidth + 'px';
+  document.getElementById('main').style.height = window.innerHeight + 'px';
+}
+showInfo();

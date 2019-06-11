@@ -13,7 +13,7 @@
 
 </head>
 
-<body>
+<body style="background:#1C2B36">
   <!-- routes will be rendered here -->
   <div class="page-loader" id="page-loader">
     <div>
@@ -25,9 +25,12 @@
     </div>
   </div>
 
-  <div class="main">
+  <div class="main" id="main" style="height: h; width: w">
     <app-root></app-root>
+
   </div>
+
+  <div id="result"></div>
 </body>
 <script>
   document.addEventListener("DOMContentLoaded", function () {

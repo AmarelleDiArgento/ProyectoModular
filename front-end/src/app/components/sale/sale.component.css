@@ -45,10 +45,6 @@
   white-space: nowrap;
 }
 
-.productos {
-  height: 300px;
-  overflow: auto;
-}
 .div-producto{
   overflow: hidden;
   height: 270px;
@@ -56,8 +52,9 @@
 .ventas{
   position: absolute;
   right: 0 !important;
-  height: 89%;
+  height: 93%;
   overflow: auto;
+  background: white;
 }
 .totales{
   align-items: center;
@@ -65,7 +62,7 @@
   position: absolute;
   bottom: 0px;
   margin-bottom: 0;
-  width: 67%;
+  width: 66.60%;
   background: #1c2b36;
   display: flex;
   justify-content: center;
@@ -73,6 +70,22 @@
 }
 .productos-tab{
   overflow: auto;
-  height: 31rem !important;
+  height: 30% !important;
   z-index: 2;
+  background: white;
+}
+.center-product{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.productos{
+  height: 69% !important;
+  overflow: auto;
+}
+
+
+.alto-productos {
+  height: 220px;
+  overflow: auto;
 }
