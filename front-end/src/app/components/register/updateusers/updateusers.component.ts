@@ -45,8 +45,20 @@ export class UpdateusersComponent implements OnInit {
     private podService: PodService,
     private rolService: RolService,
     private router: Router) { }
+
   ngOnInit() {
-    // init form
+    $(document).ready(function () {
+      $('select').formSelect();
+    });
+    // asign id user to search data
+    this.idUser = localStorage.getItem('idUser');
+    //get data pod
+    this.getAllDataPod(this.idUser);
+    // get data rol
+    this.getAllDataRol();
+     // eject ws search user for id
+     this.getUserDataId();
+  
     this.updateUsersForm = this.formBuilder.group({
       user_id: ['', Validators.required],
       username: ['', Validators.required],
@@ -56,33 +68,29 @@ export class UpdateusersComponent implements OnInit {
       pod_id: ['', Validators.required],
       status: ['', Validators.required]
     });
-    // asign id user to search data
-    this.idUser = localStorage.getItem('idUser');
-    // eject ws search user for id
-    this.getUserDataId();
+  }
+  // get form controls
+  get f() { return this.updateUsersForm.controls; }
 
-
-    // send to search api backend all pods
-    this.podService.getAllDataPod()
-      .subscribe(data => {
-        // populate list json pod
-        this.listPod = data.rows;
-
-      });
+  getAllDataRol(){
     // send to search api backend all rols
     this.rolService.getAllDataRol()
       .subscribe(data => {
         // populate list json rol
+        console.log(data);
         this.listRol = data.rows;
       });
-
-    $(document).ready(function () {
-      $('select').formSelect();
-    });
-
   }
-  // get form controls
-  get f() { return this.updateUsersForm.controls; }
+
+  getAllDataPod(idUser){
+    // send to search api backend all pods
+    this.podService.getDataPodUserForId(idUser)
+      .subscribe(data => {
+        // populate list json pod
+        this.listPod = data.rows;
+        console.log(this.listPod);
+      });
+  }
   // submit form
   onSubmit() {
     this.submitted = true;
@@ -122,6 +130,7 @@ export class UpdateusersComponent implements OnInit {
         }
       });
   }
+
   // clear alert err
   closeAlertErr(): void {
     this.msgerr = '';

@@ -37,9 +37,13 @@ export class RegisterComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-
-    // obtain all data from the register pods
-    this.getAllDataPodandUser();
+    $(document).ready(function () {
+      $('select').formSelect();
+    });
+    // get data rol
+    this.getAllDataRol();
+    //get data pod
+    this.getAllDataPod();
     // init form
     this.registerUsersForm = this.formBuilder.group({
       user_id: ['', Validators.required],
@@ -50,27 +54,9 @@ export class RegisterComponent implements OnInit {
       pod_id: ['', Validators.required],
       status: ['', Validators.required]
     });
+
   }
-  getAllDataPodandUser() {
-
-    // send to search api backend all pods
-    this.podService.getAllDataPod()
-      .subscribe(data => {
-        // populate list json pod
-        this.listPod = data.rows;
-
-      });
-    // send to search api backend all rols
-    this.rolService.getAllDataRol()
-      .subscribe(data => {
-        // populate list json rol
-        this.listRol = data.rows;
-      });
-
-    $(document).ready(function () {
-      $('select').formSelect();
-    });
-  }
+  
   // get form controls
   get f() { return this.registerUsersForm.controls; }
 
@@ -133,6 +119,27 @@ export class RegisterComponent implements OnInit {
         });
     }
   }
+
+  getAllDataRol(){
+    // send to search api backend all rols
+    this.rolService.getAllDataRol()
+      .subscribe(data => {
+        // populate list json rol
+        console.log(data);
+        this.listRol = data.rows;
+      });
+  }
+
+  getAllDataPod(){
+    // send to search api backend all pods
+    this.podService.getAllDataPod()
+      .subscribe(data => {
+        // populate list json pod
+        this.listPod = data.rows;
+
+      });
+  }
+
   // clear alert err
   closeAlertErr(): void {
     this.msgerr = '';

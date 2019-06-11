@@ -47,7 +47,8 @@
         <div class="form-group input-field col s12">
           <select class="form-control" id="rol_id" formControlName="rol_id"
             [ngClass]="{ 'is-invalid': submitted && f.rol_id.errors }">
-            <option *ngFor="let r of listRol" [ngValue]="r.rol_id" >
+            <option value="" disabled selected>Seleccione rol</option>
+            <option *ngFor="let r of listRol" [ngValue]="r.rol_id">
               {{ r.name}}
             </option>
           </select>
@@ -60,7 +61,6 @@
         </div>
 
         <div class="form-group input-field col s12">
-
           <select multiple class="form-control" id="pod_id" formControlName="pod_id"
             [ngClass]="{ 'is-invalid': submitted && f.pod_id.errors }">
             <option value="" disabled selected>Seleccione puntos de venta</option>
