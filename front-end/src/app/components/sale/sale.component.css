@@ -71,3 +71,8 @@
   justify-content: center;
   color: white;
 }
+.productos-tab{
+  overflow: auto;
+  height: 31rem !important;
+  z-index: 2;
+}
