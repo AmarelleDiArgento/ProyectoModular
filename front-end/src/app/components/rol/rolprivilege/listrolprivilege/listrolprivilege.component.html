@@ -1,14 +1,18 @@
 <!-- header -->
 <app-header></app-header>
 <!-- end header -->
-<div class="container">
-  <div class="col-md-12">
-    <br>
-    <h3>Privilegios del Rol</h3>
-    <br>
-    <button type="button" (click)="createRolPrivilege()" class="btn btn-primary">Crear</button>
-    <div class="col-md-12">
-      <br>
+<div class="container row" style="background: white;">
+  <div class="col s12 container">
+    <div class="row center-flex">
+      <div class="col s8">
+          <h3>Privilegios del Rol</h3>
+      </div>
+      <div class="col s4">
+          <button type="button" (click)="createRolPrivilege()" class="btn btn-primary">Crear</button>
+      </div>
+    </div>  
+  </div>
+  <div class="col s12">
       <table class="striped responsive-table centered">
         <thead class="">
           <tr>
@@ -138,13 +142,5 @@
           </tr>
         </tbody>
       </table>
-    </div>
-    <div class="col-md-12">
-      <br>
-
-      <br>
-      <br>
-      <br>
-    </div>
   </div>
 </div>
