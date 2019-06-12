@@ -159,7 +159,7 @@ function writeFile(){
   var fileName = 'c://Monitoreo/file.txt';
   fs.exists(fileName, function (exists) {
       if(exists){
-          //no
+          
       } else {
           fs.writeFileSync(fileName);
       }
