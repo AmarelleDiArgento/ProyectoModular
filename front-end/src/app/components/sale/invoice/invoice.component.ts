@@ -64,8 +64,18 @@ export class InvoiceComponent implements OnInit {
   }
   // service to print
   printFile() {
-    setTimeout('this.redireccionar()', 5000);
     this.printService.print();
+    Swal.fire({
+      type: 'success',
+      title: 'Impresion generada',
+      toast: false,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000,
+      onClose: () => {
+        this.router.navigate(['/createsale']);
+      }
+    });
   }
 
 }
@@ -97,6 +107,4 @@ function number_format(amount, decimals) {
 }
 
 
-function redireccionar() {   // Función para redireccionar a los 5 segundos
-  this.router.navigate(['/createsale']);
-}
+
