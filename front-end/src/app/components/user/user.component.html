@@ -1,0 +1,116 @@
+<!-- header -->
+<app-header></app-header>
+<!-- end header -->
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-4"></div>
+    <div class="col-md-4" id="create">
+      <form [formGroup]="registerUserForm" (ngSubmit)="onSubmit()">
+        <h3>Crear Usuario</h3>
+        <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
+          <a class="close" (click)="closeAlertErr()">
+            &times;
+          </a>
+          <h6>{{msgerr}}</h6>
+        </div>
+
+        <div class="form-group">
+          <label for="user_id">Documento</label>
+          <input type="text" class="form-control" id="user_id" formControlName="user_id"
+            [ngClass]="{ 'is-invalid': submitted && f.user_id.errors }" placeholder="Ingrese el documento">
+          <span>
+            <div *ngIf="submitted && f.user_id.errors">
+              <div *ngIf="f.user_id.errors.required"> <label id="error">Error el documento es requerido</label></div>
+            </div>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="username">Nombre</label>
+          <input type="text" class="form-control" id="username" formControlName="username"
+            [ngClass]="{ 'is-invalid': submitted && f.username.errors }" placeholder="Ingrese el nombre">
+          <span>
+            <div *ngIf="submitted && f.username.errors">
+              <div *ngIf="f.username.errors.required"> <label id="error">Error el nombre es requerido</label></div>
+            </div>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" id="email" formControlName="email"
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Ingrese el email">
+          <span>
+            <div *ngIf="submitted && f.email.errors">
+              <div *ngIf="f.email.errors.required"> <label id="error">Error el email es requerido</label></div>
+            </div>
+          </span>
+        </div>
+
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="text" class="form-control" id="password" formControlName="password"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Ingrese el password">
+          <span>
+            <div *ngIf="submitted && f.password.errors">
+              <div *ngIf="f.password.errors.required"> <label id="error">Error el password es requerido</label></div>
+            </div>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Rol</label>
+          <select class="form-control" id="rol_id" formControlName="rol_id"
+            [ngClass]="{ 'is-invalid': submitted && f.rol_id.errors}">
+            <option value="" disabled>Selecione un rol</option>
+            <option *ngFor="let r of listRol" [ngValue]="r.rol_id">
+              {{ r.name}}
+            </option>
+          </select>
+          <span>
+            <div *ngIf="submitted && f.rol_id.errors">
+              <div *ngIf="f.rol_id.errors.required"> <label id="error">Error el rol es requerido</label></div>
+            </div>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Punto de venta</label>
+          <select multiple class="form-control" id="pod_id" formControlName="pod_id"
+            [ngClass]="{ 'is-invalid': submitted && f.pod_id.errors}">
+            <option value="" disabled>Selecione un punto de venta</option>
+            <option *ngFor="let p of listPod" [ngValue]="p.pod_id">
+              {{p.name}}
+            </option>
+          </select>
+          <span>
+            <div *ngIf="submitted && f.pod_id.errors">
+              <div *ngIf="f.pod_id.errors.required"> <label id="error">Error el pod es requerido</label></div>
+            </div>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Estado</label>
+          <div class="switch">
+            <label>
+              Inactivo
+              <input type="checkbox" class="form-control" id="status" formControlName="status"
+                [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+              <span class="lever"></span>
+              Activo
+            </label>
+          </div>
+          <span>
+            <div *ngIf="submitted && f.status.errors">
+              <div *ngIf="f.status.errors.required"> <label id="error">Error el estado es requerido</label></div>
+            </div>
+          </span>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block btn-full">Crear</button>
+      </form>
+    </div>
+  </div>
+</div>

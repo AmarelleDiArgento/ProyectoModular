@@ -9,10 +9,11 @@ import { HomeComponent } from './components/home/home.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 // profile
 import { ProfileComponent } from './components/profile/profile.component';
-// register
-import { RegisterComponent } from './components/register/register.component';
+// user
+import { UserComponent } from './components/user/user.component';
+import { ListuserComponent } from './components/user/listuser/listuser.component';
 import { ListusersComponent } from './components/listusers/listusers.component';
-import { UpdateusersComponent } from './components/register/updateusers/updateusers.component';
+import { UpdateuserComponent } from './components/user/updateuser/updateuser.component';
 // rol
 import { RolComponent } from './components/rol/rol.component';
 import { ListrolComponent } from './components/rol/listrol/listrol.component';
@@ -71,15 +72,19 @@ const routes: Routes = [
     },
     {
         path: 'createuser',
-        component: RegisterComponent,
+        component: UserComponent,
     },
     {
         path: 'updateuser',
-        component: UpdateusersComponent,
+        component: UpdateuserComponent,
     },
     {
         path: 'listusers',
         component: ListusersComponent,
+    },
+    {
+        path: 'listuser',
+        component: ListuserComponent,
     },
     {
         path: 'createrol',

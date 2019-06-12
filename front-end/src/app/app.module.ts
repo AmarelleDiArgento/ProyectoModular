@@ -19,9 +19,14 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { RegisterComponent } from './components/register/register.component';
+
+import { UserComponent } from './components/user/user.component';
+import { ListuserComponent } from './components/user/listuser/listuser.component';
+import { UpdateuserComponent } from './components/user/updateuser/updateuser.component';
+import { ClientregisterComponent } from './components/user/clientregister/clientregister.component';
+
 import { ListusersComponent } from './components/listusers/listusers.component';
-import { UpdateusersComponent } from './components/register/updateusers/updateusers.component';
+
 import { RolComponent } from './components/rol/rol.component';
 import { ListrolComponent } from './components/rol/listrol/listrol.component';
 import { UpdaterolComponent } from './components/rol/updaterol/updaterol.component';
@@ -72,7 +77,6 @@ import { RenderbarcodeComponent } from './components/aggridrender/renderbarcode/
 import { RendermaterialiconComponent } from './components/aggridrender/rendermaterialicon/rendermaterialicon.component';
 import { InvoiceComponent } from './components/sale/invoice/invoice.component';
 import { PreloadComponent } from './components/preload/preload.component';
-import { ClientregisterComponent } from './components/register/clientregister/clientregister.component';
 
 
 
@@ -86,9 +90,11 @@ import { ClientregisterComponent } from './components/register/clientregister/cl
     InventoryComponent,
     HeaderComponent,
     FooterComponent,
-    RegisterComponent,
+    UserComponent,
+    UpdateuserComponent,
     ListusersComponent,
-    UpdateusersComponent,
+    ListuserComponent,
+    ClientregisterComponent,
     RolComponent,
     ListrolComponent,
     UpdaterolComponent,
@@ -125,8 +131,7 @@ import { ClientregisterComponent } from './components/register/clientregister/cl
     RenderbarcodeComponent,
     RendermaterialiconComponent,
     PreloadComponent,
-    InvoiceComponent,
-    ClientregisterComponent
+    InvoiceComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 
 <head>
   <meta charset="utf-8">
@@ -10,7 +10,6 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
     integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-
 </head>
 
 <body style="background:#1C2B36">
@@ -31,16 +30,19 @@
   </div>
 
   <div id="result"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      $('.page-loader').delay(1700).fadeOut('slow');
+
+      $('.preloader-wrapper')
+        .delay(1700)
+        .fadeOut();
+    });
+
+  </script>
+
+
 </body>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    $('.page-loader').delay(1700).fadeOut('slow');
-
-    $('.preloader-wrapper')
-      .delay(1700)
-      .fadeOut();
-  });
-
-</script>
 
 </html>

@@ -39,10 +39,12 @@ export class SaleComponent implements OnInit {
   gross_price = 0;
   tax_price = 0;
   total_price = 0;
+  total;
   seeker;
+  waytopay;
+  recibo;
+  cambio: number;
 
-  h;
-  w;
 
   listSaleProduct: any[][] = [];
 
@@ -122,16 +124,16 @@ export class SaleComponent implements OnInit {
   }
 
   totals() {
-    let total = 0;
+    this.total = 0;
     let tax = 0;
 
     for (let i = 0; i < this.listSaleProduct.length; i++) {
-      total = total + this.listSaleProduct[i][4];
+      this.total = this.total + this.listSaleProduct[i][4];
       tax = tax + this.listSaleProduct[i][5];
     }
     this.tax_price = number_format(tax, 2);
-    this.total_price = number_format(total, 0);
-    this.gross_price = number_format(total - tax, 2);
+    this.total_price = number_format(this.total , 0);
+    this.gross_price = number_format(this.total  - tax, 2);
   }
   addProduct(p) {
     console.log(p);
@@ -213,8 +215,20 @@ export class SaleComponent implements OnInit {
           this.addProduct(this.listProduct[i]);
         }
       }
+
+      this.seeker = '';
     }
-    this.seeker = '';
+  }
+  vueltas(e) {
+
+    if (e.keyCode === 13 && !e.shiftKey) {
+      console.log(e);
+      console.log(this.total, parseInt(this.recibo, 10));
+      
+      this.cambio = parseInt(this.recibo, 10) - this.total;
+      console.log(this.cambio);
+    }
+
   }
   // get form contsales
   get f() { return this.registerSalesForm.controls; }

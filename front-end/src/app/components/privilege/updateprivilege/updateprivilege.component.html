@@ -6,6 +6,7 @@
 
     <div class="col-md-4"></div>
     <div class="col-md-4" id="create">
+
       <form [formGroup]="updatePrivilegeForm" (ngSubmit)="onSubmit()">
         <h3>Actualizar Privilegio</h3>
         <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
@@ -13,6 +14,16 @@
             &times;
           </a>
           <h6>{{msgerr}}</h6>
+        </div>
+        <div class="form-group">
+          <label for="privilege_id">ID</label>
+          <input type="text" class="form-control" id="privilege_id" formControlName="privilege_id"
+            [ngClass]="{ 'is-invalid': submitted && f.privilege_id.errors }" placeholder="Ingrese el nombre" readonly>
+          <span>
+            <div *ngIf="submitted && f.privilege_id.errors">
+              <div *ngIf="f.privilege_id.errors.required"> <label id="error">Error el nombre es requerido</label></div>
+            </div>
+          </span>
         </div>
         <div class="form-group">
           <label for="name">Nombre</label>
@@ -24,23 +35,8 @@
             </div>
           </span>
         </div>
-        <div class="input-field col s12">
-          <select id="module_id" formControlName="module_id"
-            [ngClass]="{ 'is-invalid': submitted && f.module_id.errors}">
-            <option value="" disabled selected>Selecione un modulo</option>
-            <option *ngFor="let m of listModule" [ngValue]="m.module_id">
-              {{ m.name}}
-            </option>
-          </select>
-          <label for="name">Modulo</label>
-          <span>
-            <div *ngIf="submitted && f.module_id.errors">
-              <div *ngIf="f.module_id.errors.required"> <label id="error">Error el modulo es requerido</label></div>
-            </div>
-          </span>
 
-        </div>
-        <!-- <div class="form-group">
+        <div class="form-group">
           <label for="name">Modulo</label>
           <select class="form-control" id="module_id" formControlName="module_id"
             [ngClass]="{ 'is-invalid': submitted && f.module_id.errors}">
@@ -55,7 +51,7 @@
             </div>
           </span>
 
-        </div> -->
+        </div>
 
         <div class="form-group">
           <label for="name">Icono</label>
@@ -80,24 +76,23 @@
         </div>
 
         <div class="form-group">
-          <!-- Switch -->
-          <div class="switch">
-            <label>
-              Inactivo
-              <input type="checkbox" class="form-control" id="status" ngModel="checked"
-              formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
-              <span class="lever"></span>
-              Activo
-            </label>
-          </div>
-          <span>
-            <div *ngIf="submitted && f.status.errors">
-              <div *ngIf="f.status.errors.required"> <label id="error">Error el estado es requerido</label></div>
+            <label for="name">Estado</label>
+            <div class="switch">
+              <label>
+                Inactivo
+                <input type="checkbox" class="form-control" id="status" formControlName="status"
+                [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+                <span class="lever"></span>
+                Activo
+              </label>
             </div>
-          </span>
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-lg btn-block btn-full">Crear</button>
+            <span>
+              <div *ngIf="submitted && f.status.errors">
+                <div *ngIf="f.status.errors.required"> <label id="error">Error el estado es requerido</label></div>
+              </div>
+            </span>
+          </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block btn-full">ACTUALIZAR</button>
       </form>
     </div>
   </div>

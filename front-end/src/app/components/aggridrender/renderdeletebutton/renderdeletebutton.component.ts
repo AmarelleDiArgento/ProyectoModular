@@ -14,7 +14,7 @@ import { ListtaxComponent } from '../../../components/tax/listtax/listtax.compon
 import { ListproductComponent } from '../../../components/product/listproduct/listproduct.component';
 import { ListpodsComponent } from '../../../components/pod/listpods/listpods.component';
 import { ListsalesComponent } from '../../../components/sale/listsales/listsales.component';
-import { ListusersComponent } from '../../../components/register/listusers/listusers.component';
+import { ListuserComponent } from '../../../components/user/listuser/listuser.component';
 // jquery
 declare var $: any;
 // charge  services
@@ -63,7 +63,7 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
     private listproductComponent: ListproductComponent,
     private listpodComponent: ListpodsComponent,
     private listsaleComponent: ListsalesComponent,
-    private listuserComponent: ListusersComponent
+    private listuserComponent: ListuserComponent
   ) { }
 
   ngOnInit() {

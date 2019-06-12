@@ -16,7 +16,7 @@
         </div>
         <div class="form-group">
           <label for="name">Nombre</label>
-          <input type="text" class="form-control" id="name" formControlName="name"
+          <input type="text" autofocus class="form-control" id="name" formControlName="name"
             [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Enter rol name">
           <span>
             <div *ngIf="submitted && f.name.errors">
