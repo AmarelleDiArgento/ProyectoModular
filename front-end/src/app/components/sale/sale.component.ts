@@ -57,16 +57,7 @@ export class SaleComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    console.log('Hola!');
-    console.log(localStorage);
 
-    // this.tax_price = 0;
-    // this.total_price = 0;
-    // this.gross_price = 0;
-    // this.listSaleProduct = [];
-    // this.sale_id = null;
-    // this.client_id = null;
-    // this.client = {};
     this.idUser = localStorage.getItem('idSesionUser');
     this.idPod = localStorage.getItem('idSesionPod');
     // send to search api backend all category
@@ -98,10 +89,8 @@ export class SaleComponent implements OnInit {
     $('#ClientRegister').modal('close');
     this.client_id = localStorage.getItem('idClient');
     this.getClient();
-
-
-
   }
+
   // obtain data user for id
   clientSearch(e) {
     if (e.keyCode === 13 && !e.shiftKey) {
@@ -114,7 +103,6 @@ export class SaleComponent implements OnInit {
     this.userService.getDataUserForId(this.client_id)
       .subscribe(data => {
         if (data != null) {
-          console.log(data);
           this.client = data.rows[0];
           this.onSubmit();
         } else {
@@ -132,11 +120,10 @@ export class SaleComponent implements OnInit {
       tax = tax + this.listSaleProduct[i][5];
     }
     this.tax_price = number_format(tax, 2);
-    this.total_price = number_format(this.total , 0);
-    this.gross_price = number_format(this.total  - tax, 2);
+    this.total_price = number_format(this.total, 0);
+    this.gross_price = number_format(this.total - tax, 2);
   }
   addProduct(p) {
-    console.log(p);
     let exists = false;
     let cont = 0;
     let index = 0;
@@ -206,8 +193,6 @@ export class SaleComponent implements OnInit {
   productSearch(e) {
 
     if (e.keyCode === 13 && !e.shiftKey) {
-
-      console.log(this.seeker);
       // tslint:disable-next-line: forin
       for (const i in this.listProduct) {
         if (this.listProduct[i].product_id === parseInt(this.seeker, 10)
@@ -222,11 +207,7 @@ export class SaleComponent implements OnInit {
   vueltas(e) {
 
     if (e.keyCode === 13 && !e.shiftKey) {
-      console.log(e);
-      console.log(this.total, parseInt(this.recibo, 10));
-      
       this.cambio = parseInt(this.recibo, 10) - this.total;
-      console.log(this.cambio);
     }
 
   }
@@ -245,10 +226,8 @@ export class SaleComponent implements OnInit {
     )
       .subscribe(data => {
         if (data.respuesta === 'Success') {
-          console.log(data);
           this.sale_id = data.rows[0].sale_id;
         } else {
-          console.log(data);
           Swal.fire({
             title: 'Ups!',
             text: 'Usuario no registrado',
@@ -329,35 +308,3 @@ function number_format(amount, decimals) {
 
   return amount_parts.join('.');
 }
-
-
-var oldX = window.screenX,
-  oldY = window.screenY;
-
-/**
- * Funcion que se ejecuta cada 500 milisegundos para comprovar si se ha
- * movido la ventana de lugar
- */
-var interval = setInterval(function () {
-  if (oldX != window.screenX || oldY != window.screenY) {
-    showInfo();
-  }
-
-  oldX = window.screenX;
-  oldY = window.screenY;
-}, 500);
-
-if (window.addEventListener) {
-  // navegadores que utilizan los estandares
-  window.addEventListener('resize', showInfo);
-}
-
-function showInfo() {
-
-  console.log('Altura de la ventana: ' + window.innerHeight);
-  console.log('Anchura interna de la ventana: ' + window.innerWidth);
-
-  document.getElementById('main').style.width = window.innerWidth + 'px';
-  document.getElementById('main').style.height = window.innerHeight + 'px';
-}
-showInfo();
