@@ -67,11 +67,11 @@ export class InvoiceComponent implements OnInit {
     this.printService.print();
     Swal.fire({
       type: 'success',
-      title: 'Impresion generada',
+      title: '',
       toast: false,
       position: 'top-end',
       showConfirmButton: false,
-      timer: 5000,
+      timer: 3000,
       onClose: () => {
         this.router.navigate(['/createsale']);
       }
