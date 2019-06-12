@@ -71,7 +71,7 @@ export class InvoiceComponent implements OnInit {
       toast: false,
       position: 'top-end',
       showConfirmButton: false,
-      timer: 3000,
+      timer: 500,
       onClose: () => {
         this.router.navigate(['/createsale']);
       }
