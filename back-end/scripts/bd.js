@@ -33,8 +33,8 @@ connection.connect(function (err) {
             rdian VARCHAR(45) NOT NULL UNIQUE,
             daterdian date NOT NULL,
             billing_limit BIGINT NOT NULL,
-            name VARCHAR(50) NOT NULL UNIQUE,
-            address VARCHAR(50) NULL DEFAULT NULL,
+            name VARCHAR(250) NOT NULL UNIQUE,
+            address VARCHAR(250) NULL DEFAULT NULL,
             phone VARCHAR(12) NULL DEFAULT NULL,
             status TINYINT(4) NOT NULL,
             create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
@@ -47,9 +47,9 @@ connection.connect(function (err) {
         
         CREATE TABLE IF NOT EXISTS proyectomodular.user (
             user_id VARCHAR(45) PRIMARY KEY NOT NULL,
-            username VARCHAR(50) NOT NULL,
-            email VARCHAR(50) UNIQUE NOT NULL,
-            password VARCHAR(50),
+            username VARCHAR(250) NOT NULL,
+            email VARCHAR(250) UNIQUE NOT NULL,
+            password VARCHAR(250),
             rol_id INT(11) NOT NULL,
             status TINYINT(4) NOT NULL DEFAULT 1,
             create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
@@ -87,7 +87,7 @@ connection.connect(function (err) {
         CREATE TABLE IF NOT EXISTS proyectomodular.product (
             product_id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
             code VARCHAR(45) UNIQUE NOT NULL,
-            name VARCHAR(50) UNIQUE NOT NULL,
+            name VARCHAR(250) UNIQUE NOT NULL,
             net_price real,
             category_id INT(11) NOT NULL,
             image VARCHAR(250) NULL,
