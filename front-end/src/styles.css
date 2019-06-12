@@ -255,6 +255,13 @@ thead {
 form{
   background: white;
 }
+table{
+  background: white;
+}
+.ancho-alto{
+  height: 100% !important;
+  width: 100% !important;
+}
 @-webkit-keyframes spinr {
   0% {
     -webkit-transform: rotate(0deg);
