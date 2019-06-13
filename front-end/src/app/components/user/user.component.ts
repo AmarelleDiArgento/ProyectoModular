@@ -40,6 +40,27 @@ export class UserComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    $(document).ready(function () {
+      $('select').formSelect();
+    });
+
+    this.podService.getAllDataPod()
+      .subscribe(data => {
+        // populate list json module
+        this.listPod = data.rows;
+        console.log(this.listPod);
+
+      });
+
+    this.rolService.getAllDataRol()
+      .subscribe(data => {
+        // populate list json module
+        this.listRol = data.rows;
+        console.log(this.listRol);
+
+      });
+
+
 
     this.registerUserForm = this.formBuilder.group({
       user_id: ['', Validators.required],
@@ -51,26 +72,6 @@ export class UserComponent implements OnInit {
       status: ['', Validators.required]
     });
 
-    this.rolService.getAllDataRol()
-      .subscribe(data => {
-        // populate list json module
-        this.listRol = data.rows;
-        console.log(this.listRol);
-
-      });
-
-    this.podService.getAllDataPod()
-      .subscribe(data => {
-        // populate list json module
-        this.listPod = data.rows;
-        console.log(this.listPod);
-
-      });
-
-
-    $(document).ready(function () {
-      $('select').formSelect();
-    });
   }
   // get form controls
   get f() { return this.registerUserForm.controls; }
