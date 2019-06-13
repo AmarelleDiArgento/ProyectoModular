@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,7 +14,9 @@ import { PrintService } from '../../../services/print.service';
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.css']
 })
-export class InvoiceComponent implements OnInit {
+export class InvoiceComponent implements OnInit, AfterViewInit  {
+
+
 
   // id sale
   idSale = '';
@@ -37,6 +39,14 @@ export class InvoiceComponent implements OnInit {
 
     // this.router.navigate(['/createsale']);
   }
+
+  ngAfterViewInit() {
+    setTimeout( ()=>{
+      this.printService.print();
+      this.router.navigate(['/createsale']);
+      }, 10000)
+  }
+  
   // obtain data sale for id
   getSaleDataId() {
     this.saleService.getDataSaleForId(this.idSale)
@@ -64,18 +74,8 @@ export class InvoiceComponent implements OnInit {
   }
   // service to print
   printFile() {
-    this.printService.print();
-    Swal.fire({
-      type: 'success',
-      title: '',
-      toast: false,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 500,
-      onClose: () => {
-        this.router.navigate(['/createsale']);
-      }
-    });
+    //print file time
+    this.ngAfterViewInit();
   }
 
 }

@@ -123,6 +123,7 @@ export class SaleComponent implements OnInit {
     this.total_price = number_format(this.total, 0);
     this.gross_price = number_format(this.total - tax, 2);
   }
+
   addProduct(p) {
     let exists = false;
     let cont = 0;
