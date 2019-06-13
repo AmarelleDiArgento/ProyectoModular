@@ -19,10 +19,13 @@ import { UserService } from '../../services/user.service';
 export class SaleComponent implements OnInit {
 
   // vars msj
-  msgerr = '';
+  msgerr: string = '';
   // var submitted
   submitted = false;
+  // var submitted
+  submittedPay = false;
   // var form
+  payForm: FormGroup;
   registerSalesForm: FormGroup;
   // list data auth
   listSale: {};
@@ -36,9 +39,15 @@ export class SaleComponent implements OnInit {
   idPod;
   idUser;
   listProduct: {};
+
   gross_price = 0;
   tax_price = 0;
   total_price = 0;
+
+  gross_priceMoney = '$ 0';
+  tax_priceMoney = '$ 0';
+  total_priceMoney = '$ 0';
+
   total;
   seeker;
   waytopay;
@@ -57,6 +66,10 @@ export class SaleComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    // init form
+    this.payForm = this.formBuilder.group({
+      waytopay: ['', Validators.required]
+    });
 
     this.idUser = localStorage.getItem('idSesionUser');
     this.idPod = localStorage.getItem('idSesionPod');
@@ -81,15 +94,91 @@ export class SaleComponent implements OnInit {
       $('.modal').modal();
       $('select').formSelect();
     });
-
-
   }
-  modalClose() {
+  // get payform controls
+  get fpay() { return this.payForm.controls; }
 
-    $('#ClientRegister').modal('close');
-    this.client_id = localStorage.getItem('idClient');
-    this.getClient();
+
+  onSubmitPay() {
+    this.submittedPay = true;
+    // error here if form is invalid
+    console.log(this.payForm.invalid);
+
+    if (this.payForm.invalid) {
+      return;
+    } else {
+
+      let e = true;
+      for (let i = 0; i < this.listSaleProduct.length; i++) {
+
+        this.saleService.createSaleProduct(
+          this.sale_id,
+          this.listSaleProduct[i][0],
+          this.listSaleProduct[i][3]
+        )
+          .subscribe(data => {
+            if (data.respuesta === 'Success') {
+              console.log(this.listSaleProduct[i][1] + ' Ok!');
+            } else {
+              console.log(this.listSaleProduct[i][1] + ' Error!');
+              console.log(data.respuesta);
+              e = false;
+            }
+
+          });
+      }
+      if (e) {
+
+        localStorage.setItem('idSale', this.sale_id);
+        this.router.navigate(['/invoiceprint']);
+
+      } else {
+        Swal.fire({
+          type: 'error',
+          title: 'Ups!, algo salio mal',
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000
+        });
+
+      }
+    }
   }
+
+  // get form contsales
+  get f() { return this.registerSalesForm.controls; }
+
+  // submit form
+  onSubmit() {
+    this.submitted = true;
+    console.log('clic');
+    // send to api backend create user
+    this.saleService.createSale(
+      this.idPod,
+      this.idUser,
+      this.client_id
+    )
+      .subscribe(data => {
+        if (data.respuesta === 'Success') {
+          this.sale_id = data.rows[0].sale_id;
+        } else {
+          Swal.fire({
+            title: 'Ups!',
+            text: 'Usuario no registrado',
+            type: 'error',
+            showCancelButton: true,
+            confirmButtonText: 'Registrar'
+          }).then((result) => {
+            if (result.value) {
+              localStorage.setItem('noClient', this.client_id);
+              $('#ClientRegister').modal('open');
+            }
+          });
+        }
+      });
+  }
+
 
   // obtain data user for id
   clientSearch(e) {
@@ -119,9 +208,15 @@ export class SaleComponent implements OnInit {
       this.total = this.total + this.listSaleProduct[i][4];
       tax = tax + this.listSaleProduct[i][5];
     }
-    this.tax_price = number_format(tax, 2);
-    this.total_price = number_format(this.total, 0);
-    this.gross_price = number_format(this.total - tax, 2);
+    this.tax_price = tax;
+    this.total_price = this.total;
+    this.gross_price = this.total - tax, 2;
+
+
+    this.tax_priceMoney = '$ ' + number_format(this.tax_price, 2);
+    this.total_priceMoney = '$ ' + number_format(this.total_price, 0);
+    this.gross_priceMoney = '$ ' + number_format(this.gross_price, 2);
+
   }
 
   addProduct(p) {
@@ -205,6 +300,7 @@ export class SaleComponent implements OnInit {
       this.seeker = '';
     }
   }
+
   vueltas() {
     if (this.recibo < this.total) {
       this.cambio = 0;
@@ -213,76 +309,12 @@ export class SaleComponent implements OnInit {
     }
     this.cambioPesos = '$ ' + number_format(this.cambio, 0);
   }
-  // get form contsales
-  get f() { return this.registerSalesForm.controls; }
 
-  // submit form
-  onSubmit() {
-    this.submitted = true;
-    console.log('clic');
-    // send to api backend create user
-    this.saleService.createSale(
-      this.idPod,
-      this.idUser,
-      this.client_id
-    )
-      .subscribe(data => {
-        if (data.respuesta === 'Success') {
-          this.sale_id = data.rows[0].sale_id;
-        } else {
-          Swal.fire({
-            title: 'Ups!',
-            text: 'Usuario no registrado',
-            type: 'error',
-            showCancelButton: true,
-            confirmButtonText: 'Registrar'
-          }).then((result) => {
-            if (result.value) {
-              localStorage.setItem('noClient', this.client_id);
-              $('#ClientRegister').modal('open');
-            }
-          });
-        }
-      });
-  }
+  modalClose() {
 
-
-  sale() {
-    let e = true;
-    for (let i = 0; i < this.listSaleProduct.length; i++) {
-
-      this.saleService.createSaleProduct(
-        this.sale_id,
-        this.listSaleProduct[i][0],
-        this.listSaleProduct[i][3]
-      )
-        .subscribe(data => {
-          if (data.respuesta === 'Success') {
-            console.log(this.listSaleProduct[i][1] + ' Ok!');
-          } else {
-            console.log(this.listSaleProduct[i][1] + ' Error!');
-            console.log(data.respuesta);
-            e = false;
-          }
-
-        });
-    }
-    if (e) {
-
-      localStorage.setItem('idSale', this.sale_id);
-      this.router.navigate(['/invoiceprint']);
-
-    } else {
-      Swal.fire({
-        type: 'error',
-        title: 'Ups!, algo salio mal',
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 2000
-      });
-
-    }
+    $('#ClientRegister').modal('close');
+    this.client_id = localStorage.getItem('idClient');
+    this.getClient();
   }
 }
 // function format number
