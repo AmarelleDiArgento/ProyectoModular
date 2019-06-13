@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -34,6 +34,7 @@ export class UpdateuserComponent implements OnInit {
   idRol = '';
   // id rol
   idPod = '';
+  listPodCheck = [];
   // id rol
   idUser = '';
   // rows vacio
@@ -45,6 +46,7 @@ export class UpdateuserComponent implements OnInit {
   password = '';
   rol_id = '';
   status = '';
+  pod_id = [];
 
   constructor(
     private http: Http,
@@ -61,10 +63,18 @@ export class UpdateuserComponent implements OnInit {
     // asign id rol to search data
     this.idUser = localStorage.getItem('idUser');
 
+    this.podService.getAllDataPod()
+    .subscribe(data => {
+      // populate list json module
+      this.listPod = data.rows;
+      console.log(this.listPod);
+
+    });
+
     this.userService.getDataPodUserId(this.idUser)
       .subscribe(data => {
         // populate list json module
-        this.listPod = data.rows;
+        this.listPodCheck = data.rows;
         console.log(this.listPod);
 
       });
@@ -89,7 +99,7 @@ export class UpdateuserComponent implements OnInit {
       password: ['', Validators.required],
       rol_id: ['', Validators.required],
       pod_id: ['', Validators.required],
-      status: ['', Validators.required],
+      status: ['', Validators.required]
     });
     
 
@@ -140,8 +150,8 @@ export class UpdateuserComponent implements OnInit {
           this.updateUserForm.get('username').setValue(data.rows[0].username);
           this.updateUserForm.get('email').setValue(data.rows[0].email);
           this.updateUserForm.get('password').setValue(data.rows[0].password);
-          this.updateUserForm.get('rol_id').setValue(data.rows[0].rol_id);
           this.updateUserForm.get('status').setValue(data.rows[0].status);
+          this.updateUserForm.get('pod_id').setValue(this.listPodCheck);
         }
       });
   }
