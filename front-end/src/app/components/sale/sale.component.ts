@@ -204,11 +204,8 @@ export class SaleComponent implements OnInit {
       this.seeker = '';
     }
   }
-  vueltas(e) {
-
-    if (e.keyCode === 13 && !e.shiftKey) {
-      this.cambio = parseInt(this.recibo, 10) - this.total;
-    }
+  vueltas() {
+    this.cambio = this.recibo - this.total;
 
   }
   // get form contsales

@@ -153,18 +153,18 @@ app.get('/getdatapoduser', poduser)
 
 
 //file text sql
-writeFile();
-//function create file
-function writeFile(){
-  var fileName = 'c://Monitoreo/file.txt';
-  fs.exists(fileName, function (exists) {
-      if(exists){
+// writeFile();
+// //function create file
+// function writeFile(){
+//   var fileName = 'c://Monitoreo/file.txt';
+//   fs.exists(fileName, function (exists) {
+//       if(exists){
           
-      } else {
-          fs.writeFileSync(fileName);
-      }
-  });
-}
+//       } else {
+//           fs.writeFileSync(fileName);
+//       }
+//   });
+// }
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

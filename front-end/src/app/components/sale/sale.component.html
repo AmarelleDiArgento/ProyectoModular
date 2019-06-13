@@ -177,16 +177,15 @@
         </p>
       </div>
       <ng-container *ngIf="waytopay === 'Efectivo'; else otro">
-        <div class="row">
+        <div class="row pago">
           <div class="input-field col s12">
             <i class="material-icons prefix">attach_money</i>
-            <input id="recibo" name="recibo" type="number" (keypress)="vueltas($event )" [(ngModel)]="recibo">
+            <input id="recibo" name="recibo" type="number" (keyon)="vueltas()" [(ngModel)]="recibo">
             <label for="recibo">Efectivo</label>
           </div>
-          <div class="input-field col s12">
-            <i class="material-icons prefix">attach_money</i>
-            <input id="cambio" name="cambio" type="text" value="{{cambio}}">
-            <label for="cambio">Cambio</label>
+          <div class="input-field col s12 center-align">
+            <h3 id="cambio" > {{cambio}} </h3>
+            <label for="cambio">Cambio: </label>
           </div>
         </div>
       </ng-container>
