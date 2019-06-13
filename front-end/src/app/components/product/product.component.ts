@@ -30,6 +30,8 @@ export class ProductComponent implements OnInit {
   // list data
   listTax: {};
 
+  image = 'https://kinsta.com/es/wp-content/uploads/sites/8/2018/02/leyenda-de-wordpress-1.png';
+
   constructor(private http: Http, private formBuilder: FormBuilder,
     private productService: ProductService,
     private categoryService: CategoryService,
@@ -46,6 +48,7 @@ export class ProductComponent implements OnInit {
       net_price: ['', Validators.required],
       category_id: ['', Validators.required],
       tax_id: ['', Validators.required],
+      image: ['', Validators.required],
       status: ['', Validators.required]
     });
     // init select category
@@ -82,7 +85,7 @@ export class ProductComponent implements OnInit {
               timer: 2000
             });
             // redirect to home menu
-            this.router.navigate(['/listproducts'])
+            this.router.navigate(['/listproducts']);
           } else {
             Swal.fire({
               type: 'error',
