@@ -79,11 +79,11 @@ const routes: Routes = [
         component: UpdateuserComponent,
     },
     {
-        path: 'listusers',
+        path: 'listuser',
         component: ListusersComponent,
     },
     {
-        path: 'listuser',
+        path: 'listusers',
         component: ListuserComponent,
     },
     {

@@ -56,6 +56,26 @@ export class ListuserComponent implements OnInit {
       { headerName: 'Email', field: 'email', sortable: true },
       { headerName: 'Rol', field: 'rol_name', sortable: true },
       {
+        headerName: 'Fecha creación',
+        field: 'create_time',
+        sortable: true,
+        width: 190,
+        filter: 'agDateColumnFilter',
+        filterParams: {
+          comparator: filter
+        }
+      },
+      {
+        headerName: 'Fecha modificación',
+        field: 'update_time',
+        sortable: true,
+        width: 190,
+        filter: 'agDateColumnFilter',
+        filterParams: {
+          comparator: filter
+        }
+      },
+      {
         headerName: 'Estado',
         field: 'status',
         sortable: true,
@@ -142,5 +162,22 @@ export class ListuserComponent implements OnInit {
 
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listUser, 'ReporteUsuarios');
+  }
+}
+// function filter for date
+function filter(filterLocalDateAtMidnight, cellValue) {
+  const dateAsString = cellValue;
+  const datePartsA = dateAsString.split(' ');
+  const datePartsB = datePartsA[0].split('-');
+
+  const cellDate = new Date(Number(datePartsB[0]), Number(datePartsB[1]) - 1, Number(datePartsB[2]));
+  if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
+    return 0;
+  }
+  if (cellDate < filterLocalDateAtMidnight) {
+    return -1;
+  }
+  if (cellDate > filterLocalDateAtMidnight) {
+    return 1;
   }
 }

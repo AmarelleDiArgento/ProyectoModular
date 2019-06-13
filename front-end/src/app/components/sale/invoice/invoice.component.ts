@@ -44,7 +44,7 @@ export class InvoiceComponent implements OnInit, AfterViewInit  {
     setTimeout( ()=>{
       this.printService.print();
       this.router.navigate(['/createsale']);
-      }, 12000)
+      }, 1000)
   }
   
   // obtain data sale for id

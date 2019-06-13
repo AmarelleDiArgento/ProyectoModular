@@ -16,6 +16,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 .conforta {
   font-family: 'Comfortaa[wght]';
 
@@ -124,12 +125,14 @@ thead {
   padding: 0 !important;
   margin-top: 0 !important;
 }
-.center-flex{
+
+.center-flex {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
 }
+
 .ag-root-wrapper-body.ag-layout-normal {
   flex: 1 1 auto;
   height: auto !important;
@@ -252,16 +255,20 @@ thead {
   -o-animation: spinr 1s linear infinite;
   animation: spinr 1s linear infinite;
 }
-form{
+
+form {
   background: white;
 }
-table{
+
+table {
   background: white;
 }
-.ancho-alto{
+
+.ancho-alto {
   height: 100% !important;
   width: 100% !important;
 }
+
 @-webkit-keyframes spinr {
   0% {
     -webkit-transform: rotate(0deg);
@@ -388,4 +395,12 @@ table{
     -o-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+}
+
+#create {
+  padding-top: 50px;
+}
+
+#error {
+  color: red;
 }
