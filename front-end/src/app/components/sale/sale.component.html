@@ -130,15 +130,15 @@
 <div class="row totales">
   <div class="col s4">
     <p class="left">Total impuesto</p>
-    <h5 class="center">$ {{tax_price}}</h5>
+    <h5 class="center">{{tax_priceMoney}}</h5>
   </div>
   <div class="col s4">
-    <p class="left">Total Compra</p>
-    <h5 class="center">$ {{gross_price}}</h5>
+    <p class="left">Total base: Compra</p>
+    <h5 class="center">{{gross_priceMoney}}</h5>
   </div>
   <div class="col s4">
     <p class="left">Total</p>
-    <h3 class="center">$ {{total_price}}</h3>
+    <h3 class="center">{{total_priceMoney}}</h3>
   </div>
 </div>
 
@@ -158,44 +158,80 @@
 
 <div id="formadepago" class="modal" style="width: 30%;">
   <div class="modal-content row">
-    <form action="" class="from-none">
-      <p class="center"><b>Forma de Pago</b></p>
-      <div class="col m6 s6">
-        <p>
-          <label>
-            <input name="waytopay" type="radio" [(ngModel)]="waytopay" checked [(ngModel)]="waytopay" value="Tarjeta" />
-            <span><i class="material-icons ">payment</i>Tarjeta</span>
-          </label>
-        </p>
-      </div>
-      <div class="col m6 s6">
-        <p>
-          <label>
-            <input name="waytopay" type="radio" [(ngModel)]="waytopay" value="Efectivo" />
-            <span><i class="material-icons ">monetization_on</i>Efectivo</span>
-          </label>
-        </p>
-      </div>
-      <ng-container *ngIf="waytopay === 'Efectivo'; else otro">
-        <div class="row">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">attach_money</i>
-            <input id="recibo" class="pago" name="recibo" type="number" (keyup)="vueltas()" [(ngModel)]="recibo">
-            <label for="recibo">Efectivo</label>
-          </div>
-          <div class="input-field col s12 center-align">
-            <p id="cambio" class="pago automargin"> {{cambioPesos}} </p>
-            <label for="cambio">Cambio: </label>
-          </div>
-        </div>
-      </ng-container>
-      <ng-template #otro>
 
-      </ng-template>
+    <form class="from-none" [formGroup]="payForm" (ngSubmit)="onSubmitPay()">
+      <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
+        <a class="close" (click)="closeAlertErr()">
+          <p class="center"><b>Forma de Pago</b></p>
+          &times;
+        </a>
+        <h6>{{msgerr}}</h6>
+      </div>
+      <div>
+
+        <div class="form-group col m6 s6">
+          <p>
+            <label>
+              <input type="radio" value="Efectivo" formControlName="waytopay" [(ngModel)]="waytopay"
+                [ngClass]="{ 'is-invalid': submittedPay && fpay.waytopay.errors }" required />
+              <span><i class="material-icons ">monetization_on</i> Efectivo</span>
+            </label>
+          </p>
+        </div>
+        <div class="form-group col m6 s6">
+          <p>
+            <label>
+              <input type="radio" value="Tarjeta" formControlName="waytopay" [(ngModel)]="waytopay"
+                [ngClass]="{ 'is-invalid': submittedPay && fpay.waytopay.errors }" required />
+              <span><i class="material-icons ">payment</i> Tarjeta</span>
+            </label>
+          </p>
+        </div>
+        <span class="center">
+          <div *ngIf="submittedPay && fpay.waytopay.errors">
+            <div *ngIf="fpay.waytopay.errors.required"> <label id="error">La forma de pago es requerida </label></div>
+          </div>
+        </span>
+      </div>
+
+
+      <div class="row" *ngIf="waytopay === 'Efectivo'">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">attach_money</i>
+          <input id="recibo" class="pago" name="recibo" type="number" (keyup)="vueltas()" [(ngModel)]="recibo">
+          <label for="recibo">Efectivo</label>
+        </div>
+        <div class="input-field col s12 center-align">
+          <p id="cambio" class="pago automargin"> {{cambioPesos}} </p>
+          <label for="cambio">Cambio: </label>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="waytopay === 'Tarjeta'">
+
+        <div class="input-field col s12 center-align">
+          <p id="base" class="pago automargin"> {{gross_priceMoney}} </p>
+          <label for="base">Base: </label>
+        </div>
+        <div class="input-field col s12 center-align">
+          <p id="iva" class="pago automargin"> {{tax_priceMoney}} </p>
+          <label for="iva">IVA: </label>
+        </div>
+        <div class="input-field col s12 center-align">
+          <p id="total" class="pago automargin"> {{total_priceMoney}} </p>
+          <label for="total">Total: </label>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">done_all</i>
+          <input id="code" class="pago" name="recibo" type="number" [(ngModel)]="code" required>
+          <label for="code">Codigo de autorizacion</label>
+        </div>
+      </div>
 
       <div class="col s12">
-        <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a>
+        <button type="submit" class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;">Facturar</button>
       </div>
+
     </form>
   </div>
 </div>
