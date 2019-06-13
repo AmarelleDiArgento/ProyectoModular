@@ -7,8 +7,7 @@
     <ul class="tabs">
       <li class="tab col s3" *ngFor="let c of listCategory"><a href="#tab{{c.category_id}}">{{c.name}}</a></li>
     </ul>
-    <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12"
-      style="display: block; height: 48rem !important;">
+    <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12 ">
       <div class="products center">
 
         <div *ngFor="let p of listProduct">
@@ -107,14 +106,6 @@
         </div>
       </div>
     </div>
-
-
-
-    <div class="col s12 center">
-      <a class="waves-effect waves-light btn modal-trigger" style="width: 100%; margin: 3% 0%;"
-        href="#modal1">Facturar</a>
-      <!-- <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a> -->
-    </div>
   </div>
 
 </div>
@@ -164,18 +155,23 @@
   </div>
 </div>
 <div class="row totales">
-  <div class="col s4">
+  <div class="col s2">
     <p class="left">Total impuesto</p>
     <h5 class="center">$ {{tax_price}}</h5>
   </div>
-  <div class="col s4">
+  <div class="col s3">
     <p class="left">Total Compra</p>
     <h5 class="center">$ {{gross_price}}</h5>
   </div>
-  <div class="col s4">
+  <div class="col s3">
     <p class="left">Total</p>
     <h3 class="center">$ {{total_price}}</h3>
   </div>
+  <div class="col s4 center">
+      <a class="waves-effect waves-light btn modal-trigger" style="width: 100%; margin: 3% 0%;"
+        href="#modal1">Facturar</a>
+      <!-- <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a> -->
+    </div>
 </div>
 
 <!-- Modal Structure -->

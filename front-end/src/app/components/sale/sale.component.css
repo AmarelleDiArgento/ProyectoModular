@@ -53,7 +53,7 @@
   position: absolute;
   top: 10%;
   right: 0 !important;
-  height: 90%;
+  height: 75%;
   overflow: auto;
   background: white;
 }
@@ -64,7 +64,7 @@
   bottom: 0px;
   height: 15%;
   margin-bottom: 0;
-  width: 66.60%;
+  width: 100%;
   background: #1c2b36;
   display: flex;
   justify-content: center;
@@ -73,9 +73,11 @@
 .productos-tab{
   overflow: auto;
   height: 75% !important;
+  width: 66.66% !important;
   z-index: 2;
   background: white;
   position: absolute;
+  top: 10%;
 }
 .center-product{
   display: flex;
@@ -83,7 +85,7 @@
   flex-direction: column;
 }
 .productos{
-  height: 50% !important;
+  height: 76% !important;
   overflow: auto;
 }
 
