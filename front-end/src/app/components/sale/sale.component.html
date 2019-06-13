@@ -120,7 +120,7 @@
 
     <div class="col s12 center">
       <a class="waves-effect waves-light btn modal-trigger" style="width: 100%; margin: 3% 0%;"
-        href="#formadepago">Facturar</a>
+        href="#formadepago">Pagar</a>
       <!-- <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a> -->
     </div>
   </div>
@@ -177,14 +177,14 @@
         </p>
       </div>
       <ng-container *ngIf="waytopay === 'Efectivo'; else otro">
-        <div class="row pago">
+        <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">attach_money</i>
-            <input id="recibo" name="recibo" type="number" (keyon)="vueltas()" [(ngModel)]="recibo">
+            <input id="recibo" class="pago" name="recibo" type="number" (keyup)="vueltas()" [(ngModel)]="recibo">
             <label for="recibo">Efectivo</label>
           </div>
           <div class="input-field col s12 center-align">
-            <h3 id="cambio" > {{cambio}} </h3>
+            <p id="cambio" class="pago automargin"> {{cambioPesos}} </p>
             <label for="cambio">Cambio: </label>
           </div>
         </div>

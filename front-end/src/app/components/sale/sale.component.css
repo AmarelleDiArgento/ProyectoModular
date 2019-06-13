@@ -13,7 +13,7 @@
   height: 6px;
   background-color: #26a69a !important;
   will-change: left, right;
-} 
+}
 
 .tabs .tab a:hover,
 .tabs .tab a.active {
@@ -45,11 +45,12 @@
   white-space: nowrap;
 }
 
-.div-producto{
+.div-producto {
   overflow: hidden;
   height: 270px;
 }
-.ventas{
+
+.ventas {
   position: absolute;
   top: 10%;
   right: 0 !important;
@@ -57,7 +58,8 @@
   overflow: auto;
   background: white;
 }
-.totales{
+
+.totales {
   align-items: center;
   left: 0;
   position: absolute;
@@ -70,19 +72,22 @@
   justify-content: center;
   color: white;
 }
-.productos-tab{
+
+.productos-tab {
   overflow: auto;
   height: 75% !important;
   z-index: 2;
   background: white;
   position: absolute;
 }
-.center-product{
+
+.center-product {
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
-.productos{
+
+.productos {
   height: 50% !important;
   overflow: auto;
 }
@@ -93,6 +98,11 @@
   overflow: auto;
 }
 
-.pago{
-  font-size: 2.5rem;
+.pago {
+  font-size: 2.5rem !important;
+  text-align: center !important;
+}
+
+.automargin {
+  margin: auto;
 }

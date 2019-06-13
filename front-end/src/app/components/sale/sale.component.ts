@@ -43,8 +43,8 @@ export class SaleComponent implements OnInit {
   seeker;
   waytopay;
   recibo;
-  cambio: number;
-
+  cambio: number = 0;
+  cambioPesos = '$ 0';
 
   listSaleProduct: any[][] = [];
 
@@ -206,8 +206,12 @@ export class SaleComponent implements OnInit {
     }
   }
   vueltas() {
-    this.cambio = this.recibo - this.total;
-
+    if (this.recibo < this.total) {
+      this.cambio = 0;
+    } else {
+      this.cambio = this.recibo - this.total;
+    }
+    this.cambioPesos = '$ ' + number_format(this.cambio, 0);
   }
   // get form contsales
   get f() { return this.registerSalesForm.controls; }
