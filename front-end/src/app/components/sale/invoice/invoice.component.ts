@@ -16,6 +16,8 @@ import { PrintService } from '../../../services/print.service';
 })
 export class InvoiceComponent implements OnInit {
 
+
+
   // id sale
   idSale = '';
   listSale: {};
@@ -37,6 +39,9 @@ export class InvoiceComponent implements OnInit {
 
     // this.router.navigate(['/createsale']);
   }
+
+
+
   // obtain data sale for id
   getSaleDataId() {
     this.saleService.getDataSaleForId(this.idSale)
@@ -64,8 +69,13 @@ export class InvoiceComponent implements OnInit {
   }
   // service to print
   printFile() {
-    setTimeout('this.redireccionar()', 5000);
-    this.printService.print();
+    // remove idSale  
+    localStorage.removeItem('idSale');
+    // print file time
+    setTimeout(() => {
+      this.printService.print();
+      this.router.navigate(['/createsale']);
+    }, 3000);
   }
 
 }
@@ -97,6 +107,4 @@ function number_format(amount, decimals) {
 }
 
 
-function redireccionar() {   // Función para redireccionar a los 5 segundos
-  this.router.navigate(['/createsale']);
-}
+

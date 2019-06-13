@@ -55,6 +55,32 @@ export class UpdateuserComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    $(document).ready(function () {
+      $('select').formSelect();
+    });
+    // asign id rol to search data
+    this.idUser = localStorage.getItem('idUser');
+
+    this.userService.getDataPodUserId(this.idUser)
+      .subscribe(data => {
+        // populate list json module
+        this.listPod = data.rows;
+        console.log(this.listPod);
+
+      });
+
+    this.rolService.getAllDataRol()
+      .subscribe(data => {
+        // populate list json module
+        this.listRol = data.rows;
+        console.log(this.listRol);
+
+      });
+
+    
+    // eject ws search user for id
+    this.getUserDataId();
+    // console.log('Cargamos el formulario o_o');
     // init form
     this.updateUserForm = this.formBuilder.group({
       user_id: ['', Validators.required],
@@ -65,32 +91,10 @@ export class UpdateuserComponent implements OnInit {
       pod_id: ['', Validators.required],
       status: ['', Validators.required],
     });
-    // asign id rol to search data
-    this.idUser = localStorage.getItem('idUser');
-    // eject ws search user for id
-    this.getUserDataId();
-    // console.log('Cargamos el formulario o_o');
+    
 
 
-    this.rolService.getAllDataRol()
-      .subscribe(data => {
-        // populate list json module
-        this.listRol = data.rows;
-        console.log(this.listRol);
-
-      });
-
-    this.podService.getAllDataPod()
-      .subscribe(data => {
-        // populate list json module
-        this.listPod = data.rows;
-        console.log(this.listPod);
-
-      });
-
-    $(document).ready(function () {
-      $('select').formSelect();
-    });
+  
   }
   // get form controls
   get f() {

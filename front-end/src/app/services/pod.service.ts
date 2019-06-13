@@ -18,6 +18,8 @@ export class PodService {
     return this.http.get(varsGlobals.url +'/getdatapod/', options)
       .map((response: Response) => response.json())
   }
+  
+    
     // service to api mysql get pod user for id
     getDataPodUserForId(ps_user_id) {
       this.params = 'ps_user_id=' + ps_user_id;

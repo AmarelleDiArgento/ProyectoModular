@@ -1,3 +1,45 @@
-<p>
-  clientregister works!
-</p>
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4" id="create">
+    <form [formGroup]="registerUsersForm" class="from-none" (ngSubmit)="onSubmit()">
+      <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
+        <a class="close" (click)="closeAlertErr()">
+          &times;
+        </a>
+        <h6>{{msgerr}}</h6>
+      </div>
+      <div class="form-group input-field col s12">
+        <input type="text" class="form-control" id="user_id" formControlName="user_id"
+          [ngClass]="{ 'is-invalid': submitted && f.user_id.errors }" placeholder="Enter document">
+        <label for="user_id">Documento</label>
+        <span>
+          <div *ngIf="submitted && f.user_id.errors">
+            <div *ngIf="f.user_id.errors.required"> <label id="error">Error el documento es requerido </label></div>
+          </div>
+        </span>
+      </div>
+      <div class="form-group input-field col s12">
+        <input type="text" class="form-control" id="username" formControlName="username"
+          [ngClass]="{ 'is-invalid': submitted && f.username.errors }" placeholder="Enter username">
+        <label for="username">Username </label>
+        <span>
+          <div *ngIf="submitted && f.username.errors">
+            <div *ngIf="f.username.errors.required"> <label id="error">Error el usuario es requerido </label></div>
+          </div>
+        </span>
+      </div>
+      <div class="form-group input-field col s12">
+        <input type="email" class="form-control" id="email" formControlName="email"
+          [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Enter email">
+        <label for="email">Email </label>
+        <span>
+          <div *ngIf="submitted && f.email.errors">
+            <div *ngIf="f.email.errors.required"> <label id="error">Error el email es requerido </label></div>
+          </div>
+        </span>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg btn-block btn-full">Crear</button>
+    </form>
+  </div>
+</div>

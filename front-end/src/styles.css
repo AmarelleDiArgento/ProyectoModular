@@ -1,4 +1,71 @@
 /* You can add global styles to this file, and also import other style files */
+
+.animated {
+  -webkit-animation-duration: 0.6s;
+  animation-duration: 0.6s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+@-webkit-keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInUp {
+  -webkit-animation-name: fadeInUp;
+  animation-name: fadeInUp;
+}
+
+
 @font-face {
   font-family: 'Comfortaa[wght]';
   src:
@@ -16,6 +83,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 .conforta {
   font-family: 'Comfortaa[wght]';
 
@@ -124,12 +192,14 @@ thead {
   padding: 0 !important;
   margin-top: 0 !important;
 }
-.center-flex{
+
+.center-flex {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
 }
+
 .ag-root-wrapper-body.ag-layout-normal {
   flex: 1 1 auto;
   height: auto !important;
@@ -252,16 +322,20 @@ thead {
   -o-animation: spinr 1s linear infinite;
   animation: spinr 1s linear infinite;
 }
-form{
+
+form {
   background: white;
 }
-table{
+
+table {
   background: white;
 }
-.ancho-alto{
+
+.ancho-alto {
   height: 100% !important;
   width: 100% !important;
 }
+
 @-webkit-keyframes spinr {
   0% {
     -webkit-transform: rotate(0deg);
@@ -388,4 +462,12 @@ table{
     -o-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+}
+
+#create {
+  padding-top: 50px;
+}
+
+#error {
+  color: red;
 }
