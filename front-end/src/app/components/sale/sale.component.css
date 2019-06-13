@@ -88,9 +88,8 @@
   justify-content: center;
   flex-direction: column;
 }
-
-.productos {
-  height: 50% !important;
+.productos{
+  height: 76% !important;
   overflow: auto;
 }
 
