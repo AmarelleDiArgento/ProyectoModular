@@ -17,7 +17,7 @@
 
         <div class="form-group">
           <label for="user_id">Documento</label>
-          <input type="text" class="form-control" id="user_id" formControlName="user_id"
+          <input type="number" class="form-control" id="user_id" formControlName="user_id"
             [ngClass]="{ 'is-invalid': submitted && f.user_id.errors }" placeholder="Ingrese el documento" readonly>
           <span>
             <div *ngIf="submitted && f.user_id.errors">

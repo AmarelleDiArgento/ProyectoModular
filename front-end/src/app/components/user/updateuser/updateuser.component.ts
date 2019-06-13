@@ -136,7 +136,7 @@ export class UpdateuserComponent implements OnInit {
         if (data != null) {
           // add values to the form
           console.log(data);
-          this.updateUserForm.get('user_id').setValue(data.rows[0].user_id);
+          this.updateUserForm.get('user_id').setValue(this.idUser);
           this.updateUserForm.get('username').setValue(data.rows[0].username);
           this.updateUserForm.get('email').setValue(data.rows[0].email);
           this.updateUserForm.get('password').setValue(data.rows[0].password);
