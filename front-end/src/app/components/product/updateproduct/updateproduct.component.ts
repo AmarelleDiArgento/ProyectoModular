@@ -48,6 +48,7 @@ export class UpdateproductComponent implements OnInit {
   ngOnInit() {
     // init form
     this.updateProductForm = this.formBuilder.group({
+      product_id: ['', Validators.required],
       code: ['', Validators.required],
       name: ['', Validators.required],
       net_price: ['', Validators.required],
@@ -100,6 +101,9 @@ export class UpdateproductComponent implements OnInit {
       .subscribe(data => {
         if (data != null) {
           // add values to the form
+          console.log(data);
+          
+          this.updateProductForm.get('product_id').setValue(this.idProduct);
           this.updateProductForm.get('code').setValue(data.rows[0].code);
           this.updateProductForm.get('name').setValue(data.rows[0].name);
           this.updateProductForm.get('net_price').setValue(data.rows[0].net_price);
@@ -115,7 +119,7 @@ export class UpdateproductComponent implements OnInit {
     this.categoryService.getAllDataCategory()
       .subscribe(data => {
         // populate list json
-        console.log(data);
+        // console.log(data);
         this.listCategory = data.rows;
       });
   }
@@ -125,7 +129,7 @@ export class UpdateproductComponent implements OnInit {
     this.taxService.getAllDataTax()
       .subscribe(data => {
         // populate list json
-        console.log(data);
+        // console.log(data);
         this.listTax = data.rows;
       });
   }

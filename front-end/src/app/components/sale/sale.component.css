@@ -88,14 +88,9 @@
   justify-content: center;
   flex-direction: column;
 }
-<<<<<<< HEAD
-.productos{
-  height: 76% !important;
-=======
 
 .productos {
   height: 50% !important;
->>>>>>> master
   overflow: auto;
 }
 
