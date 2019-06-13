@@ -61,7 +61,7 @@ export class UpdateuserComponent implements OnInit {
     // asign id rol to search data
     this.idUser = localStorage.getItem('idUser');
 
-    this.podService.getDataPodUser(this.idUser)
+    this.userService.getDataPodUserId(this.idUser)
       .subscribe(data => {
         // populate list json module
         this.listPod = data.rows;

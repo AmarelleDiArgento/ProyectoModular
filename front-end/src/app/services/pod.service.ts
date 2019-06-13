@@ -19,14 +19,6 @@ export class PodService {
       .map((response: Response) => response.json())
   }
   
-  // service to api mysql get pod user for id
-  getDataPodUser(ps_user_id) {
-        this.params = 'ps_user_id=' + ps_user_id;
-        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(varsGlobals.url +'/getdatapoduser/', this.params, options)
-          .map((response: Response) => response.json())
-    }
     
     // service to api mysql get pod user for id
     getDataPodUserForId(ps_user_id) {
