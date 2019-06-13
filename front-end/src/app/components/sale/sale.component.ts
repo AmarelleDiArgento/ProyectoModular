@@ -95,13 +95,90 @@ export class SaleComponent implements OnInit {
       $('select').formSelect();
     });
   }
+  // get payform controls
+  get fpay() { return this.payForm.controls; }
 
-  modalClose() {
 
-    $('#ClientRegister').modal('close');
-    this.client_id = localStorage.getItem('idClient');
-    this.getClient();
+  onSubmitPay() {
+    this.submittedPay = true;
+    // error here if form is invalid
+    console.log(this.payForm.invalid);
+
+    if (this.payForm.invalid) {
+      return;
+    } else {
+
+      let e = true;
+      for (let i = 0; i < this.listSaleProduct.length; i++) {
+
+        this.saleService.createSaleProduct(
+          this.sale_id,
+          this.listSaleProduct[i][0],
+          this.listSaleProduct[i][3]
+        )
+          .subscribe(data => {
+            if (data.respuesta === 'Success') {
+              console.log(this.listSaleProduct[i][1] + ' Ok!');
+            } else {
+              console.log(this.listSaleProduct[i][1] + ' Error!');
+              console.log(data.respuesta);
+              e = false;
+            }
+
+          });
+      }
+      if (e) {
+
+        localStorage.setItem('idSale', this.sale_id);
+        this.router.navigate(['/invoiceprint']);
+
+      } else {
+        Swal.fire({
+          type: 'error',
+          title: 'Ups!, algo salio mal',
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000
+        });
+
+      }
+    }
   }
+
+  // get form contsales
+  get f() { return this.registerSalesForm.controls; }
+
+  // submit form
+  onSubmit() {
+    this.submitted = true;
+    console.log('clic');
+    // send to api backend create user
+    this.saleService.createSale(
+      this.idPod,
+      this.idUser,
+      this.client_id
+    )
+      .subscribe(data => {
+        if (data.respuesta === 'Success') {
+          this.sale_id = data.rows[0].sale_id;
+        } else {
+          Swal.fire({
+            title: 'Ups!',
+            text: 'Usuario no registrado',
+            type: 'error',
+            showCancelButton: true,
+            confirmButtonText: 'Registrar'
+          }).then((result) => {
+            if (result.value) {
+              localStorage.setItem('noClient', this.client_id);
+              $('#ClientRegister').modal('open');
+            }
+          });
+        }
+      });
+  }
+
 
   // obtain data user for id
   clientSearch(e) {
@@ -223,6 +300,7 @@ export class SaleComponent implements OnInit {
       this.seeker = '';
     }
   }
+
   vueltas() {
     if (this.recibo < this.total) {
       this.cambio = 0;
@@ -231,88 +309,12 @@ export class SaleComponent implements OnInit {
     }
     this.cambioPesos = '$ ' + number_format(this.cambio, 0);
   }
-  // get form contsales
-  get f() { return this.registerSalesForm.controls; }
 
-  // submit form
-  onSubmit() {
-    this.submitted = true;
-    console.log('clic');
-    // send to api backend create user
-    this.saleService.createSale(
-      this.idPod,
-      this.idUser,
-      this.client_id
-    )
-      .subscribe(data => {
-        if (data.respuesta === 'Success') {
-          this.sale_id = data.rows[0].sale_id;
-        } else {
-          Swal.fire({
-            title: 'Ups!',
-            text: 'Usuario no registrado',
-            type: 'error',
-            showCancelButton: true,
-            confirmButtonText: 'Registrar'
-          }).then((result) => {
-            if (result.value) {
-              localStorage.setItem('noClient', this.client_id);
-              $('#ClientRegister').modal('open');
-            }
-          });
-        }
-      });
-  }
+  modalClose() {
 
-  // get payform controls
-  get fpay() { return this.payForm.controls; }
-
-
-  onSubmitPay() {
-    this.submittedPay = true;
-    // error here if form is invalid
-    console.log(this.payForm.invalid);
-
-    if (this.payForm.invalid) {
-      return;
-    } else {
-
-      let e = true;
-      for (let i = 0; i < this.listSaleProduct.length; i++) {
-
-        this.saleService.createSaleProduct(
-          this.sale_id,
-          this.listSaleProduct[i][0],
-          this.listSaleProduct[i][3]
-        )
-          .subscribe(data => {
-            if (data.respuesta === 'Success') {
-              console.log(this.listSaleProduct[i][1] + ' Ok!');
-            } else {
-              console.log(this.listSaleProduct[i][1] + ' Error!');
-              console.log(data.respuesta);
-              e = false;
-            }
-
-          });
-      }
-      if (e) {
-
-        localStorage.setItem('idSale', this.sale_id);
-        this.router.navigate(['/invoiceprint']);
-
-      } else {
-        Swal.fire({
-          type: 'error',
-          title: 'Ups!, algo salio mal',
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 2000
-        });
-
-      }
-    }
+    $('#ClientRegister').modal('close');
+    this.client_id = localStorage.getItem('idClient');
+    this.getClient();
   }
 }
 // function format number

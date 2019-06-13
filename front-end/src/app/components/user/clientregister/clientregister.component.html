@@ -9,9 +9,9 @@
         <h6>{{msgerr}}</h6>
       </div>
       <div class="form-group input-field col s12">
-        <label for="user_id">Documento</label>
         <input type="text" class="form-control" id="user_id" formControlName="user_id"
           [ngClass]="{ 'is-invalid': submitted && f.user_id.errors }" placeholder="Enter document">
+        <label for="user_id">Documento</label>
         <span>
           <div *ngIf="submitted && f.user_id.errors">
             <div *ngIf="f.user_id.errors.required"> <label id="error">Error el documento es requerido </label></div>
@@ -19,9 +19,9 @@
         </span>
       </div>
       <div class="form-group input-field col s12">
-        <label for="username">Username </label>
         <input type="text" class="form-control" id="username" formControlName="username"
           [ngClass]="{ 'is-invalid': submitted && f.username.errors }" placeholder="Enter username">
+        <label for="username">Username </label>
         <span>
           <div *ngIf="submitted && f.username.errors">
             <div *ngIf="f.username.errors.required"> <label id="error">Error el usuario es requerido </label></div>
@@ -29,9 +29,9 @@
         </span>
       </div>
       <div class="form-group input-field col s12">
-        <label for="email">Email </label>
         <input type="email" class="form-control" id="email" formControlName="email"
           [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Enter email">
+        <label for="email">Email </label>
         <span>
           <div *ngIf="submitted && f.email.errors">
             <div *ngIf="f.email.errors.required"> <label id="error">Error el email es requerido </label></div>

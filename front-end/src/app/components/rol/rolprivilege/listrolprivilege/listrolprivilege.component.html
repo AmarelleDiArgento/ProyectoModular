@@ -1,18 +1,19 @@
 <!-- header -->
 <app-header></app-header>
 <!-- end header -->
-<div class="container row" style="background: white;">
-  <div class="col s12 container">
-    <div class="row center-flex">
-      <div class="col s8">
+<div class="container animated fadeIn">
+  <div class="container row animated fadeIn" style="background: white;">
+    <div class="col s12 container">
+      <div class="row center-flex">
+        <div class="col s8">
           <h3>Privilegios del Rol</h3>
-      </div>
-      <div class="col s4">
+        </div>
+        <div class="col s4">
           <button type="button" (click)="createRolPrivilege()" class="btn btn-primary">Crear</button>
+        </div>
       </div>
-    </div>  
-  </div>
-  <div class="col s12">
+    </div>
+    <div class="col s12">
       <table class="striped responsive-table centered">
         <thead class="">
           <tr>
@@ -121,8 +122,8 @@
                   </ng-container>
                   <ng-container *ngIf="rp.delete == 0">
                     <input type="checkbox"
-                    (change)="updateRolPrivilege(rp.rp_privilege_id, rp.rp_rol_id,rp.view,rp.create,rp.update,1)"
-                    class="form-control" id="delete">
+                      (change)="updateRolPrivilege(rp.rp_privilege_id, rp.rp_rol_id,rp.view,rp.create,rp.update,1)"
+                      class="form-control" id="delete">
                   </ng-container>
                   <span class="lever"></span>
                   Activo
@@ -142,5 +143,5 @@
           </tr>
         </tbody>
       </table>
+    </div>
   </div>
-</div>

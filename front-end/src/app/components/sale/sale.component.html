@@ -1,35 +1,35 @@
 <!-- header -->
 <app-header></app-header>
 <!-- end header -->
+<div class="animated fadeIn">
+  <div class="row ">
+    <div class="col m8 s12 no-padding productos-tab">
+      <ul class="tabs">
+        <li class="tab col s3" *ngFor="let c of listCategory"><a href="#tab{{c.category_id}}">{{c.name}}</a></li>
+      </ul>
+      <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12">
+        <div class="products center">
 
-<div class="row ">
-  <div class="col m8 s12 no-padding productos-tab">
-    <ul class="tabs">
-      <li class="tab col s3" *ngFor="let c of listCategory"><a href="#tab{{c.category_id}}">{{c.name}}</a></li>
-    </ul>
-    <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12">
-      <div class="products center">
-
-        <div *ngFor="let p of listProduct">
-          <div class="col m4 s12" *ngIf="c.category_id === p.category_id">
-            <div class="card horizontal alto-productos">
-              <div class="card-image center-product">
-                <img src="{{p.image}}">
-              </div>
-              <div class="card-stacked">
-                <div class="card-content">
-                  <p><b>{{p.name}}</b></p>
-                  <p><b>$ {{p.net_price}}</b></p>
+          <div *ngFor="let p of listProduct">
+            <div class="col m4 s12" *ngIf="c.category_id === p.category_id">
+              <div class="card horizontal alto-productos">
+                <div class="card-image center-product">
+                  <img src="{{p.image}}">
                 </div>
-                <div class="card-action">
-                  <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="addProduct(p)">
-                    <i class="material-icons prefix">shopping_cart</i>
-                  </a>
+                <div class="card-stacked">
+                  <div class="card-content">
+                    <p><b>{{p.name}}</b></p>
+                    <p><b>$ {{p.net_price}}</b></p>
+                  </div>
+                  <div class="card-action">
+                    <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="addProduct(p)">
+                      <i class="material-icons prefix">shopping_cart</i>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- <div class="col m3 s12 div-producto" style="padding: 1%;" *ngIf="c.category_id === p.category_id">
+            <!-- <div class="col m3 s12 div-producto" style="padding: 1%;" *ngIf="c.category_id === p.category_id">
             <div class="z-depth-2 col padding0" style="width: 100%">
               <img src="{{p.image}}" class="products" width="auto%" height="100px">
               <p><b>{{p.name}}</b></p>
@@ -41,197 +41,199 @@
               </div>
             </div>
           </div> -->
+          </div>
         </div>
+      </div>
+
+    </div>
+    <div class="col m4 s12 z-depth-1 ventas">
+      <div class="row" style="margin-bottom: 0;">
+        <form class="from-none">
+
+          <div class="col s4">
+            <h4 class="center">{{sale_id}}</h4>
+          </div>
+          <ng-container *ngIf="client != null; else elseTemplate">
+            <div class="col s8">
+              <p class="left">Cliente: </p>
+              <h5 class="center">{{client.username}}</h5>
+            </div>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <form class="from-none">
+              <div class="input-field col s10">
+                <i class="material-icons prefix">person_pin</i>
+                <input id="client_id" name="client_id" (keypress)="clientSearch($event)" [(ngModel)]="client_id"
+                  type="text" class="validate">
+                <label for="client_id">Documento</label>
+              </div>
+              <div class="input-field col s1">
+                <!-- Modal Trigger -->
+                <a class="waves-effect waves-light btn-floating modal-trigger" href="#ClientRegister">
+                  <i class="material-icons white-text">person_add</i>
+                </a>
+              </div>
+            </form>
+          </ng-template>
+
+          <div class="input-field col s12">
+            <i class="material-icons prefix">center_focus_strong</i>
+            <input id="icon_prefix" name="seeker" (keypress)="productSearch($event)" [(ngModel)]="seeker" type="text"
+              class="validate">
+            <label for="icon_prefix">Id o Codigo de barras</label>
+          </div>
+        </form>
+      </div>
+      <div class="productos">
+        <div *ngFor="let sp of listSaleProduct">
+          <div class="col s6">
+            <ul class="collection" *ngIf="sp[3] > 0 ">
+              <li class="collection-item avatar">
+                <img src="{{sp[2]}}" alt="" class="circle">
+                <span class="title">{{sp[1]}} x {{sp[3]}}</span>
+                <p>$ {{sp[4]}}</p>
+                <div class="row" style="margin: 0">
+                  <div class="badge teal darken-4 white-text col s4 center-flex">
+                    <a (click)="decreAmount(sp[0])">
+                      <i class="material-icons white-text">remove</i>
+                    </a>
+                  </div>
+                  <div class="badge center col s4">
+                    {{sp[3]}}
+                  </div>
+                  <div class="badge teal darken-4 white-text col s4 center-flex">
+                    <a (click)="increAmount(sp[0])">
+                      <i class="material-icons white-text">add</i>
+                    </a>
+                  </div>
+                </div>
+                <a class="secondary-content red-text text-darken-4" (click)="deleteProduct(sp[0])">
+                  <i class="material-icons ">cancel</i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="col s12 center">
+        <a class="waves-effect waves-light btn modal-trigger" style="width: 100%; margin: 3% 0%;"
+          href="#formadepago">Pagar</a>
+        <!-- <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a> -->
       </div>
     </div>
 
   </div>
-  <div class="col m4 s12 z-depth-1 ventas">
-    <div class="row" style="margin-bottom: 0;">
-      <form class="from-none">
 
-        <div class="col s4">
-          <h4 class="center">{{sale_id}}</h4>
+  <div class="row totales">
+    <div class="col s4">
+      <p class="left">Total impuesto</p>
+      <h5 class="center">{{tax_priceMoney}}</h5>
+    </div>
+    <div class="col s4">
+      <p class="left">Total base: Compra</p>
+      <h5 class="center">{{gross_priceMoney}}</h5>
+    </div>
+    <div class="col s4">
+      <p class="left">Total</p>
+      <h3 class="center">{{total_priceMoney}}</h3>
+    </div>
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="ClientRegister" class="modal">
+    <div class="modal-content">
+      <h4>Registrar Cliente</h4>
+      <p>Registra los datos del cliente</p>
+      <app-clientregister></app-clientregister>
+
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-green btn-flat" (click)="modalClose()">Cerrar</a>
+    </div>
+  </div>
+
+
+  <div id="formadepago" class="modal" style="width: 30%;">
+    <div class="modal-content row">
+
+      <form class="from-none" [formGroup]="payForm" (ngSubmit)="onSubmitPay()">
+        <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
+          <a class="close" (click)="closeAlertErr()">
+            <p class="center"><b>Forma de Pago</b></p>
+            &times;
+          </a>
+          <h6>{{msgerr}}</h6>
         </div>
-        <ng-container *ngIf="client != null; else elseTemplate">
-          <div class="col s8">
-            <p class="left">Cliente: </p>
-            <h5 class="center">{{client.username}}</h5>
+        <div>
+
+          <div class="form-group col m6 s6">
+            <p>
+              <label>
+                <input type="radio" value="Efectivo" formControlName="waytopay" [(ngModel)]="waytopay"
+                  [ngClass]="{ 'is-invalid': submittedPay && fpay.waytopay.errors }" required />
+                <span><i class="material-icons ">monetization_on</i> Efectivo</span>
+              </label>
+            </p>
           </div>
-        </ng-container>
-        <ng-template #elseTemplate>
-          <form class="from-none">
-            <div class="input-field col s10">
-              <i class="material-icons prefix">person_pin</i>
-              <input id="client_id" name="client_id" (keypress)="clientSearch($event)" [(ngModel)]="client_id"
-                type="text" class="validate">
-              <label for="client_id">Documento</label>
+          <div class="form-group col m6 s6">
+            <p>
+              <label>
+                <input type="radio" value="Tarjeta" formControlName="waytopay" [(ngModel)]="waytopay"
+                  [ngClass]="{ 'is-invalid': submittedPay && fpay.waytopay.errors }" required />
+                <span><i class="material-icons ">payment</i> Tarjeta</span>
+              </label>
+            </p>
+          </div>
+          <span class="center">
+            <div *ngIf="submittedPay && fpay.waytopay.errors">
+              <div *ngIf="fpay.waytopay.errors.required"> <label id="error">La forma de pago es requerida </label></div>
             </div>
-            <div class="input-field col s1">
-              <!-- Modal Trigger -->
-              <a class="waves-effect waves-light btn-floating modal-trigger" href="#ClientRegister">
-                <i class="material-icons white-text">person_add</i>
-              </a>
-            </div>
-          </form>
-        </ng-template>
-
-        <div class="input-field col s12">
-          <i class="material-icons prefix">center_focus_strong</i>
-          <input id="icon_prefix" name="seeker" (keypress)="productSearch($event)" [(ngModel)]="seeker" type="text"
-            class="validate">
-          <label for="icon_prefix">Id o Codigo de barras</label>
+          </span>
         </div>
+
+
+        <div class="row" *ngIf="waytopay === 'Efectivo'">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">attach_money</i>
+            <input id="recibo" class="pago" name="recibo" type="number" (keyup)="vueltas()" [(ngModel)]="recibo">
+            <label for="recibo">Efectivo</label>
+          </div>
+          <div class="input-field col s12 center-align">
+            <p id="cambio" class="pago automargin"> {{cambioPesos}} </p>
+            <label for="cambio">Cambio: </label>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="waytopay === 'Tarjeta'">
+
+          <div class="input-field col s12 center-align">
+            <p id="base" class="pago automargin"> {{gross_priceMoney}} </p>
+            <label for="base">Base: </label>
+          </div>
+          <div class="input-field col s12 center-align">
+            <p id="iva" class="pago automargin"> {{tax_priceMoney}} </p>
+            <label for="iva">IVA: </label>
+          </div>
+          <div class="input-field col s12 center-align">
+            <p id="total" class="pago automargin"> {{total_priceMoney}} </p>
+            <label for="total">Total: </label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">done_all</i>
+            <input id="code" class="pago" name="recibo" type="number" [(ngModel)]="code" required>
+            <label for="code">Codigo de autorizacion</label>
+          </div>
+        </div>
+
+        <div class="col s12">
+          <button type="submit" class="waves-effect waves-light btn"
+            style="width: 100%; margin: 3% 0%;">Facturar</button>
+        </div>
+
       </form>
     </div>
-    <div class="productos">
-      <div *ngFor="let sp of listSaleProduct">
-        <div class="col s6">
-          <ul class="collection" *ngIf="sp[3] > 0 ">
-            <li class="collection-item avatar">
-              <img src="{{sp[2]}}" alt="" class="circle">
-              <span class="title">{{sp[1]}} x {{sp[3]}}</span>
-              <p>$ {{sp[4]}}</p>
-              <div class="row" style="margin: 0">
-                <div class="badge teal darken-4 white-text col s4 center-flex">
-                  <a (click)="decreAmount(sp[0])">
-                    <i class="material-icons white-text">remove</i>
-                  </a>
-                </div>
-                <div class="badge center col s4">
-                  {{sp[3]}}
-                </div>
-                <div class="badge teal darken-4 white-text col s4 center-flex">
-                  <a (click)="increAmount(sp[0])">
-                    <i class="material-icons white-text">add</i>
-                  </a>
-                </div>
-              </div>
-              <a class="secondary-content red-text text-darken-4" (click)="deleteProduct(sp[0])">
-                <i class="material-icons ">cancel</i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="col s12 center">
-      <a class="waves-effect waves-light btn modal-trigger" style="width: 100%; margin: 3% 0%;"
-        href="#formadepago">Pagar</a>
-      <!-- <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a> -->
-    </div>
-  </div>
-
-</div>
-
-<div class="row totales">
-  <div class="col s4">
-    <p class="left">Total impuesto</p>
-    <h5 class="center">{{tax_priceMoney}}</h5>
-  </div>
-  <div class="col s4">
-    <p class="left">Total base: Compra</p>
-    <h5 class="center">{{gross_priceMoney}}</h5>
-  </div>
-  <div class="col s4">
-    <p class="left">Total</p>
-    <h3 class="center">{{total_priceMoney}}</h3>
-  </div>
-</div>
-
-<!-- Modal Structure -->
-<div id="ClientRegister" class="modal">
-  <div class="modal-content">
-    <h4>Registrar Cliente</h4>
-    <p>Registra los datos del cliente</p>
-    <app-clientregister></app-clientregister>
-
-  </div>
-  <div class="modal-footer">
-    <a class="waves-effect waves-green btn-flat" (click)="modalClose()">Cerrar</a>
-  </div>
-</div>
-
-
-<div id="formadepago" class="modal" style="width: 30%;">
-  <div class="modal-content row">
-
-    <form class="from-none" [formGroup]="payForm" (ngSubmit)="onSubmitPay()">
-      <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
-        <a class="close" (click)="closeAlertErr()">
-          <p class="center"><b>Forma de Pago</b></p>
-          &times;
-        </a>
-        <h6>{{msgerr}}</h6>
-      </div>
-      <div>
-
-        <div class="form-group col m6 s6">
-          <p>
-            <label>
-              <input type="radio" value="Efectivo" formControlName="waytopay" [(ngModel)]="waytopay"
-                [ngClass]="{ 'is-invalid': submittedPay && fpay.waytopay.errors }" required />
-              <span><i class="material-icons ">monetization_on</i> Efectivo</span>
-            </label>
-          </p>
-        </div>
-        <div class="form-group col m6 s6">
-          <p>
-            <label>
-              <input type="radio" value="Tarjeta" formControlName="waytopay" [(ngModel)]="waytopay"
-                [ngClass]="{ 'is-invalid': submittedPay && fpay.waytopay.errors }" required />
-              <span><i class="material-icons ">payment</i> Tarjeta</span>
-            </label>
-          </p>
-        </div>
-        <span class="center">
-          <div *ngIf="submittedPay && fpay.waytopay.errors">
-            <div *ngIf="fpay.waytopay.errors.required"> <label id="error">La forma de pago es requerida </label></div>
-          </div>
-        </span>
-      </div>
-
-
-      <div class="row" *ngIf="waytopay === 'Efectivo'">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">attach_money</i>
-          <input id="recibo" class="pago" name="recibo" type="number" (keyup)="vueltas()" [(ngModel)]="recibo">
-          <label for="recibo">Efectivo</label>
-        </div>
-        <div class="input-field col s12 center-align">
-          <p id="cambio" class="pago automargin"> {{cambioPesos}} </p>
-          <label for="cambio">Cambio: </label>
-        </div>
-      </div>
-
-      <div class="row" *ngIf="waytopay === 'Tarjeta'">
-
-        <div class="input-field col s12 center-align">
-          <p id="base" class="pago automargin"> {{gross_priceMoney}} </p>
-          <label for="base">Base: </label>
-        </div>
-        <div class="input-field col s12 center-align">
-          <p id="iva" class="pago automargin"> {{tax_priceMoney}} </p>
-          <label for="iva">IVA: </label>
-        </div>
-        <div class="input-field col s12 center-align">
-          <p id="total" class="pago automargin"> {{total_priceMoney}} </p>
-          <label for="total">Total: </label>
-        </div>
-        <div class="input-field col s12">
-          <i class="material-icons prefix">done_all</i>
-          <input id="code" class="pago" name="recibo" type="number" [(ngModel)]="code" required>
-          <label for="code">Codigo de autorizacion</label>
-        </div>
-      </div>
-
-      <div class="col s12">
-        <button type="submit" class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;">Facturar</button>
-      </div>
-
-    </form>
   </div>
 </div>
