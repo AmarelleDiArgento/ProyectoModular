@@ -9,7 +9,6 @@
     </ul>
     <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12 ">
       <div class="products center">
-
         <div *ngFor="let p of listProduct">
           <div class="col m4 s12" *ngIf="c.category_id === p.category_id">
             <div class="card horizontal alto-productos">
@@ -20,7 +19,6 @@
                 <div class="card-content">
                   <p><b>{{p.name}}</b></p>
                   <p><b>$ {{p.net_price}}</b></p>
-
                 </div>
                 <div class="card-action">
                   <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="addProduct(p)">
@@ -33,7 +31,6 @@
         </div>
       </div>
     </div>
-
   </div>
   <div class="col m4 s12 z-depth-1 ventas">
     <div class="row" style="margin-bottom: 0;">
@@ -104,16 +101,7 @@
         </div>
       </div>
     </div>
-
-
-
-    <div class="col s12 center">
-      <a class="waves-effect waves-light btn modal-trigger" style="width: 100%; margin: 3% 0%;"
-        href="#formadepago">Pagar</a>
-      <!-- <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a> -->
-    </div>
   </div>
-
 </div>
 
 <div class="row totales">
@@ -124,6 +112,10 @@
   <div class="col s4">
     <p class="left">Total base: Compra</p>
     <h5 class="center">{{gross_priceMoney}}</h5>
+  </div>
+  <div class="col s4 center">
+    <a class="waves-effect waves-light btn modal-trigger" style="width: 100%; margin: 3% 0%;" href="#formadepago">Pagar</a>
+      <!-- <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a> -->
   </div>
 </div>
 
