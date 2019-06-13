@@ -1,6 +1,27 @@
 <!-- header -->
 <app-header></app-header>
 <!-- end header -->
+<<<<<<< HEAD
+
+<div class="row ">
+  <div class="col m8 s12 no-padding productos-tab">
+    <ul class="tabs">
+      <li class="tab col s3" *ngFor="let c of listCategory"><a href="#tab{{c.category_id}}">{{c.name}}</a></li>
+    </ul>
+    <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12 ">
+      <div class="products center">
+
+        <div *ngFor="let p of listProduct">
+          <div class="col m4 s12" *ngIf="c.category_id === p.category_id">
+            <div class="card horizontal alto-productos">
+              <div class="card-image center-product">
+                <img src="{{p.image}}">
+              </div>
+              <div class="card-stacked">
+                <div class="card-content">
+                  <p><b>{{p.name}}</b></p>
+                  <p><b>$ {{p.net_price}}</b></p>
+=======
 <div class="animated fadeIn">
   <div class="row ">
     <div class="col m8 s12 no-padding productos-tab">
@@ -15,6 +36,7 @@
               <div class="card horizontal alto-productos">
                 <div class="card-image center-product">
                   <img src="{{p.image}}">
+>>>>>>> master
                 </div>
                 <div class="card-stacked">
                   <div class="card-content">
@@ -136,6 +158,8 @@
       <p class="left">Total base: Compra</p>
       <h5 class="center">{{gross_priceMoney}}</h5>
     </div>
+<<<<<<< HEAD
+=======
     <div class="col s4">
       <p class="left">Total</p>
       <h3 class="center">{{total_priceMoney}}</h3>
@@ -153,6 +177,7 @@
     <div class="modal-footer">
       <a class="waves-effect waves-green btn-flat" (click)="modalClose()">Cerrar</a>
     </div>
+>>>>>>> master
   </div>
 
 
@@ -209,6 +234,33 @@
 
         <div class="row" *ngIf="waytopay === 'Tarjeta'">
 
+<<<<<<< HEAD
+      <div class="col s12">
+        <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row totales">
+  <div class="col s2">
+    <p class="left">Total impuesto</p>
+    <h5 class="center">$ {{tax_price}}</h5>
+  </div>
+  <div class="col s3">
+    <p class="left">Total Compra</p>
+    <h5 class="center">$ {{gross_price}}</h5>
+  </div>
+  <div class="col s3">
+    <p class="left">Total</p>
+    <h3 class="center">$ {{total_price}}</h3>
+  </div>
+  <div class="col s4 center">
+      <a class="waves-effect waves-light btn modal-trigger" style="width: 100%; margin: 3% 0%;"
+        href="#modal1">Facturar</a>
+      <!-- <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a> -->
+    </div>
+</div>
+=======
           <div class="input-field col s12 center-align">
             <p id="base" class="pago automargin"> {{gross_priceMoney}} </p>
             <label for="base">Base: </label>
@@ -227,6 +279,7 @@
             <label for="code">Codigo de autorizacion</label>
           </div>
         </div>
+>>>>>>> master
 
         <div class="col s12">
           <button type="submit" class="waves-effect waves-light btn"
