@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="row {{texto}}">
-          <div class="input-field col s10">
+          <div class="input-field col s4">
             <i class="material-icons prefix">search</i>
             <input id="icon_prefix" type="search" style="padding-left: 10px;" (keyup)="quickSearch()"
               [(ngModel)]="searchFilter" class="validate" required>
@@ -32,7 +32,24 @@
             <i class="material-icons" (click)="cambiaEstado()">close</i>
           </div>
 
-          <div class="input-field col s2 ">
+          <div class="input-field col s3">
+            <label for="since">Desde</label>
+            <input id="since" type="text" class="datepicker">
+          </div>
+          <div class="input-field col s3">
+            <label for="until">Hasta</label>
+            <input id="until" type="text" class="datepicker">
+          </div>
+          <div class="input-field col s1">
+            <a class="waves-effect waves-light btn">
+              <i class="material-icons">
+                date_range
+              </i>
+            </a>
+          </div>
+
+
+          <div class="input-field col s1 ">
             <select class="centered" (change)="onPageSizeChanged($event.target.value)">
               <option value="5">5</option>
               <option selected value="10">10</option>
@@ -47,7 +64,7 @@
         <div class="table striped center">
           <ag-grid-angular style="width: 100%; height: auto;" class="ag-theme-material" [columnDefs]="columnDefs"
             [rowSelection]="rowSelection" [pagination]="true" [paginationPageSize]="paginationPageSize"
-            [paginationNumberFormatter]="paginationNumberFormatter" [rowData]="listSale" [animateRows]="true"
+            [paginationNumberFormatter]="paginationNumberFormatter" [rowData]="rowData" [animateRows]="true"
             [frameworkComponents]="frameworkComponents" (gridReady)="onGridReady($event)">
           </ag-grid-angular>
         </div>
@@ -59,3 +76,18 @@
     </div>
   </div>
 </div>
+<footer class="page-footer teal">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">Total dia</h5>
+
+        <p class="grey-text text-lighten-4">Total Impuesto:</p>
+        <p class="grey-text text-lighten-4">Total Base:</p>
+        <p class="grey-text text-lighten-4">Total Neto:</p>
+      </div>
+    </div>
+  </div>
+
+
+</footer>

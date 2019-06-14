@@ -120,17 +120,15 @@ export class ProductComponent implements OnInit {
       });
   }
   recagarImagen(e) {
-    console.log('evento:');
-    console.log(e);
-    this.image = e.srcElement.value;
-
+    if (e.srcElement.value != null) {
+      this.image = e.srcElement.value;
+    } else {
+      this.updateUrl();
+    }
   }
 
-  updateUrl(e) {
-    console.log('error:');
-    console.log(e);
-
-    this.image = 'https://kinsta.com/es/wp-content/uploads/sites/8/2018/02/leyenda-de-wordpress-1.png';
+  updateUrl() {
+    this.image = 'assets/noimage.png';
   }
   // clear alert err
   closeAlertErr(): void {

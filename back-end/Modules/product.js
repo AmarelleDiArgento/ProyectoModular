@@ -27,6 +27,8 @@ productModel.createproduct = function (prodData, callback) {
                 prodData.status
             ],
             function (error, rows) {
+                console.log(prodData);
+                
                 if (error) {
                     callback(null, {
                         "respuesta": error

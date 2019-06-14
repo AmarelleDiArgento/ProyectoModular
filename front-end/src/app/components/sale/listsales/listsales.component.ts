@@ -33,7 +33,7 @@ export class ListsalesComponent implements OnInit {
   paginationPageSize;
   paginationNumberFormatter;
   frameworkComponents;
-
+  rowData;
   // list data ws sale
   listSale: {};
   // array from excel data
@@ -124,28 +124,11 @@ export class ListsalesComponent implements OnInit {
     this.gridApi.setQuickFilter(this.searchFilter);
   }
 
-  renderUpdate() {
-  }
-  renderDelete() {
-
-  }
-
-  renderStatus() {
-
-  }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    this.rowData = this.listSale;
 
-    // send to search api backend all privileges
-    this.saleService.getAllDataSale()
-      .subscribe(data => {
-        // populate list json privilege
-        console.log(data.rows);
-
-        this.listSale = data.rows;
-        this.listExcelsale = data.rows;
-      });
   }
   // obtain all data from the register sales
   getAllData() {
