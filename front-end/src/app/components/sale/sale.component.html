@@ -13,7 +13,7 @@
           <div class="col m4 s12" *ngIf="c.category_id === p.category_id">
             <div class="card horizontal alto-productos">
               <div class="card-image center-product">
-                <img src="{{p.image}}" height="auto" width="auto">
+                <img src="{{p.image}}" height="auto" width="100%">
               </div>
               <div class="card-stacked">
                 <div class="card-content">
@@ -105,14 +105,18 @@
 </div>
 
 <div class="row totales">
-  <div class="col s4">
+  <div class="col s2">
     <p class="left">Total impuesto</p>
     <h5 class="center">{{tax_priceMoney}}</h5>
   </div>
-  <div class="col s4">
+  <div class="col s3">
     <p class="left">Total base: Compra</p>
     <h5 class="center">{{gross_priceMoney}}</h5>
   </div>
+  <div class="col s3">
+      <p class="left">Total:</p>
+      <h5 class="center">{{total_priceMoney}}</h5>
+    </div>
   <div class="col s4 center">
     <a class="waves-effect waves-light btn modal-trigger" style="width: 100%; margin: 3% 0%;" href="#formadepago">Pagar</a>
       <!-- <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a> -->
