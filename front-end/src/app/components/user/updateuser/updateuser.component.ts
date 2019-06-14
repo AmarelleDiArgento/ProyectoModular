@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -47,6 +47,10 @@ export class UpdateuserComponent implements OnInit {
   rol_id = '';
   status = '';
   pod_id = [];
+  count = {};
+
+  model: string;
+  modelChange = new EventEmitter();
 
   constructor(
     private http: Http,
@@ -60,17 +64,15 @@ export class UpdateuserComponent implements OnInit {
     $(document).ready(function () {
       $('select').formSelect();
     });
-
     // asign id rol to search data
     this.idUser = localStorage.getItem('idUser');
 
+    this.getAllDataRol();
 
-    this.rolService.getAllDataRol()
-      .subscribe(data => {
-        // populate list json module
-        this.listRol = data.rows;
+    this.getAllPodUser();
 
-      });
+    this.getAllPod();
+
 
 
     // eject ws search user for id
@@ -86,8 +88,6 @@ export class UpdateuserComponent implements OnInit {
       pod_id: ['', Validators.required],
       status: ['', Validators.required],
     });
-
-
 
 
   }
@@ -123,14 +123,13 @@ export class UpdateuserComponent implements OnInit {
     }
 
   }
-  // obtain data rol for id
+  // obtain data user for id
   getUserDataId() {
     this.userService.getDataUserForId(this.idUser)
       .subscribe(data => {
         if (data != null) {
           // add values to the form
           console.log(data);
-
           this.updateUserForm.patchValue({
             user_id: data.rows[0].user_id,
             username: data.rows[0].username,
@@ -140,26 +139,53 @@ export class UpdateuserComponent implements OnInit {
             rol_id: data.rows[0].rol_id,
           })
         }
+      });
+  }
 
-        this.podService.getAllDataPod()
-          .subscribe(data => {
-            // populate list json module
-            this.listPod = data.rows;
-            console.log(this.listPod);
+  getAllPod() {
+    this.podService.getAllDataPod()
+      .subscribe(data => {
+        // populate list json module
+        this.listPod = data.rows;
+        console.log(this.listPod);
+        //init validation checks
+        $(function () {
+          $('select').formSelect();
+        });
+        //vars
+        var i = 0;
+        var a = 0;
+        //list checked
+        var list = this.listPodCheck;
+        $('#rol_id').ready(function () {
+          for (i = 0; i < Object.keys(data.rows).length; i++) {
+              //search name in select and add prop selected
+              if(list[i] !== undefined){
+              var search = list[i].name;
+              $('#pod_id option:contains(' + search + ')').prop('selected', true);
+              } 
+          }
+          $('#pod_id').formSelect();
+        });
+      });
+  }
 
-          });
-
-        this.userService.getDataPodUserId(this.idUser)
-          .subscribe(data => {
-            // populate list json module
-            this.listPodCheck = data.rows;
-            console.log(this.listPodCheck);
-
-          });
+  getAllPodUser() {
+    this.userService.getDataPodUserId(this.idUser)
+      .subscribe(data => {
+        // populate list json module
+        this.listPodCheck = data.rows;
 
       });
   }
 
-  
+  getAllDataRol() {
+    this.rolService.getAllDataRol()
+      .subscribe(data => {
+        // populate list json module
+        this.listRol = data.rows;
+
+      });
+  }
 
 }

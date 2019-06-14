@@ -62,7 +62,7 @@
 
         <div class="form-group">
           <label for="name">Rol</label>
-          <select class="form-control" id="rol_id" formControlName="rol_id"
+          <select class="form-control" id="rol_id" name="rol_id" formControlName="rol_id"
             [ngClass]="{ 'is-invalid': submitted && f.rol_id.errors}">
             <option value="" disabled>Selecione un rol</option>
             <option *ngFor="let r of listRol" [ngValue]="r.rol_id">
@@ -78,10 +78,10 @@
 
         <div class="form-group">
           <label for="name">Punto de venta</label>
-          <select multiple class="form-control" id="pod_id" formControlName="pod_id"
-            [ngClass]="{ 'is-invalid': submitted && f.pod_id.errors}">
+          <select multiple class="form-control" id="pod_id" name="pod_id"  formControlName="pod_id"
+            [ngClass]="{ 'is-invalid': submitted && f.pod_id.errors}"  >
             <option value="" disabled>Selecione un punto de venta</option>
-            <option *ngFor="let p of listPod" [ngValue]="p.pod_id">
+            <option  *ngFor="let p of listPod" [ngValue]="p.pod_id">
               {{p.name}}
             </option>
           </select>
