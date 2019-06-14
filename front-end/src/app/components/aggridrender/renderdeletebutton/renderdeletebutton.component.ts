@@ -82,13 +82,13 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
   }
   delete() {
     Swal.fire({
-      title: 'Estas seguro?',
+      title: '¿Estás seguro?',
       text: 'No podras recuperar los cambios',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminalo!'
+      confirmButtonText: 'Sí, eliminalo!'
     }).then((result) => {
       if (result.value) {
         console.log('this.' + this.name + 'Service');
