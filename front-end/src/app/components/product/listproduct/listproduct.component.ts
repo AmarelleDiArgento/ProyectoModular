@@ -65,6 +65,7 @@ export class ListproductComponent implements OnInit {
       { headerName: 'Precio', field: 'net_price', sortable: true },
       { headerName: 'Categoria', field: 'category_name', sortable: true },
       { headerName: 'Impuesto', field: 'tax_name', sortable: true },
+      { headerName: '%', field: 'tax_percent', sortable: true, width: 80 },
       {
         headerName: '',
         field: 'product_id',
@@ -141,12 +142,12 @@ export class ListproductComponent implements OnInit {
   }
   // obtain all data from the privileges
   getAllData() {
-     // send to search api backend all privileges
-     this.productService.getAllDataProduct()
-     .subscribe(data => {
-       // populate list json privilege
-       this.listProduct = data.rows;
-     });
+    // send to search api backend all privileges
+    this.productService.getAllDataProduct()
+      .subscribe(data => {
+        // populate list json privilege
+        this.listProduct = data.rows;
+      });
   }
   // redirect to create product
   createProduct() {

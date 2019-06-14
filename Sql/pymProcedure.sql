@@ -1000,12 +1000,15 @@ USE proyectomodular$$
 CREATE PROCEDURE productall ()
 BEGIN
 
-SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, t.tax_id, t.name as tax_name, sum(t.percent) as tax_percent, p.status, p.image
-FROM proyectomodular.product AS p
-left join product_tax as pt on p.product_id = pt.pt_product_id
-left join tax as t on pt.pt_tax_id = t.tax_id
-inner join category as c on p.category_id = c.category_id
-group by p.code;
+	SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name,
+    GROUP_CONCAT(DISTINCT t.tax_id ORDER BY t.name ASC SEPARATOR ', ') as tax_ids , 
+    GROUP_CONCAT(DISTINCT t.name ORDER BY t.name ASC SEPARATOR ', ') as tax_name , 
+    sum(t.percent) as tax_percent, p.status, p.image
+	FROM proyectomodular.product AS p
+	left join product_tax as pt on p.product_id = pt.pt_product_id
+	left join tax as t on pt.pt_tax_id = t.tax_id
+	inner join category as c on p.category_id = c.category_id
+	group by p.code;
 
 
 END$$
@@ -1372,14 +1375,20 @@ CREATE PROCEDURE saledate (
 )
 BEGIN
 
-	SELECT concat(po.code, ' - ', invoice_num) as invoice_num, s.sale_id, s.date, po.pod_id, po.name as pod_name, s.user_id, u.username as user_name, s.client_id, c.username as client_name, sum(sp.tax_price) as tax_price, sum(sp.gross_price) gross_price, sum(sp.net_price) as net_price
+	SELECT concat(po.code, '-', invoice_num) as invoice_num, s.sale_id, s.date, po.pod_id, po.name as pod_name, 
+    s.user_id, u.username as user_name, s.client_id, c.username as client_name, 
+    GROUP_CONCAT(DISTINCT t.name ORDER BY t.name ASC SEPARATOR ', ') as tax_name, 
+    GROUP_CONCAT(DISTINCT t.percent ORDER BY t.name ASC SEPARATOR ', ') as tax_percent,  
+    sum(sp.tax_price) as tax_price, sum(sp.gross_price) gross_price, sum(sp.net_price) as net_price
 	FROM pod as po 
 	inner join sale as s on po.pod_id = s.pod_id
 	inner join sale_product as sp on s.sale_id = sp.sp_sale_id
 	inner join product as p on sp.sp_product_id = p.product_id
+    left join product_tax as pt on p.product_id = pt.pt_product_id
+    left join tax as t on pt.pt_tax_id = t.tax_id
 	inner join user as u on s.user_id = u.user_id  
 	inner join user as c on s.client_id = c.user_id 
-	where s.date between _begin and _end
+	where s.date between concat(_begin, " 00:00:00") and concat(_end, " 23:59:59")
 	group by sale_id;
 	
 END$$
