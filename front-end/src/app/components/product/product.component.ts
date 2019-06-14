@@ -70,7 +70,7 @@ export class ProductComponent implements OnInit {
         this.registerProductForm.value.name,
         this.registerProductForm.value.net_price,
         this.registerProductForm.value.category_id,
-        this.registerProductForm.value.tax_id,
+        this.registerProductForm.value.image,
         this.registerProductForm.value.status)
         .subscribe(data => {
 

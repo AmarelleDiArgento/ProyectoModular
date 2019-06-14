@@ -33,7 +33,7 @@ router.post('/updateproduct', function (req, res, next) {
     name: req.body.name,
     net_price: req.body.net_price,
     category_id: req.body.category_id,
-    tax_id: req.body.image,
+    image: req.body.image,
     status: req.body.status
   }
   product.updateproduct(productData, function (error, data) {
