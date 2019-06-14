@@ -44,24 +44,6 @@ export class UserComponent implements OnInit {
       $('select').formSelect();
     });
 
-    this.podService.getAllDataPod()
-      .subscribe(data => {
-        // populate list json module
-        this.listPod = data.rows;
-        console.log(this.listPod);
-
-      });
-
-    this.rolService.getAllDataRol()
-      .subscribe(data => {
-        // populate list json module
-        this.listRol = data.rows;
-        console.log(this.listRol);
-
-      });
-
-
-
     this.registerUserForm = this.formBuilder.group({
       user_id: ['', Validators.required],
       username: ['', Validators.required],
@@ -71,6 +53,11 @@ export class UserComponent implements OnInit {
       pod_id: ['', Validators.required],
       status: ['', Validators.required]
     });
+
+    // init select pod
+    this.getAllDataPod();
+    // init select rol
+    this.getAllDataRol();
 
   }
   // get form controls
@@ -117,8 +104,26 @@ export class UserComponent implements OnInit {
         }
       });
     }
-
-
-
   }
+
+    // obtain all data from the pod
+    getAllDataPod() {
+      // send to search api backend all pod
+      this.podService.getAllDataPod()
+        .subscribe(data => {
+          // populate list json
+          this.listPod = data.rows;
+          console.log(this.listPod);
+        });
+    }
+    // obtain all data from the rol
+    getAllDataRol() {
+      // send to search api backend all rol
+      this.rolService.getAllDataRol()
+        .subscribe(data => {
+          // populate list json
+          console.log(data);
+          this.listRol = data.rows;
+        });
+    }
 }

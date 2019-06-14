@@ -60,34 +60,19 @@ export class UpdateuserComponent implements OnInit {
     $(document).ready(function () {
       $('select').formSelect();
     });
+
     // asign id rol to search data
     this.idUser = localStorage.getItem('idUser');
 
-    this.podService.getAllDataPod()
-    .subscribe(data => {
-      // populate list json module
-      this.listPod = data.rows;
-      console.log(this.listPod);
-
-    });
-
-    this.userService.getDataPodUserId(this.idUser)
-      .subscribe(data => {
-        // populate list json module
-        this.listPodCheck = data.rows;
-        console.log(this.listPod);
-
-      });
 
     this.rolService.getAllDataRol()
       .subscribe(data => {
         // populate list json module
         this.listRol = data.rows;
-        console.log(this.listRol);
 
       });
 
-    
+
     // eject ws search user for id
     this.getUserDataId();
     // console.log('Cargamos el formulario o_o');
@@ -99,16 +84,15 @@ export class UpdateuserComponent implements OnInit {
       password: ['', Validators.required],
       rol_id: ['', Validators.required],
       pod_id: ['', Validators.required],
-      status: ['', Validators.required]
+      status: ['', Validators.required],
     });
-    
 
 
-  
+
+
   }
   // get form controls
   get f() {
-    // console.log('Llegue a la lectura el formulario');
     return this.updateUserForm.controls;
   }
 
@@ -146,14 +130,36 @@ export class UpdateuserComponent implements OnInit {
         if (data != null) {
           // add values to the form
           console.log(data);
-          this.updateUserForm.get('user_id').setValue(this.idUser);
-          this.updateUserForm.get('username').setValue(data.rows[0].username);
-          this.updateUserForm.get('email').setValue(data.rows[0].email);
-          this.updateUserForm.get('password').setValue(data.rows[0].password);
-          this.updateUserForm.get('status').setValue(data.rows[0].status);
-          this.updateUserForm.get('pod_id').setValue(this.listPodCheck);
+
+          this.updateUserForm.patchValue({
+            user_id: data.rows[0].user_id,
+            username: data.rows[0].username,
+            email: data.rows[0].email,
+            password: data.rows[0].password,
+            status: data.rows[0].status,
+            rol_id: data.rows[0].rol_id,
+          })
         }
+
+        this.podService.getAllDataPod()
+          .subscribe(data => {
+            // populate list json module
+            this.listPod = data.rows;
+            console.log(this.listPod);
+
+          });
+
+        this.userService.getDataPodUserId(this.idUser)
+          .subscribe(data => {
+            // populate list json module
+            this.listPodCheck = data.rows;
+            console.log(this.listPodCheck);
+
+          });
+
       });
   }
+
+  
 
 }
