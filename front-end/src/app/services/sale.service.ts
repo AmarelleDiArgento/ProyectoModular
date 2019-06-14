@@ -15,25 +15,34 @@ export class SaleService {
   getAllDataSale() {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(varsGlobals.url +'/getdatasale/', options)
+    return this.http.get(varsGlobals.url + '/getdatasale/', options)
       .map((response: Response) => response.json())
   }
+
+  getAllDataSaleBetween(since, until) {
+    this.params = 'since=' + since + '&until=' + until;
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(varsGlobals.url + '/getdatasalebetween/', this.params, options)
+      .map((response: Response) => response.json())
+  }
+
   // service to api mysql get sale for id
   getDataSaleForId(sale_id) {
     this.params = 'sale_id=' + sale_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(varsGlobals.url +'/getdatasale/', this.params, options)
+    return this.http.post(varsGlobals.url + '/getdatasale/', this.params, options)
       .map((response: Response) => response.json())
   }
   // service to api mysql create sale
   createSale(pod_id, user_id, client_id) {
     this.params = 'pod_id=' + pod_id + '&user_id=' + user_id + '&client_id=' + client_id;
     console.log(this.params);
-    
+
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(varsGlobals.url +'/createsale/', this.params, options)
+    return this.http.post(varsGlobals.url + '/createsale/', this.params, options)
       .map((response: Response) => response.json())
   }
   // service to api mysql update sale
@@ -41,7 +50,7 @@ export class SaleService {
     this.params = 'sale_id=' + sale_id + '&date=' + date + '&pod_id=' + pod_id + '&user_id=' + user_id + '&client_id=' + client_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(varsGlobals.url +'/updatesale/', this.params, options)
+    return this.http.post(varsGlobals.url + '/updatesale/', this.params, options)
       .map((response: Response) => response.json())
   }
   // service to api mysql delete sale
@@ -49,16 +58,16 @@ export class SaleService {
     this.params = 'sale_id=' + sale_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(varsGlobals.url +'/deletesale/', this.params, options)
+    return this.http.post(varsGlobals.url + '/deletesale/', this.params, options)
       .map((response: Response) => response.json())
   }
-  createSaleProduct(sale_id, product_id, quantity){
+  createSaleProduct(sale_id, product_id, quantity) {
     this.params = 'sale_id=' + sale_id + '&product_id=' + product_id + '&quantity=' + quantity;
     console.log(this.params);
-    
+
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(varsGlobals.url +'/createsaleproduct/', this.params, options)
+    return this.http.post(varsGlobals.url + '/createsaleproduct/', this.params, options)
       .map((response: Response) => response.json())
 
   }

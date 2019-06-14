@@ -40,17 +40,21 @@ var poduser = require('./routes/poduser');
 
 // Initialize the app
 var app = express()
-app.use(bodyParser());  
-app.use(bodyParser.json({limit:'5mb'}));   
-app.use(bodyParser.urlencoded({extended:true})); 
+app.use(bodyParser());
+app.use(bodyParser.json({
+  limit: '5mb'
+}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 //access cors  
-app.use(function (req, res, next) {        
-     res.setHeader('Access-Control-Allow-Origin', '*');    
-     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');    
-     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');      
-     res.setHeader('Access-Control-Allow-Credentials', true);       
-     next();  
- });
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -113,7 +117,9 @@ app.post('/createsale', sale)
 app.post('/updatesale', sale)
 app.post('/deletesale', sale)
 app.post('/getdatasale', sale)
+app.post('/getdatasalebetween', sale)
 app.get('/getdatasale', sale)
+
 //urls saleproduct
 app.post('/createsaleproduct', saleproduct)
 app.post('/updatesaleproduct', saleproduct)
@@ -159,7 +165,7 @@ app.get('/getdatapoduser', poduser)
 //   var fileName = 'c://Monitoreo/file.txt';
 //   fs.exists(fileName, function (exists) {
 //       if(exists){
-          
+
 //       } else {
 //           fs.writeFileSync(fileName);
 //       }

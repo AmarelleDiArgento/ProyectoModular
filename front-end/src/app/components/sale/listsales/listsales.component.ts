@@ -21,6 +21,11 @@ import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/r
   providedIn: 'root'
 })
 export class ListsalesComponent implements OnInit {
+  // vars msj
+  msgerr = '';
+  // var submitted
+  submitted = false;
+
   gridApi;
   gridColumnApi;
   components;
@@ -35,13 +40,24 @@ export class ListsalesComponent implements OnInit {
   frameworkComponents;
   rowData;
   // list data ws sale
-  listSale: {};
+  listSale: [];
   // array from excel data
   listExcelsale: any[];
   texto = 'hiddensearch';
   filtro = true;
   lineas = 10;
   searchFilter;
+
+  since;
+  until;
+
+  taxPrice: number = 0;
+  grossPrice: number = 0;
+  netPrice: number = 0;
+
+  // var form
+  selectDateForm: FormGroup;
+
   constructor(private http: Http,
     private formBuilder: FormBuilder,
     private saleService: SaleService,
@@ -106,12 +122,78 @@ export class ListsalesComponent implements OnInit {
   }
 
   ngOnInit() {
+    // init form
+    this.selectDateForm = this.formBuilder.group({
+      since: ['', Validators.required],
+      until: ['', Validators.required]
+    });
+
+    this.getDate();
     // this.getAllData();
+    this.getAllData();
+
     $(document).ready(function () {
       $('select').formSelect();
+      $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 5, // Creates a dropdown of 15 years to control year
+        months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+        autoClose: true
+      });
     });
-    this.getAllData();
   }
+
+  getDate() {
+
+    // asign id sale to search data
+    this.since = localStorage.getItem('sinceDate');
+    this.until = localStorage.getItem('untilDate');
+
+    let d = new Date();
+    let now = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+
+    if (this.since === null) {
+      localStorage.setItem('sinceDate', now);
+      this.since = now;
+
+      this.selectDateForm.value.since = now;
+    }
+
+    if (this.since === null) {
+      this.since = now;
+      localStorage.setItem('untilDate', now);
+      this.selectDateForm.value.until = now;
+    }
+
+    // console.log(localStorage);
+  }
+
+
+  // get form controls
+  get f() { return this.selectDateForm.controls; }
+  // submit form
+  onSubmit() {
+    this.submitted = true;
+    // error here if form is invalid
+    if (this.selectDateForm.invalid) {
+      return;
+    } else {
+
+      localStorage.setItem('sinceDate', this.selectDateForm.value.since);
+      this.since = this.selectDateForm.value.since;
+
+      localStorage.setItem('untilDate', this.selectDateForm.value.until);
+      this.until = this.selectDateForm.value.until;
+    }
+
+    this.ngOnInit();
+  }
+
+
   onPageSizeChanged(value) {
     this.gridApi.paginationSetPageSize(Number(value));
   }
@@ -130,15 +212,38 @@ export class ListsalesComponent implements OnInit {
     this.rowData = this.listSale;
 
   }
+
   // obtain all data from the register sales
   getAllData() {
+
     // send to search api backend all sales
-    this.saleService.getAllDataSale()
+    this.saleService.getAllDataSaleBetween(
+      this.since,
+      this.until
+    )
       .subscribe(data => {
         // populate list json sale
         this.listSale = data.rows;
+
+        for (const d of data.rows) {
+          console.log(d.tax_price);
+          this.taxPrice = this.taxPrice + d.tax_price;
+          this.grossPrice = this.grossPrice + d.gross_price;
+          this.netPrice = this.netPrice + d.net_price;
+        }
       });
   }
+
+  // obtain all data from the register sales
+  // getAllData() {
+  //   // send to search api backend all sales
+  //   this.saleService.getAllDataSale()
+  //     .subscribe(data => {
+  //       // populate list json sale
+  //       this.listSale = data.rows;
+  //     });
+  // }
+
   // redirect to create sale
   createSale() {
     this.router.navigate(['/createsale'])
@@ -193,5 +298,5 @@ function formatNumber(number) {
       .toFixed(0) // always two decimal digits
       .replace('.', ',') // replace decimal point character with ,
       .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-  ) // use . as a separator
+  ); // use . as a separator
 }

@@ -29,27 +29,43 @@
             <input id="icon_prefix" type="search" style="padding-left: 10px;" (keyup)="quickSearch()"
               [(ngModel)]="searchFilter" class="validate" required>
             <label for="icon_prefix">Buscar </label>
-            <i class="material-icons" (click)="cambiaEstado()">close</i>
           </div>
+          <form [formGroup]="selectDateForm" class="from-none" (ngSubmit)="onSubmit()">
 
-          <div class="input-field col s3">
-            <label for="since">Desde</label>
-            <input id="since" type="text" class="datepicker">
-          </div>
-          <div class="input-field col s3">
-            <label for="until">Hasta</label>
-            <input id="until" type="text" class="datepicker">
-          </div>
-          <div class="input-field col s1">
-            <a class="waves-effect waves-light btn">
-              <i class="material-icons">
-                date_range
-              </i>
-            </a>
-          </div>
+            <div class="form-group input-field col s2">
+              <label for="since">Desde:</label>
+              <input id="since" type="text" class="datepicker form-control" formControlName="since"
+                [ngClass]="{ 'is-invalid': submitted && f.since.errors }" placeholder="Ingrese fecha inicial">
+              <span>
+                <div *ngIf="submitted && f.since.errors">
+                  <div *ngIf="f.since.errors.required"> <label id="error">Fecha inicial requerida </label></div>
+                </div>
+              </span>
+            </div>
 
 
-          <div class="input-field col s1 ">
+            <div class="form-group input-field col s2">
+              <label for="until">Hasta:</label>
+              <input id="until" type="text" class="datepicker form-control" formControlName="until"
+                [ngClass]="{ 'is-invalid': submitted && f.until.errors }" placeholder="Ingrese fecha final">
+              <span>
+                <div *ngIf="submitted && f.until.errors">
+                  <div *ngIf="f.until.errors.required"> <label id="error">Fecha final requerida </label></div>
+                </div>
+              </span>
+            </div>
+
+            <div class="input-field col s1">
+              <button type="submit" class="btn btn-primary btn-lg btn-block btn-full">
+                <i class="material-icons">
+                  date_range
+                </i>
+              </button>
+            </div>
+
+          </form>
+
+          <div class="input-field col s2 ">
             <select class="centered" (change)="onPageSizeChanged($event.target.value)">
               <option value="5">5</option>
               <option selected value="10">10</option>
@@ -59,6 +75,8 @@
             </select>
             <label>Mostrar: </label>
           </div>
+
+          <i class="material-icons" (click)="cambiaEstado()">close</i>
         </div>
 
         <div class="table striped center">
@@ -80,11 +98,12 @@
   <div class="container">
     <div class="row">
       <div class="col l6 s12">
-        <h5 class="white-text">Total dia</h5>
+        <h5 class="white-text" *ngIf="since === until"> Total {{since}}</h5>
+        <h5 class="white-text" *ngIf="since != until"> Total entre {{since}} y {{until}}</h5>
 
-        <p class="grey-text text-lighten-4">Total Impuesto:</p>
-        <p class="grey-text text-lighten-4">Total Base:</p>
-        <p class="grey-text text-lighten-4">Total Neto:</p>
+        <p class="grey-text text-lighten-4">Total Impuesto: {{taxPrice}}</p>
+        <p class="grey-text text-lighten-4">Total Base: {{grossPrice}}</p>
+        <p class="grey-text text-lighten-4">Total Neto: {{netPrice}}</p>
       </div>
     </div>
   </div>

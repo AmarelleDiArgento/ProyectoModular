@@ -5,13 +5,13 @@ var sale = require('../Modules/sale')
 
 //create sale
 router.post('/createsale', function (req, res, next) {
-    
+
     var saleData = {
         pod_id: req.body.pod_id,
         user_id: req.body.user_id,
         client_id: req.body.client_id
     }
-    
+
     sale.createSale(saleData, function (error, data) {
         if (error) {
             res.status(504).jsonp({
@@ -60,6 +60,22 @@ router.post('/deletesale', function (req, res, next) {
 router.post('/getdatasale', function (req, res, next) {
     var saleData = {
         sale_id: req.body.sale_id
+    }
+    sale.dataSale(saleData, function (error, data) {
+        if (error) {
+            res.status(504).jsonp({
+                "error": error
+            })
+        } else {
+            res.status(200).jsonp(data)
+        }
+    })
+})
+//get sale between x date
+router.post('/getdatasalebetween', function (req, res, next) {
+    var saleData = {
+        since: req.body.since,
+        until: req.body.until
     }
     sale.dataSale(saleData, function (error, data) {
         if (error) {
