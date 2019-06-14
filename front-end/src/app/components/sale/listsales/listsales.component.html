@@ -94,15 +94,20 @@
     </div>
   </div>
 </div>
-<footer class="page-footer teal">
+<footer class="page-footer teal darken-4 " style="padding: 0%;">
   <div class="container">
     <div class="row">
-      <div class="col l6 s12">
+      <div class="col s3">
         <h5 class="white-text" *ngIf="since === until"> Total {{since}}</h5>
         <h5 class="white-text" *ngIf="since != until"> Total entre {{since}} y {{until}}</h5>
-
+      </div>
+      <div class="col s3">
         <p class="grey-text text-lighten-4">Total Impuesto: {{taxPrice}}</p>
+      </div>
+      <div class="col s3">
         <p class="grey-text text-lighten-4">Total Base: {{grossPrice}}</p>
+      </div>
+      <div class="col s3">
         <p class="grey-text text-lighten-4">Total Neto: {{netPrice}}</p>
       </div>
     </div>
