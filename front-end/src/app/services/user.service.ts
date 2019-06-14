@@ -15,7 +15,7 @@ export class UserService {
   getAllDataUsers() {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(varsGlobals.url + '/getdatauser/', options)
+    return this.http.get(varsGlobals.url + '/getdatausers/', options)
       .map((response: Response) => response.json())
   }
 

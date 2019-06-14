@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 //file vars globals
-import * as varsGlobals from '../../varsglobals';  
+import * as varsGlobals from '../../varsglobals';
 
 @Injectable()
 export class ModuleService {
@@ -15,7 +15,7 @@ export class ModuleService {
   getAllDataModules() {
     const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     const options = new RequestOptions({ headers: headers });
-    return this.http.get(varsGlobals.url +'/getdatamodulo/', options)
+    return this.http.get(varsGlobals.url + '/getdatamodulos/', options)
       .map((response: Response) => response.json());
   }
   // service to api mysql get module for id
@@ -23,7 +23,7 @@ export class ModuleService {
     this.params = 'module_id=' + module_id;
     const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     const options = new RequestOptions({ headers: headers });
-    return this.http.post(varsGlobals.url +'/getdatamodulo/', this.params, options)
+    return this.http.post(varsGlobals.url + '/getdatamodulo/', this.params, options)
       .map((response: Response) => response.json());
   }
   // service to api mysql create module
@@ -33,7 +33,7 @@ export class ModuleService {
     this.params = 'name=' + name + '&status=' + s;
     const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     const options = new RequestOptions({ headers: headers });
-    return this.http.post(varsGlobals.url +'/createmodulo/', this.params, options)
+    return this.http.post(varsGlobals.url + '/createmodulo/', this.params, options)
       .map((response: Response) => response.json());
   }
   // service to api mysql update modules
@@ -43,7 +43,7 @@ export class ModuleService {
     this.params = 'module_id=' + module_id + '&name=' + name + '&status=' + s;
     const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     const options = new RequestOptions({ headers: headers });
-    return this.http.post(varsGlobals.url +'/updatemodulo/', this.params, options)
+    return this.http.post(varsGlobals.url + '/updatemodulo/', this.params, options)
       .map((response: Response) => response.json());
   }
   // service to api mysql delete modules
@@ -51,7 +51,7 @@ export class ModuleService {
     this.params = 'module_id=' + module_id;
     const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     const options = new RequestOptions({ headers: headers });
-    return this.http.post(varsGlobals.url +'/deletemodulo/', this.params, options)
+    return this.http.post(varsGlobals.url + '/deletemodulo/', this.params, options)
       .map((response: Response) => response.json());
   }
 }

@@ -31,6 +31,7 @@ router.post('/createpod', function (req, res, next) {
     }
   })
 })
+
 //update pod
 router.post('/updatepod', function (req, res, next) {
   var podData = {
@@ -55,6 +56,7 @@ router.post('/updatepod', function (req, res, next) {
     }
   })
 })
+
 //delete pod
 router.post('/deletepod', function (req, res, next) {
   var podData = {
@@ -70,6 +72,7 @@ router.post('/deletepod', function (req, res, next) {
     }
   })
 })
+
 //get pod x id
 router.post('/getdatapod', function (req, res, next) {
   var podData = {
@@ -87,7 +90,7 @@ router.post('/getdatapod', function (req, res, next) {
 })
 
 //get all pod 
-router.get('/getdatapod', function (req, res, next) {
+router.get('/getdatapods', function (req, res, next) {
   var podData = {}
   pod.dataAllPod(podData, function (error, data) {
     if (error) {

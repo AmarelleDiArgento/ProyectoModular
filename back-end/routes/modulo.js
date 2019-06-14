@@ -77,7 +77,7 @@ router.post('/getdatamodulo', function (req, res, next) {
 })
 
 //get all modulo 
-router.get('/getdatamodulo', function (req, res, next) {
+router.get('/getdatamodulos', function (req, res, next) {
   var modData = {}
   modulo.dataAllmodulo(modData, function (error, data) {
     if (error) {

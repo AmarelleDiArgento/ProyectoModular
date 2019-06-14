@@ -72,7 +72,7 @@ router.post('/getdatatax', function (req, res, next) {
 })
 
 //get all tax 
-router.get('/getdatatax', function (req, res, next) {
+router.get('/getdatataxs', function (req, res, next) {
   var taxData = {}
   tax.dataAlltax(taxData, function (error, data) {
   if (error) {
@@ -84,4 +84,5 @@ router.get('/getdatatax', function (req, res, next) {
   }
 })
 })
+
 module.exports = router;

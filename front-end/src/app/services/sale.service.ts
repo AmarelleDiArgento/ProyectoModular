@@ -15,7 +15,7 @@ export class SaleService {
   getAllDataSale() {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(varsGlobals.url + '/getdatasale/', options)
+    return this.http.get(varsGlobals.url + '/getdatasales/', options)
       .map((response: Response) => response.json())
   }
 

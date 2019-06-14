@@ -72,7 +72,7 @@ router.post('/getdatasaleproduct', function (req, res, next) {
 })
 
 //get all saleproduct 
-router.get('/getdatasaleproduct', function (req, res, next) {
+router.get('/getdatasaleproducts', function (req, res, next) {
     var saleData = {}
     saleproduct.dataAllSale(saleData, function (error, data) {
         if (error) {

@@ -142,7 +142,7 @@ router.post('/getdatapoduser', function (req, res, next) {
   })
 })
 //get all user 
-router.get('/getdatauser', function (req, res, next) {
+router.get('/getdatausers', function (req, res, next) {
   var userData = {}
   user.dataAllUser(userData, function (error, data) {
     if (error) {

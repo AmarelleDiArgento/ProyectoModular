@@ -70,7 +70,7 @@ router.post('/getdatacategory', function (req, res, next) {
 })
 
 //get all category 
-router.get('/getdatacategory', function (req, res, next) {
+router.get('/getdatacategorys', function (req, res, next) {
   var catData = {}
   category.dataAllcategory(catData, function (error, data) {
   if (error) {

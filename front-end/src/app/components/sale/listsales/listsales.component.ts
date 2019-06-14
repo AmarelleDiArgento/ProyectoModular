@@ -163,12 +163,12 @@ export class ListsalesComponent implements OnInit {
       this.selectDateForm.value.since = now;
     }
 
-    if (this.since === null) {
-      this.since = now;
+    if (this.until === null) {
+      this.until = now;
       localStorage.setItem('untilDate', now);
       this.selectDateForm.value.until = now;
     }
-
+    
     // console.log(localStorage);
   }
 

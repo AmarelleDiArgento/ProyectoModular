@@ -80,7 +80,7 @@ router.post('/getdataprivilege', function (req, res, next) {
 })
 
 //get all privilege 
-router.get('/getdataprivilege', function (req, res, next) {
+router.get('/getdataprivileges', function (req, res, next) {
   var priData = {}
   privilege.dataAllprivilege(priData, function (error, data) {
     if (error) {
@@ -92,4 +92,5 @@ router.get('/getdataprivilege', function (req, res, next) {
     }
   })
 })
+
 module.exports = router;

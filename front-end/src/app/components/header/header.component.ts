@@ -77,6 +77,8 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('idRol');
     localStorage.removeItem('idSale');
     localStorage.removeItem('idTax');
+    localStorage.removeItem('untilDate');
+    localStorage.removeItem('sinceDate');
     // redirect to login
     this.router.navigate(['/']);
   }

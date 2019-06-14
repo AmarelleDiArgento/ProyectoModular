@@ -89,7 +89,7 @@ router.post('/getdatasalebetween', function (req, res, next) {
 })
 
 //get all sale 
-router.get('/getdatasale', function (req, res, next) {
+router.get('/getdatasales', function (req, res, next) {
     var saleData = {}
     sale.dataAllSale(saleData, function (error, data) {
         if (error) {

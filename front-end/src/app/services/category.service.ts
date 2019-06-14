@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 //file vars globals
-import * as varsGlobals from '../../varsglobals';  
+import * as varsGlobals from '../../varsglobals';
 
 @Injectable()
 export class CategoryService {
@@ -15,15 +15,15 @@ export class CategoryService {
   getAllDataCategory() {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(varsGlobals.url +'/getdatacategory/', options)
+    return this.http.get(varsGlobals.url + '/getdatacategorys/', options)
       .map((response: Response) => response.json())
   }
- //service to api mysql get category for id
- getDataCategoryForId(category_id) {
-    this.params = 'category_id=' + category_id ;
+  //service to api mysql get category for id
+  getDataCategoryForId(category_id) {
+    this.params = 'category_id=' + category_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(varsGlobals.url +'/getdatacategory/', this.params, options)
+    return this.http.post(varsGlobals.url + '/getdatacategory/', this.params, options)
       .map((response: Response) => response.json())
   }
   //service to api mysql create category
@@ -31,23 +31,23 @@ export class CategoryService {
     this.params = 'name=' + name;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(varsGlobals.url +'/createcategory/', this.params, options)
+    return this.http.post(varsGlobals.url + '/createcategory/', this.params, options)
       .map((response: Response) => response.json())
   }
   //service to api mysql update category
   updateCategory(category_id, name) {
-    this.params = 'category_id=' + category_id +'&name=' + name ;
+    this.params = 'category_id=' + category_id + '&name=' + name;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(varsGlobals.url +'/updatecategory/', this.params, options)
+    return this.http.post(varsGlobals.url + '/updatecategory/', this.params, options)
       .map((response: Response) => response.json())
   }
   //service to api mysql delete category
   delete(category_id) {
-    this.params = 'category_id=' + category_id ;
+    this.params = 'category_id=' + category_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(varsGlobals.url +'/deletecategory/', this.params, options)
+    return this.http.post(varsGlobals.url + '/deletecategory/', this.params, options)
       .map((response: Response) => response.json())
   }
 }

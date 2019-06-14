@@ -15,7 +15,7 @@ export class TaxService {
   getAllDataTax() {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(varsGlobals.url +'/getdatatax/', options)
+    return this.http.get(varsGlobals.url +'/getdatataxs/', options)
       .map((response: Response) => response.json())
   }
  //service to api mysql get tax for id

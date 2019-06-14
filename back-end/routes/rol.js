@@ -70,7 +70,7 @@ router.post('/getdatarol', function (req, res, next) {
 })
 
 //get all rol 
-router.get('/getdatarol', function (req, res, next) {
+router.get('/getdatarols', function (req, res, next) {
   var rolData = {}
   rol.dataAllRol(rolData, function (error, data) {
   if (error) {
@@ -82,4 +82,5 @@ router.get('/getdatarol', function (req, res, next) {
   }
 })
 })
+
 module.exports = router;

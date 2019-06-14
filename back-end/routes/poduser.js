@@ -71,7 +71,7 @@ router.post('/getdatapoduser', function (req, res, next) {
 })
 
 //get all poduser 
-router.get('/getdatapoduser', function (req, res, next) {
+router.get('/getdatapodusers', function (req, res, next) {
   var podData = {}
   poduser.dataAllPodUser(podData, function (error, data) {
     if (error) {
