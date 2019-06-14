@@ -11,7 +11,7 @@ router.post('/createproduct', function (req, res, next) {
     name: req.body.name,
     net_price: req.body.net_price,
     category_id: req.body.category_id,
-    tax_id: req.body.tax_id,
+    tax_id: req.body.image,
     status: req.body.status
   }
   product.createproduct(productData, function (error, data) {
@@ -33,7 +33,7 @@ router.post('/updateproduct', function (req, res, next) {
     name: req.body.name,
     net_price: req.body.net_price,
     category_id: req.body.category_id,
-    tax_id: req.body.tax_id,
+    tax_id: req.body.image,
     status: req.body.status
   }
   product.updateproduct(productData, function (error, data) {
@@ -83,14 +83,14 @@ router.post('/getdataproduct', function (req, res, next) {
 router.get('/getdataproduct', function (req, res, next) {
   var productData = {}
   product.dataAllproduct(productData, function (error, data) {
-  if (error) {
-    res.status(504).jsonp({
-      "error": error
-    })
-  } else {
-    res.status(200).jsonp(data)
-  }
-})
+    if (error) {
+      res.status(504).jsonp({
+        "error": error
+      })
+    } else {
+      res.status(200).jsonp(data)
+    }
+  })
 })
 
 //get all product tax 
