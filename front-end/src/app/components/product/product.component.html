@@ -3,112 +3,117 @@
 <!-- end header -->
 <div class="container animated fadeIn">
   <div class="row">
-    <div class="col s6" id="create">
+    <div class="col s12" id="create">
       <div class="row">
 
         <form [formGroup]="registerProductForm" (ngSubmit)="onSubmit()">
           <h3>Crear Producto</h3>
+          
           <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
             <a class="close" (click)="closeAlertErr()">
               &times;
             </a>
             <h6>{{msgerr}}</h6>
           </div>
-          <div class="form-group">
-            <label for="code">Codigo</label>
-            <input type="text" class="form-control" id="code" formControlName="code"
-              [ngClass]="{ 'is-invalid': submitted && f.code.errors }" placeholder="Ingrese el codigo">
-            <span>
-              <div *ngIf="submitted && f.code.errors">
-                <div *ngIf="f.code.errors.required"> <label id="error">Error el codigo es requerido </label></div>
+          <div class="col s6">
+            <div class="row">
+              <div class="form-group col s12">
+                    <label for="code">Codigo</label>
+                    <input type="text" class="form-control" id="code" formControlName="code"
+                      [ngClass]="{ 'is-invalid': submitted && f.code.errors }" placeholder="Ingrese el codigo">
+                    <span>
+                      <div *ngIf="submitted && f.code.errors">
+                        <div *ngIf="f.code.errors.required"> <label id="error">Error el codigo es requerido </label></div>
+                      </div>
+                    </span>
               </div>
-            </span>
-          </div>
-          <div class="form-group">
-            <label for="name">Nombre</label>
-            <input type="text" class="form-control" id="name" formControlName="name"
-              [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Ingrese el nombre">
-            <span>
-              <div *ngIf="submitted && f.name.errors">
-                <div *ngIf="f.name.errors.required"> <label id="error">Error el nombre es requerido </label></div>
+              <div class="form-group col s12">
+                    <label for="name">Nombre</label>
+                    <input type="text" class="form-control" id="name" formControlName="name"
+                      [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Ingrese el nombre">
+                    <span>
+                      <div *ngIf="submitted && f.name.errors">
+                        <div *ngIf="f.name.errors.required"> <label id="error">Error el nombre es requerido </label></div>
+                      </div>
+                    </span>
               </div>
-            </span>
-          </div>
-          <div class="form-group">
-            <label for="net_price">Precio</label>
-            <input type="text" class="form-control" id="net_price" formControlName="net_price"
-              [ngClass]="{ 'is-invalid': submitted && f.net_price.errors }" placeholder="Ingrese el precio">
-            <span>
-              <div *ngIf="submitted && f.net_price.errors">
-                <div *ngIf="f.net_price.errors.required"> <label id="error">Error el precio es requerido </label></div>
+              <div class="form-group col s12">
+                    <label for="net_price">Precio</label>
+                    <input type="text" class="form-control" id="net_price" formControlName="net_price"
+                      [ngClass]="{ 'is-invalid': submitted && f.net_price.errors }" placeholder="Ingrese el precio">
+                    <span>
+                      <div *ngIf="submitted && f.net_price.errors">
+                        <div *ngIf="f.net_price.errors.required"> <label id="error">Error el precio es requerido </label></div>
+                      </div>
+                    </span>
               </div>
-            </span>
+              <div class="form-group col s12">
+                    <label for="category_id">Categoria</label>
+                    <select class="form-control" id="category_id" formControlName="category_id"
+                      [ngClass]="{ 'is-invalid': submitted && f.category_id.errors }">
+                      <option value="" selected>Seleccione la categoria</option>
+                      <option *ngFor="let category of listCategory" value="{{category.category_id}}">{{category.name}}</option>
+                    </select>
+                    <span>
+                      <div *ngIf="submitted && f.category_id.errors">
+                        <div *ngIf="f.category_id.errors.required"> <label id="error">Error la categoria es requerida </label>
+                        </div>
+                      </div>
+                    </span>
+              </div>
+              <div class="form-group col s12">
+                    <label for="tax_id">Impuesto</label>
+                    <select multiple class="form-control" id="tax_id" formControlName="tax_id"
+                      [ngClass]="{ 'is-invalid': submitted && f.tax_id.errors }">
+                      <option value="" selected>Seleccione el impuesto</option>
+                      <option *ngFor="let tax of listTax" value="{{tax.tax_id}}">{{tax.name}}</option>
+                    </select>
+                    <span>
+                      <div *ngIf="submitted && f.tax_id.errors">
+                        <div *ngIf="f.tax_id.errors.required"> <label id="error">Error el impuesto es requerido </label></div>
+                      </div>
+                    </span>
+              </div>  
+            </div>
           </div>
-          <div class="form-group">
-            <label for="category_id">Categoria</label>
-            <select class="form-control" id="category_id" formControlName="category_id"
-              [ngClass]="{ 'is-invalid': submitted && f.category_id.errors }">
-              <option value="" selected>Seleccione la categoria</option>
-              <option *ngFor="let category of listCategory" value="{{category.category_id}}">{{category.name}}</option>
-            </select>
-            <span>
-              <div *ngIf="submitted && f.category_id.errors">
-                <div *ngIf="f.category_id.errors.required"> <label id="error">Error la categoria es requerida </label>
+          <div class="col s6">
+              <div class="row">
+                <div class="form-group col s12">
+                      <label for="image">Imagen</label>
+                      <input type="text" class="form-control" id="image" (change)="recagarImagen($event)" formControlName="image"
+                        [ngClass]="{ 'is-invalid': submitted && f.image.errors }" placeholder="Ingrese la url de la imagen">
+                      <span>
+                        <div *ngIf="submitted && f.image.errors">
+                          <div *ngIf="f.image.errors.required"> <label id="error">Error la imagen es requerida </label></div>
+                        </div>
+                      </span>
+                </div>
+                <div class="col s12">
+                        <img class="responsive-img" [src]="image" (error)="updateUrl($event)">
+                </div>
+                <div class="form-group col s12">
+                        <label for="status">Estado</label>
+                        <div class="switch">
+                          <label>
+                            Inactivo
+                            <input type="checkbox" class="form-control" id="status" formControlName="status"
+                              [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+                            <span class="lever"></span>
+                            Activo
+                          </label>
+                        </div>
+                        <span>
+                          <div *ngIf="submitted && f.status.errors">
+                            <div *ngIf="f.status.errors.required"> <label id="error">Error el estado es requerido</label></div>
+                          </div>
+                        </span>
                 </div>
               </div>
-            </span>
-          </div>
-          <div class="form-group ">
-            <label for="tax_id">Impuesto</label>
-            <select multiple class="form-control" id="tax_id" formControlName="tax_id"
-              [ngClass]="{ 'is-invalid': submitted && f.tax_id.errors }">
-              <option value="" selected>Seleccione el impuesto</option>
-              <option *ngFor="let tax of listTax" value="{{tax.tax_id}}">{{tax.name}}</option>
-            </select>
-            <span>
-              <div *ngIf="submitted && f.tax_id.errors">
-                <div *ngIf="f.tax_id.errors.required"> <label id="error">Error el impuesto es requerido </label></div>
-              </div>
-            </span>
-          </div>
-
-          <div class="form-group">
-            <label for="image">Imagen</label>
-            <input type="text" class="form-control" id="image" (change)="recagarImagen($event)" formControlName="image"
-              [ngClass]="{ 'is-invalid': submitted && f.image.errors }" placeholder="Ingrese la url de la imagen">
-            <span>
-              <div *ngIf="submitted && f.image.errors">
-                <div *ngIf="f.image.errors.required"> <label id="error">Error la imagen es requerida </label></div>
-              </div>
-            </span>
-          </div>
-
-          <div class="form-group">
-            <label for="status">Estado</label>
-            <div class="switch">
-              <label>
-                Inactivo
-                <input type="checkbox" class="form-control" id="status" formControlName="status"
-                  [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
-                <span class="lever"></span>
-                Activo
-              </label>
-            </div>
-            <span>
-              <div *ngIf="submitted && f.status.errors">
-                <div *ngIf="f.status.errors.required"> <label id="error">Error el estado es requerido</label></div>
-              </div>
-            </span>
-          </div>
+            </div>                  
           <button type="submit" class="btn btn-primary btn-lg btn-block btn-full">Crear</button>
         </form>
       </div>
     </div>
-    <div class="col s6">
-      <div class="row">
-
-        <img class="responsive-img" [src]="image" (error)="updateUrl($event)">
-      </div>
-    </div>
+    
   </div>
 </div>
