@@ -11,6 +11,7 @@ import { UserService } from '../../../services/user.service';
 import { ExcelService } from '../../../services/excel.service';
 import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
 import { RenderStatusComponent } from '../../aggridrender/render-status/render-status.component';
+import { RenderresetbuttonComponent } from '../../aggridrender/renderresetbutton/renderresetbutton.component';
 
 @Component({
   selector: 'app-listuser',
@@ -90,12 +91,22 @@ export class ListuserComponent implements OnInit {
           name: 'user',
           Name: 'User'
         }, width: 80
+      },
+      {
+        headerName: '',
+        field: 'user_id',
+        cellRenderer: 'customizedResetCell',
+        cellRendererParams: {
+          name: 'user',
+          Name: 'User'
+        }, width: 80
       }
     ];
 
     this.frameworkComponents = {
       customizedEditCell: RendereditbuttonComponent,
-      customizedStatusCell: RenderStatusComponent
+      customizedStatusCell: RenderStatusComponent,
+      customizedResetCell: RenderresetbuttonComponent
     };
 
     this.defaultColDef = {

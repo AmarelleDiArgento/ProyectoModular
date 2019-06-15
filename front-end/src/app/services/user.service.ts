@@ -19,13 +19,13 @@ export class UserService {
       .map((response: Response) => response.json())
   }
 
-    // service to api mysql get pod user for id
-    getDataPodUserId(ps_user_id) {
-      this.params = 'ps_user_id=' + ps_user_id;
-      let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-      let options = new RequestOptions({ headers: headers });
-      return this.http.post(varsGlobals.url +'/getpoduser/', this.params, options)
-        .map((response: Response) => response.json())
+  // service to api mysql get pod user for id
+  getDataPodUserId(ps_user_id) {
+    this.params = 'ps_user_id=' + ps_user_id;
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(varsGlobals.url + '/getpoduser/', this.params, options)
+      .map((response: Response) => response.json())
   }
   // service to api mysql get user for id
   getDataUserForId(user_id) {
@@ -70,6 +70,31 @@ export class UserService {
     return this.http.post(varsGlobals.url + '/updatepoduser/', this.params, options)
       .map((response: Response) => response.json())
   }
+
+  // service to api mysql update users
+  updateUserPassword(user_id, password_old, password_new) {
+    let s
+    if (status) { s = 1; } else { s = 0; }
+    this.params = 'user_id=' + user_id +
+                  '&password_old=' + password_old +
+                  '&password_new=' + password_new + '';
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(varsGlobals.url + '/updateuserpassword/', this.params, options)
+      .map((response: Response) => response.json())
+  }
+
+    // service to api mysql reset users password
+    resetUserPassword(user_id, password) {
+      let s;
+      if (status) { s = 1; } else { s = 0; }
+      this.params = 'user_id=' + user_id + '&password=' + password + '';
+      let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+      let options = new RequestOptions({ headers: headers });
+      return this.http.post(varsGlobals.url + '/resetuserpassword/', this.params, options)
+        .map((response: Response) => response.json());
+    }
+
   // service to api mysql delete users
   delete(user_id) {
     this.params = 'user_id=' + user_id;

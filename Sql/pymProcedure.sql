@@ -552,10 +552,62 @@ CREATE PROCEDURE userlogin (
 BEGIN
 select user_id, username, u.rol_id as rol_id, r.name as rol_name, status, min(pu.ps_pod_id) as pod_id
 from user as u 
-inner join rol as r on u.rol_id = r.rol_id 
-inner join pod_user as pu on u.user_id = pu.ps_user_id
+left join rol as r on u.rol_id = r.rol_id 
+left join pod_user as pu on u.user_id = pu.ps_user_id
 where (email = _user or user_id = _user) and password = _password
 group by user_id;
+END$$
+
+DELIMITER ;
+
+
+
+-- ------------------------------------------------------------
+-- PROCEDURE USER PASSWORD UPDATE
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS userpasupd;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE userpasupd (
+  _user_id VARCHAR(255),
+  _password_old VARCHAR(255),
+  _password_new VARCHAR(255)
+)
+BEGIN
+declare exist int;
+select count(user_id) into exist from user as u where u.user_id = _user_id and u.password = _password_old;
+if(exist > 0) then
+UPDATE proyectomodular.user as u SET  
+password = _password_new,
+update_time = now()
+WHERE u.user_id = _user_id;
+ELSE 
+select 'without results' as message;
+  END IF;
+END$$
+
+DELIMITER ;
+
+
+-- ------------------------------------------------------------
+-- PROCEDURE USER PASSWORD RESET
+-- ------------------------------------------------------------
+DROP procedure IF EXISTS userpasres;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE userpasres (
+  _user_id VARCHAR(255),
+  _password VARCHAR(255)
+)
+BEGIN
+
+UPDATE proyectomodular.user as u SET  
+password = _password,
+update_time = now()
+WHERE u.user_id = _user_id;
+
 END$$
 
 DELIMITER ;
