@@ -195,7 +195,7 @@ productModel.dataAllproduct = function (prodData, callback) {
 }
 
 productModel.dataAllProductTax = function (prodData, callback) {
-    var query = "SELECT tax.tax_id, tax.name FROM product_tax INNER JOIN product ON product_tax.pt_product_id = product.product_id INNER JOIN tax ON product_tax.pt_tax_id = tax.tax_id"
+    var query = "SELECT tax.tax_id, tax.name FROM product_tax INNER JOIN product ON product_tax.pt_product_id = product.product_id INNER JOIN tax ON product_tax.pt_tax_id = tax.tax_id where product.product_id="+prodData.pt_product_id+" "
     if (connection) {
         connection.query(query, function (error, rows) {
             if (error) {

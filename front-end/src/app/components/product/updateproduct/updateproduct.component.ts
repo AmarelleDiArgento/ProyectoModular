@@ -29,6 +29,7 @@ export class UpdateproductComponent implements OnInit {
   listCategory: {};
   // list data
   listTax: {};
+  listCheck: {};
   // id
   idProduct = '';
   // rows empty
@@ -60,6 +61,8 @@ export class UpdateproductComponent implements OnInit {
     });
     // asign id product to search data
     this.idProduct = localStorage.getItem('idProduct');
+    //get product tax check
+    this.getProductTax(this.idProduct);
     // eject ws search product for id
     this.getProductDataId();
     // init select category
@@ -103,14 +106,11 @@ export class UpdateproductComponent implements OnInit {
       .subscribe(data => {
         if (data != null) {
           // add values to the form
-          console.log(data);
-
           this.updateProductForm.get('product_id').setValue(this.idProduct);
           this.updateProductForm.get('code').setValue(data.rows[0].code);
           this.updateProductForm.get('name').setValue(data.rows[0].name);
           this.updateProductForm.get('net_price').setValue(data.rows[0].net_price);
           this.updateProductForm.get('category_id').setValue(data.rows[0].category_id);
-          this.updateProductForm.get('tax_id').setValue(data.rows[0].tax_id);
           this.updateProductForm.get('image').setValue(data.rows[0].image);
           this.image = data.rows[0].image;
           this.updateProductForm.get('status').setValue(data.rows[0].status);
@@ -135,6 +135,34 @@ export class UpdateproductComponent implements OnInit {
         // populate list json
         // console.log(data);
         this.listTax = data.rows;
+      //init validation checks
+      $(function () {
+        $('select').formSelect();
+      });
+      //vars
+      var i = 0;
+      //list checked
+      var list = this.listCheck;
+      $('#category_id').ready(function () {
+        for (i = 0; i < Object.keys(data.rows).length; i++) {
+            //search name in select and add prop selected
+            if(list[i] !== undefined){
+            var search = list[i].name;
+            $('#tax_id option:contains(' + search + ')').prop('selected', true);
+            } 
+        }
+        $('#tax_id').formSelect();
+      });
+    });
+  }
+  // obtain all data from the product - tax
+  getProductTax(idProducto){
+    // send to search api backend product tax 
+    this.productService.getDataProductTaxId(idProducto)
+      .subscribe(data => {
+        // populate list json
+        this.listCheck = data.rows;
+        console.log(this.listCheck)
       });
   }
   recagarImagen(e) {

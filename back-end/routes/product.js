@@ -94,8 +94,10 @@ router.get('/getdataproducts', function (req, res, next) {
 })
 
 //get all product tax 
-router.get('/getproductax', function (req, res, next) {
-  var productData = {}
+router.post('/getproductaxs', function (req, res, next) {
+  var productData = {
+    pt_product_id: req.body.pt_product_id,
+  }
   product.dataAllProductTax(productData, function (error, data) {
     if (error) {
       res.status(504).jsonp({

@@ -108,7 +108,7 @@ app.post('/updateproduct', product)
 app.post('/deleteproduct', product)
 app.post('/getdataproduct', product)
 app.get('/getdataproducts', product)
-app.get('/getproductaxs', product)
+app.post('/getproductaxs', product)
 app.post('/updateproductax', product)
 //urls permission menu
 app.post('/getdatapermission', permission)

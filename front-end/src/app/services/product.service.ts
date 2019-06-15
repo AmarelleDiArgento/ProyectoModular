@@ -26,6 +26,14 @@ export class ProductService {
     return this.http.post(varsGlobals.url + '/getdataproduct/', this.params, options)
       .map((response: Response) => response.json())
   }
+  // service to api mysql get product tax for id
+  getDataProductTaxId(pt_product_id) {
+    this.params = 'pt_product_id=' + pt_product_id;
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(varsGlobals.url + '/getproductaxs/', this.params, options)
+      .map((response: Response) => response.json())
+  }
   // service to api mysql create product
   createProduct(code, name, net_price, category_id, image, status) {
     let s;
