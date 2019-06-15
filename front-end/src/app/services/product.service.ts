@@ -65,6 +65,15 @@ export class ProductService {
     return this.http.post(varsGlobals.url + '/updateproduct/', this.params, options)
       .map((response: Response) => response.json())
   }
+  // service to api mysql update product tax
+  updateProductTax(pt_product_id, pt_tax_id) {
+    this.params = 'pt_product_id=' + pt_product_id +
+      'pt_tax_id=' + pt_tax_id;
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(varsGlobals.url + '/updateproductax/', this.params, options)
+      .map((response: Response) => response.json())
+  }
   // service to api mysql delete product
   delete(product_id) {
     this.params = 'product_id=' + product_id;
