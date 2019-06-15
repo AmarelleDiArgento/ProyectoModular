@@ -54,7 +54,7 @@ export class ProductService {
     let s;
     if (status) { s = 1; } else { s = 0; }
     this.params = 'product_id=' + product_id +
-      'code=' + code +
+      '&code=' + code +
       '&name=' + name +
       '&net_price=' + net_price +
       '&category_id=' + category_id +

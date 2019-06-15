@@ -81,6 +81,46 @@ router.post('/updateuser', function (req, res, next) {
     }
   })
 })
+
+//update user pasword
+router.post('/updateuserpassword', function (req, res, next) {
+  var userData = {
+    user_id: req.body.user_id,
+    password_old: req.body.password_old,
+    password_new: req.body.password_new
+  }
+  user.updateUserPassword(userData, function (error, data) {
+    if (error) {
+      res.status(504).jsonp({
+        "error": error
+      })
+    } else {
+      res.status(200).jsonp(data)
+    }
+  })
+})
+
+//update user pasword
+router.post('/resetuserpassword', function (req, res, next) {
+  var userData = {
+    user_id: req.body.user_id,
+    password: req.body.password
+  }
+  console.log('Routes: ');
+  console.log(userData);
+
+  user.resetUserPassword(userData, function (error, data) {
+    if (error) {
+      res.status(504).jsonp({
+        "error": error
+      })
+    } else {
+      res.status(200).jsonp(data)
+    }
+  })
+})
+
+
 //delete user
 router.post('/deleteuser', function (req, res, next) {
   var userData = {

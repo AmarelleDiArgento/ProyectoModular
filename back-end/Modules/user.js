@@ -13,6 +13,8 @@ var userModel = {}
 let ins = `call proyectomodular.userins(?,?,?,?,?,?);`;
 let cli = `call proyectomodular.usercliins(?,?,?);`;
 let upd = `call proyectomodular.userupd(?,?,?,?,?,?);`;
+let pas = `call proyectomodular.userpasupd(?,?,?);`;
+let res = `call proyectomodular.userpasres(?,?);`;
 let del = `call proyectomodular.userdel(?);`;
 let all = `call proyectomodular.userall();`;
 let one = `call proyectomodular.userone(?);`;
@@ -61,6 +63,7 @@ userModel.createUser = function (userData, callback) {
     })
   }
 }
+
 userModel.createClient = function (userData, callback) {
 
   if (connection) {
@@ -97,6 +100,7 @@ userModel.createClient = function (userData, callback) {
     })
   }
 }
+
 userModel.updateUser = function (userData, callback) {
   var pass;
   enigma.genHash(valorEncriptación, key, userData.password, function (error, hash) {
@@ -115,6 +119,107 @@ userModel.updateUser = function (userData, callback) {
     ], function (error, rows) {
       if (error) {
         console.log(error)
+        callback(null, {
+          "respuesta": "Error de conexión"
+        })
+      } else {
+        if (rows.length != 0) {
+          rows = rows[0];
+          var jsonObj = {
+            respuesta: "Success"
+          }
+          callback(null, jsonObj)
+        } else {
+          console.log("Error")
+          callback(null, {
+            "respuesta": "Error al actualizar"
+          })
+        }
+      }
+    })
+  } else {
+    console.log("No se conecto con servidor")
+    callback(null, {
+      "Respuesta": "Error en Conexion"
+    })
+  }
+}
+
+userModel.updateUserPassword = function (userData, callback) {
+
+  enigma.genHash(valorEncriptación, key, userData.password_old, function (error, hash) {
+    if (error) return console.error(error.error)
+    pass_old = hash
+  })
+
+  enigma.genHash(valorEncriptación, key, userData.password_new, function (error, hash) {
+    if (error) return console.error(error.error)
+    pass_new = hash
+  })
+
+  if (connection) {
+    connection.query(pas, [
+      userData.user_id,
+      pass_old,
+      pass_new
+    ], function (error, rows) {
+      if (error) {
+        console.log(error)
+        callback(null, {
+          "respuesta": "Error de conexión"
+        })
+      } else {
+        if (rows.length != 0) {
+
+          if (rows[0] != null) {
+
+            var string = JSON.stringify(rows[0]);
+            rows = JSON.parse(string);
+            rows = rows[0].message;
+            var jsonObj = {
+              respuesta: rows
+            }
+          } else {
+            rows = rows[0];
+            var jsonObj = {
+              rows,
+              respuesta: "Success"
+            }
+
+          }
+          callback(null, jsonObj)
+        } else {
+          console.log("Error")
+          callback(null, {
+            "respuesta": "Error al actualizar"
+          })
+        }
+      }
+    })
+  } else {
+    console.log("No se conecto con servidor")
+    callback(null, {
+      "Respuesta": "Error en Conexion"
+    })
+  }
+}
+
+userModel.resetUserPassword = function (userData, callback) {
+  console.log('Modulo: ');
+  console.log(userData);
+  enigma.genHash(valorEncriptación, key, userData.password, function (error, hash) {
+    if (error) return console.error(error.error)
+    pass = hash
+  })
+
+  if (connection) {
+    connection.query(res, [
+      userData.user_id,
+      pass
+    ], function (error, rows) {
+
+      if (error) {
+        console.log(error.error)
         callback(null, {
           "respuesta": "Error de conexión"
         })
@@ -237,7 +342,7 @@ userModel.dataAllUser = function (userData, callback) {
 }
 
 userModel.dataAllPodUser = function (userData, callback) {
-  var query = "SELECT pod.pod_id, pod.name FROM pod_user INNER JOIN user ON pod_user.ps_user_id = user.user_id INNER JOIN pod ON pod_user.ps_pod_id = pod.pod_id where pod_user.ps_user_id="+userData.ps_user_id+" "
+  var query = "SELECT pod.pod_id, pod.name FROM pod_user INNER JOIN user ON pod_user.ps_user_id = user.user_id INNER JOIN pod ON pod_user.ps_pod_id = pod.pod_id where pod_user.ps_user_id=" + userData.ps_user_id + " "
   if (connection) {
     connection.query(query, function (error, rows) {
       if (error) {
@@ -269,7 +374,7 @@ userModel.dataAllPodUser = function (userData, callback) {
 }
 
 userModel.updatatePodUser = function (userData, callback) {
-  var query = "UPDATE pod_user SET ps_user_id="+userData.ps_user_id+", ps_pod_id="+userData.ps_pod_id+" WHERE ps_user_id="+userData.ps_user_id+", ps_pod_id="+userData.ps_pod_id+" "
+  var query = "UPDATE pod_user SET ps_user_id=" + userData.ps_user_id + ", ps_pod_id=" + userData.ps_pod_id + " WHERE ps_user_id=" + userData.ps_user_id + ", ps_pod_id=" + userData.ps_pod_id + " "
   if (connection) {
     connection.query(query, function (error, rows) {
       if (error) {

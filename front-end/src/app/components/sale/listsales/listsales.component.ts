@@ -154,6 +154,8 @@ export class ListsalesComponent implements OnInit {
 
     const d = new Date();
     const now = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    console.log(now);
+    
 
     if (this.since === null) {
       localStorage.setItem('sinceDate', now);
