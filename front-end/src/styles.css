@@ -471,3 +471,6 @@ table {
 #error {
   color: red;
 }
+.background-white{
+  background: white;
+}

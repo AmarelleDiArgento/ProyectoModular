@@ -1,3 +1,40 @@
-<p>
-  profile works!
-</p>
+<!-- header -->
+<app-header></app-header>
+<!-- end header -->
+
+<div class="row container">
+ <form class="background-white col s12">
+  <h5 class="conforta">Perfil</h5>
+  <div class="col s6"> 
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="nombre" type="text" class="validate">
+        <label for="nombre">Nombre</label>
+      </div>
+      <div class="input-field col s12">
+        <input id="apellido" type="text" class="validate">
+        <label for="apellido">Apellido</label>
+      </div>
+      <div class="input-field col s12">
+        <input id="password" type="password" class="validate">
+        <label for="password">Contraseña</label>
+      </div>
+      <div class="input-field col s12">
+        <input id="email" type="email" class="validate">
+        <label for="email">Correo</label>
+      </div>
+    </div>
+  </div>
+  <div class="col s6 center">
+    <div class="row">
+      <div class="input-field col s12">
+        <img src="data:image/png;base64,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" alt="">
+      </div>
+      <div class="input-field col s12">
+        <input id="rol" type="text" class="validate">
+        <label for="rol">Rol</label>
+      </div>
+    </div>
+  </div>
+ </form>
+</div>
