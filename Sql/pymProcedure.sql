@@ -914,9 +914,9 @@ BEGIN
 
 SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, t.tax_id, t.name as tax_name, sum(t.percent) as tax_percent, p.status, p.image
 FROM proyectomodular.product AS p
-inner join product_tax as pt on p.product_id = pt.pt_product_id
-inner join tax as t on pt.pt_tax_id = t.tax_id
-inner join category as c on p.category_id = c.category_id
+left join product_tax as pt on p.product_id = pt.pt_product_id
+left join tax as t on pt.pt_tax_id = t.tax_id
+left join category as c on p.category_id = c.category_id
 WHERE p.product_id = _product_id 
 group by p.product_id;
 END$$
@@ -937,9 +937,9 @@ BEGIN
 
 SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, t.tax_id, t.name as tax_name, sum(t.percent) as tax_percent, p.status, p.image
 FROM proyectomodular.product AS p
-inner join product_tax as pt on p.product_id = pt.pt_product_id
-inner join tax as t on pt.pt_tax_id = t.tax_id
-inner join category as c on p.category_id = c.category_id
+left join product_tax as pt on p.product_id = pt.pt_product_id
+left join tax as t on pt.pt_tax_id = t.tax_id
+left join category as c on p.category_id = c.category_id
 WHERE p.code = _code 
 group by p.product_id;
 END$$
@@ -963,9 +963,9 @@ SET codeOrIdN = (CAST(_codeOrId as UNSIGNED));
 
 SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, t.tax_id, t.name as tax_name, t.percent as tax_percent, p.status, p.image
 FROM proyectomodular.product AS p
-inner join product_tax as pt on p.product_id = pt.pt_product_id
-inner join tax as t on pt.pt_tax_id = t.tax_id
-inner join category as c on p.category_id = c.category_id
+left join product_tax as pt on p.product_id = pt.pt_product_id
+left join tax as t on pt.pt_tax_id = t.tax_id
+left join category as c on p.category_id = c.category_id
 WHERE p.code = _codeOrId or p.product_id = @codeOrIdN;
 END$$
 
@@ -1082,7 +1082,7 @@ USE proyectomodular$$
 CREATE PROCEDURE rol_privilegeone (_privilege_id INT)
 BEGIN
 SELECT  rp.rp_privilege_id, rp.rp_rol_id, rp.view, rp.create, rp.update, rp.delete
-FROM proyectomodular.rol_privilegeone AS rp
+FROM proyectomodular.rol_privilege AS rp
 WHERE rp_rol_id = _rp_rol_id AND rp_privilege_id= _rp_privilege_id;
 END$$
 
@@ -1195,7 +1195,7 @@ DROP procedure IF EXISTS saleupdpay;
 
 DELIMITER $$
 USE proyectomodular$$
-CREATE PROCEDURE saleupd (
+CREATE PROCEDURE saleupdpay (
   _sale_id BIGINT,
   _cardpayment tinyint,
   _authorization VARCHAR(45)

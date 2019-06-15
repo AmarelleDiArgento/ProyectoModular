@@ -39,6 +39,7 @@ export class UpdateproductComponent implements OnInit {
   net_price = '';
   category_id = '';
   tax_id = '';
+  image = '';
   status = '';
 
   constructor(private http: Http, private formBuilder: FormBuilder,
@@ -53,6 +54,7 @@ export class UpdateproductComponent implements OnInit {
       name: ['', Validators.required],
       net_price: ['', Validators.required],
       category_id: ['', Validators.required],
+      image: ['', Validators.required],
       tax_id: ['', Validators.required],
       status: ['', Validators.required]
     });
@@ -102,13 +104,15 @@ export class UpdateproductComponent implements OnInit {
         if (data != null) {
           // add values to the form
           console.log(data);
-          
+
           this.updateProductForm.get('product_id').setValue(this.idProduct);
           this.updateProductForm.get('code').setValue(data.rows[0].code);
           this.updateProductForm.get('name').setValue(data.rows[0].name);
           this.updateProductForm.get('net_price').setValue(data.rows[0].net_price);
           this.updateProductForm.get('category_id').setValue(data.rows[0].category_id);
           this.updateProductForm.get('tax_id').setValue(data.rows[0].tax_id);
+          this.updateProductForm.get('image').setValue(data.rows[0].image);
+          this.image = data.rows[0].image;
           this.updateProductForm.get('status').setValue(data.rows[0].status);
         }
       });
@@ -132,6 +136,17 @@ export class UpdateproductComponent implements OnInit {
         // console.log(data);
         this.listTax = data.rows;
       });
+  }
+  recagarImagen(e) {
+    if (e.srcElement.value != null) {
+      this.image = e.srcElement.value;
+    } else {
+      this.updateUrl();
+    }
+  }
+
+  updateUrl() {
+    this.image = 'assets/noimage.png';
   }
   // clear alert err
   closeAlertErr(): void {
