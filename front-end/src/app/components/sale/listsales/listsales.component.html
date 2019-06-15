@@ -34,8 +34,8 @@
 
             <div class="form-group input-field col s2">
               <label for="since">Desde:</label>
-              <input id="since" type="text" class="datepicker form-control" formControlName="since"
-                [ngClass]="{ 'is-invalid': submitted && f.since.errors }" placeholder="Ingrese fecha inicial">
+              <input id="since" type="date" class="form-control" formControlName="since"
+                [ngClass]="{ 'is-invalid': submitted && f.since.errors }">
               <span>
                 <div *ngIf="submitted && f.since.errors">
                   <div *ngIf="f.since.errors.required"> <label id="error">Fecha inicial requerida </label></div>
@@ -43,11 +43,10 @@
               </span>
             </div>
 
-
             <div class="form-group input-field col s2">
               <label for="until">Hasta:</label>
-              <input id="until" type="text" class="datepicker form-control" formControlName="until"
-                [ngClass]="{ 'is-invalid': submitted && f.until.errors }" placeholder="Ingrese fecha final">
+              <input id="until" type="date" class="form-control" formControlName="until"
+                [ngClass]="{ 'is-invalid': submitted && f.until.errors }">
               <span>
                 <div *ngIf="submitted && f.until.errors">
                   <div *ngIf="f.until.errors.required"> <label id="error">Fecha final requerida </label></div>
@@ -102,13 +101,13 @@
         <p class="white-text" *ngIf="since != until"> Total entre {{since}} y {{until}}</p>
       </div>
       <div class="col s3">
-        <p class="grey-text text-lighten-4"><b>Total Impuesto:</b> {{taxPrice}}</p>
+        <p class="grey-text text-lighten-4"><b>Total Impuesto:</b> {{taxPriceMoney}}</p>
       </div>
       <div class="col s3">
-        <p class="grey-text text-lighten-4"><b>Total Base:</b> {{grossPrice}}</p>
+        <p class="grey-text text-lighten-4"><b>Total Base:</b> {{grossPriceMoney}}</p>
       </div>
       <div class="col s3">
-        <p class="grey-text text-lighten-4"><b>Total Neto:</b> {{netPrice}}</p>
+        <p class="grey-text text-lighten-4"><b>Total Neto:</b> {{netPriceMoney}}</p>
       </div>
     </div>
   </div>

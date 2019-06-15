@@ -40,6 +40,7 @@ export class ListproductComponent implements OnInit {
 
   // list data ws product
   listProduct: [];
+  rowData;
 
   texto = 'hiddensearch';
   filtro = true;
@@ -132,13 +133,7 @@ export class ListproductComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-
-    // send to search api backend all privileges
-    this.productService.getAllDataProduct()
-      .subscribe(data => {
-        // populate list json privilege
-        this.listProduct = data.rows;
-      });
+    this.rowData = this.listProduct;
   }
   // obtain all data from the privileges
   getAllData() {

@@ -25,7 +25,7 @@ export class ProductComponent implements OnInit {
   registerProductForm: FormGroup;
   // list data
   listProduct: {};
-  // list data
+  // list dataasd
   listCategory: {};
   // list data
   listTax: {};

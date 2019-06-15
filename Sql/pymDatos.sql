@@ -61,13 +61,13 @@ call proyectomodular.productins('1010101010', 'Papas', '1200', 1, 'https://image
 call proyectomodular.productins('111111111', 'Arroz', '2000', 1, 'https://images.rappi.com/products/1351206-1551364455.png?d=200x200', 1);
 call proyectomodular.productins('000000000', 'Queso', '1400', 1, 'https://images.rappi.com/products/730077-1-1464281372.png?d=200x200&e=webp', 1);
 call proyectomodular.productins('432423422', 'Tomate', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('967352859', 'Cebolla', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('169673378', 'Empanadas', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('452019754', 'Salsa', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('108473291', 'Merengue', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('176403856', 'Burrito', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('756342910', 'Yuca', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('164859634', 'Uvas Pasas', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('967352859', 'Cebolla', '600', 1, 'https://images.rappi.com/products/1192-1505832005.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('169673378', 'Empanadas', '600', 1, 'https://images.rappi.com/products/2089940485-1506986215.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('452019754', 'Salsa', '600', 1, 'https://images.rappi.com/products/522431-1551194951451.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('108473291', 'Merengue', '600', 1, 'https://images.rappi.com/products/696556-1551199800326.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('176403856', 'Burrito', '600', 1, 'https://images.rappi.com/products/706945-1494374233.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('756342910', 'Yuca', '600', 1, 'https://images.rappi.com/products/1154-1504888831.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('164859634', 'Uvas Pasas', '600', 1, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
 
 -- call proyectomodular.productins(?, ?, ?, ?, ?, ?);
 -- call proyectomodular.productupd(?, ?, ?, ?, ?, ?, ?);

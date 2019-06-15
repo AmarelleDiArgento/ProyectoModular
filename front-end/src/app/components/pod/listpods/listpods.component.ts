@@ -38,6 +38,7 @@ export class ListpodsComponent implements OnInit {
 
   // list data ws pod
   listPod: [];
+  rowData;
 
   texto = 'hiddensearch';
   filtro = true;
@@ -127,15 +128,7 @@ export class ListpodsComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-
-    // send to search api backend all privileges
-    this.podService.getAllDataPod()
-      .subscribe(data => {
-        // populate list json privilege
-        console.log(data.rows);
-
-        this.listPod = data.rows;
-      });
+    this.rowData = this.listPod;
   }
   // obtain all data from the register pods
   getAllData() {

@@ -40,8 +40,7 @@ export class ListprivilegeComponent implements OnInit {
 
   // list data ws privilege
   listPrivilege: [];
-  // array from excel data
-  listExcelPrivilege: any[];
+  rowData;
 
   texto = 'hiddensearch';
   filtro = true;
@@ -58,7 +57,8 @@ export class ListprivilegeComponent implements OnInit {
       { headerName: 'ID', field: 'privilege_id', sortable: true, width: 80 },
       { headerName: 'Nombre', field: 'name', sortable: true },
       { headerName: 'Modulo', field: 'module_name', sortable: true },
-      { headerName: 'Icono', field: 'icon',
+      {
+        headerName: 'Icono', field: 'icon',
         cellRenderer: 'customizedMaterialIcon',
         cellRendererParams: {
           name: 'privilege',
@@ -135,24 +135,10 @@ export class ListprivilegeComponent implements OnInit {
     this.gridApi.setQuickFilter(this.searchFilter);
   }
 
-  renderUpdate() {
-  }
-  renderDelete() {
-
-  }
-
-  renderStatus() {
-
-  }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    // send to search api backend all privileges
-    this.privilegeService.getAllDataprivileges()
-      .subscribe(data => {
-        // populate list json privilege
-        this.listPrivilege = data.rows;
-      });
+    this.rowData = this.listPrivilege;
   }
   // obtain all data from the privileges
   getAllData() {

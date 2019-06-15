@@ -23,21 +23,22 @@ import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutt
 })
 export class ListmodulesComponent implements OnInit {
 
-   gridApi;
-   gridColumnApi;
-   components;
-   columnDefs;
-   autoGroupColumnDef;
-   defaultColDef;
-   rowSelection;
-   rowGroupPanelShow;
-   pivotPanelShow;
-   paginationPageSize;
-   paginationNumberFormatter;
-   frameworkComponents;
+  gridApi;
+  gridColumnApi;
+  components;
+  columnDefs;
+  autoGroupColumnDef;
+  defaultColDef;
+  rowSelection;
+  rowGroupPanelShow;
+  pivotPanelShow;
+  paginationPageSize;
+  paginationNumberFormatter;
+  frameworkComponents;
 
   // list data ws module 
   listModule: [];
+  rowData;
 
   texto = 'hiddensearch';
   filtro = true;
@@ -127,13 +128,7 @@ export class ListmodulesComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-
-    // send to search api backend all privileges
-    this.moduleService.getAllDataModules()
-      .subscribe(data => {
-        // populate list json privilege
-        this.listModule = data.rows;
-      });
+    this.rowData = this.listModule;
   }
 
   // obtain all data from the register pods
