@@ -41,8 +41,7 @@ export class ListsalesComponent implements OnInit {
   rowData;
   // list data ws sale
   listSale: [];
-  // array from excel data
-  listExcelsale: any[];
+
   texto = 'hiddensearch';
   filtro = true;
   lineas = 10;
@@ -51,9 +50,13 @@ export class ListsalesComponent implements OnInit {
   since;
   until;
 
-  taxPrice: number = 0;
-  grossPrice: number = 0;
-  netPrice: number = 0;
+  taxPrice = 0;
+  grossPrice = 0;
+  netPrice = 0;
+
+  taxPriceMoney = '$ 0';
+  grossPriceMoney = '$ 0';
+  netPriceMoney = '$ 0';
 
   // var form
   selectDateForm: FormGroup;
@@ -122,11 +125,6 @@ export class ListsalesComponent implements OnInit {
   }
 
   ngOnInit() {
-    // init form
-    this.selectDateForm = this.formBuilder.group({
-      since: ['', Validators.required],
-      until: ['', Validators.required]
-    });
 
     this.getDate();
     // this.getAllData();
@@ -136,15 +134,16 @@ export class ListsalesComponent implements OnInit {
       $('select').formSelect();
       $('.datepicker').datepicker({
         format: 'yyyy-mm-dd',
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 5, // Creates a dropdown of 15 years to control year
-        months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-        weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-        weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
         autoClose: true
       });
     });
+
+    // init form
+    this.selectDateForm = this.formBuilder.group({
+      since: ['', Validators.required],
+      until: ['', Validators.required]
+    });
+
   }
 
   getDate() {
@@ -153,8 +152,8 @@ export class ListsalesComponent implements OnInit {
     this.since = localStorage.getItem('sinceDate');
     this.until = localStorage.getItem('untilDate');
 
-    let d = new Date();
-    let now = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    const d = new Date();
+    const now = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
 
     if (this.since === null) {
       localStorage.setItem('sinceDate', now);
@@ -168,7 +167,7 @@ export class ListsalesComponent implements OnInit {
       localStorage.setItem('untilDate', now);
       this.selectDateForm.value.until = now;
     }
-    
+
     // console.log(localStorage);
   }
 
@@ -188,9 +187,9 @@ export class ListsalesComponent implements OnInit {
 
       localStorage.setItem('untilDate', this.selectDateForm.value.until);
       this.until = this.selectDateForm.value.until;
+      this.cambiaEstado();
+      this.ngOnInit();
     }
-
-    this.ngOnInit();
   }
 
 
@@ -224,41 +223,42 @@ export class ListsalesComponent implements OnInit {
       .subscribe(data => {
         // populate list json sale
         this.listSale = data.rows;
+        console.log(data.rows);
 
         for (const d of data.rows) {
-          console.log(d.tax_price);
           this.taxPrice = this.taxPrice + d.tax_price;
           this.grossPrice = this.grossPrice + d.gross_price;
           this.netPrice = this.netPrice + d.net_price;
         }
+
+        console.log(this.netPrice);
+        this.getFormatTotals();
       });
   }
 
-  // obtain all data from the register sales
-  // getAllData() {
-  //   // send to search api backend all sales
-  //   this.saleService.getAllDataSale()
-  //     .subscribe(data => {
-  //       // populate list json sale
-  //       this.listSale = data.rows;
-  //     });
-  // }
+  getFormatTotals() {
+    console.log(this.netPrice);
+
+    this.netPriceMoney = '$ ' + number_format(this.netPrice, 0);
+    this.taxPriceMoney = '$ ' + number_format(this.taxPrice, 2);
+    this.grossPriceMoney = '$ ' + number_format(this.grossPrice, 2);
+  }
 
   // redirect to create sale
   createSale() {
-    this.router.navigate(['/createsale'])
+    this.router.navigate(['/createsale']);
   }
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.listExcelsale, 'Reporteventas');
+    this.excelService.exportAsExcelFile(this.listSale, 'Reporteventas');
   }
 }
 
 function filter(filterLocalDateAtMidnight, cellValue) {
-  var dateAsString = cellValue;
-  var datePartsA = dateAsString.split(' ');
-  var datePartsB = datePartsA[0].split('-');
+  let dateAsString = cellValue;
+  let datePartsA = dateAsString.split(' ');
+  let datePartsB = datePartsA[0].split('-');
 
-  var cellDate = new Date(Number(datePartsB[0]), Number(datePartsB[1]) - 1, Number(datePartsB[2]));
+  let cellDate = new Date(Number(datePartsB[0]), Number(datePartsB[1]) - 1, Number(datePartsB[2]));
   if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
     return 0;
   }
@@ -282,7 +282,7 @@ function formatNumberdecimal(number) {
       .toFixed(2) // always two decimal digits
       .replace('.', ',') // replace decimal point character with ,
       .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-  ) // use . as a separator
+  ); // use . as a separator
 }
 
 
@@ -299,4 +299,31 @@ function formatNumber(number) {
       .replace('.', ',') // replace decimal point character with ,
       .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
   ); // use . as a separator
+}
+
+
+// function format number
+function number_format(amount, decimals) {
+
+  amount += ''; // por si pasan un numero en vez de un string
+  amount = parseFloat(amount.replace(/[^0-9\.]/g, '')); // elimino cualquier cosa que no sea numero o punto
+
+  decimals = decimals || 0; // por si la variable no fue fue pasada
+
+  // si no es un numero o es igual a cero retorno el mismo cero
+  if (isNaN(amount) || amount === 0) {
+    return parseFloat('0').toFixed(decimals);
+  }
+
+  // si es mayor o menor que cero retorno el valor formateado como numero
+  amount = '' + amount.toFixed(decimals);
+
+  const amount_parts = amount.split('.'),
+    regexp = /(\d+)(\d{3})/;
+
+  while (regexp.test(amount_parts[0])) {
+    amount_parts[0] = amount_parts[0].replace(regexp, '$1' + ',' + '$2');
+  }
+
+  return amount_parts.join('.');
 }

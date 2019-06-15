@@ -19,7 +19,7 @@ import { UserService } from '../../services/user.service';
 export class SaleComponent implements OnInit {
 
   // vars msj
-  msgerr: string = '';
+  msgerr = '';
   // var submitted
   submitted = false;
   // var submitted
@@ -52,7 +52,7 @@ export class SaleComponent implements OnInit {
   seeker;
   waytopay;
   recibo;
-  cambio: number = 0;
+  cambio = 0;
   cambioPesos = '$ 0';
 
   listSaleProduct: any[][] = [];
