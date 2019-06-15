@@ -148,18 +148,18 @@ export class UpdateuserComponent implements OnInit {
         // populate list json module
         this.listPod = data.rows;
         console.log(this.listPod);
-        //init validation checks
+        // init validation checks
         $(function () {
           $('select').formSelect();
         });
-        //vars
+        // vars
         var i = 0;
         var a = 0;
-        //list checked
+        // list checked
         var list = this.listPodCheck;
         $('#rol_id').ready(function () {
           for (i = 0; i < Object.keys(data.rows).length; i++) {
-              //search name in select and add prop selected
+              // search name in select and add prop selected
               if(list[i] !== undefined){
               var search = list[i].name;
               $('#pod_id option:contains(' + search + ')').prop('selected', true);
