@@ -40,6 +40,7 @@ export class ListcategoryComponent implements OnInit {
 
   // list data ws category
   listCategory: [];
+  rowData;
 
   texto = 'hiddensearch';
   filtro = true;
@@ -117,16 +118,10 @@ export class ListcategoryComponent implements OnInit {
 
   onGridReady(params) {
     console.log(params);
-    
+
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-
-    // send to search api backend all privileges
-    this.categoryService.getAllDataCategory()
-      .subscribe(data => {
-        // populate list json privilege
-        this.listCategory = data.rows;
-      });
+    this.rowData = this.listCategory;
   }
   // obtain all data from the category
   getAllData() {
@@ -134,7 +129,6 @@ export class ListcategoryComponent implements OnInit {
     this.categoryService.getAllDataCategory()
       .subscribe(data => {
         // populate list json
-        console.log(data);
         this.listCategory = data.rows;
       });
   }

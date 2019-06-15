@@ -1370,8 +1370,8 @@ DROP procedure IF EXISTS saledate;
 DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE saledate (
-  _begin datetime,
-  _end datetime
+  _begin varchar(10),
+  _end varchar(10)
 )
 BEGIN
 

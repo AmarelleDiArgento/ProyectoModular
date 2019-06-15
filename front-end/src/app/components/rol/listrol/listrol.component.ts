@@ -38,6 +38,7 @@ export class ListrolComponent implements OnInit {
   frameworkComponents;
   // list data ws rol
   listRol: [];
+  rowData
 
   texto = 'hiddensearch';
   filtro = true;
@@ -128,13 +129,7 @@ export class ListrolComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-
-    // send to search api backend all rol
-    this.rolService.getAllDataRol()
-      .subscribe(data => {
-        // populate list json rol
-        this.listRol = data.rows;
-      });
+    this.rowData = this.listRol;
   }
 
   getAllData() {

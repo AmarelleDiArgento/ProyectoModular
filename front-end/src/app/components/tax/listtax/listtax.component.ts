@@ -36,6 +36,7 @@ export class ListtaxComponent implements OnInit {
 
   // list data ws tax
   listTax: [];
+  rowData;
 
   texto = 'hiddensearch';
   filtro = true;
@@ -95,10 +96,10 @@ export class ListtaxComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAllData();
     $(document).ready(function () {
       $('select').formSelect();
     });
-    this.getAllData();
   }
   onPageSizeChanged(value) {
     this.gridApi.paginationSetPageSize(Number(value));
@@ -115,14 +116,9 @@ export class ListtaxComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-
-    // send to search api backend all tax
-    this.taxService.getAllDataTax()
-      .subscribe(data => {
-        // populate list json tax
-        this.listTax = data.rows;
-      });
+    this.rowData = this.listTax;
   }
+
   // obtain all data from the register tax
   getAllData() {
     // send to search api backend all tax
