@@ -30,7 +30,7 @@
               [(ngModel)]="searchFilter" class="validate" required>
             <label for="icon_prefix">Buscar </label>
           </div>
-          <form [formGroup]="selectDateForm" class="from-none" (ngSubmit)="onSubmit()">
+          <form [formGroup]="selectDateForm" class="from-none" (ngSubmit)="onDateSubmit()">
 
             <div class="form-group input-field col s2">
               <label for="since">Desde:</label>

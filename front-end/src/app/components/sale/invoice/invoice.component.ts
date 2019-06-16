@@ -19,13 +19,15 @@ export class InvoiceComponent implements OnInit {
 
 
   // id sale
-  idSale = '';
+  idSale;
   listSale: {};
   net_priceTotal = 0;
   gross_priceTotal = 0;
   tax_priceTotal = 0;
   zero = 0;
-
+  zeros = '';
+  invoiceNumber = 0;
+  invoiceCode = '';
 
   constructor(private http: Http,
     private formBuilder: FormBuilder,
@@ -40,13 +42,38 @@ export class InvoiceComponent implements OnInit {
     // this.router.navigate(['/createsale']);
   }
 
+  getZeros(number, width) {
+    var numberOutput = Math.abs(number); /* Valor absoluto del número */
+    var length = number.toString().length; /* Largo del número */
+    var zero = '0'; /* String de cero */
 
+    if (width <= length) {
+      if (number < 0) {
+        return ('-' + numberOutput.toString());
+      } else {
+        return numberOutput.toString();
+      }
+    } else {
+      if (number < 0) {
+        return ('-' + (zero.repeat(width - length)) + numberOutput.toString());
+      } else {
+        return ((zero.repeat(width - length)) + numberOutput.toString());
+      }
+    }
+  }
+
+  getInvoiceNumber() {
+    this.zeros = this.invoiceCode + ' - ' + this.getZeros(this.invoiceNumber, 10);
+
+  }
 
   // obtain data sale for id
   getSaleDataId() {
     this.saleService.getDataSaleForId(this.idSale)
       .subscribe(data => {
         if (data != null) {
+          console.log(data.rows);
+
           let gross = 0;
           let tax = 0;
           // add values to the form
@@ -57,14 +84,17 @@ export class InvoiceComponent implements OnInit {
             this.net_priceTotal = this.net_priceTotal + c.net_price;
             gross = gross + c.gross_price;
             tax = tax + c.tax_price;
+            this.invoiceNumber = c.invoice_num;
+            this.invoiceCode = c.code;
 
           }
 
           this.gross_priceTotal = number_format(gross, 2);
           this.tax_priceTotal = number_format(tax, 2);
-
+          this.getInvoiceNumber();
         }
-        this.printFile();
+
+         this.printFile();
       });
   }
   // service to print

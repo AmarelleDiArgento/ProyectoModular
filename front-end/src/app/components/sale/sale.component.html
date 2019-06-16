@@ -123,6 +123,18 @@
   </div>
 </div>
 
+<!-- Modal Structure -->
+<div id="ClientRegister" class="modal">
+  <div class="modal-content">
+    <h4>Registrar Cliente</h4>
+    <p>Registra los datos del cliente</p>
+    <app-clientregister></app-clientregister>
+
+  </div>
+  <div class="modal-footer">
+    <a class="waves-effect waves-green btn-flat" (click)="modalClose()">Cerrar</a>
+  </div>
+</div>
 
 <div id="formadepago" class="modal" style="width: 30%;">
   <div class="modal-content row">
@@ -166,7 +178,7 @@
       <div class="row" *ngIf="waytopay === 'Efectivo'">
         <div class="input-field col s12">
           <i class="material-icons prefix">attach_money</i>
-          <input id="recibo" class="pago" name="recibo" type="number" (keyup)="vueltas()" [(ngModel)]="recibo">
+          <input id="recibo" class="pago" name="recibo" type="number" (keyup)="turn()" [(ngModel)]="recibo">
           <label for="recibo">Efectivo</label>
         </div>
         <div class="input-field col s12 center-align">

@@ -36,8 +36,8 @@ export class SaleService {
       .map((response: Response) => response.json())
   }
   // service to api mysql create sale
-  createSale(pod_id, user_id, client_id) {
-    this.params = 'pod_id=' + pod_id + '&user_id=' + user_id + '&client_id=' + client_id;
+  createSale(pod_id, user_id, client_id, list_product) {
+    this.params = 'pod_id=' + pod_id + '&user_id=' + user_id + '&client_id=' + client_id + '&list_product=' + list_product;
     console.log(this.params);
 
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });

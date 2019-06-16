@@ -163,19 +163,5 @@ call proyectomodular.producttaxins(2, 1);
 call proyectomodular.producttaxins(3, 1);
 call proyectomodular.producttaxins(3, 2);	
 
-call proyectomodular.saleins(1, '1020123', '1020123');
-call proyectomodular.sale_productins(1, 3, 4);
-call proyectomodular.sale_productins(1, 2, 1);
-call proyectomodular.sale_productins(1, 1, 1);
-
-call proyectomodular.saleins(1, '1020123', '1020123');
-call proyectomodular.sale_productins(2, 1, 1);
-call proyectomodular.sale_productins(2, 2, 5);
-
-call proyectomodular.saleins(1, '1020123', '1020123');
-call proyectomodular.sale_productins(3, 1, 1);
-call proyectomodular.sale_productins(3, 2, 1);
-call proyectomodular.sale_productins(3, 3, 1);
-call proyectomodular.sale_productins(3, 3, 1);
 
 

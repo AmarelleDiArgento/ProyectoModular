@@ -9,6 +9,7 @@ import { SaleService } from '../../services/sale.service';
 import { CategoryService } from '../../services/category.service';
 import { ProductService } from '../../services/product.service';
 import { UserService } from '../../services/user.service';
+import { forEach } from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -47,6 +48,7 @@ export class SaleComponent implements OnInit {
   gross_priceMoney = '$ 0';
   tax_priceMoney = '$ 0';
   total_priceMoney = '$ 0';
+  listProductSale = '';
 
   total;
   seeker;
@@ -71,23 +73,12 @@ export class SaleComponent implements OnInit {
       waytopay: ['', Validators.required]
     });
 
+    this.getAllDataCategory();
+    this.getAllDataProduct();
     this.idUser = localStorage.getItem('idSesionUser');
     this.idPod = localStorage.getItem('idSesionPod');
+    this.client_id = '1020121';
     // send to search api backend all category
-    this.categoryService.getAllDataCategory()
-      .subscribe(data => {
-        // populate list json
-        // console.log(data);
-        this.listCategory = data.rows;
-      });
-
-    // send to search api backend all category
-    this.productService.getAllDataProduct()
-      .subscribe(data => {
-        // populate list json
-        // console.log(data);
-        this.listProduct = data.rows;
-      });
 
     $(document).ready(function () {
       $('.tabs').tabs();
@@ -99,6 +90,35 @@ export class SaleComponent implements OnInit {
   get fpay() { return this.payForm.controls; }
 
 
+  getAllDataCategory() {
+    this.categoryService.getAllDataCategory()
+      .subscribe(data => {
+        // populate list json
+        // console.log(data);
+        this.listCategory = data.rows;
+      });
+  }
+
+  getAllDataProduct() {
+
+    // send to search api backend all category
+    this.productService.getAllDataProduct()
+      .subscribe(data => {
+        // populate list json
+        // console.log(data);
+        this.listProduct = data.rows;
+      });
+  }
+
+  getAllDataProductSale() {
+    this.listSaleProduct.forEach(ps => {
+      this.listProductSale += ps[0] + ':' + ps[3] + ',';
+    });
+    this.listProductSale = this.listProductSale.substr(0, this.listProductSale.length - 1);
+    console.log(this.listProductSale);
+
+  }
+
   onSubmitPay() {
     this.submittedPay = true;
     // error here if form is invalid
@@ -108,43 +128,34 @@ export class SaleComponent implements OnInit {
       return;
     } else {
 
-      let e = true;
-      for (let i = 0; i < this.listSaleProduct.length; i++) {
 
-        this.saleService.createSaleProduct(
-          this.sale_id,
-          this.listSaleProduct[i][0],
-          this.listSaleProduct[i][3]
-        )
-          .subscribe(data => {
-            if (data.respuesta === 'Success') {
-              console.log(this.listSaleProduct[i][1] + ' Ok!');
-            } else {
-              console.log(this.listSaleProduct[i][1] + ' Error!');
-              console.log(data.respuesta);
-              e = false;
-            }
+      this.saleService.createSale(
+        this.idPod,
+        this.idUser,
+        this.client_id,
+        this.listProductSale
+      )
+        .subscribe(data => {
+          if (data.respuesta === 'Success') {
+            this.sale_id = data.rows[0].sale_id;
+            console.log(data.rows);
 
-          });
-      }
-      if (e) {
+            localStorage.setItem('idSale', this.sale_id);
+            this.router.navigate(['/invoiceprint']);
 
-        localStorage.setItem('idSale', this.sale_id);
-        this.router.navigate(['/invoiceprint']);
+          } else {
+            Swal.fire({
+              type: 'error',
+              title: 'Ups!, algo salio mal',
+              showConfirmButton: false,
+              timer: 2000
+            });
+          }
 
-      } else {
-        Swal.fire({
-          type: 'error',
-          title: 'Ups!, algo salio mal',
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 2000
         });
-
-      }
     }
   }
+
 
   // get form contsales
   get f() { return this.registerSalesForm.controls; }
@@ -157,7 +168,9 @@ export class SaleComponent implements OnInit {
     this.saleService.createSale(
       this.idPod,
       this.idUser,
+      this.client_id,
       this.client_id
+
     )
       .subscribe(data => {
         if (data.respuesta === 'Success') {
@@ -246,6 +259,8 @@ export class SaleComponent implements OnInit {
       this.listSaleProduct.push([p.product_id, p.name, p.image, 1, p.net_price, tax_price, p.net_price, tax_price]);
     }
     this.totals();
+    this.listProductSale = '';
+    this.getAllDataProductSale();
   }
 
   deleteProduct(id) {
@@ -301,7 +316,7 @@ export class SaleComponent implements OnInit {
     }
   }
 
-  vueltas() {
+  turn() {
     if (this.recibo < this.total) {
       this.cambio = 0;
     } else {
@@ -312,9 +327,13 @@ export class SaleComponent implements OnInit {
 
   modalClose() {
 
-    $('#ClientRegister').modal('close');
     this.client_id = localStorage.getItem('idClient');
+    $('#ClientRegister').modal('close');
     this.getClient();
+  }
+  modalOpen() {
+    $('#ClientRegister').modal('open');
+
   }
 }
 // function format number

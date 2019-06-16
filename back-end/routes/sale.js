@@ -9,7 +9,8 @@ router.post('/createsale', function (req, res, next) {
     var saleData = {
         pod_id: req.body.pod_id,
         user_id: req.body.user_id,
-        client_id: req.body.client_id
+        client_id: req.body.client_id,
+        list_product: req.body.list_product
     }
 
     sale.createSale(saleData, function (error, data) {
@@ -77,7 +78,7 @@ router.post('/getdatasalebetween', function (req, res, next) {
         since: req.body.since,
         until: req.body.until
     }
-    sale.dataSale(saleData, function (error, data) {
+    sale.dataSaleBet(saleData, function (error, data) {
         if (error) {
             res.status(504).jsonp({
                 "error": error

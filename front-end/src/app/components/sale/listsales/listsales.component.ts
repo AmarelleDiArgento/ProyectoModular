@@ -91,7 +91,8 @@ export class ListsalesComponent implements OnInit {
         }, width: 80
       },
       {
-        headerName: '', field: 'sale_id',
+        headerName: '',
+        field: 'sale_id',
         cellRenderer: 'customizedDeleteCell',
         cellRendererParams: {
           name: 'sale',
@@ -118,7 +119,7 @@ export class ListsalesComponent implements OnInit {
     };
     this.rowSelection = 'multiple';
     this.pivotPanelShow = 'always';
-    this.paginationPageSize = 10;
+    this.paginationPageSize = 50;
     this.paginationNumberFormatter = function (params) {
       return '[' + params.value.toLocaleString() + ']';
     };
@@ -155,7 +156,7 @@ export class ListsalesComponent implements OnInit {
     const d = new Date();
     const now = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
     console.log(now);
-    
+
 
     if (this.since === null) {
       localStorage.setItem('sinceDate', now);
@@ -177,7 +178,7 @@ export class ListsalesComponent implements OnInit {
   // get form controls
   get f() { return this.selectDateForm.controls; }
   // submit form
-  onSubmit() {
+  onDateSubmit() {
     this.submitted = true;
     // error here if form is invalid
     if (this.selectDateForm.invalid) {
@@ -193,7 +194,6 @@ export class ListsalesComponent implements OnInit {
       this.ngOnInit();
     }
   }
-
 
   onPageSizeChanged(value) {
     this.gridApi.paginationSetPageSize(Number(value));
@@ -232,8 +232,6 @@ export class ListsalesComponent implements OnInit {
           this.grossPrice = this.grossPrice + d.gross_price;
           this.netPrice = this.netPrice + d.net_price;
         }
-
-        console.log(this.netPrice);
         this.getFormatTotals();
       });
   }
@@ -279,14 +277,18 @@ function currencyFormatterdecimal(params) {
 function formatNumberdecimal(number) {
   // this puts commas into the number eg 1000 goes to 1,000,
   // i pulled this from stack overflow, i have no idea how it works
-  return (
-    number
-      .toFixed(2) // always two decimal digits
-      .replace('.', ',') // replace decimal point character with ,
-      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-  ); // use . as a separator
-}
+  if (number > 0) {
+    return (
+      number
+        .toFixed(2) // always two decimal digits
+        .replace('.', ',') // replace decimal point character with ,
+        .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    ); // use . as a separator
+  } else {
+    return 0.00;
+  }
 
+}
 
 function currencyFormatter(params) {
   return '$ ' + formatNumber(params.value);
@@ -295,14 +297,17 @@ function currencyFormatter(params) {
 function formatNumber(number) {
   // this puts commas into the number eg 1000 goes to 1,000,
   // i pulled this from stack overflow, i have no idea how it works
-  return (
-    number
-      .toFixed(0) // always two decimal digits
-      .replace('.', ',') // replace decimal point character with ,
-      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-  ); // use . as a separator
+  if (number > 0) {
+    return (
+      number
+        .toFixed(0) // always two decimal digits
+        .replace('.', ',') // replace decimal point character with ,
+        .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    ); // use . as a separator
+  } else {
+    return 0;
+  }
 }
-
 
 // function format number
 function number_format(amount, decimals) {

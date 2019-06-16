@@ -1,3 +1,4 @@
+use proyectomodular;
 -- ------------------------------------------------------------
 -- CATEGORY PROCEDURE :D
 -- PROCEDURE CATEGORY INSERT
@@ -261,7 +262,7 @@ WHERE pod_id = _pod_id;
 
 END$$
 
-DELIMITER ;;
+DELIMITER ;
 
 
 -- ------------------------------------------------------------
@@ -641,6 +642,55 @@ END$$
 DELIMITER ;
 
 -- ------------------------------------------------------------
+-- PROCEDURE POD_USER INSERT LIST
+-- ------------------------------------------------------------
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS pods_userins $$
+CREATE PROCEDURE pods_userins(_user_id BIGINT, _list MEDIUMTEXT)
+BEGIN
+
+DECLARE _next TEXT DEFAULT NULL;
+DECLARE _nextlen INT DEFAULT NULL;
+DECLARE _pods TEXT DEFAULT NULL;
+CALL pod_userdel(_user_id);
+
+iterator:
+LOOP
+
+-- salir del bucle si la lista parece vacía o era nula;
+-- esta precaución adicional es necesaria para evitar un bucle sin fin en el proceso.
+  IF LENGTH(TRIM(_list)) = 0 OR _list IS NULL THEN
+    LEAVE iterator;
+  END IF;
+
+  -- capture the next value from the list
+  SET _next = SUBSTRING_INDEX(_list,',',1);
+  -- guardar la longitud del valor capturado; necesitaremos eliminar esto
+  -- muchos caracteres + 1 desde el principio de la cadena
+  -- antes de la próxima iteración
+  SET _nextlen = LENGTH(_next);
+
+-- recortar el valor de los espacios iniciales y finales, en el caso de cadenas CSV descuidadas
+  SET _pods = TRIM(_next);
+
+-- Insertar el valor extraído en la tabla de destino.
+  
+  call pod_userins(_user_id,_pods);
+
+-- reescriba la cadena original usando la función de cadena INSERT (),
+-- Los argumentos son la cadena original, la posición de inicio, cuántos caracteres se eliminarán,
+-- y qué "insertar" en su lugar (en este caso, nosotros "insertamos"
+-- una cadena vacía, que elimina _nextlen + 1 caracteres)
+  SET _list = INSERT(_list,1,_nextlen + 1,'');
+END LOOP;
+
+END $$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
 -- PROCEDURE POD_USER DELETE BY ID
 -- ------------------------------------------------------------
 DROP procedure IF EXISTS pod_userdel;
@@ -648,13 +698,12 @@ DROP procedure IF EXISTS pod_userdel;
 DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE pod_userdel (
-  _ps_user_id varchar(45),
-  _ps_pod_id int(11)
+  _ps_user_id varchar(45)
   )
 BEGIN
 
 DELETE FROM proyectomodular.pod_user
-WHERE ps_user_id = _ps_user_id AND ps_pod_id = _ps_pod_id;
+WHERE ps_user_id = _ps_user_id;
 
 END$$
 
@@ -964,13 +1013,17 @@ _product_id BIGINT
 )
 BEGIN
 
-SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, t.tax_id, t.name as tax_name, sum(t.percent) as tax_percent, p.status, p.image
-FROM proyectomodular.product AS p
-left join product_tax as pt on p.product_id = pt.pt_product_id
-left join tax as t on pt.pt_tax_id = t.tax_id
-left join category as c on p.category_id = c.category_id
-WHERE p.product_id = _product_id 
-group by p.product_id;
+	SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name, 
+		GROUP_CONCAT(DISTINCT t.tax_id ORDER BY t.name ASC SEPARATOR ', ') as tax_id , 
+		GROUP_CONCAT(DISTINCT t.name ORDER BY t.name ASC SEPARATOR ', ') as tax_name , 
+		sum(t.percent) as tax_percent, p.image, p.status
+	FROM proyectomodular.product AS p
+		left join product_tax as pt on p.product_id = pt.pt_product_id
+		left join tax as t on pt.pt_tax_id = t.tax_id
+	left join category as c on p.category_id = c.category_id
+	WHERE p.product_id = _product_id 
+	group by p.product_id;
+
 END$$
 
 DELIMITER ;
@@ -1060,7 +1113,8 @@ BEGIN
 	left join product_tax as pt on p.product_id = pt.pt_product_id
 	left join tax as t on pt.pt_tax_id = t.tax_id
 	inner join category as c on p.category_id = c.category_id
-	group by p.code;
+	group by p.product_id
+    order by p.name;
 
 
 END$$
@@ -1123,6 +1177,8 @@ SET
  `delete` = _delete
 WHERE rp_rol_id = _rp_rol_id AND rp_privilege_id= _rp_privilege_id;
 END$$
+
+DELIMITER ;
 
 -- ------------------------------------------------------------
 -- PROCEDURE ROL_PRIVILEGE ONE BY ID
@@ -1224,17 +1280,21 @@ CREATE PROCEDURE saleins (
 
   in _pod_id INT(11),
   in _user_id VARCHAR(45),
-  in _client_id VARCHAR(45)	
+  in _client_id VARCHAR(45),
+    in _list_product MEDIUMTEXT
 )
 BEGIN
+declare num bigint;
 
-call proyectomodular.salenum(_pod_id, @numfac);
+	call proyectomodular.salenum(_pod_id, @numfac);
 
-INSERT INTO proyectomodular.sale
-(invoice_num, date, pod_id, user_id, client_id)
-VALUES
-(@numfac,NOW(),_pod_id, _user_id, _client_id);
-SELECT LAST_INSERT_ID() as sale_id;
+	INSERT INTO proyectomodular.sale
+	(invoice_num, date, pod_id, user_id, client_id)
+	VALUES
+	(@numfac,NOW(),_pod_id, _user_id, _client_id);
+	SELECT LAST_INSERT_ID() into num;
+	call proyectomodular.sale_productsins(num , _list_product);
+    select num as sale_id;
 END$$
 
 DELIMITER ;
@@ -1306,6 +1366,61 @@ VALUES
 (_sp_product_id, _sp_sale_id, gross, tax, net, _quantity);
 
 END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE SALE_PRODUCTS INSERT
+-- ------------------------------------------------------------
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS sale_productsins $$
+CREATE PROCEDURE sale_productsins(_venta BIGINT, _list MEDIUMTEXT)
+BEGIN
+
+DECLARE _next TEXT DEFAULT NULL;
+DECLARE _nextlen INT DEFAULT NULL;
+DECLARE _value TEXT DEFAULT NULL;
+DECLARE _product_id BIGINT;
+DECLARE _quantity INT;
+
+
+iterator:
+LOOP
+
+-- salir del bucle si la lista parece vacía o era nula;
+-- esta precaución adicional es necesaria para evitar un bucle sin fin en el proceso.
+  IF LENGTH(TRIM(_list)) = 0 OR _list IS NULL THEN
+    LEAVE iterator;
+  END IF;
+
+  -- capture the next value from the list
+  SET _next = SUBSTRING_INDEX(_list,',',1);
+  -- guardar la longitud del valor capturado; necesitaremos eliminar esto
+  -- muchos caracteres + 1 desde el principio de la cadena
+  -- antes de la próxima iteración
+  SET _nextlen = LENGTH(_next);
+
+-- recortar el valor de los espacios iniciales y finales, en el caso de cadenas CSV descuidadas
+  SET _value = TRIM(_next);
+
+-- Insertar el valor extraído en la tabla de destino.
+
+  SET _product_id = left(_value,locate(':',_value)-1);
+  SET _quantity = right(_value,length(_value)-locate(':',_value));
+  -- SELECT left(_value,locate(':',_value)-1) AS product, right(_value,length(_value)-locate(':',_value)) as quantity;
+  
+  call sale_productins(_venta,_product_id,_quantity);
+
+-- reescriba la cadena original usando la función de cadena INSERT (),
+-- Los argumentos son la cadena original, la posición de inicio, cuántos caracteres se eliminarán,
+-- y qué "insertar" en su lugar (en este caso, nosotros "insertamos"
+-- una cadena vacía, que elimina _nextlen + 1 caracteres)
+  SET _list = INSERT(_list,1,_nextlen + 1,'');
+END LOOP;
+
+END $$
 
 DELIMITER ;
 
@@ -1427,21 +1542,18 @@ CREATE PROCEDURE saledate (
 )
 BEGIN
 
-	SELECT concat(po.code, '-', invoice_num) as invoice_num, s.sale_id, s.date, po.pod_id, po.name as pod_name, 
+	SELECT concat(po.code, ' - ', invoice_num) as invoice_num, s.sale_id, s.date, po.pod_id, po.name as pod_name, 
     s.user_id, u.username as user_name, s.client_id, c.username as client_name, 
-    GROUP_CONCAT(DISTINCT t.name ORDER BY t.name ASC SEPARATOR ', ') as tax_name, 
-    GROUP_CONCAT(DISTINCT t.percent ORDER BY t.name ASC SEPARATOR ', ') as tax_percent,  
     sum(sp.tax_price) as tax_price, sum(sp.gross_price) gross_price, sum(sp.net_price) as net_price
 	FROM pod as po 
-	inner join sale as s on po.pod_id = s.pod_id
-	inner join sale_product as sp on s.sale_id = sp.sp_sale_id
-	inner join product as p on sp.sp_product_id = p.product_id
-    left join product_tax as pt on p.product_id = pt.pt_product_id
-    left join tax as t on pt.pt_tax_id = t.tax_id
-	inner join user as u on s.user_id = u.user_id  
-	inner join user as c on s.client_id = c.user_id 
+	left join sale as s on po.pod_id = s.pod_id
+	left join sale_product as sp on s.sale_id = sp.sp_sale_id
+	left join product as p on sp.sp_product_id = p.product_id
+	left join user as u on s.user_id = u.user_id  
+	left join user as c on s.client_id = c.user_id 
 	where s.date between concat(_begin, " 00:00:00") and concat(_end, " 23:59:59")
-	group by sale_id;
+	group by sale_id
+    order by sale_id desc;
 	
 END$$
 
@@ -1476,6 +1588,59 @@ END$$
 DELIMITER ;
 
 -- ------------------------------------------------------------
+-- PROCEDURE PRODUCT_TAX INSERT LIST
+-- ------------------------------------------------------------
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS producttaxsins $$
+CREATE PROCEDURE producttaxsins(_product_id BIGINT, _list MEDIUMTEXT)
+BEGIN
+
+DECLARE _next TEXT DEFAULT NULL;
+DECLARE _nextlen INT DEFAULT NULL;
+DECLARE _taxs TEXT DEFAULT NULL;
+CALL producttaxdel(_product_id);
+
+iterator:
+LOOP
+
+-- salir del bucle si la lista parece vacía o era nula;
+-- esta precaución adicional es necesaria para evitar un bucle sin fin en el proceso.
+  IF LENGTH(TRIM(_list)) = 0 OR _list IS NULL THEN
+    LEAVE iterator;
+  END IF;
+
+  -- capture the next value from the list
+  SET _next = SUBSTRING_INDEX(_list,',',1);
+  -- guardar la longitud del valor capturado; necesitaremos eliminar esto
+  -- muchos caracteres + 1 desde el principio de la cadena
+  -- antes de la próxima iteración
+  SET _nextlen = LENGTH(_next);
+
+-- recortar el valor de los espacios iniciales y finales, en el caso de cadenas CSV descuidadas
+  SET _taxs = TRIM(_next);
+
+-- Insertar el valor extraído en la tabla de destino.
+
+  -- SELECT left(_taxs,locate(':',_taxs)-1) AS product, right(_taxs,length(_taxs)-locate(':',_taxs)) as quantity;
+  
+  call producttaxins(_product_id,_taxs);
+
+-- reescriba la cadena original usando la función de cadena INSERT (),
+-- Los argumentos son la cadena original, la posición de inicio, cuántos caracteres se eliminarán,
+-- y qué "insertar" en su lugar (en este caso, nosotros "insertamos"
+-- una cadena vacía, que elimina _nextlen + 1 caracteres)
+  SET _list = INSERT(_list,1,_nextlen + 1,'');
+END LOOP;
+
+END $$
+
+DELIMITER ;
+
+
+
+-- ------------------------------------------------------------
 -- PROCEDURE PRODUCT_TAX DELETE
 -- ------------------------------------------------------------
 
@@ -1484,12 +1649,11 @@ DROP procedure IF EXISTS producttaxdel;
 DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE  producttaxdel(
-  _pt_product_id INT(11),
-  _pt_tax_id INT(11)
+  _pt_product_id INT(11)
 )
 BEGIN
 DELETE FROM proyectomodular.product_tax
-WHERE pt_product_id = _pt_product_id and pt_tax_id = _pt_tax_id;
+WHERE pt_product_id = _pt_product_id;
 
 END$$
 

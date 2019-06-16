@@ -50,7 +50,7 @@ export class ProductService {
       .map((response: Response) => response.json())
   }
   // service to api mysql update product
-  updateProduct(product_id, code, name, net_price, category_id, image, status) {
+  updateProduct(product_id, code, name, net_price, category_id, tax_id, image, status) {
     let s;
     if (status) { s = 1; } else { s = 0; }
     this.params = 'product_id=' + product_id +
@@ -58,6 +58,7 @@ export class ProductService {
       '&name=' + name +
       '&net_price=' + net_price +
       '&category_id=' + category_id +
+      '&tax_id=' + tax_id +
       '&image=' + image +
       '&status=' + s;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });

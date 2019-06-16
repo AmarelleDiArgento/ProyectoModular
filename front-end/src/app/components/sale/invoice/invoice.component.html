@@ -1,18 +1,16 @@
-
 <div class="row center">
   <div class="col s3"></div>
   <div class="col s6 " style="background: white;">
     <div class="row">
       <div id="bill" class="center">
         {{listSale[zero].pod_name}} <br>
-        RAZON SOCIAL <br>
         NIT: {{listSale[zero].nit}} TEL {{listSale[zero].phone}} <br>
         {{listSale[zero].address}} <br>
         <br>
 
         <div class="row left-align" style="height: 35px; margin: 0%">
           <div class="col s12 center">FACTURA DE VENTAS</div>
-          <div class="col s12 center"></div>
+          <div class="col s12 center">{{zeros}}</div>
         </div>
         <br>
 
@@ -24,7 +22,8 @@
 
             </div>
             <div class="col s6">
-              Fecha: {{listSale[zero].date}} <br>
+              Fecha: <br>
+              {{listSale[zero].date}} <br>
 
             </div>
           </div>
@@ -46,25 +45,26 @@
               <div class="col s2">{{s.product_id}} </div>
               <div class="col s2 center-align">{{s.quantity}}</div>
               <div class="col s5">{{s.name}}</div>
-              <div class="col s3">$ {{s.net_price}}</div>
+              <div class="col s3 right-align">$ {{s.net_price}}</div>
             </div>
           </div>
 
           <div class="row left-align" style="height: 35px; margin: 0%">
             <div class="col s9">TOTAL</div>
-            <div class="col s3">$ {{net_priceTotal}}</div>
+            <div class="col s3 right-align">$ {{net_priceTotal}}</div>
           </div>
 
           <div class="row left-align" style="height: 35px; margin: 0%">
             <div class="col s12 center">DETALLE DE VALORES</div>
             <br>
             <div>
-              <div class="col s8">IVA</div>
-              <div class="col s4 right-align">$ {{tax_priceTotal}}</div>
-            </div>
-            <div>
               <div class="col s8">BASE</div>
               <div class="col s4 right-align">$ {{gross_priceTotal}}</div>
+            </div>
+            <div>
+              <div class="col s8">IVA</div>
+              <div class="col s4 right-align">$ {{tax_priceTotal}}</div>
+
             </div>
           </div>
           <br><br>
@@ -84,13 +84,13 @@
           </div>
           <br><br>
 
-    <div class="row left-align" style="height: 35px; margin: 0%">
-      <div class="col s12 center">R DIAN 000000000000 12/05/19 </div>
-      <div class="col s12 center">RANGO 1 A 1000</div>
-      <br><br>
-      <br>
-      <div class="col s12 center">GRACIAS POR SU COMPRA</div>
+          <div class="row left-align" style="height: 35px; margin: 0%">
+            <div class="col s12 center">R DIAN 000000000000 12/05/19 </div>
+            <div class="col s12 center">RANGO 1 A 1000</div>
+            <br><br>
+            <br>
+            <div class="col s12 center">GRACIAS POR SU COMPRA</div>
 
-    </div>
-  </div>
-</div>
+          </div>
+        </div>
+      </div>

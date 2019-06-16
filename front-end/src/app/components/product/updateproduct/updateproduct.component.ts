@@ -90,6 +90,7 @@ export class UpdateproductComponent implements OnInit {
         this.updateProductForm.value.net_price,
         this.updateProductForm.value.category_id,
         this.updateProductForm.value.tax_id,
+        this.updateProductForm.value.image,
         this.updateProductForm.value.status)
         .subscribe(data => {
           if (data.respuesta === 'Success') {
@@ -105,6 +106,8 @@ export class UpdateproductComponent implements OnInit {
     this.productService.getDataProductForId(this.idProduct)
       .subscribe(data => {
         if (data != null) {
+          console.log(data);
+          
           // add values to the form
           this.updateProductForm.get('product_id').setValue(this.idProduct);
           this.updateProductForm.get('code').setValue(data.rows[0].code);
