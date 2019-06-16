@@ -97,8 +97,6 @@ export class UpdateuserComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log('Llegue al metodo');
-
     this.submitted = true;
     // error here if form is invalid
     if (this.updateUserForm.invalid) {
@@ -113,15 +111,35 @@ export class UpdateuserComponent implements OnInit {
         this.updateUserForm.value.status
       )
         .subscribe(data => {
-          // tslint:disable-next-line: triple-equals
           if (data.respuesta == 'Success') {
-            this.router.navigate(['/listuser']);
+            //espacio elimina todo por id de usuario en pod users
+
+            //code here -------------------------------
+
+            //luego actualiza en pod users
+            var countPod = this.updateUserForm.value.pod_id.length;
+            for (var i = 0; i <= countPod; i++) {
+              //update pod users
+              this.userService.updateUsersPod(this.updateUserForm.value.user_id, this.updateUserForm.value.pod_id[i])
+                .subscribe(dataPod => {
+                  //if equals
+                  if(i == countPod ){
+                  if (dataPod.respuesta == 'Success') {
+                    this.router.navigate(['/listuser']);
+                  } else {
+                    this.msgerr = 'error al actualizar el usuario-lugar';
+                  }
+                  //end if
+                }
+                })
+              //end for
+            }
+            //else user
           } else {
-            this.msgerr = 'error al actualizar rol';
+            this.msgerr = 'error al actualizar el usuario';
           }
         })
     }
-
   }
   // obtain data user for id
   getUserDataId() {
@@ -148,22 +166,22 @@ export class UpdateuserComponent implements OnInit {
         // populate list json module
         this.listPod = data.rows;
         console.log(this.listPod);
-        // init validation checks
+        //init validation checks
         $(function () {
           $('select').formSelect();
         });
-        // vars
+        //vars
         var i = 0;
         var a = 0;
-        // list checked
+        //list checked
         var list = this.listPodCheck;
         $('#rol_id').ready(function () {
           for (i = 0; i < Object.keys(data.rows).length; i++) {
-              // search name in select and add prop selected
-              if(list[i] !== undefined){
+            //search name in select and add prop selected
+            if (list[i] !== undefined) {
               var search = list[i].name;
               $('#pod_id option:contains(' + search + ')').prop('selected', true);
-              } 
+            }
           }
           $('#pod_id').formSelect();
         });
