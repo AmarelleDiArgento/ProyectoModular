@@ -61,7 +61,7 @@ export class UpdateproductComponent implements OnInit {
     });
     // asign id product to search data
     this.idProduct = localStorage.getItem('idProduct');
-    // get product tax check
+    //get product tax check
     this.getProductTax(this.idProduct);
     // eject ws search product for id
     this.getProductDataId();
@@ -94,7 +94,29 @@ export class UpdateproductComponent implements OnInit {
         this.updateProductForm.value.status)
         .subscribe(data => {
           if (data.respuesta === 'Success') {
-            this.router.navigate(['/listproducts']);
+            //espacio elimina todo por id de producto en tax products
+
+            //code here -------------------------------
+
+            //luego actualiza en tax products
+            var countTax = this.updateProductForm.value.tax_id.length;
+            for (var i = 0; i <= countTax; i++) {
+              //update tax product
+              this.productService.updateProductTax(this.idProduct, this.updateProductForm.value.tax_id[i])
+                .subscribe(dataTax => {
+                  //if equals
+                  if (i == countTax) {
+                    if (dataTax.respuesta == 'Success') {
+                      this.router.navigate(['/listproducts']);
+                    } else {
+                      this.msgerr = 'error al actualizar el producto - impuesto';
+                    }
+                    //end if
+                  }
+                })
+              //end for
+            }
+            //else product
           } else {
             this.msgerr = 'error al actualizar el producto';
           }
@@ -138,17 +160,17 @@ export class UpdateproductComponent implements OnInit {
         // populate list json
         // console.log(data);
         this.listTax = data.rows;
-      // init validation checks
+      //init validation checks
       $(function () {
         $('select').formSelect();
       });
-      // vars
+      //vars
       var i = 0;
-      // list checked
+      //list checked
       var list = this.listCheck;
       $('#category_id').ready(function () {
         for (i = 0; i < Object.keys(data.rows).length; i++) {
-            // search name in select and add prop selected
+            //search name in select and add prop selected
             if(list[i] !== undefined){
             var search = list[i].name;
             $('#tax_id option:contains(' + search + ')').prop('selected', true);
