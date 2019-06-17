@@ -112,28 +112,16 @@ export class UpdateuserComponent implements OnInit {
       )
         .subscribe(data => {
           if (data.respuesta == 'Success') {
-            //espacio elimina todo por id de usuario en pod users
-
-            //code here -------------------------------
-
-            //luego actualiza en pod users
-            var countPod = this.updateUserForm.value.pod_id.length;
-            for (var i = 0; i <= countPod; i++) {
+            //update en pod users
               //update pod users
-              this.userService.updateUsersPod(this.updateUserForm.value.user_id, this.updateUserForm.value.pod_id[i])
+              this.userService.updateUsersPod(this.updateUserForm.value.user_id, this.updateUserForm.value.pod_id)
                 .subscribe(dataPod => {
-                  //if equals
-                  if(i == countPod ){
                   if (dataPod.respuesta == 'Success') {
                     this.router.navigate(['/listuser']);
                   } else {
                     this.msgerr = 'error al actualizar el usuario-lugar';
                   }
-                  //end if
-                }
                 })
-              //end for
-            }
             //else user
           } else {
             this.msgerr = 'error al actualizar el usuario';

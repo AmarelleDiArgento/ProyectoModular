@@ -77,6 +77,7 @@ export class UpdateproductComponent implements OnInit {
   }
   // get form controls
   get f() { return this.updateProductForm.controls; }
+  // send submit
   onSubmit() {
     this.submitted = true;
     // error here if form is invalid
@@ -94,28 +95,16 @@ export class UpdateproductComponent implements OnInit {
         this.updateProductForm.value.status)
         .subscribe(data => {
           if (data.respuesta === 'Success') {
-            //espacio elimina todo por id de producto en tax products
-
-            //code here -------------------------------
-
-            //luego actualiza en tax products
-            var countTax = this.updateProductForm.value.tax_id.length;
-            for (var i = 0; i <= countTax; i++) {
+            //update tax products
               //update tax product
-              this.productService.updateProductTax(this.idProduct, this.updateProductForm.value.tax_id[i])
+              this.productService.updateProductTax(this.idProduct, this.updateProductForm.value.tax_id)
                 .subscribe(dataTax => {
-                  //if equals
-                  if (i == countTax) {
                     if (dataTax.respuesta == 'Success') {
                       this.router.navigate(['/listproducts']);
                     } else {
                       this.msgerr = 'error al actualizar el producto - impuesto';
                     }
-                    //end if
-                  }
                 })
-              //end for
-            }
             //else product
           } else {
             this.msgerr = 'error al actualizar el producto';

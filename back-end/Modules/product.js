@@ -13,6 +13,7 @@ let upd = `call proyectomodular.productupd(?,?, ?, ?, ?, ?, ?);`;
 let del = `call proyectomodular.productdel(?);`;
 let all = `call proyectomodular.productall();`;
 let one = `call proyectomodular.productone(?);`;
+let insprodtax = `call proyectomodular.producttaxsins(?,?);`;
 
 productModel.createproduct = function (prodData, callback) {
 
@@ -227,9 +228,13 @@ productModel.dataAllProductTax = function (prodData, callback) {
 }
 
 productModel.updateProductTax = function (prodData, callback) {
-    var query = "UPDATE product_tax SET pt_product_id=" + prodData.pt_product_id + ", pt_tax_id=" + prodData.pt_tax_id + " WHERE pt_product_id=" + prodData.pt_product_id + ", pt_tax_id=" + prodData.pt_tax_id + " "
+    
     if (connection) {
-        connection.query(query, function (error, rows) {
+        connection.query(insprodtax,
+            [
+                prodData.pt_product_id,
+                prodData.pt_tax_id
+            ], function (error, rows) {
             if (error) {
                 console.log(error)
                 callback(null, {
@@ -237,6 +242,7 @@ productModel.updateProductTax = function (prodData, callback) {
                 })
             } else {
                 if (rows.length != 0) {
+                    rows = rows[0];
                     var jsonObj = {
                         rows,
                         respuesta: "Success"
