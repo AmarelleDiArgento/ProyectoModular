@@ -18,6 +18,7 @@ let res = `call proyectomodular.userpasres(?,?);`;
 let del = `call proyectomodular.userdel(?);`;
 let all = `call proyectomodular.userall();`;
 let one = `call proyectomodular.userone(?);`;
+let inspoduser = `call proyectomodular.pods_userins(?,?);`;
 
 userModel.createUser = function (userData, callback) {
   var pass;
@@ -374,9 +375,12 @@ userModel.dataAllPodUser = function (userData, callback) {
 }
 
 userModel.updatatePodUser = function (userData, callback) {
-  var query = "UPDATE pod_user SET ps_user_id=" + userData.ps_user_id + ", ps_pod_id=" + userData.ps_pod_id + " WHERE ps_user_id=" + userData.ps_user_id + ", ps_pod_id=" + userData.ps_pod_id + " "
-  if (connection) {
-    connection.query(query, function (error, rows) {
+ if (connection) {
+    connection.query(inspoduser,
+      [
+        userData.ps_user_id,
+        userData.ps_pod_id
+      ], function (error, rows) {
       if (error) {
         console.log(error)
         callback(null, {
@@ -384,6 +388,7 @@ userModel.updatatePodUser = function (userData, callback) {
         })
       } else {
         if (rows.length != 0) {
+          rows = rows[0];
           var jsonObj = {
             rows,
             respuesta: "Success"
