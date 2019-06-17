@@ -1281,7 +1281,9 @@ CREATE PROCEDURE saleins (
   in _pod_id INT(11),
   in _user_id VARCHAR(45),
   in _client_id VARCHAR(45),
-    in _list_product MEDIUMTEXT
+  in _cardpayment tinyint(1),
+  in _authorization varchar(45),
+  in _list_product MEDIUMTEXT
 )
 BEGIN
 declare num bigint;
@@ -1289,12 +1291,12 @@ declare num bigint;
 	call proyectomodular.salenum(_pod_id, @numfac);
 
 	INSERT INTO proyectomodular.sale
-	(invoice_num, date, pod_id, user_id, client_id)
+	(invoice_num, date, pod_id, cardpayment, authorization, user_id, client_id)
 	VALUES
-	(@numfac,NOW(),_pod_id, _user_id, _client_id);
-	SELECT LAST_INSERT_ID() into num;
+	(@numfac,NOW(),_pod_id, _cardpayment, _authorization,_user_id, _client_id);
+	SELECT LAST_INSERT_ID() INTO num;
 	call proyectomodular.sale_productsins(num , _list_product);
-    select num as sale_id;
+SELECT num AS sale_id;
 END$$
 
 DELIMITER ;
@@ -1376,7 +1378,10 @@ DELIMITER ;
 DELIMITER $$
 
 DROP PROCEDURE IF EXISTS sale_productsins $$
-CREATE PROCEDURE sale_productsins(_venta BIGINT, _list MEDIUMTEXT)
+CREATE PROCEDURE sale_productsins(
+	_venta BIGINT, 
+	_list MEDIUMTEXT
+    )
 BEGIN
 
 DECLARE _next TEXT DEFAULT NULL;
@@ -1505,7 +1510,7 @@ DELIMITER ;
 -- ------------------------------------------------------------
 
 DROP procedure IF EXISTS saleone;
-
+sale_id
 DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE saleone (

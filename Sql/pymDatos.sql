@@ -76,6 +76,19 @@ call proyectomodular.productins('164859634', 'Uvas Pasas', '600', 1, 'https://im
 -- call proyectomodular.productonebycode(?);
 -- call proyectomodular.productdel(?);
 
+
+call producttaxsins(1,'1');
+call producttaxsins(2,'1,2');
+call producttaxsins(3,'1');
+call producttaxsins(4,'1,2');
+call producttaxsins(5,'2');
+call producttaxsins(6,'2');
+call producttaxsins(7,'2');
+call producttaxsins(8,'1,2');
+call producttaxsins(9,'1');
+call producttaxsins(10,'1,2');
+call producttaxsins(11,'1');
+
 -- ------------------------------------------------------------
 -- MODULE INSERT
 -- ------------------------------------------------------------
@@ -149,19 +162,14 @@ call proyectomodular.podins('NQS', '860011153-6', '23765028180211', '2015-12-11'
 -- POD_USER INSERT
 -- ------------------------------------------------------------
 
-call proyectomodular.pod_userins('1020122',1);
-call proyectomodular.pod_userins('1020122',2);
-call proyectomodular.pod_userins('1020122',3);
-call proyectomodular.pod_userins('1020123',1);
+call proyectomodular.pods_userins('1020122','1,2,3');
+call proyectomodular.pods_userins('1020123','1');
+
 -- call proyectomodular.pod_userins(?,?);
 -- call proyectomodular.pod_userins(?,?);
 -- call proyectomodular.pod_userallpodbyuser(?);
 -- call proyectomodular.pod_useralluserbypod(2);
 
-call proyectomodular.producttaxins(1, 1);
-call proyectomodular.producttaxins(2, 1);
-call proyectomodular.producttaxins(3, 1);
-call proyectomodular.producttaxins(3, 2);	
 
 
 

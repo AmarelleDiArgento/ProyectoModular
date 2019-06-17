@@ -39,6 +39,7 @@
         <div class="col s4">
           <h4 class="center">{{sale_id}}</h4>
         </div>
+        <!---
         <ng-container *ngIf="client != null; else elseTemplate">
           <div class="col s8">
             <p class="left">Cliente: </p>
@@ -54,14 +55,14 @@
               <label for="client_id">Documento</label>
             </div>
             <div class="input-field col s1">
-              <!-- Modal Trigger -->
+              <!-- Modal Trigger 
               <a class="waves-effect waves-light btn-floating modal-trigger" href="#ClientRegister">
                 <i class="material-icons white-text">person_add</i>
               </a>
             </div>
           </form>
         </ng-template>
-
+      -->
         <div class="input-field col s12">
           <i class="material-icons prefix">center_focus_strong</i>
           <input id="icon_prefix" name="seeker" (keypress)="productSearch($event)" [(ngModel)]="seeker" type="text"
@@ -114,16 +115,17 @@
     <h5 class="center">{{gross_priceMoney}}</h5>
   </div>
   <div class="col s3">
-      <p class="left">Total:</p>
-      <h5 class="center">{{total_priceMoney}}</h5>
-    </div>
+    <p class="left">Total:</p>
+    <h5 class="center">{{total_priceMoney}}</h5>
+  </div>
   <div class="col s4 center">
-    <a class="waves-effect waves-light btn modal-trigger" style="width: 100%; margin: 3% 0%;" href="#formadepago">Pagar</a>
-      <!-- <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a> -->
+    <a class="waves-effect waves-light btn modal-trigger" style="width: 100%; margin: 3% 0%;"
+      href="#formadepago">Pagar</a>
+    <!-- <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a> -->
   </div>
 </div>
 
-<!-- Modal Structure -->
+<!-- Modal Structure 
 <div id="ClientRegister" class="modal">
   <div class="modal-content">
     <h4>Registrar Cliente</h4>
@@ -135,7 +137,7 @@
     <a class="waves-effect waves-green btn-flat" (click)="modalClose()">Cerrar</a>
   </div>
 </div>
-
+-->
 <div id="formadepago" class="modal" style="width: 30%;">
   <div class="modal-content row">
 
@@ -152,7 +154,7 @@
         <div class="form-group col m6 s6">
           <p>
             <label>
-              <input type="radio" value="Efectivo" formControlName="waytopay" [(ngModel)]="waytopay"
+              <input type="radio" value="Efectivo" formControlName="waytopay"
                 [ngClass]="{ 'is-invalid': submittedPay && fpay.waytopay.errors }" required />
               <span><i class="material-icons ">monetization_on</i> Efectivo</span>
             </label>
@@ -161,7 +163,7 @@
         <div class="form-group col m6 s6">
           <p>
             <label>
-              <input type="radio" value="Tarjeta" formControlName="waytopay" [(ngModel)]="waytopay"
+              <input type="radio" value="Tarjeta" formControlName="waytopay"
                 [ngClass]="{ 'is-invalid': submittedPay && fpay.waytopay.errors }" required />
               <span><i class="material-icons ">payment</i> Tarjeta</span>
             </label>
@@ -190,15 +192,15 @@
       <div class="row" *ngIf="waytopay === 'Tarjeta'">
 
         <div class="input-field col s12 center-align">
-          <p id="base" class="pago automargin"> {{gross_priceMoney}} </p>
+          <p id="base" class="pago automargin right-align"> {{gross_priceMoney}} </p>
           <label for="base">Base: </label>
         </div>
         <div class="input-field col s12 center-align">
-          <p id="iva" class="pago automargin"> {{tax_priceMoney}} </p>
+          <p id="iva" class="pago automargin right-align"> {{tax_priceMoney}} </p>
           <label for="iva">IVA: </label>
         </div>
         <div class="input-field col s12 center-align">
-          <p id="total" class="pago automargin"> {{total_priceMoney}} </p>
+          <p id="total" class="pago automargin right-align"> {{total_priceMoney}} </p>
           <label for="total">Total: </label>
         </div>
         <div class="input-field col s12">

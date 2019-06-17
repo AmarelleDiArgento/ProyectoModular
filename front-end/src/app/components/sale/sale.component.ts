@@ -53,6 +53,7 @@ export class SaleComponent implements OnInit {
   total;
   seeker;
   waytopay;
+  authorization;
   recibo;
   cambio = 0;
   cambioPesos = '$ 0';
@@ -70,7 +71,8 @@ export class SaleComponent implements OnInit {
   ngOnInit() {
     // init form
     this.payForm = this.formBuilder.group({
-      waytopay: ['', Validators.required]
+      waytopay: ['', Validators.required],
+      
     });
 
     this.getAllDataCategory();
@@ -133,6 +135,8 @@ export class SaleComponent implements OnInit {
         this.idPod,
         this.idUser,
         this.client_id,
+        this.waytopay,
+        this.authorization,
         this.listProductSale
       )
         .subscribe(data => {
@@ -161,57 +165,57 @@ export class SaleComponent implements OnInit {
   get f() { return this.registerSalesForm.controls; }
 
   // submit form
-  onSubmit() {
-    this.submitted = true;
-    console.log('clic');
-    // send to api backend create user
-    this.saleService.createSale(
-      this.idPod,
-      this.idUser,
-      this.client_id,
-      this.client_id
+  // onSubmit() {
+  //   this.submitted = true;
+  //   console.log('clic');
+  //   // send to api backend create user
+  //   this.saleService.createSale(
+  //     this.idPod,
+  //     this.idUser,
+  //     this.client_id,
+  //     this.client_id
 
-    )
-      .subscribe(data => {
-        if (data.respuesta === 'Success') {
-          this.sale_id = data.rows[0].sale_id;
-        } else {
-          Swal.fire({
-            title: 'Ups!',
-            text: 'Usuario no registrado',
-            type: 'error',
-            showCancelButton: true,
-            confirmButtonText: 'Registrar'
-          }).then((result) => {
-            if (result.value) {
-              localStorage.setItem('noClient', this.client_id);
-              $('#ClientRegister').modal('open');
-            }
-          });
-        }
-      });
-  }
+  //   )
+  //     .subscribe(data => {
+  //       if (data.respuesta === 'Success') {
+  //         this.sale_id = data.rows[0].sale_id;
+  //       } else {
+  //         Swal.fire({
+  //           title: 'Ups!',
+  //           text: 'Usuario no registrado',
+  //           type: 'error',
+  //           showCancelButton: true,
+  //           confirmButtonText: 'Registrar'
+  //         }).then((result) => {
+  //           if (result.value) {
+  //             localStorage.setItem('noClient', this.client_id);
+  //             $('#ClientRegister').modal('open');
+  //           }
+  //         });
+  //       }
+  //     });
+  // }
 
 
   // obtain data user for id
-  clientSearch(e) {
-    if (e.keyCode === 13 && !e.shiftKey) {
-      // send to ws api mysql search data user for id
-      this.getClient();
-    }
-  }
+  // clientSearch(e) {
+  //   if (e.keyCode === 13 && !e.shiftKey) {
+  //     // send to ws api mysql search data user for id
+  //     this.getClient();
+  //   }
+  // }
 
-  getClient() {
-    this.userService.getDataUserForId(this.client_id)
-      .subscribe(data => {
-        if (data != null) {
-          this.client = data.rows[0];
-          this.onSubmit();
-        } else {
+  // getClient() {
+  //   this.userService.getDataUserForId(this.client_id)
+  //     .subscribe(data => {
+  //       if (data != null) {
+  //         this.client = data.rows[0];
+  //         this.onSubmit();
+  //       } else {
 
-        }
-      });
-  }
+  //       }
+  //     });
+  // }
 
   totals() {
     this.total = 0;

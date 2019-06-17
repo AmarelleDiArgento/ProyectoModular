@@ -35,9 +35,15 @@ export class SaleService {
     return this.http.post(varsGlobals.url + '/getdatasale/', this.params, options)
       .map((response: Response) => response.json())
   }
+
   // service to api mysql create sale
-  createSale(pod_id, user_id, client_id, list_product) {
-    this.params = 'pod_id=' + pod_id + '&user_id=' + user_id + '&client_id=' + client_id + '&list_product=' + list_product;
+  createSale(pod_id, user_id, client_id, waytopay, authorization, list_product) {
+    this.params = 'pod_id=' + pod_id +
+    '&user_id=' + user_id +
+    '&client_id=' + client_id +
+    '&waytopay=' + waytopay +
+    '&authorization=' + authorization +
+    '&list_product=' + list_product;
     console.log(this.params);
 
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
