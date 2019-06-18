@@ -329,16 +329,16 @@ export class SaleComponent implements OnInit {
     this.cambioPesos = '$ ' + number_format(this.cambio, 0);
   }
 
-  modalClose() {
+  // modalClose() {
 
-    this.client_id = localStorage.getItem('idClient');
-    $('#ClientRegister').modal('close');
-    this.getClient();
-  }
-  modalOpen() {
-    $('#ClientRegister').modal('open');
+  //   this.client_id = localStorage.getItem('idClient');
+  //   $('#ClientRegister').modal('close');
+  //   // this.getClient();
+  // }
+  // modalOpen() {
+  //   $('#ClientRegister').modal('open');
 
-  }
+  // }
 }
 // function format number
 function number_format(amount, decimals) {

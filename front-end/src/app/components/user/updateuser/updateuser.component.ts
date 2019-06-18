@@ -98,6 +98,10 @@ export class UpdateuserComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    let pods = JSON.stringify(this.updateUserForm.value.pod_id);
+    pods = pods.substring(1, pods.length - 1);
+    console.log(pods);
+    
     // error here if form is invalid
     if (this.updateUserForm.invalid) {
       return;
@@ -108,12 +112,14 @@ export class UpdateuserComponent implements OnInit {
         this.updateUserForm.value.email,
         this.updateUserForm.value.password,
         this.updateUserForm.value.rol_id,
-        this.updateUserForm.value.status
+        this.updateUserForm.value.status,
+        
       )
         .subscribe(data => {
           if (data.respuesta == 'Success') {
             //update en pod users
               //update pod users
+            
               this.userService.updateUsersPod(this.updateUserForm.value.user_id, this.updateUserForm.value.pod_id)
                 .subscribe(dataPod => {
                   if (dataPod.respuesta == 'Success') {

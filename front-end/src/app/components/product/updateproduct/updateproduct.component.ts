@@ -80,6 +80,10 @@ export class UpdateproductComponent implements OnInit {
   // send submit
   onSubmit() {
     this.submitted = true;
+
+    let taxs = JSON.stringify(this.updateProductForm.value.tax_id);
+    taxs = taxs.substring(1, taxs.length - 1);
+    console.log(taxs);
     // error here if form is invalid
     if (this.updateProductForm.invalid) {
       return;
