@@ -153,8 +153,8 @@ export class ListsalesComponent implements OnInit {
     this.since = localStorage.getItem('sinceDate');
     this.until = localStorage.getItem('untilDate');
 
-    const d = new Date();
-    const now = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    let d = new Date();
+    let now = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
     console.log(now);
 
 
