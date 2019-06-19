@@ -49,7 +49,7 @@ export class SaleComponent implements OnInit {
   tax_priceMoney = '$ 0';
   total_priceMoney = '$ 0';
   listProductSale = '';
-
+  RadioButton: any;
   total;
   seeker;
   waytopay;
@@ -72,7 +72,8 @@ export class SaleComponent implements OnInit {
     // init form
     this.payForm = this.formBuilder.group({
       waytopay: ['', Validators.required],
-      
+      recibo: ['0', Validators.required],
+      code: ['0',Validators.required]
     });
 
     this.getAllDataCategory();
@@ -102,7 +103,6 @@ export class SaleComponent implements OnInit {
   }
 
   getAllDataProduct() {
-
     // send to search api backend all category
     this.productService.getAllDataProduct()
       .subscribe(data => {
@@ -130,12 +130,11 @@ export class SaleComponent implements OnInit {
       return;
     } else {
 
-
       this.saleService.createSale(
         this.idPod,
         this.idUser,
         this.client_id,
-        this.waytopay,
+        this.RadioButton,
         this.authorization,
         this.listProductSale
       )

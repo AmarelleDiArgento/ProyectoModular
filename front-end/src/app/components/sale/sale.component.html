@@ -154,7 +154,7 @@
         <div class="form-group col m6 s6">
           <p>
             <label>
-              <input type="radio" value="Efectivo" formControlName="waytopay"
+              <input type="radio" value="Efectivo" [(ngModel)]="RadioButton" formControlName="waytopay"
                 [ngClass]="{ 'is-invalid': submittedPay && fpay.waytopay.errors }" required />
               <span><i class="material-icons ">monetization_on</i> Efectivo</span>
             </label>
@@ -163,7 +163,7 @@
         <div class="form-group col m6 s6">
           <p>
             <label>
-              <input type="radio" value="Tarjeta" formControlName="waytopay"
+              <input type="radio" value="Tarjeta" [(ngModel)]="RadioButton" formControlName="waytopay"
                 [ngClass]="{ 'is-invalid': submittedPay && fpay.waytopay.errors }" required />
               <span><i class="material-icons ">payment</i> Tarjeta</span>
             </label>
@@ -177,10 +177,10 @@
       </div>
 
 
-      <div class="row" *ngIf="waytopay === 'Efectivo'">
+      <div class="row" *ngIf="RadioButton === 'Efectivo'">
         <div class="input-field col s12">
           <i class="material-icons prefix">attach_money</i>
-          <input id="recibo" class="pago" name="recibo" type="number" (keyup)="turn()" [(ngModel)]="recibo">
+          <input id="recibo" class="pago" name="recibo" type="number" (keyup)="turn()" [(ngModel)]="recibo" formControlName="recibo">
           <label for="recibo">Efectivo</label>
         </div>
         <div class="input-field col s12 center-align">
@@ -189,7 +189,7 @@
         </div>
       </div>
 
-      <div class="row" *ngIf="waytopay === 'Tarjeta'">
+      <div class="row" *ngIf="RadioButton === 'Tarjeta'">
 
         <div class="input-field col s12 center-align">
           <p id="base" class="pago automargin right-align"> {{gross_priceMoney}} </p>
@@ -205,7 +205,7 @@
         </div>
         <div class="input-field col s12">
           <i class="material-icons prefix">done_all</i>
-          <input id="code" class="pago" name="recibo" type="number" [(ngModel)]="code" required>
+          <input id="code" class="pago" name="code" type="number" [(ngModel)]="code" required formControlName="code">
           <label for="code">Codigo de autorizacion</label>
         </div>
       </div>
