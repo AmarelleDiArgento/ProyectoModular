@@ -304,6 +304,7 @@ export class SaleComponent implements OnInit {
     this.totals();
   }
 
+  
   productSearch(e) {
 
     if (e.keyCode === 13 && !e.shiftKey) {
