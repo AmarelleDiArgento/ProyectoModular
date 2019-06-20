@@ -105,7 +105,7 @@ export class InvoiceComponent implements OnInit {
     setTimeout(() => {
       this.printService.print();
       this.router.navigate(['/createsale']);
-    }, 3000);
+    }, 1000);
   }
 
 }
