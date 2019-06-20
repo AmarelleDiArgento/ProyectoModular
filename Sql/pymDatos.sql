@@ -25,6 +25,7 @@ call proyectomodular.categoryins('Probocao');
 call proyectomodular.categoryins('Bebidas Calientes');
 call proyectomodular.categoryins('Bebidas de la casa');
 call proyectomodular.categoryins('Otras Bebidas');
+call proyectomodular.categoryins('Otros');
 
 
 -- call proyectomodular.categoryins(?)
@@ -63,17 +64,35 @@ call proyectomodular.userins('1020123', 'Vendedor', 'vendedor@prueba.com', "é61
 -- ------------------------------------------------------------
 -- PRODUCT INSERT
 -- ------------------------------------------------------------
-call proyectomodular.productins('1010101010', 'Papas', '1200', 1, 'https://images.rappi.com/products/949957-1551195546652.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('111111111', 'Arroz', '2000', 1, 'https://images.rappi.com/products/1351206-1551364455.png?d=200x200', 1);
-call proyectomodular.productins('000000000', 'Queso', '1400', 1, 'https://images.rappi.com/products/730077-1-1464281372.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('432423422', 'Tomate', '600', 1, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('967352859', 'Cebolla', '600', 1, 'https://images.rappi.com/products/1192-1505832005.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('169673378', 'Empanadas', '600', 1, 'https://images.rappi.com/products/2089940485-1506986215.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('452019754', 'Salsa', '600', 1, 'https://images.rappi.com/products/522431-1551194951451.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('108473291', 'Merengue', '600', 1, 'https://images.rappi.com/products/696556-1551199800326.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('176403856', 'Burrito', '600', 1, 'https://images.rappi.com/products/706945-1494374233.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('756342910', 'Yuca', '600', 1, 'https://images.rappi.com/products/1154-1504888831.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('164859634', 'Uvas Pasas', '600', 1, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('101', 'AREPA MAIZ CUAJADA', '2400', 3, 'https://images.rappi.com/products/949957-1551195546652.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('102', 'AREPA MAIZ BOCADILLO', '2400', 3, 'https://images.rappi.com/products/1351206-1551364455.png?d=200x200', 1);
+call proyectomodular.productins('103', 'AREPA MAIZ QUESO', '2600', 3, 'https://images.rappi.com/products/730077-1-1464281372.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('104', 'AREPA MAIZ - POLLO', '2600', 3, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('105', 'AREPA MAIZ CARNE', '2600', 3, 'https://images.rappi.com/products/1192-1505832005.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('106', 'AREPA MAIZ AREQUIPE', '2600', 3, 'https://images.rappi.com/products/2089940485-1506986215.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('107', 'AREPA MAIZ RANCHERA', '2600', 3, 'https://images.rappi.com/products/522431-1551194951451.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('301', 'ALMOJABANA', '2400', 9, 'https://images.rappi.com/products/696556-1551199800326.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('302', 'RESOBADO', '1700', 9, 'https://images.rappi.com/products/706945-1494374233.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('303', 'CALENTANO', '1700', 9, 'https://images.rappi.com/products/1154-1504888831.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('304', 'GARULLA', '2500', 3, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('305', 'GARULLA CON AREQUIPE', '2600', 3, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('401', 'AVENA', '2400', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('402', 'MASATO 09 ONZ', '1900', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('403', 'JUGO NATURAL EN AGUA', '3700', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('404', 'JUGO NATURAL EN LECHE', '4200', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('501', 'TE CHAI', '4400', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('508', 'AROMATICAS DE FRUTAS', '3200', 6, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('510', 'MILO 9 ONZ', '3000', 6, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('513', 'AGUADEPANELA', '1700', 6, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('516', 'CAPUCHINO IRLANDES', '4500', 6, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('518', 'AMERICANO 7 ONZAS', '1800', 6, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('520', 'CAPPUCCINO TRADICIONAL 9 ONZAS', '3000', 6, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('521', 'CAFÉ DE LA CASA 9 oz', '3000', 6, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('712', 'PET 400 ML POSTOBON', '2600', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('715', 'HIT 8 ONZ NO RETORNABLE', '2200', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('721', 'AGUA', '2700', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('722', 'VITAL', '2200', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('727', 'H2Oh!', '3100', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
 
 -- call proyectomodular.productins(?, ?, ?, ?, ?, ?);
 -- call proyectomodular.productupd(?, ?, ?, ?, ?, ?, ?);
