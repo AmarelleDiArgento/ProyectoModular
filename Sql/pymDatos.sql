@@ -17,9 +17,15 @@ USE proyectomodular;
 -- ------------------------------------------------------------
 -- CATEGORY INSERT
 -- ------------------------------------------------------------
-call proyectomodular.categoryins('Lacteos');
-call proyectomodular.categoryins('Bebidas');
-call proyectomodular.categoryins('Preparados');
+call proyectomodular.categoryins('Desayunos');
+call proyectomodular.categoryins('Huevos');
+call proyectomodular.categoryins('Arepas');
+call proyectomodular.categoryins('Bocaitos');
+call proyectomodular.categoryins('Probocao');
+call proyectomodular.categoryins('Bebidas Calientes');
+call proyectomodular.categoryins('Bebidas de la casa');
+call proyectomodular.categoryins('Otras Bebidas');
+
 
 -- call proyectomodular.categoryins(?)
 -- call proyectomodular.categoryall();
