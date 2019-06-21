@@ -27,7 +27,8 @@
 </ul>
 <nav>
   <div class="nav-wrapper ">
-    <a [routerLink]="['/home']" class="brand-logo conforta"><b class="teal-text text-darken-3">Proyecto</b> modular</a>
+    <a [routerLink]="['/home']" class="brand-logo center-flex"><img src="assets/logoprobocaitos2.png" width="auto" height="100%" alt=""></a>
+    <!-- <a [routerLink]="['/home']" class="brand-logo conforta"><b class="teal-text text-darken-3">Proyecto</b> modular</a> -->
     <ul class="right hide-on-med-and-down">
       <li *ngFor="let item of listMenuAuth"><a class="conforta"
           [routerLink]="['/',item.route]">{{item.privilege_name}}</a></li>
