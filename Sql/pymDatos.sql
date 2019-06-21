@@ -51,8 +51,8 @@ call proyectomodular.userins('1020123','Vendedor','vendedor@prueba.com', "é61ë
 -- ------------------------------------------------------------
 -- TAX INSERT
 -- ------------------------------------------------------------
- call proyectomodular.taxins('Consumo', 8.00);
  call proyectomodular.taxins('IVA', 19.00 );
+ call proyectomodular.taxins('Consumo', 8.00);
  call proyectomodular.taxins('Lujo', 5.00);
 
 -- call proyectomodular.taxins(?,?);
@@ -64,44 +64,44 @@ call proyectomodular.userins('1020123','Vendedor','vendedor@prueba.com', "é61ë
 -- ------------------------------------------------------------
 -- PRODUCT INSERT
 -- ------------------------------------------------------------
-call proyectomodular.productins('101', 'AREPA MAIZ CUAJADA', '2400', 3, 'https://images.rappi.com/products/949957-1551195546652.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('102', 'AREPA MAIZ BOCADILLO', '2400', 3, 'https://images.rappi.com/products/1351206-1551364455.png?d=200x200', 1);
-call proyectomodular.productins('103', 'AREPA MAIZ QUESO', '2600', 3, 'https://images.rappi.com/products/730077-1-1464281372.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('104', 'AREPA MAIZ - POLLO', '2600', 3, 'https://images.rappi.com/products/1123-1506483783.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('105', 'AREPA MAIZ CARNE', '2600', 3, 'https://images.rappi.com/products/1192-1505832005.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('106', 'AREPA MAIZ AREQUIPE', '2600', 3, 'https://images.rappi.com/products/2089940485-1506986215.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('107', 'AREPA MAIZ RANCHERA', '2600', 3, 'https://images.rappi.com/products/522431-1551194951451.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('301', 'ALMOJABANA', '2400', 9, 'https://images.rappi.com/products/696556-1551199800326.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('302', 'RESOBADO', '1700', 9, 'https://images.rappi.com/products/706945-1494374233.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('303', 'CALENTANO', '1700', 9, 'https://images.rappi.com/products/1154-1504888831.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('304', 'GARULLA', '2500', 3, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('305', 'GARULLA CON AREQUIPE', '2600', 3, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('401', 'AVENA', '2400', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('402', 'MASATO 09 ONZ', '1900', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('403', 'JUGO NATURAL EN AGUA', '3700', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('404', 'JUGO NATURAL EN LECHE', '4200', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('501', 'TE CHAI', '4400', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('508', 'AROMATICAS DE FRUTAS', '3200', 6, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('510', 'MILO 9 ONZ', '3000', 6, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('513', 'AGUADEPANELA', '1700', 6, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('516', 'CAPUCHINO IRLANDES', '4500', 6, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('518', 'AMERICANO 7 ONZAS', '1800', 6, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('520', 'CAPPUCCINO TRADICIONAL 9 ONZAS', '3000', 6, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('521', 'CAFÉ DE LA CASA 9 oz', '3000', 6, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('712', 'PET 400 ML POSTOBON', '2600', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('715', 'HIT 8 ONZ NO RETORNABLE', '2200', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('721', 'AGUA', '2700', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('722', 'VITAL', '2200', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('727', 'H2Oh!', '3100', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('001', 'Opcion1', '8200', 1, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('002', 'Opcion2', '12000', 1, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('003', 'Opcion3', '9000', 1, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('004', 'probocado1', '14900', 5, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('005', 'probocado2', '15900', 5, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('006', 'Campesinos', '4700', 2, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('007', 'Rancheros', '5400', 2, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('008', 'Del Huerto', '4700', 2, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
-call proyectomodular.productins('009', 'Clasicos', '4100', 2, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('101', 'AREPA MAIZ CUAJADA', '2400', 3, 'assets/productos/arepa.png', 1);
+call proyectomodular.productins('102', 'AREPA MAIZ BOCADILLO', '2400', 3, 'assets/productos/arepa.png', 1);
+call proyectomodular.productins('103', 'AREPA MAIZ QUESO', '2600', 3, 'assets/productos/arepa.png', 1);
+call proyectomodular.productins('104', 'AREPA MAIZ - POLLO', '2600', 3, 'assets/productos/arepa.png', 1);
+call proyectomodular.productins('105', 'AREPA MAIZ CARNE', '2600', 3, 'assets/productos/arepa.png', 1);
+call proyectomodular.productins('106', 'AREPA MAIZ AREQUIPE', '2600', 3, 'assets/productos/arepa.png', 1);
+call proyectomodular.productins('107', 'AREPA MAIZ RANCHERA', '2600', 3, 'assets/productos/arepa.png', 1);
+call proyectomodular.productins('301', 'ALMOJABANA', '2400', 9, 'assets/productos/almojabana.jpeg', 1);
+call proyectomodular.productins('302', 'RESOBADO', '1700', 9, 'assets/productos/pan.jpeg', 1);
+call proyectomodular.productins('303', 'CALENTANO', '1700', 9, 'assets/productos/pan.jpeg', 1);
+call proyectomodular.productins('304', 'GARULLA', '2500', 3, 'assets/productos/pan.jpeg', 1);
+call proyectomodular.productins('305', 'GARULLA CON AREQUIPE', '2600', 3, 'assets/productos/pan.jpeg', 1);
+call proyectomodular.productins('401', 'AVENA', '2400', 7, 'assets/productos/avena.jpeg', 1);
+call proyectomodular.productins('402', 'MASATO 09 ONZ', '1900', 7, 'assets/productos/masato.jpeg', 1);
+call proyectomodular.productins('403', 'JUGO NATURAL EN AGUA', '3700', 7, 'assets/productos/jugo.jpeg', 1);
+call proyectomodular.productins('404', 'JUGO NATURAL EN LECHE', '4200', 7, 'assets/productos/jugo.jpeg', 1);
+call proyectomodular.productins('501', 'TE CHAI', '4400', 7, 'assets/productos/te.jpeg', 1);
+call proyectomodular.productins('508', 'AROMATICAS DE FRUTAS', '3200', 6, 'assets/productos/aromatica.jpeg', 1);
+call proyectomodular.productins('510', 'MILO 9 ONZ', '3000', 6, 'assets/productos/cafe.jpeg', 1);
+call proyectomodular.productins('513', 'AGUADEPANELA', '1700', 6, 'assets/productos/cafe.jpeg', 1);
+call proyectomodular.productins('516', 'CAPUCHINO IRLANDES', '4500', 6, 'assets/productos/cafe.jpeg', 1);
+call proyectomodular.productins('518', 'AMERICANO 7 ONZAS', '1800', 6, 'assets/productos/cafe.jpeg', 1);
+call proyectomodular.productins('520', 'CAPPUCCINO TRADICIONAL 9 ONZAS', '3000', 6, 'assets/productos/cafe.jpeg', 1);
+call proyectomodular.productins('521', 'CAFÉ DE LA CASA 9 oz', '3000', 6, 'assets/productos/cafe.jpeg', 1);
+call proyectomodular.productins('712', 'PET 400 ML POSTOBON', '2600', 7, 'assets/productos/postobon.jpeg', 1);
+call proyectomodular.productins('715', 'HIT 8 ONZ NO RETORNABLE', '2200', 7, 'assets/productos/hit.jpeg', 1);
+call proyectomodular.productins('721', 'AGUA', '2700', 7, 'assets/productos/agua.jpeg', 1);
+call proyectomodular.productins('722', 'VITAL', '2200', 7, 'assets/logoprobocaitos.png', 1);
+call proyectomodular.productins('727', 'H2Oh!', '3100', 7, 'assets/productos/h2o.jpeg', 1);
+call proyectomodular.productins('001', 'Opcion1', '8200', 1, 'assets/productos/desayuno.jpeg', 1);
+call proyectomodular.productins('002', 'Opcion2', '12000', 1, 'assets/productos/desayuno.jpeg', 1);
+call proyectomodular.productins('003', 'Opcion3', '9000', 1, 'assets/productos/desayuno.jpeg', 1);
+call proyectomodular.productins('004', 'probocado1', '14900', 5, 'assets/productos/desayuno.jpeg', 1);
+call proyectomodular.productins('005', 'probocado2', '15900', 5, 'assets/productos/desayuno.jpeg', 1);
+call proyectomodular.productins('006', 'Campesinos', '4700', 2, 'assets/productos/huevos.jpeg', 1);
+call proyectomodular.productins('007', 'Rancheros', '5400', 2, 'assets/productos/huevos.jpeg', 1);
+call proyectomodular.productins('008', 'Del Huerto', '4700', 2, 'assets/productos/huevos.jpeg', 1);
+call proyectomodular.productins('009', 'Clasicos', '4100', 2, 'assets/productos/huevos-clasicos.jpeg', 1);
 
 
 -- call proyectomodular.productins(?, ?, ?, ?, ?, ?);
@@ -112,35 +112,44 @@ call proyectomodular.productins('009', 'Clasicos', '4100', 2, 'https://images.ra
 -- call proyectomodular.productdel(?);
 
 
-call producttaxsins(1,'2');
-call producttaxsins(2,'2');
-call producttaxsins(3,'2');
-call producttaxsins(4,'2');
-call producttaxsins(5,'2');
-call producttaxsins(6,'2');
-call producttaxsins(7,'2');
-call producttaxsins(8,'2');
-call producttaxsins(9,'2');
-call producttaxsins(10,'2');
-call producttaxsins(11,'2');
-call producttaxsins(12,'2');
-call producttaxsins(13,'2');
-call producttaxsins(14,'2');
-call producttaxsins(15,'2');
-call producttaxsins(16,'2');
-call producttaxsins(17,'2');
-call producttaxsins(18,'2');
-call producttaxsins(19,'2');
-call producttaxsins(20,'2');
-call producttaxsins(21,'2');
-call producttaxsins(22,'2');
-call producttaxsins(23,'2');
-call producttaxsins(24,'2');
-call producttaxsins(25,'2');
-call producttaxsins(26,'2');
-call producttaxsins(27,'2');
-call producttaxsins(28,'2');
-call producttaxsins(29,'2');
+call producttaxsins(1,'1');
+call producttaxsins(2,'1');
+call producttaxsins(3,'1');
+call producttaxsins(4,'1');
+call producttaxsins(5,'1');
+call producttaxsins(6,'1');
+call producttaxsins(7,'1');
+call producttaxsins(8,'1');
+call producttaxsins(9,'1');
+call producttaxsins(10,'1');
+call producttaxsins(11,'1');
+call producttaxsins(12,'1');
+call producttaxsins(13,'1');
+call producttaxsins(14,'1');
+call producttaxsins(15,'1');
+call producttaxsins(16,'1');
+call producttaxsins(17,'1');
+call producttaxsins(18,'1');
+call producttaxsins(19,'1');
+call producttaxsins(20,'1');
+call producttaxsins(21,'1');
+call producttaxsins(22,'1');
+call producttaxsins(23,'1');
+call producttaxsins(24,'1');
+call producttaxsins(25,'1');
+call producttaxsins(26,'1');
+call producttaxsins(27,'1');
+call producttaxsins(28,'1');
+call producttaxsins(29,'1');
+call producttaxsins(30,'1');
+call producttaxsins(31,'1');
+call producttaxsins(32,'1');
+call producttaxsins(33,'1');
+call producttaxsins(34,'1');
+call producttaxsins(35,'1');
+call producttaxsins(36,'1');
+call producttaxsins(37,'1');
+call producttaxsins(38,'1');
 
 
 -- ------------------------------------------------------------
@@ -160,10 +169,10 @@ call proyectomodular.moduleins('Product', 1);
 -- PRIVILEGE INSERT
 -- ------------------------------------------------------------
 
-call proyectomodular.privilegeins('User', 1,'people','listusers', 1);
+call proyectomodular.privilegeins('Usuario', 1,'people','listusers', 1);
 call proyectomodular.privilegeins('Rol', 1,'assignment_ind','listrols', 1);
-call proyectomodular.privilegeins('Privilege', 1,'view_list','listprivileges', 1);
-call proyectomodular.privilegeins('Module', 1,'widgets','listmodules', 1);
+call proyectomodular.privilegeins('Privilegios', 1,'view_list','listprivileges', 1);
+call proyectomodular.privilegeins('Modulos', 1,'widgets','listmodules', 1);
 call proyectomodular.privilegeins('Pod', 2,'store','listpods', 1);
 call proyectomodular.privilegeins('Sale', 2,'local_grocery_store','listsales', 1);
 call proyectomodular.privilegeins('Product', 3,'card_giftcard','listproducts', 1);
@@ -201,14 +210,13 @@ call proyectomodular.rol_privilegeins(9, 2, 1, 1, 1, 1);
 -- ------------------------------------------------------------
 -- POD INSERT
 -- ------------------------------------------------------------
-
 call proyectomodular.podins('LAG',
 '800000000-1',
 '18762012523802',
 '2017-08-15',
  1000,
 'El Lago',
-'calle 76 16a 17',
+'Calle 76 # 16ª-17',
 '4661233',
  1);
 call proyectomodular.podins('CAL1',
@@ -217,7 +225,7 @@ call proyectomodular.podins('CAL1',
 '2016-09-25',
  1000,
 'CC Calima',
-'kr 27 21 75 lc a 77',
+'Carrera 27 # 21-75 Local a 77',
 '4875263',
  1);
  call proyectomodular.podins('CAL2',
@@ -226,7 +234,7 @@ call proyectomodular.podins('CAL1',
 '2016-09-25',
  1000,
 'CC Calima 2',
-'kr 27 21 75 lc b 146',
+'Carrera 27 # 21-75 Local b 146',
 '6045574',
  1);
 call proyectomodular.podins('ANR',
@@ -234,8 +242,8 @@ call proyectomodular.podins('ANR',
 '00000005',
 '2015-12-11',
  1000,
-'Av NQSRestrepo',
-'kr 18 16 75 sur',
+'Avenida NQS Restrepo',
+'Carrera 18 # 16-75 Sur',
 '7023052',
  1);
  call proyectomodular.podins('SAN',
@@ -243,8 +251,8 @@ call proyectomodular.podins('ANR',
 '00000006',
 '2015-12-11',
  1000,
-'San andresito de la 38',
-'kr 38 8a 60',
+'San Andresito de la 38',
+'Carrera 38 # 8ª-60',
 '',
  1);
  call proyectomodular.podins('PLC',
@@ -252,8 +260,8 @@ call proyectomodular.podins('ANR',
 '00000007',
 '2015-12-11',
  1000,
-'Plaza central',
-'kr 65 n11 90 lc 3-80',
+'Plaza Central',
+'Carrera 65 # 11-90 Local 3-80',
 '7466934',
  1);
  call proyectomodular.podins('EAS',
@@ -261,8 +269,8 @@ call proyectomodular.podins('ANR',
 '00000008',
 '2015-12-11',
  1000,
-'easy de las americas',
-'av americas 68 78 lc 1',
+'Easy de las Américas',
+'Avenida Américas # 68-78 Local 1',
 '4109653',
  1);
  call proyectomodular.podins('OTF',
@@ -270,8 +278,8 @@ call proyectomodular.podins('ANR',
 '00000009',
 '2015-12-11',
  1000,
-'Outlet factory',
-'av americas 63 84 isla 192',
+'Outlet Factory',
+'Avenida Américas # 63-84 Isla 192',
 '',
  1);
  call proyectomodular.podins('MTA',
@@ -279,8 +287,8 @@ call proyectomodular.podins('ANR',
 '000000010',
 '2015-12-11',
  1000,
-'Metro alqueria',
-'kr 68 sur 38a 15 lc 4',
+'Metro Alquería',
+'Carrera 68 Sur # 38ª-15 Local 4',
 '',
  1);
  call proyectomodular.podins('CMY',
@@ -288,8 +296,8 @@ call proyectomodular.podins('ANR',
 '000000011',
 '2015-12-11',
  1000,
-'Centro mayor',
-'cl 38a sur 34d 50 lc 3044',
+'Centro Mayor',
+'Calle 38a Sur # 34d-50 Local 3044',
 '7035621',
  1);
  call proyectomodular.podins('MTR',
@@ -297,8 +305,8 @@ call proyectomodular.podins('ANR',
 '000000012',
 '2015-12-11',
  1000,
-'Metro auto sur',
-'ac 57r sur 77a 18 lc 12-a',
+'Metro Auto Sur',
+'ac 57r Sur # 77ª-18 Local 12-a',
 '',
  1);
  call proyectomodular.podins('UNS',
@@ -307,7 +315,7 @@ call proyectomodular.podins('ANR',
 '2015-12-11',
  1000,
 'Unisur Soacha',
-'kr 3a 29a 02 autopista sur soacha',
+'Carrera 3ª # 29ª-02 Autopista Sur Soacha',
 '',
  1);
  call proyectomodular.podins('MRC',
@@ -315,8 +323,8 @@ call proyectomodular.podins('ANR',
 '000000014',
 '2015-12-11',
  1000,
-'cc Mercurio soacha',
-'local Bahia kr 7 32 25 lc 285',
+'Centro Comercial Mercurio Soacha',
+'local Bahía Carrera 7 # 32-25 Local 285',
 '9003057',
  1);
  call proyectomodular.podins('MTS',
@@ -324,8 +332,8 @@ call proyectomodular.podins('ANR',
 '000000015',
 '2015-12-11',
  1000,
-'Metro soacha',
-'kr 7 32 25 lc 3',
+'Metro Soacha',
+'Carrera 7 # 32-25 Local 3',
 '',
  1);
  call proyectomodular.podins('AJM',
@@ -333,8 +341,8 @@ call proyectomodular.podins('ANR',
 '000000000016',
 '2015-12-11',
  1000,
-'Av Jimenez',
-'Av jimenez 9 78',
+'Avenida Jiménez',
+'Avenida Jiménez # 9-78',
 '2430396',
  1);
  call proyectomodular.podins('VTS',
@@ -343,7 +351,7 @@ call proyectomodular.podins('ANR',
 '2015-12-11',
  1000,
 'Ventura Terreros Soacha',
-'kr 1 38 53 lc 4-21',
+'Carrera 1 #38-53 Local 4-21',
 '7023052',
  1);
 

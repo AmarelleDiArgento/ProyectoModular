@@ -7,7 +7,7 @@ var connection = mysql.createPool(config.db);
 var saleModel = {}
 
 let ins = `call proyectomodular.saleins(?,?,?,?,?,?);`;
-let upd = ``;
+let acc = `call proyectomodular.saleupdacco(?,?,?);`;
 let del = ``;
 let all = `call proyectomodular.saleall();`;
 let bet = `call proyectomodular.saledate(?,?);`;
@@ -54,9 +54,12 @@ saleModel.createSale = function (saleData, callback) {
 
 
 saleModel.updateSale = function (saleData, callback) {
-  var query = "UPDATE sale SET   date = '" + saleData.date + "', pod_id = " + saleData.pod_id + ", user_id = '" + saleData.user_id + "', client_id= " + saleData.client_id + "    where sale_id='" + saleData.sale_id + "' ";
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(acc, [
+      saleData.pod_id,
+      saleData.user_id,
+      saleData.password
+    ], function (error, rows) {
       console.log(rows);
       if (error) {
         console.log(error)
