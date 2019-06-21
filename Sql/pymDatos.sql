@@ -51,8 +51,8 @@ call proyectomodular.userins('1020123','Vendedor','vendedor@prueba.com', "é61ë
 -- ------------------------------------------------------------
 -- TAX INSERT
 -- ------------------------------------------------------------
- call proyectomodular.taxins('Consumo', 8.00);
  call proyectomodular.taxins('IVA', 19.00 );
+ call proyectomodular.taxins('Consumo', 8.00);
  call proyectomodular.taxins('Lujo', 5.00);
 
 -- call proyectomodular.taxins(?,?);
