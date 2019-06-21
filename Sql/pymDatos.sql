@@ -67,9 +67,9 @@ call proyectomodular.userins('1020123','Vendedor','vendedor@prueba.com', "é61ë
 call proyectomodular.productins('101', 'AREPA MAIZ CUAJADA', '2400', 3, 'assets/productos/arepa.png', 1);
 call proyectomodular.productins('102', 'AREPA MAIZ BOCADILLO', '2400', 3, 'assets/productos/arepa.png', 1);
 call proyectomodular.productins('103', 'AREPA MAIZ QUESO', '2600', 3, 'assets/productos/arepa.png', 1);
-call proyectomodular.productins('104', 'AREPA MAIZ - POLLO', '2600', 3, 'assets/productos/arepa.png', 1);
-call proyectomodular.productins('105', 'AREPA MAIZ CARNE', '2600', 3, 'assets/productos/arepa.png', 1);
-call proyectomodular.productins('106', 'AREPA MAIZ AREQUIPE', '2600', 3, 'assets/productos/arepa.png', 1);
+call proyectomodular.productins('104', 'AREPA MAIZ - POLLO', '2600', 3, 'assets/productos/arepa3.jpeg', 1);
+call proyectomodular.productins('105', 'AREPA MAIZ CARNE', '2600', 3, 'assets/productos/arepa3.jpeg', 1);
+call proyectomodular.productins('106', 'AREPA MAIZ AREQUIPE', '2600', 3, 'assets/productos/arepa2.jpeg', 1);
 call proyectomodular.productins('107', 'AREPA MAIZ RANCHERA', '2600', 3, 'assets/productos/arepa.png', 1);
 call proyectomodular.productins('301', 'ALMOJABANA', '2400', 9, 'assets/productos/almojabana.jpeg', 1);
 call proyectomodular.productins('302', 'RESOBADO', '1700', 9, 'assets/productos/pan.jpeg', 1);
