@@ -169,15 +169,15 @@ call proyectomodular.moduleins('Product', 1);
 -- PRIVILEGE INSERT
 -- ------------------------------------------------------------
 
-call proyectomodular.privilegeins('Usuario', 1,'people','listusers', 1);
-call proyectomodular.privilegeins('Rol', 1,'assignment_ind','listrols', 1);
+call proyectomodular.privilegeins('Usuarios', 1,'people','listusers', 1);
+call proyectomodular.privilegeins('Roles', 1,'assignment_ind','listrols', 1);
 call proyectomodular.privilegeins('Privilegios', 1,'view_list','listprivileges', 1);
 call proyectomodular.privilegeins('Modulos', 1,'widgets','listmodules', 1);
-call proyectomodular.privilegeins('Pod', 2,'store','listpods', 1);
-call proyectomodular.privilegeins('Sale', 2,'local_grocery_store','listsales', 1);
-call proyectomodular.privilegeins('Product', 3,'card_giftcard','listproducts', 1);
-call proyectomodular.privilegeins('Tax', 3,'description','listtaxs', 1);
-call proyectomodular.privilegeins('Category', 3,'extension','listcategorys', 1);
+call proyectomodular.privilegeins('Puntos', 2,'store','listpods', 1);
+call proyectomodular.privilegeins('Ventas', 2,'local_grocery_store','listsales', 1);
+call proyectomodular.privilegeins('Productos', 3,'card_giftcard','listproducts', 1);
+call proyectomodular.privilegeins('Impuestos', 3,'description','listtaxs', 1);
+call proyectomodular.privilegeins('Categorias', 3,'extension','listcategorys', 1);
 
 -- call proyectomodular.privilegeins(?,?,?,?,?);
 -- call proyectomodular.privilegeupd(?,?,?,?,?,?);

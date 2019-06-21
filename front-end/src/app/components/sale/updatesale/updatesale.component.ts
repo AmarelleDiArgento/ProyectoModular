@@ -41,6 +41,8 @@ export class UpdatesaleComponent implements OnInit {
     });
     // asign id sale to search data
     this.idSale = localStorage.getItem('idSale');
+    console.log(this.idSale);
+    
     // eject ws search user for id
     this.getSaleDataId();
     // console.log('Cargamos el formulario o_o');
