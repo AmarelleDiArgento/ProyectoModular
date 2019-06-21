@@ -28,6 +28,7 @@ export class InvoiceComponent implements OnInit {
   zeros = '';
   invoiceNumber = 0;
   invoiceCode = '';
+  printOn: boolean = true;
 
   constructor(private http: Http,
     private formBuilder: FormBuilder,
@@ -37,6 +38,8 @@ export class InvoiceComponent implements OnInit {
 
   ngOnInit() {
     this.idSale = localStorage.getItem('idSale');
+    this.printOn = localStorage.getItem('printOn') === 'true' || localStorage.getItem('printOn') === undefined;
+    console.log(this.printOn);
     this.getSaleDataId();
 
     // this.router.navigate(['/createsale']);
@@ -93,8 +96,9 @@ export class InvoiceComponent implements OnInit {
           this.tax_priceTotal = number_format(tax, 2);
           this.getInvoiceNumber();
         }
-
-         this.printFile();
+        if (this.printOn) {
+          this.printFile();
+        }
       });
   }
   // service to print

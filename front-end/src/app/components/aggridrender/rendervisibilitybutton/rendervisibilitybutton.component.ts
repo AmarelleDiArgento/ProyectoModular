@@ -31,6 +31,7 @@ export class RendervisibilitybuttonComponent implements OnInit, ICellRendererAng
     this.Name = params.Name;
     this.name = params.name;
     this.cellvalue = params.value;
+console.log(this.Name, this.name, this.cellvalue);
 
   }
 
