@@ -72,6 +72,17 @@
   justify-content: center;
   color: white;
 }
+.display-flex{
+  display: flex;
+}
+/* height */
+::-webkit-scrollbar {
+  height: 6px;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
 
 /* Track */
 ::-webkit-scrollbar-track {
