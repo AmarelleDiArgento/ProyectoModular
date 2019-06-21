@@ -1,5 +1,9 @@
 var mysql = require('mysql'),
   config = require("../config");
+  var enigma = require('enigma-code')
+  
+  const valorEncriptación = 8
+  let key = '3456#@|#lM'
 
 //init pool mysql
 var connection = mysql.createPool(config.db);
@@ -54,22 +58,44 @@ saleModel.createSale = function (saleData, callback) {
 
 
 saleModel.updateSale = function (saleData, callback) {
+  console.log('Llegue al modulo')
+  let pass;
+  enigma.genHash(valorEncriptación, key, saleData.password, function (error, hash) {
+    if (error) return console.error(error.error)
+    pass = hash
+  })
   if (connection) {
     connection.query(acc, [
-      saleData.pod_id,
+      saleData.sale_id,
       saleData.user_id,
-      saleData.password
+      pass
     ], function (error, rows) {
-      console.log(rows);
+      console.log(saleData);
+      
       if (error) {
         console.log(error)
         callback(null, {
           "respuesta": "Error de conexión"
         })
       } else {
+        console.log(rows);
         if (rows.length != 0) {
-          var jsonObj = {
-            respuesta: "Success"
+
+          if (rows[0] != null) {
+
+            var string = JSON.stringify(rows[0]);
+            rows = JSON.parse(string);
+            rows = rows[0].message;
+            var jsonObj = {
+              respuesta: rows
+            }
+          } else {
+            rows = rows[0];
+            var jsonObj = {
+              rows,
+              respuesta: "Success"
+            }
+
           }
           callback(null, jsonObj)
         } else {
@@ -131,28 +157,16 @@ saleModel.dataSale = function (saleData, callback) {
         })
       } else {
         if (rows.length != 0) {
-
-          if (rows[0] != null) {
-
-            var string = JSON.stringify(rows[0]);
-            rows = JSON.parse(string);
-            rows = rows[0].message;
-            var jsonObj = {
-              respuesta: rows
-            }
-          } else {
-            rows = rows[0];
-            var jsonObj = {
-              rows,
-              respuesta: "Success"
-            }
-
+          rows = rows[0];
+          var jsonObj = {
+            rows,
+            respuesta: "Success"
           }
           callback(null, jsonObj)
         } else {
-          console.log("Error")
+          console.log("Error la consulta no arroja datos")
           callback(null, {
-            "respuesta": "Error al actualizar"
+            "respuesta": "Error la consulta no arroja datos"
           })
         }
       }

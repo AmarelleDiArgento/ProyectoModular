@@ -38,8 +38,10 @@ export class InvoiceComponent implements OnInit {
 
   ngOnInit() {
     this.idSale = localStorage.getItem('idSale');
-    if(localStorage.getItem('printOn') === '0'){
+    if (localStorage.getItem('printOn') === '0') {
       this.printOn = false;
+
+      localStorage.removeItem('printOn');
     }
     console.log(this.printOn);
     this.getSaleDataId();

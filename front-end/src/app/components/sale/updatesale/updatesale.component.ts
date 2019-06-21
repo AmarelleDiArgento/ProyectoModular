@@ -48,13 +48,13 @@ export class UpdatesaleComponent implements OnInit {
     // init form
     this.inactivechangeForm = this.formBuilder.group({
       user_id: ['', Validators.required],
-      client_password: ['', Validators.required],
+      password: ['', Validators.required],
     });
 
     // asign id sale to search data
     this.idSale = localStorage.getItem('idSale');
     console.log(this.idSale);
-    
+
 
     // eject ws search user for id
     this.getSaleDataId();
@@ -92,6 +92,10 @@ export class UpdatesaleComponent implements OnInit {
     this.viewInactiveChange = !this.viewInactiveChange;
   }
 
+  invoicePrint() {
+    this.router.navigate(['/invoiceprint']);
+  }
+  
   onSubmit() {
     // console.log('Llegue al metodo');
 
@@ -102,8 +106,8 @@ export class UpdatesaleComponent implements OnInit {
     } else {
       this.saleService.updateSale(
         this.idSale,
-        this.updateSaleForm.value.user_id,
-        this.updateSaleForm.value.password
+        this.inactivechangeForm.value.user_id,
+        this.inactivechangeForm.value.password
       )
         .subscribe(data => {
           console.log(data);
@@ -116,7 +120,8 @@ export class UpdatesaleComponent implements OnInit {
               timer: 2000
             });
             this.msgerr = '';
-            this.ngOnInit;
+            this.router.navigate(['/listsales']);
+
           } else if (data.respuesta === 'not allowed') {
             Swal.fire({
               type: 'error',

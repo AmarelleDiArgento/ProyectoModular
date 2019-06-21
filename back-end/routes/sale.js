@@ -27,6 +27,7 @@ router.post('/createsale', function (req, res, next) {
 })
 //update sale
 router.post('/updatesale', function (req, res, next) {
+    console.log('Llegue a la ruta')
     var saleData = {
         sale_id: req.body.sale_id,
         user_id: req.body.user_id,

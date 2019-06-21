@@ -114,27 +114,6 @@ export class ListsalesComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getDate();
-    // this.getAllData();
-    this.getAllData();
-
-    $(document).ready(function () {
-      $('select').formSelect();
-      $('.datepicker').datepicker({
-        format: 'yyyy-mm-dd',
-        autoClose: true
-      });
-    });
-
-    // init form
-    this.selectDateForm = this.formBuilder.group({
-      since: ['', Validators.required],
-      until: ['', Validators.required]
-    });
-
-  }
-
-  getDate() {
 
     // asign id sale to search data
     this.since = localStorage.getItem('sinceDate');
@@ -158,8 +137,25 @@ export class ListsalesComponent implements OnInit {
       this.selectDateForm.value.until = now;
     }
 
-    // console.log(localStorage);
+    // this.getAllData();
+    this.getAllData();
+
+    $(document).ready(function () {
+      $('select').formSelect();
+      $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        autoClose: true
+      });
+    });
+
+    // init form
+    this.selectDateForm = this.formBuilder.group({
+      since: ['', Validators.required],
+      until: ['', Validators.required]
+    });
+
   }
+
 
 
   // get form controls
