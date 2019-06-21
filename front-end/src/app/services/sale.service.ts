@@ -13,6 +13,7 @@ export class SaleService {
   params;
   // service to api mysql get all sale
   getAllDataSale() {
+    
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
     return this.http.get(varsGlobals.url + '/getdatasales/', options)
@@ -52,14 +53,14 @@ export class SaleService {
       .map((response: Response) => response.json())
   }
   // service to api mysql update sale
-  updateSale(sale_id, date, pod_id, user_id, client_id) {
-    this.params = 'sale_id=' + sale_id + '&date=' + date + '&pod_id=' + pod_id + '&user_id=' + user_id + '&client_id=' + client_id;
+  updateSale(sale_id, user_id, password) {
+    this.params = 'sale_id=' + sale_id + '&user_id=' + user_id + '&password=' + password;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(varsGlobals.url + '/updatesale/', this.params, options)
       .map((response: Response) => response.json())
   }
-  // service to api mysql delete sale
+  // service to api mysql delete saledate
   delete(sale_id) {
     this.params = 'sale_id=' + sale_id;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });

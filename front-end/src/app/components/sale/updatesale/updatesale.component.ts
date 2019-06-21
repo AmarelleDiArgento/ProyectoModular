@@ -61,10 +61,8 @@ export class UpdatesaleComponent implements OnInit {
     } else {
       this.saleService.updateSale(
         this.updateSaleForm.value.sale_id,
-        this.updateSaleForm.value.date,
-        this.updateSaleForm.value.pod_id,
         this.updateSaleForm.value.user_id,
-        this.updateSaleForm.value.client_id,
+        this.updateSaleForm.value.password
       )
         .subscribe(data => {
           // tslint:disable-next-line: triple-equals
