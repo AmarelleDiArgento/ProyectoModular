@@ -100,6 +100,11 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #00bfa5; 
 }
+.imagendeproducto{
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+}
 .productos-tab {
   overflow: auto;
   height: 75% !important;
