@@ -135,7 +135,7 @@ export class SaleComponent implements OnInit {
         this.idUser,
         this.client_id,
         this.RadioButton,
-        this.authorization,
+        this.payForm.value.code,
         this.listProductSale
       )
         .subscribe(data => {
@@ -162,59 +162,6 @@ export class SaleComponent implements OnInit {
 
   // get form contsales
   get f() { return this.registerSalesForm.controls; }
-
-  // submit form
-  // onSubmit() {
-  //   this.submitted = true;
-  //   console.log('clic');
-  //   // send to api backend create user
-  //   this.saleService.createSale(
-  //     this.idPod,
-  //     this.idUser,
-  //     this.client_id,
-  //     this.client_id
-
-  //   )
-  //     .subscribe(data => {
-  //       if (data.respuesta === 'Success') {
-  //         this.sale_id = data.rows[0].sale_id;
-  //       } else {
-  //         Swal.fire({
-  //           title: 'Ups!',
-  //           text: 'Usuario no registrado',
-  //           type: 'error',
-  //           showCancelButton: true,
-  //           confirmButtonText: 'Registrar'
-  //         }).then((result) => {
-  //           if (result.value) {
-  //             localStorage.setItem('noClient', this.client_id);
-  //             $('#ClientRegister').modal('open');
-  //           }
-  //         });
-  //       }
-  //     });
-  // }
-
-
-  // obtain data user for id
-  // clientSearch(e) {
-  //   if (e.keyCode === 13 && !e.shiftKey) {
-  //     // send to ws api mysql search data user for id
-  //     this.getClient();
-  //   }
-  // }
-
-  // getClient() {
-  //   this.userService.getDataUserForId(this.client_id)
-  //     .subscribe(data => {
-  //       if (data != null) {
-  //         this.client = data.rows[0];
-  //         this.onSubmit();
-  //       } else {
-
-  //       }
-  //     });
-  // }
 
   totals() {
     this.total = 0;
@@ -304,7 +251,6 @@ export class SaleComponent implements OnInit {
     this.totals();
   }
 
-  
   productSearch(e) {
 
     if (e.keyCode === 13 && !e.shiftKey) {
@@ -328,17 +274,6 @@ export class SaleComponent implements OnInit {
     }
     this.cambioPesos = '$ ' + number_format(this.cambio, 0);
   }
-
-  // modalClose() {
-
-  //   this.client_id = localStorage.getItem('idClient');
-  //   $('#ClientRegister').modal('close');
-  //   // this.getClient();
-  // }
-  // modalOpen() {
-  //   $('#ClientRegister').modal('open');
-
-  // }
 }
 // function format number
 function number_format(amount, decimals) {
