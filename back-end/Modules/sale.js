@@ -131,16 +131,28 @@ saleModel.dataSale = function (saleData, callback) {
         })
       } else {
         if (rows.length != 0) {
-          rows = rows[0];
-          var jsonObj = {
-            rows,
-            respuesta: "Success"
+
+          if (rows[0] != null) {
+
+            var string = JSON.stringify(rows[0]);
+            rows = JSON.parse(string);
+            rows = rows[0].message;
+            var jsonObj = {
+              respuesta: rows
+            }
+          } else {
+            rows = rows[0];
+            var jsonObj = {
+              rows,
+              respuesta: "Success"
+            }
+
           }
           callback(null, jsonObj)
         } else {
-          console.log("Error la consulta no arroja datos")
+          console.log("Error")
           callback(null, {
-            "respuesta": "Error la consulta no arroja datos"
+            "respuesta": "Error al actualizar"
           })
         }
       }

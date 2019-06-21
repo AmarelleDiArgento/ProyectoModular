@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
+declare var $: any;
 // service auth
 import { SaleService } from '../../../services/sale.service';
 
@@ -18,6 +20,7 @@ export class UpdatesaleComponent implements OnInit {
   submitted = false;
   // var form
   updateSaleForm: FormGroup;
+  inactivechangeForm: FormGroup;
   // list data auth 
   listSale: {};
   // id user
@@ -42,46 +45,22 @@ export class UpdatesaleComponent implements OnInit {
       user_name: ['', Validators.required],
       client_name: ['', Validators.required],
     });
+    // init form
+    this.inactivechangeForm = this.formBuilder.group({
+      user_id: ['', Validators.required],
+      client_password: ['', Validators.required],
+    });
+
     // asign id sale to search data
     this.idSale = localStorage.getItem('idSale');
     console.log(this.idSale);
+    
 
     // eject ws search user for id
     this.getSaleDataId();
     // console.log('Cargamos el formulario o_o');
   }
-  // get form contsales
-  get f() {
-    // console.log('Llegue a la lectura el formulario');
-    return this.updateSaleForm.controls;
-  }
-  onInactive() {
-    this.viewInactiveChange = !this.viewInactiveChange;
-  }
-  onSubmit() {
-    // console.log('Llegue al metodo');
 
-    this.submitted = true;
-    // error here if form is invalid
-    if (this.updateSaleForm.invalid) {
-      return;
-    } else {
-      this.saleService.updateSale(
-        this.updateSaleForm.value.sale_id,
-        this.updateSaleForm.value.user_id,
-        this.updateSaleForm.value.password
-      )
-        .subscribe(data => {
-          // tslint:disable-next-line: triple-equals
-          if (data.respuesta == 'Success') {
-            this.router.navigate(['/listsales']);
-          } else {
-            this.msgerr = 'error al actualizar sale';
-          }
-        })
-    }
-
-  }
   // obtain data sale for id
   getSaleDataId() {
     this.saleService.getDataSaleForId(this.idSale)
@@ -97,6 +76,68 @@ export class UpdatesaleComponent implements OnInit {
           this.updateSaleForm.get('client_name').setValue(data.rows[0].client_name);
         }
       });
+  }
+  // get form contsales
+  get f() {
+    // console.log('Llegue a la lectura el formulario');
+    return this.updateSaleForm.controls;
+  }
+  // get form contsales
+  get p() {
+    // console.log('Llegue a la lectura el formulario');
+    return this.inactivechangeForm.controls;
+  }
+
+  onInactive() {
+    this.viewInactiveChange = !this.viewInactiveChange;
+  }
+
+  onSubmit() {
+    // console.log('Llegue al metodo');
+
+    this.submitted = true;
+    // error here if form is invalid
+    if (this.inactivechangeForm.invalid) {
+      return;
+    } else {
+      this.saleService.updateSale(
+        this.idSale,
+        this.updateSaleForm.value.user_id,
+        this.updateSaleForm.value.password
+      )
+        .subscribe(data => {
+          console.log(data);
+
+          if (data.respuesta === 'Success') {
+            Swal.fire({
+              type: 'success',
+              title: 'Factura inactivada! ',
+              showConfirmButton: false,
+              timer: 2000
+            });
+            this.msgerr = '';
+            this.ngOnInit;
+          } else if (data.respuesta === 'not allowed') {
+            Swal.fire({
+              type: 'error',
+              title: 'Ups!, no tienes permisos para realizar esta acción',
+              showConfirmButton: false,
+              timer: 2000
+            });
+            this.msgerr = 'Permisos invalidos';
+
+          } else {
+            Swal.fire({
+              type: 'error',
+              title: 'Ups!, algo salio mal',
+              showConfirmButton: false,
+              timer: 2000
+            });
+            this.msgerr = 'error al actualizar password';
+          }
+        })
+    }
+
   }
   // clear alert err
   closeAlertErr(): void {

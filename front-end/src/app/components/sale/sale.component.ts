@@ -214,6 +214,7 @@ export class SaleComponent implements OnInit {
   }
 
   deleteProduct(id) {
+
     for (let i = 0; i < this.listSaleProduct.length; i++) {
       if (this.listSaleProduct[i][0] === id) {
         this.listSaleProduct[i][3] = 0;
@@ -252,7 +253,6 @@ export class SaleComponent implements OnInit {
   }
 
   productSearch(e) {
-
     if (e.keyCode === 13 && !e.shiftKey) {
       // tslint:disable-next-line: forin
       for (const i in this.listProduct) {

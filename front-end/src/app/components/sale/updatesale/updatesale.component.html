@@ -6,8 +6,8 @@
 
     <div class="col s12"></div>
     <div class="col s6" id="create">
-      <form [formGroup]="updateSaleForm" (ngSubmit)="onSubmit()">
-        <h3>Crear Sale</h3>
+      <form [formGroup]="updateSaleForm" (ngSubmit)="onInactive()">
+        <h3>Actualizar venta</h3>
         <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
           <a class="close" (click)="closeAlertErr()">
             &times;
@@ -67,8 +67,47 @@
         </div>
         <button type="submit" class="btn btn-warning btn-lg btn-block btn-full">Inactivar</button>
       </form>
+
+      <ng-container *ngIf="viewInactiveChange;">
+        <form [formGroup]="inactivechangeForm " (ngSubmit)="onSubmit()" class="background-white col s12">
+          <h5>Autorización</h5>
+          <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
+            <a class="close" (click)="closeAlertErrPass()">
+              &times;
+            </a>
+            <h6>{{msgerr}}</h6>
+          </div>
+          <div class="form-group col s12">
+            <label for="user_id">Usuario</label>
+            <input type="password" class="form-control" id="user_id" formControlName="user_id"
+              [ngClass]="{ 'is-invalid': submitted && p.user_id.errors }" placeholder="Ingrese el Usuario">
+            <span>
+              <div *ngIf="submitted && p.user_id.errors">
+                <div *ngIf="p.user_id.errors.required"> <label id="error">Error el password es requerido</label></div>
+              </div>
+            </span>
+          </div>
+
+          <div class="form-group col s12">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password"
+              [ngClass]="{ 'is-invalid': submitted && p.password.errors }" placeholder="Ingrese el Password">
+            <span>
+              <div *ngIf="submitted && p.password.errors">
+                <div *ngIf="p.password.errors.required"> <label id="error">Error el password es requerido</label></div>
+              </div>
+            </span>
+          </div>
+
+
+          <div class="input-field col s12">
+            <button type="submit" class="btn btn-primary btn-lg btn-block btn-full">Inactivar factura</button>
+          </div>
+        </form>
+      </ng-container>
     </div>
-    <div class="col s6">
+
+    <div class="col s6 facturaup">
       <app-invoice></app-invoice>
     </div>
   </div>
