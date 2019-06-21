@@ -13,6 +13,7 @@ export class SaleService {
   params;
   // service to api mysql get all sale
   getAllDataSale() {
+    
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
     return this.http.get(varsGlobals.url + '/getdatasales/', options)

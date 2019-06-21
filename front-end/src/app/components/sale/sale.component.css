@@ -72,17 +72,6 @@
   justify-content: center;
   color: white;
 }
-.display-flex{
-  display: flex;
-}
-/* height */
-::-webkit-scrollbar {
-  height: 6px;
-}
-/* width */
-::-webkit-scrollbar {
-  width: 5px;
-}
 
 /* Track */
 ::-webkit-scrollbar-track {
@@ -99,6 +88,11 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #00bfa5; 
+}
+.imagendeproducto{
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
 }
 .productos-tab {
   overflow: auto;
