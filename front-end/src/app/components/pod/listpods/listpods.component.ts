@@ -50,7 +50,7 @@ export class ListpodsComponent implements OnInit {
     private excelService: ExcelService,
     private router: Router) {
     this.columnDefs = [
-      { headerName: 'Nombre', field: 'name', sortable: true, width: 100 },
+      { headerName: 'Nombre', field: 'name', sortable: true},
       { headerName: 'Codigo', field: 'code', sortable: true, width: 100 },
       { headerName: 'Dirección', field: 'address', sortable: true, width: 300 },
       { headerName: 'Teléfono', field: 'phone', sortable: true, width: 200 },
