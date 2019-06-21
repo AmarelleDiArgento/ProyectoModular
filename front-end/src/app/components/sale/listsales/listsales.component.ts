@@ -84,8 +84,8 @@ export class ListsalesComponent implements OnInit {
         field: 'sale_id',
         cellRenderer: 'customizedVisibilityCell',
         cellRendererParams: {
-          name: 'Sale',
-          Name: 'sale'
+          name: 'sale',
+          Name: 'Sale'
         }, width: 80
       }
     ];

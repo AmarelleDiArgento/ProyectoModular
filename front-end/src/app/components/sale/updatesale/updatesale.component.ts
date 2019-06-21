@@ -35,9 +35,9 @@ export class UpdatesaleComponent implements OnInit {
     this.updateSaleForm = this.formBuilder.group({
       sale_id: ['', Validators.required],
       date: ['', Validators.required],
-      pod_id: ['', Validators.required],
-      user_id: ['', Validators.required],
-      client_id: ['', Validators.required],
+      pod_name: ['', Validators.required],
+      user_name: ['', Validators.required],
+      client_name: ['', Validators.required],
     });
     // asign id sale to search data
     this.idSale = localStorage.getItem('idSale');
@@ -87,9 +87,9 @@ export class UpdatesaleComponent implements OnInit {
 
           this.updateSaleForm.get('sale_id').setValue(data.rows[0].sale_id);
           this.updateSaleForm.get('date').setValue(data.rows[0].date);
-          this.updateSaleForm.get('pod_id').setValue(data.rows[0].pod_id);
-          this.updateSaleForm.get('user_id').setValue(data.rows[0].user_id);
-          this.updateSaleForm.get('client_id').setValue(data.rows[0].client_id);
+          this.updateSaleForm.get('pod_name').setValue(data.rows[0].pod_name);
+          this.updateSaleForm.get('user_name').setValue(data.rows[0].user_name);
+          this.updateSaleForm.get('client_name').setValue(data.rows[0].client_name);
         }
       });
   }
