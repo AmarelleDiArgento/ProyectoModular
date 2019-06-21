@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS proyectomodular.sale (
     invoice_num BIGINT(20) NOT NULL,
     date DATETIME NULL DEFAULT NULL,
     pod_id INT(11) NOT NULL,
-    cardpayment BOOLEAN DEFAULT FALSE,
+    cardpayment VARCHAR(12) DEFAULT NULL,
     authorization VARCHAR(45),
     user_id VARCHAR(45) NOT NULL,
     client_id VARCHAR(45) NULL DEFAULT NULL,

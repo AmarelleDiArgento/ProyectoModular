@@ -112,35 +112,44 @@ call proyectomodular.productins('009', 'Clasicos', '4100', 2, 'https://images.ra
 -- call proyectomodular.productdel(?);
 
 
-call producttaxsins(1,'2');
-call producttaxsins(2,'2');
-call producttaxsins(3,'2');
-call producttaxsins(4,'2');
-call producttaxsins(5,'2');
-call producttaxsins(6,'2');
-call producttaxsins(7,'2');
-call producttaxsins(8,'2');
-call producttaxsins(9,'2');
-call producttaxsins(10,'2');
-call producttaxsins(11,'2');
-call producttaxsins(12,'2');
-call producttaxsins(13,'2');
-call producttaxsins(14,'2');
-call producttaxsins(15,'2');
-call producttaxsins(16,'2');
-call producttaxsins(17,'2');
-call producttaxsins(18,'2');
-call producttaxsins(19,'2');
-call producttaxsins(20,'2');
-call producttaxsins(21,'2');
-call producttaxsins(22,'2');
-call producttaxsins(23,'2');
-call producttaxsins(24,'2');
-call producttaxsins(25,'2');
-call producttaxsins(26,'2');
-call producttaxsins(27,'2');
-call producttaxsins(28,'2');
-call producttaxsins(29,'2');
+call producttaxsins(1,'1');
+call producttaxsins(2,'1');
+call producttaxsins(3,'1');
+call producttaxsins(4,'1');
+call producttaxsins(5,'1');
+call producttaxsins(6,'1');
+call producttaxsins(7,'1');
+call producttaxsins(8,'1');
+call producttaxsins(9,'1');
+call producttaxsins(10,'1');
+call producttaxsins(11,'1');
+call producttaxsins(12,'1');
+call producttaxsins(13,'1');
+call producttaxsins(14,'1');
+call producttaxsins(15,'1');
+call producttaxsins(16,'1');
+call producttaxsins(17,'1');
+call producttaxsins(18,'1');
+call producttaxsins(19,'1');
+call producttaxsins(20,'1');
+call producttaxsins(21,'1');
+call producttaxsins(22,'1');
+call producttaxsins(23,'1');
+call producttaxsins(24,'1');
+call producttaxsins(25,'1');
+call producttaxsins(26,'1');
+call producttaxsins(27,'1');
+call producttaxsins(28,'1');
+call producttaxsins(29,'1');
+call producttaxsins(30,'1');
+call producttaxsins(31,'1');
+call producttaxsins(32,'1');
+call producttaxsins(33,'1');
+call producttaxsins(34,'1');
+call producttaxsins(35,'1');
+call producttaxsins(36,'1');
+call producttaxsins(37,'1');
+call producttaxsins(38,'1');
 
 
 -- ------------------------------------------------------------
@@ -160,10 +169,10 @@ call proyectomodular.moduleins('Product', 1);
 -- PRIVILEGE INSERT
 -- ------------------------------------------------------------
 
-call proyectomodular.privilegeins('User', 1,'people','listusers', 1);
+call proyectomodular.privilegeins('Usuario', 1,'people','listusers', 1);
 call proyectomodular.privilegeins('Rol', 1,'assignment_ind','listrols', 1);
-call proyectomodular.privilegeins('Privilege', 1,'view_list','listprivileges', 1);
-call proyectomodular.privilegeins('Module', 1,'widgets','listmodules', 1);
+call proyectomodular.privilegeins('Privilegios', 1,'view_list','listprivileges', 1);
+call proyectomodular.privilegeins('Modulos', 1,'widgets','listmodules', 1);
 call proyectomodular.privilegeins('Pod', 2,'store','listpods', 1);
 call proyectomodular.privilegeins('Sale', 2,'local_grocery_store','listsales', 1);
 call proyectomodular.privilegeins('Product', 3,'card_giftcard','listproducts', 1);
@@ -201,14 +210,13 @@ call proyectomodular.rol_privilegeins(9, 2, 1, 1, 1, 1);
 -- ------------------------------------------------------------
 -- POD INSERT
 -- ------------------------------------------------------------
-
 call proyectomodular.podins('LAG',
 '800000000-1',
 '18762012523802',
 '2017-08-15',
  1000,
 'El Lago',
-'calle 76 16a 17',
+'Calle 76 # 16ª-17',
 '4661233',
  1);
 call proyectomodular.podins('CAL1',
@@ -217,7 +225,7 @@ call proyectomodular.podins('CAL1',
 '2016-09-25',
  1000,
 'CC Calima',
-'kr 27 21 75 lc a 77',
+'Carrera 27 # 21-75 Local a 77',
 '4875263',
  1);
  call proyectomodular.podins('CAL2',
@@ -226,7 +234,7 @@ call proyectomodular.podins('CAL1',
 '2016-09-25',
  1000,
 'CC Calima 2',
-'kr 27 21 75 lc b 146',
+'Carrera 27 # 21-75 Local b 146',
 '6045574',
  1);
 call proyectomodular.podins('ANR',
@@ -234,8 +242,8 @@ call proyectomodular.podins('ANR',
 '00000005',
 '2015-12-11',
  1000,
-'Av NQSRestrepo',
-'kr 18 16 75 sur',
+'Avenida NQS Restrepo',
+'Carrera 18 # 16-75 Sur',
 '7023052',
  1);
  call proyectomodular.podins('SAN',
@@ -243,8 +251,8 @@ call proyectomodular.podins('ANR',
 '00000006',
 '2015-12-11',
  1000,
-'San andresito de la 38',
-'kr 38 8a 60',
+'San Andresito de la 38',
+'Carrera 38 # 8ª-60',
 '',
  1);
  call proyectomodular.podins('PLC',
@@ -252,8 +260,8 @@ call proyectomodular.podins('ANR',
 '00000007',
 '2015-12-11',
  1000,
-'Plaza central',
-'kr 65 n11 90 lc 3-80',
+'Plaza Central',
+'Carrera 65 # 11-90 Local 3-80',
 '7466934',
  1);
  call proyectomodular.podins('EAS',
@@ -261,8 +269,8 @@ call proyectomodular.podins('ANR',
 '00000008',
 '2015-12-11',
  1000,
-'easy de las americas',
-'av americas 68 78 lc 1',
+'Easy de las Américas',
+'Avenida Américas # 68-78 Local 1',
 '4109653',
  1);
  call proyectomodular.podins('OTF',
@@ -270,8 +278,8 @@ call proyectomodular.podins('ANR',
 '00000009',
 '2015-12-11',
  1000,
-'Outlet factory',
-'av americas 63 84 isla 192',
+'Outlet Factory',
+'Avenida Américas # 63-84 Isla 192',
 '',
  1);
  call proyectomodular.podins('MTA',
@@ -279,8 +287,8 @@ call proyectomodular.podins('ANR',
 '000000010',
 '2015-12-11',
  1000,
-'Metro alqueria',
-'kr 68 sur 38a 15 lc 4',
+'Metro Alquería',
+'Carrera 68 Sur #38ª-15 Local 4',
 '',
  1);
  call proyectomodular.podins('CMY',
@@ -288,8 +296,8 @@ call proyectomodular.podins('ANR',
 '000000011',
 '2015-12-11',
  1000,
-'Centro mayor',
-'cl 38a sur 34d 50 lc 3044',
+'Centro Mayor',
+'Calle 38a Sur # 34d-50 Local 3044',
 '7035621',
  1);
  call proyectomodular.podins('MTR',
@@ -297,8 +305,8 @@ call proyectomodular.podins('ANR',
 '000000012',
 '2015-12-11',
  1000,
-'Metro auto sur',
-'ac 57r sur 77a 18 lc 12-a',
+'Metro Auto Sur',
+'ac 57r Sur # 77ª-18 Local 12-a',
 '',
  1);
  call proyectomodular.podins('UNS',
@@ -307,7 +315,7 @@ call proyectomodular.podins('ANR',
 '2015-12-11',
  1000,
 'Unisur Soacha',
-'kr 3a 29a 02 autopista sur soacha',
+'Carrera 3ª # 29ª-02 Autopista Sur Soacha',
 '',
  1);
  call proyectomodular.podins('MRC',
@@ -315,8 +323,8 @@ call proyectomodular.podins('ANR',
 '000000014',
 '2015-12-11',
  1000,
-'cc Mercurio soacha',
-'local Bahia kr 7 32 25 lc 285',
+'Centro Comercial Mercurio Soacha',
+'local Bahía Carrera 7 # 32-25 Local 285',
 '9003057',
  1);
  call proyectomodular.podins('MTS',
@@ -324,8 +332,8 @@ call proyectomodular.podins('ANR',
 '000000015',
 '2015-12-11',
  1000,
-'Metro soacha',
-'kr 7 32 25 lc 3',
+'Metro Soacha',
+'Carrera 7 # 32-25 Local 3',
 '',
  1);
  call proyectomodular.podins('AJM',
@@ -333,8 +341,8 @@ call proyectomodular.podins('ANR',
 '000000000016',
 '2015-12-11',
  1000,
-'Av Jimenez',
-'Av jimenez 9 78',
+'Avenida Jiménez',
+'Avenida Jiménez # 9-78',
 '2430396',
  1);
  call proyectomodular.podins('VTS',
@@ -343,7 +351,7 @@ call proyectomodular.podins('ANR',
 '2015-12-11',
  1000,
 'Ventura Terreros Soacha',
-'kr 1 38 53 lc 4-21',
+'Carrera 1 #38-53 Local 4-21',
 '7023052',
  1);
 

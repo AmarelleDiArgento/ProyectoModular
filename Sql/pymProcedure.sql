@@ -1281,7 +1281,7 @@ CREATE PROCEDURE saleins (
   in _pod_id INT(11),
   in _user_id VARCHAR(45),
   in _client_id VARCHAR(45),
-  in _cardpayment tinyint(1),
+  in _cardpayment VARCHAR(12),
   in _authorization varchar(45),
   in _list_product MEDIUMTEXT
 )
@@ -1311,7 +1311,7 @@ DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE saleupdpay (
   _sale_id BIGINT,
-  _cardpayment tinyint,
+  _cardpayment VARCHAR(12),
   _authorization VARCHAR(45)
 )
 BEGIN
@@ -1557,6 +1557,7 @@ BEGIN
 	left join user as u on s.user_id = u.user_id  
 	left join user as c on s.client_id = c.user_id 
 	where s.date between concat(_begin, " 00:00:00") and concat(_end, " 23:59:59")
+    and s.accountant = 1
 	group by sale_id
     order by sale_id desc;
 	
