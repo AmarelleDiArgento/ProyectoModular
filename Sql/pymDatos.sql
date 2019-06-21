@@ -93,6 +93,16 @@ call proyectomodular.productins('715', 'HIT 8 ONZ NO RETORNABLE', '2200', 7, 'ht
 call proyectomodular.productins('721', 'AGUA', '2700', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
 call proyectomodular.productins('722', 'VITAL', '2200', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
 call proyectomodular.productins('727', 'H2Oh!', '3100', 7, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('001', 'Opcion1', '8200', 1, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('002', 'Opcion2', '12000', 1, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('003', 'Opcion3', '9000', 1, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('004', 'probocado1', '14900', 5, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('005', 'probocado2', '15900', 5, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('006', 'Campesinos', '4700', 2, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('007', 'Rancheros', '5400', 2, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('008', 'Del Huerto', '4700', 2, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+call proyectomodular.productins('009', 'Clasicos', '4100', 2, 'https://images.rappi.com/products/911708-1537313741.png?d=200x200&e=webp', 1);
+
 
 -- call proyectomodular.productins(?, ?, ?, ?, ?, ?);
 -- call proyectomodular.productupd(?, ?, ?, ?, ?, ?, ?);
