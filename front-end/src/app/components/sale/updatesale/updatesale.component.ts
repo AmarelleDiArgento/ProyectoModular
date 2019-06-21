@@ -28,9 +28,12 @@ export class UpdatesaleComponent implements OnInit {
   sale_id = '';
   name = '';
 
+  viewInactiveChange: boolean = false;
+
   constructor(private http: Http, private formBuilder: FormBuilder, private saleService: SaleService, private router: Router) { }
 
   ngOnInit() {
+    localStorage.setItem('printOn', '0');
     // init form
     this.updateSaleForm = this.formBuilder.group({
       sale_id: ['', Validators.required],
@@ -42,7 +45,7 @@ export class UpdatesaleComponent implements OnInit {
     // asign id sale to search data
     this.idSale = localStorage.getItem('idSale');
     console.log(this.idSale);
-    
+
     // eject ws search user for id
     this.getSaleDataId();
     // console.log('Cargamos el formulario o_o');
@@ -52,7 +55,9 @@ export class UpdatesaleComponent implements OnInit {
     // console.log('Llegue a la lectura el formulario');
     return this.updateSaleForm.controls;
   }
-
+  onInactive() {
+    this.viewInactiveChange = !this.viewInactiveChange;
+  }
   onSubmit() {
     // console.log('Llegue al metodo');
 
