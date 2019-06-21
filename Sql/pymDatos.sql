@@ -288,7 +288,7 @@ call proyectomodular.podins('ANR',
 '2015-12-11',
  1000,
 'Metro Alquería',
-'Carrera 68 Sur #38ª-15 Local 4',
+'Carrera 68 Sur # 38ª-15 Local 4',
 '',
  1);
  call proyectomodular.podins('CMY',

@@ -52,7 +52,7 @@ export class ListuserComponent implements OnInit {
     private excelService: ExcelService,
     private router: Router) {
     this.columnDefs = [
-      { headerName: 'ID', field: 'user_id', sortable: true },
+      { headerName: 'ID', field: 'user_id', width: 100 , sortable: true },
       { headerName: 'Nombre', field: 'username', sortable: true },
       { headerName: 'Email', field: 'email', sortable: true },
       { headerName: 'Rol', field: 'rol_name', sortable: true },
