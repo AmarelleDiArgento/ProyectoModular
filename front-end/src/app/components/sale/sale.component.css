@@ -114,14 +114,30 @@
   position: absolute;
   top: 10%;
 }
-
+.li_product{
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  justify-content: space-around;
+  height: 100%;
+}
+.cancel-product{
+  position: absolute;
+    top: 0px !important;
+    right: 0px !important;
+}
+.btn_producto{
+  height: 21px;
+  line-height: 21px;
+  padding: 0px 8px;
+}
 .center-product {
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
 .productos{
-  height: 58% !important;
+  height: 77% !important;
   overflow: auto;
 }
 
