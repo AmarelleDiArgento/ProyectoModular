@@ -140,7 +140,19 @@
   height: 77% !important;
   overflow: auto;
 }
-
+.circle, .collection .collection-item.avatar :not(.circle-clipper)>.circle {
+  position: absolute;
+  width: 65px !important;
+  height: 100% !important;
+  overflow: hidden;
+  object-fit: cover !important;
+  left: 0px !important;
+  display: inline-block;
+  vertical-align: middle;
+}
+.circle {
+  border-radius: 0 !important;
+}
 
 .alto-productos {
   height: 220px;

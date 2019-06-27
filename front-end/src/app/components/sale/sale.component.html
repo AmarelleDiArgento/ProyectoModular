@@ -73,25 +73,33 @@
     </div>
     <div class="productos">
       <div *ngFor="let sp of listSaleProduct">
-        <div class="col s6">
-          <ul class="collection" *ngIf="sp[3] > 0 " style="height: 112px;">
+        <div class="col s12">
+          <ul class="collection" *ngIf="sp[3] > 0 " style="height: 100px; margin: 2px">
             <li class="collection-item avatar li_product">
               <img src="{{sp[2]}}" alt="" class="circle">
-              <p class="title" style="font-size: 11px;"><b>{{sp[1]}} x {{sp[3]}}</b></p>
-              <p style="font-size: 11px;"><b>$ {{sp[4]}}</b></p>
-              <div class="row" style="margin: 0">
-                <div class="badge white-text col s4 center-flex">
-                  <a (click)="decreAmount(sp[0])" class="btn btn_producto teal darken-4">
-                    <i class="material-icons white-text">remove</i>
-                  </a>
+              <div class="row" style="margin-bottom: 10px;">
+                <div class="col s12">
+                  <p class="title" style="font-size: 16px; margin: 5px;"><b>{{sp[1]}} x {{sp[3]}}</b></p>
                 </div>
-                <div class="badge center col s4">
-                  {{sp[3]}}
-                </div>
-                <div class="badge white-text col s4 center-flex">
-                  <a (click)="increAmount(sp[0])" class="btn btn_producto teal darken-4">
-                    <i class="material-icons white-text">add</i>
-                  </a>
+                <div class="col s6" style="margin: 0;">
+                  <p style="font-size: 16px;"><b>$ {{sp[4]}}</b></p>
+                </div>  
+                <div class="col s6" style="margin: 0;">
+                  <div class="row" style="margin-bottom: 0;">
+                    <div class="badge white-text col s4 center-flex">
+                      <a (click)="decreAmount(sp[0])" class="btn btn_producto teal darken-4">
+                        <i class="material-icons white-text">remove</i>
+                      </a>
+                    </div>
+                    <div class="badge center col s4">
+                      {{sp[3]}}
+                    </div>
+                    <div class="badge white-text col s4 center-flex">
+                      <a (click)="increAmount(sp[0])" class="btn btn_producto teal darken-4">
+                        <i class="material-icons white-text">add</i>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
               <a class="secondary-content red-text text-darken-4 cancel-product" (click)="deleteProduct(sp[0])">
