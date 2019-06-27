@@ -93,17 +93,17 @@ export class ListsalesComponent implements OnInit {
       customizedVisibilityCell: RendervisibilitybuttonComponent
     },
 
-    this.defaultColDef = {
-      pagination: true,
-      suppressRowClickSelection: true,
-      enableRangeSelection: true,
-      editable: true,
-      enablePivot: true,
-      enableValue: true,
-      sortable: true,
-      resizable: true,
-      filter: true
-    };
+      this.defaultColDef = {
+        pagination: true,
+        suppressRowClickSelection: true,
+        enableRangeSelection: true,
+        editable: true,
+        enablePivot: true,
+        enableValue: true,
+        sortable: true,
+        resizable: true,
+        filter: true
+      };
     this.rowSelection = 'multiple';
     this.pivotPanelShow = 'always';
     this.paginationPageSize = 50;
@@ -114,6 +114,12 @@ export class ListsalesComponent implements OnInit {
 
   ngOnInit() {
 
+
+    // init form
+    this.selectDateForm = this.formBuilder.group({
+      since: ['', Validators.required],
+      until: ['', Validators.required]
+    });
 
     // asign id sale to search data
     this.since = localStorage.getItem('sinceDate');
@@ -146,12 +152,6 @@ export class ListsalesComponent implements OnInit {
         format: 'yyyy-mm-dd',
         autoClose: true
       });
-    });
-
-    // init form
-    this.selectDateForm = this.formBuilder.group({
-      since: ['', Validators.required],
-      until: ['', Validators.required]
     });
 
   }
