@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -17,6 +17,7 @@ import { PodService } from '../../services/pod.service';
   styleUrls: ['./user.component.css']
 })
 
+@Injectable()
 export class UserComponent implements OnInit {
 
   // vars msj

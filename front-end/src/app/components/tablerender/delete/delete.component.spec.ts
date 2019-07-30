@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RenderresetbuttonComponent } from './renderresetbutton.component';
+import { DeleteComponent } from './delete.component';
 
-describe('RenderresetbuttonComponent', () => {
-  let component: RenderresetbuttonComponent;
-  let fixture: ComponentFixture<RenderresetbuttonComponent>;
+describe('DeleteComponent', () => {
+  let component: DeleteComponent;
+  let fixture: ComponentFixture<DeleteComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RenderresetbuttonComponent ]
+      declarations: [ DeleteComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RenderresetbuttonComponent);
+    fixture = TestBed.createComponent(DeleteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

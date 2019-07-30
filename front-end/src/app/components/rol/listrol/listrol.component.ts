@@ -9,9 +9,6 @@ declare var $: any;
 import { RolService } from '../../../services/rol.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
-import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
-import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
-import { RendersettingbuttonComponent } from '../../aggridrender/rendersettingbutton/rendersettingbutton.component';
 
 
 @Component({
@@ -50,59 +47,7 @@ export class ListrolComponent implements OnInit {
     private rolService: RolService,
     private excelService: ExcelService,
     private router: Router) {
-    this.columnDefs = [
-      { headerName: 'ID', field: 'rol_id', sortable: true },
-      { headerName: 'Nombre', field: 'name', sortable: true },
-      {
-        headerName: '',
-        field: 'rol_id',
-        cellRenderer: 'customizedEditCell',
-        cellRendererParams: {
-          name: 'rol',
-          Name: 'Rol'
-        }, width: 80
-      },
-      {
-        headerName: '', field: 'rol_id',
-        cellRenderer: 'customizedDeleteCell',
-        cellRendererParams: {
-          name: 'rol',
-          Name: 'Rol'
-        }, width: 80
-      },
-      {
-        headerName: '',
-        field: 'rol_id',
-        cellRenderer: 'customizedSettingCell',
-        cellRendererParams: {
-          name: 'rol',
-          Name: 'Rol'
-        }, width: 80
-      }
-    ];
-    this.frameworkComponents = {
-      customizedEditCell: RendereditbuttonComponent,
-      customizedDeleteCell: RenderdeletebuttonComponent,
-      customizedSettingCell: RendersettingbuttonComponent
-    }
-
-    this.defaultColDef = {
-      pagination: true,
-      suppressRowClickSelection: true,
-      enableRangeSelection: true,
-      editable: true,
-      enablePivot: true,
-      enableValue: true,
-      sortable: true,
-      resizable: true,
-      filter: true
-    };
-    this.rowSelection = 'multiple';
-    this.pivotPanelShow = 'always';
-    this.paginationPageSize = 10;
-    this.paginationNumberFormatter = function (params) {
-      return '' + params.value.toLocaleString() + '';
-    };
+   
   }
 
   ngOnInit() {

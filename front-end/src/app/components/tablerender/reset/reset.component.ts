@@ -1,39 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ICellRendererAngularComp } from 'ag-grid-angular';
+import { Component, OnInit, Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
 declare var $: any;
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { UserService } from '../../../services/user.service';
 
 @Component({
-  selector: 'app-renderresetbutton',
-  templateUrl: './renderresetbutton.component.html',
-  styleUrls: ['./renderresetbutton.component.css']
+  selector: 'app-reset',
+  templateUrl: './reset.component.html',
+  styleUrls: ['./reset.component.css']
 })
-export class RenderresetbuttonComponent implements OnInit, ICellRendererAngularComp {
-  private cellvalue: any;
-  private Name: string;
-  private name: string;
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ResetComponent implements OnInit {
+
   constructor(private router: Router,
     private userService: UserService) { }
 
   ngOnInit() {
   }
-
-  refresh(params: any): boolean {
-    this.cellvalue = params.value;
-    return true;
-  }
-  agInit(params: any): void {
-    this.Name = params.Name;
-    this.name = params.name;
-    this.cellvalue = params.value;
-
-  }
-
 
   newPassword() {
     let caracteres = 'abcdefghijkmnpqrtuvwxyzABCDEFGHIJKLMNPQRTUVWXYZ012346789';
@@ -45,8 +32,7 @@ export class RenderresetbuttonComponent implements OnInit, ICellRendererAngularC
     return contraseña;
   }
 
-
-  resetPassword() {
+  resetPassword(name,user) {
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'No podras recuperar los cambios',
@@ -57,9 +43,9 @@ export class RenderresetbuttonComponent implements OnInit, ICellRendererAngularC
       confirmButtonText: 'Sí, resetealo!'
     }).then((result) => {
       if (result.value) {
-        console.log('this.' + this.name + 'Service');
+        console.log('this.' + name + 'Service');
         let newPassword = this.newPassword();
-        this.userService.resetUserPassword(this.cellvalue, newPassword)
+        this.userService.resetUserPassword(user, newPassword)
           .subscribe(data => {
             if (data.respuesta === 'Success') {
               Swal.fire({
@@ -79,9 +65,6 @@ export class RenderresetbuttonComponent implements OnInit, ICellRendererAngularC
           });
       }
     });
-
-    // send to api backend delete pod for id
-
-  }
+}
 
 }
