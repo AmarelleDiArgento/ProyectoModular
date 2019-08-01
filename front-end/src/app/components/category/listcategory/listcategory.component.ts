@@ -12,6 +12,8 @@ import { ProductService } from '../../../services/product.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
+import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
 
 @Component({
   selector: 'app-listcategory',
@@ -50,7 +52,50 @@ export class ListcategoryComponent implements OnInit {
     private categoryService: CategoryService,
     private excelService: ExcelService,
     private router: Router) {
-   
+    this.columnDefs = [
+      { headerName: 'ID', field: 'category_id', sortable: true },
+      { headerName: 'Nombre', field: 'name', sortable: true },
+      {
+        headerName: '',
+        field: 'category_id',
+        cellRenderer: 'customizedEditCell',
+        cellRendererParams: {
+          name: 'category',
+          Name: 'Category'
+        }, width: 80
+      },
+      {
+        headerName: '', field: 'category_id',
+        cellRenderer: 'customizedDeleteCell',
+        cellRendererParams: {
+          name: 'category',
+          Name: 'Category'
+        }, width: 80
+      }
+    ];
+
+    this.frameworkComponents = {
+      customizedEditCell: RendereditbuttonComponent,
+      customizedDeleteCell: RenderdeletebuttonComponent
+    };
+
+    this.defaultColDef = {
+      pagination: true,
+      suppressRowClickSelection: true,
+      enableRangeSelection: true,
+      editable: true,
+      enablePivot: true,
+      enableValue: true,
+      sortable: true,
+      resizable: true,
+      filter: true
+    };
+    this.rowSelection = 'multiple';
+    this.pivotPanelShow = 'always';
+    this.paginationPageSize = 10;
+    this.paginationNumberFormatter = function (params) {
+      return '[' + params.value.toLocaleString() + ']';
+    };
   }
 
   ngOnInit() {

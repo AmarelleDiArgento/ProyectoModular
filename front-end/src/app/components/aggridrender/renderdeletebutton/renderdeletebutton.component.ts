@@ -1,10 +1,9 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+// generic libs
+import { Component, OnInit, NgZone, Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-// jquery
-declare var $: any;
+import { ICellRendererAngularComp } from 'ag-grid-angular';
 // alerts
 import Swal from 'sweetalert2';
-
 // list uses to charge oninit components
 import { ListrolComponent } from '../../../components/rol/listrol/listrol.component';
 import { ListrolprivilegeComponent } from '../../../components/rol/rolprivilege/listrolprivilege/listrolprivilege.component';
@@ -16,6 +15,8 @@ import { ListproductComponent } from '../../../components/product/listproduct/li
 import { ListpodsComponent } from '../../../components/pod/listpods/listpods.component';
 import { ListsalesComponent } from '../../../components/sale/listsales/listsales.component';
 import { ListuserComponent } from '../../../components/user/listuser/listuser.component';
+// jquery
+declare var $: any;
 // charge  services
 import { CategoryService } from '../../../services/category.service';
 import { ModuleService } from '../../../services/module.service';
@@ -28,21 +29,31 @@ import { TaxService } from '../../../services/tax.service';
 import { UserService } from '../../../services/user.service';
 
 @Component({
-  selector: 'app-delete',
-  templateUrl: './delete.component.html',
-  styleUrls: ['./delete.component.css']
+  selector: 'app-renderdeletebutton',
+  templateUrl: './renderdeletebutton.component.html',
+  styleUrls: ['./renderdeletebutton.component.css']
 })
-
-export class DeleteComponent  {
-
+@Injectable()
+export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngularComp {
+  cellvalue: any;
+  private Name: string;
+  private name: string;
   private Service;
   private Component;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    //components
-    private listuserComponent: ListuserComponent,
+    private zone: NgZone,
+    private categoryService: CategoryService,
+    private moduleService: ModuleService,
+    private podService: PodService,
+    private privilegeService: PrivilegeService,
+    private productService: ProductService,
+    private rolService: RolService,
+    private userService: UserService,
+    private saleService: SaleService,
+    private taxService: TaxService,
     private listcategoryComponent: ListcategoryComponent,
     private listrolComponent: ListrolComponent,
     private listrolprivilegeComponent: ListrolprivilegeComponent,
@@ -52,25 +63,24 @@ export class DeleteComponent  {
     private listproductComponent: ListproductComponent,
     private listpodComponent: ListpodsComponent,
     private listsaleComponent: ListsalesComponent,
-    //services
-    private userService: UserService,
-    private categoryService: CategoryService,
-    private moduleService: ModuleService,
-    private podService: PodService,
-    private privilegeService: PrivilegeService,
-    private productService: ProductService,
-    private rolService: RolService,
-    private saleService: SaleService,
-    private taxService: TaxService,
-    ) {
-      this.listuserComponent = listuserComponent;
-      }
+    private listuserComponent: ListuserComponent
+  ) { }
 
-  
+  ngOnInit() {
+  }
 
-  delete(name, id) {
-    this.Service = 'this.' + name + 'Service';
-    this.Component = 'this.list' + name + 'Component';
+  refresh(params: any): boolean {
+    this.cellvalue = params.value;
+    return true;
+  }
+  agInit(params: any): void {
+    this.Name = params.Name;
+    this.name = params.name;
+    this.cellvalue = params.value;
+    this.Service = eval('this.' + this.name + 'Service');
+    this.Component = eval('this.list' + this.name + 'Component');
+  }
+  delete() {
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'No podras recuperar los cambios',
@@ -81,8 +91,10 @@ export class DeleteComponent  {
       confirmButtonText: 'Sí, eliminalo!'
     }).then((result) => {
       if (result.value) {
-        console.log('this.' + name + 'Service');
-        this.Service.delete(id).subscribe(data => {
+        console.log('this.' + this.name + 'Service');
+
+        this.Service.delete(this.cellvalue)
+          .subscribe(data => {
             if (data.respuesta === 'Success') {
               Swal.fire({
                 type: 'success',
@@ -112,6 +124,8 @@ export class DeleteComponent  {
           });
       }
     })
-}
 
+    // send to api backend delete pod for id
+
+  }
 }

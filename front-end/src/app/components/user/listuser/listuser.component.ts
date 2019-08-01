@@ -1,18 +1,17 @@
-import { Component, OnInit, Injectable, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
-declare let $: any;
-//components table
-import { UpdateComponent } from '../../../components/tablerender/update/update.component';
-//import { DeleteComponent } from '../../../components/tablerender/delete/delete.component';
-import { ResetComponent } from '../../../components/tablerender/reset/reset.component';
+import { NgZone } from '@angular/core';
+declare var $: any;
 // service auth
 import { UserService } from '../../../services/user.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
+import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
+import { RenderStatusComponent } from '../../aggridrender/render-status/render-status.component';
+import { RenderresetbuttonComponent } from '../../aggridrender/renderresetbutton/renderresetbutton.component';
 
 @Component({
   selector: 'app-listuser',
@@ -23,39 +22,126 @@ import { ExcelService } from '../../../services/excel.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ListuserComponent implements OnInit {
+  gridApi;
+  gridColumnApi;
+  components;
+  columnDefs;
+  autoGroupColumnDef;
+  defaultColDef;
+  rowSelection;
+  rowGroupPanelShow;
+  pivotPanelShow;
+  paginationPageSize;
+  paginationNumberFormatter;
+  frameworkComponents;
+  rowData;
   // list data ws user
   listUser: [];
-  //datatable init
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
-  //name module
-  private nameModule: String;
+  texto = 'hiddensearch';
+  filtro = true;
+  lineas = 10;
+  searchFilter;
 
   constructor(
+    private zone: NgZone,
     private http: Http,
     private formBuilder: FormBuilder,
     private userService: UserService,
     private excelService: ExcelService,
-    private router: Router,
-    private updateComponent: UpdateComponent,
-    private resetComponent: ResetComponent,
-    private changeDetectorRefs: ChangeDetectorRef) { 
-    }
+    private router: Router) {
+    this.columnDefs = [
+      { headerName: 'ID', field: 'user_id', width: 100 , sortable: true },
+      { headerName: 'Nombre', field: 'username', sortable: true },
+      { headerName: 'Email', field: 'email', sortable: true },
+      { headerName: 'Rol', field: 'rol_name', sortable: true },
+      {
+        headerName: 'Fecha creación',
+        field: 'create_time',
+        sortable: true,
+        width: 190,
+        filter: 'agDateColumnFilter',
+        filterParams: {
+          comparator: filter
+        }
+      },
+      {
+        headerName: 'Fecha modificación',
+        field: 'update_time',
+        sortable: true,
+        width: 190,
+        filter: 'agDateColumnFilter',
+        filterParams: {
+          comparator: filter
+        }
+      },
+      {
+        headerName: 'Estado',
+        field: 'status',
+        sortable: true,
+        cellRenderer: 'customizedStatusCell',
+        width: 100
+      },
+      {
+        headerName: '',
+        field: 'user_id',
+        cellRenderer: 'customizedEditCell',
+        cellRendererParams: {
+          name: 'user',
+          Name: 'User'
+        }, width: 80
+      },
+      {
+        headerName: '',
+        field: 'user_id',
+        cellRenderer: 'customizedResetCell',
+        cellRendererParams: {
+          name: 'user',
+          Name: 'User'
+        }, width: 80
+      }
+    ];
+
+    this.frameworkComponents = {
+      customizedEditCell: RendereditbuttonComponent,
+      customizedStatusCell: RenderStatusComponent,
+      customizedResetCell: RenderresetbuttonComponent
+    };
+
+    this.defaultColDef = {
+      pagination: true,
+      suppressRowClickSelection: true,
+      enableRangeSelection: true,
+      editable: true,
+      enablePivot: true,
+      enableValue: true,
+      sortable: true,
+      resizable: true,
+      filter: true
+    };
+    this.rowSelection = 'multiple';
+    this.pivotPanelShow = 'always';
+    this.paginationPageSize = 10;
+    this.paginationNumberFormatter = function (params) {
+      return '' + params.value.toLocaleString() + '';
+    };
+  }
 
   ngOnInit() {
     $(document).ready(function () {
-      $('select').formSelect(); 
+      $('select').formSelect();
     });
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      processing: true
-    };
     this.getAllData();
-    //send name module
-    this.nameModule = "user";
   }
-  //get all data
+
+
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.rowData = this.listUser;
+  }
+
   getAllData() {
     // send to search api backend all category
     this.userService.getAllDataUsers()
@@ -63,31 +149,46 @@ export class ListuserComponent implements OnInit {
         // populate list json
         console.log(data);
         this.listUser = data.rows;
-        this.dtTrigger.next();
       });
   }
-  // redirect to create 
+
+  onPageSizeChanged(value) {
+    this.gridApi.paginationSetPageSize(Number(value));
+  }
+
+  cambiaEstado() {
+    this.texto = (this.filtro) ? '' : 'hiddensearch';
+    this.filtro = !this.filtro;
+  }
+
+  quickSearch() {
+    console.log(this.searchFilter);
+    this.gridApi.setQuickFilter(this.searchFilter);
+  }
+
+  // redirect to create rol
   createUser() {
     this.router.navigate(['/createuser']);
   }
-  // redirect to update
-  updateUser(idUser, username){
-    this.updateComponent.update(this.nameModule, idUser, username);
-  }
-  async deleteUser(idUser){
-   // this.deleteComponent.delete(this.nameModule,idUser);
-   this.userService.delete(idUser)
-   .subscribe(data => {
-   this.changeDetectorRefs.detectChanges();
-  });
-  }
-  //export xsl
+
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listUser, 'ReporteUsuarios');
   }
-  //reset password
-  resetPassword(idUser){
-    this.resetComponent.resetPassword(this.nameModule,idUser);
-  }
+}
+// function filter for date
+function filter(filterLocalDateAtMidnight, cellValue) {
+  const dateAsString = cellValue;
+  const datePartsA = dateAsString.split(' ');
+  const datePartsB = datePartsA[0].split('-');
 
+  const cellDate = new Date(Number(datePartsB[0]), Number(datePartsB[1]) - 1, Number(datePartsB[2]));
+  if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
+    return 0;
+  }
+  if (cellDate < filterLocalDateAtMidnight) {
+    return -1;
+  }
+  if (cellDate > filterLocalDateAtMidnight) {
+    return 1;
+  }
 }

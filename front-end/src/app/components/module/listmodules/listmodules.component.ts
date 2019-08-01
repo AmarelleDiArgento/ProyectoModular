@@ -9,6 +9,9 @@ import { ModuleService } from '../../../services/module.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { RenderStatusComponent } from '../../aggridrender/render-status/render-status.component';
+import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
+import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
 
 @Component({
   selector: 'app-listmodules',
@@ -47,7 +50,58 @@ export class ListmodulesComponent implements OnInit {
     private moduleService: ModuleService,
     private excelService: ExcelService,
     private router: Router) {
-    
+    this.columnDefs = [
+      { headerName: 'ID', field: 'module_id', sortable: true },
+      { headerName: 'Nombre', field: 'name', sortable: true },
+      {
+        headerName: 'Estado',
+        field: 'status',
+        sortable: true,
+        cellRenderer: 'customizedStatusCell',
+        width: 100
+      },
+      {
+        headerName: '',
+        field: 'module_id',
+        cellRenderer: 'customizedEditCell',
+        cellRendererParams: {
+          name: 'module',
+          Name: 'Module'
+        }, width: 80
+      },
+      {
+        headerName: '', field: 'module_id',
+        cellRenderer: 'customizedDeleteCell',
+        cellRendererParams: {
+          name: 'module',
+          Name: 'Module'
+        }, width: 80
+      }
+    ];
+
+    this.frameworkComponents = {
+      customizedStatusCell: RenderStatusComponent,
+      customizedEditCell: RendereditbuttonComponent,
+      customizedDeleteCell: RenderdeletebuttonComponent
+    }
+
+    this.defaultColDef = {
+      pagination: true,
+      suppressRowClickSelection: true,
+      enableRangeSelection: true,
+      editable: true,
+      enablePivot: true,
+      enableValue: true,
+      sortable: true,
+      resizable: true,
+      filter: true
+    };
+    this.rowSelection = 'multiple';
+    this.pivotPanelShow = 'always';
+    this.paginationPageSize = 10;
+    this.paginationNumberFormatter = function (params) {
+      return '[' + params.value.toLocaleString() + ']';
+    };
   }
 
   ngOnInit() {

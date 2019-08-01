@@ -46,7 +46,23 @@
 
         <div class="table striped center">
 
+            <ag-grid-angular 
+            style="width: 100%; height: auto;" 
+            class="ag-theme-material" [columnDefs]="columnDefs"
+            [rowSelection]="rowSelection" 
+            [pagination]="true" 
+            [paginationPageSize]="paginationPageSize"
+            [paginationNumberFormatter]="paginationNumberFormatter" 
+            [rowData]="rowData"
+            [animateRows]="true"
+            [frameworkComponents]= "frameworkComponents"
+            (gridReady)="onGridReady($event)">
+          </ag-grid-angular>
         </div>
+
+        <!--<ag-grid-angular style="height: 650px" class="striped responsive-table ag-theme-material"
+          [rowData]="listPrivilege" [columnDefs]="columnDefs" [pagination]="true" [paginationPageSize]="lineas">
+        </ag-grid-angular>-->
       </div>
     </div>
   </div>

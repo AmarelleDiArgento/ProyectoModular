@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Injectable } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,8 +16,6 @@ import { PodService } from '../../../services/pod.service';
   templateUrl: './updateuser.component.html',
   styleUrls: ['./updateuser.component.css']
 })
-
-@Injectable()
 export class UpdateuserComponent implements OnInit {
 
   // vars msj
@@ -68,8 +66,6 @@ export class UpdateuserComponent implements OnInit {
     });
     // asign id rol to search data
     this.idUser = localStorage.getItem('idUser');
-
-    console.log( this.idUser)
 
     this.getAllDataRol();
 

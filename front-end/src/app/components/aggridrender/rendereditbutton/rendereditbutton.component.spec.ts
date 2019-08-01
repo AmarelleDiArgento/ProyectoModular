@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TablerenderComponent } from './tablerender.component';
+import { RendereditbuttonComponent } from './rendereditbutton.component';
 
-describe('TablerenderComponent', () => {
-  let component: TablerenderComponent;
-  let fixture: ComponentFixture<TablerenderComponent>;
+describe('RendereditbuttonComponent', () => {
+  let component: RendereditbuttonComponent;
+  let fixture: ComponentFixture<RendereditbuttonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TablerenderComponent ]
+      declarations: [ RendereditbuttonComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TablerenderComponent);
+    fixture = TestBed.createComponent(RendereditbuttonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

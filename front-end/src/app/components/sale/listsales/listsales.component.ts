@@ -8,7 +8,7 @@ declare var $: any;
 import { SaleService } from '../../../services/sale.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
-
+import { RendervisibilitybuttonComponent } from '../../aggridrender/rendervisibilitybutton/rendervisibilitybutton.component';
 
 @Component({
   selector: 'app-listsales',
@@ -64,7 +64,52 @@ export class ListsalesComponent implements OnInit {
     private saleService: SaleService,
     private excelService: ExcelService,
     private router: Router) {
-   
+    this.columnDefs = [
+      {
+        headerName: 'Fecha', field: 'date', sortable: true,
+        filter: 'agDateColumnFilter',
+        filterParams: {
+          comparator: filter
+        }
+      },
+      { headerName: 'No.', field: 'invoice_num', sortable: true, width: 100 },
+      { headerName: 'punto de venta', field: 'pod_name', sortable: true },
+      { headerName: 'Usuario', field: 'user_name', sortable: true },
+      { headerName: 'Cliente', field: 'client_name', sortable: true },
+      { headerName: 'Impuesto', field: 'tax_price', sortable: true, width: 150, valueFormatter: currencyFormatterdecimal },
+      { headerName: 'Precio bruto', field: 'gross_price', sortable: true, width: 150, valueFormatter: currencyFormatterdecimal },
+      { headerName: 'Precio neto', field: 'net_price', sortable: true, width: 150, valueFormatter: currencyFormatter },
+      {
+        headerName: '',
+        field: 'sale_id',
+        cellRenderer: 'customizedVisibilityCell',
+        cellRendererParams: {
+          name: 'sale',
+          Name: 'Sale'
+        }, width: 80
+      }
+    ];
+    this.frameworkComponents = {
+      customizedVisibilityCell: RendervisibilitybuttonComponent
+    },
+
+      this.defaultColDef = {
+        pagination: true,
+        suppressRowClickSelection: true,
+        enableRangeSelection: true,
+        editable: true,
+        enablePivot: true,
+        enableValue: true,
+        sortable: true,
+        resizable: true,
+        filter: true
+      };
+    this.rowSelection = 'multiple';
+    this.pivotPanelShow = 'always';
+    this.paginationPageSize = 50;
+    this.paginationNumberFormatter = function (params) {
+      return '[' + params.value.toLocaleString() + ']';
+    };
   }
 
   ngOnInit() {
