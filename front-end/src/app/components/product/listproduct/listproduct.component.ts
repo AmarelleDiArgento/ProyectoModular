@@ -11,10 +11,6 @@ import { ProductService } from '../../../services/product.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
-import { RenderStatusComponent } from '../../aggridrender/render-status/render-status.component';
-import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
-import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
-import { RenderbarcodeComponent } from '../../aggridrender/renderbarcode/renderbarcode.component';
 
 @Component({
   selector: 'app-listproduct',
@@ -52,64 +48,7 @@ export class ListproductComponent implements OnInit {
     private productService: ProductService,
     private excelService: ExcelService,
     private router: Router) {
-    this.columnDefs = [
-      { headerName: 'ID', field: 'product_id', sortable: true },
-      {
-        headerName: 'Codigo', field: 'code',
-        cellRenderer: 'customizedBarCode',
-        cellRendererParams: {
-          name: 'product',
-          Name: 'Product'
-        }
-      },
-      { headerName: 'Nombre', field: 'name', sortable: true },
-      { headerName: 'Precio', field: 'net_price', sortable: true },
-      { headerName: 'Categoria', field: 'category_name', sortable: true },
-      { headerName: 'Impuesto', field: 'tax_name', sortable: true },
-      { headerName: '%', field: 'tax_percent', sortable: true, width: 80 },
-      {
-        headerName: '',
-        field: 'product_id',
-        cellRenderer: 'customizedEditCell',
-        cellRendererParams: {
-          name: 'product',
-          Name: 'Product'
-        }, width: 80
-      },
-      {
-        headerName: '', field: 'product_id',
-        cellRenderer: 'customizedDeleteCell',
-        cellRendererParams: {
-          name: 'product',
-          Name: 'Product'
-        }, width: 80
-      }
-    ];
-
-    this.frameworkComponents = {
-      customizedBarCode: RenderbarcodeComponent,
-      customizedStatusCell: RenderStatusComponent,
-      customizedEditCell: RendereditbuttonComponent,
-      customizedDeleteCell: RenderdeletebuttonComponent
-    },
-
-      this.defaultColDef = {
-        pagination: true,
-        suppressRowClickSelection: true,
-        enableRangeSelection: true,
-        editable: true,
-        enablePivot: true,
-        enableValue: true,
-        sortable: true,
-        resizable: true,
-        filter: true
-      };
-    this.rowSelection = 'multiple';
-    this.pivotPanelShow = 'always';
-    this.paginationPageSize = 10;
-    this.paginationNumberFormatter = function (params) {
-      return params.value.toLocaleString();
-    };
+    
   }
 
   ngOnInit() {

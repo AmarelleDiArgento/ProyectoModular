@@ -9,9 +9,6 @@ import { PodService } from '../../../services/pod.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
-import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
-import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
-import { RenderStatusComponent } from '../../aggridrender/render-status/render-status.component';
 
 @Component({
   selector: 'app-listpods',
@@ -49,61 +46,7 @@ export class ListpodsComponent implements OnInit {
     private podService: PodService,
     private excelService: ExcelService,
     private router: Router) {
-    this.columnDefs = [
-      { headerName: 'Nombre', field: 'name', sortable: true},
-      { headerName: 'Codigo', field: 'code', sortable: true, width: 100 },
-      { headerName: 'Dirección', field: 'address', sortable: true, width: 300 },
-      { headerName: 'Teléfono', field: 'phone', sortable: true, width: 200 },
-      { headerName: 'Limite de facturacion', field: 'billing_limit', sortable: true, width: 200 },
-      {
-        headerName: 'Estado',
-        field: 'status',
-        sortable: true,
-        cellRenderer: 'customizedStatusCell',
-        width: 100
-      },
-      {
-        headerName: '',
-        field: 'pod_id',
-        cellRenderer: 'customizedEditCell',
-        cellRendererParams: {
-          name: 'pod',
-          Name: 'Pod'
-        }, width: 80
-      },
-      {
-        headerName: '', field: 'pod_id',
-        cellRenderer: 'customizedDeleteCell',
-        cellRendererParams: {
-          name: 'pod',
-          Name: 'Pod'
-        }, width: 80
-      }
-    ];
-
-    this.frameworkComponents = {
-      customizedStatusCell: RenderStatusComponent,
-      customizedEditCell: RendereditbuttonComponent,
-      customizedDeleteCell: RenderdeletebuttonComponent
-    },
-
-      this.defaultColDef = {
-        pagination: true,
-        suppressRowClickSelection: true,
-        enableRangeSelection: true,
-        editable: true,
-        enablePivot: true,
-        enableValue: true,
-        sortable: true,
-        resizable: true,
-        filter: true
-      };
-    this.rowSelection = 'multiple';
-    this.pivotPanelShow = 'always';
-    this.paginationPageSize = 10;
-    this.paginationNumberFormatter = function (params) {
-      return params.value.toLocaleString();
-    };
+    
   }
 
   ngOnInit() {

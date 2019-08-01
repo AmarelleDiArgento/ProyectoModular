@@ -24,44 +24,39 @@
               </a>
             </div>
           </div>
-          <div class="row {{texto}}">
-              <div class="input-field col s10">
-                <i class="material-icons prefix">search</i>
-                <input id="icon_prefix" type="search" style="padding-left: 10px;" (keyup)="quickSearch()" [(ngModel)]="searchFilter" class="validate" required>
-                <label for="icon_prefix">Buscar </label>
-                <i class="material-icons" (click)="cambiaEstado()">close</i>
-              </div>
-  
-            <div class="input-field col s2 ">
-              <select class="centered" (change)="onPageSizeChanged($event.target.value)">
-                <option value="5">5</option>
-                <option selected value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </select>
-              <label>Mostrar: </label>
-            </div>
-          </div>
-  
+          
           <div class="table striped center">
-            <ag-grid-angular 
-            style="width: 100%; height: auto;" 
-            class="ag-theme-material" [columnDefs]="columnDefs"
-            [rowSelection]="rowSelection" 
-            [pagination]="true" 
-            [paginationPageSize]="paginationPageSize"
-            [paginationNumberFormatter]="paginationNumberFormatter" 
-            [rowData]="rowData"
-            [animateRows]="true"
-            [frameworkComponents]= "frameworkComponents"
-            (gridReady)="onGridReady($event)">
-          </ag-grid-angular>
+              <table id="Data" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Fecha creación</th>
+                    <th>Fecha modificación</th>
+                    <th>Estado</th>
+                    <th>Editar</th>
+                    <th>Borrar</th>
+                    <th>Reset</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let row of listUser" >
+                    <td >{{row.user_id}}</td>
+                    <td>{{row.username}}</td>
+                    <td>{{row.email}}</td>
+                    <td>{{row.rol_name}}</td>
+                    <td>{{row.create_time}}</td>
+                    <td>{{row.update_time}}</td>
+                    <td>{{row.status}}</td>
+                    <td><i (click)="updateUser(row.user_id, row.email)" class="fas fa-pencil-alt fa-fw"></i></td>
+                    <td><i (click)="deleteUser(row.user_id)" class="fas fa-trash-alt fa-fw"></i></td>
+                    <td><i (click)="resetPassword(row.user_id)" class="fas fa-key"></i></td>
+                  </tr>
+                </tbody>
+              </table>
           </div>
-  
-          <!--<ag-grid-angular style="height: 650px" class="striped responsive-table ag-theme-material"
-            [rowData]="listPrivilege" [columnDefs]="columnDefs" [pagination]="true" [paginationPageSize]="lineas">
-          </ag-grid-angular>-->
         </div>
       </div>
     </div>

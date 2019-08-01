@@ -8,9 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ExcelService } from './services/excel.service';
-import { AgGridModule } from 'ag-grid-angular';
-
-
+import { DataTablesModule } from 'angular-datatables';
 
 // components
 import { LoginComponent } from './components/login/login.component';
@@ -53,7 +51,9 @@ import { ListpodsComponent } from './components/pod/listpods/listpods.component'
 import { UpdatepodComponent } from './components/pod/updatepod/updatepod.component';
 import { RolprivilegeComponent } from './components/rol/rolprivilege/rolprivilege.component';
 import { ListrolprivilegeComponent } from './components/rol/rolprivilege/listrolprivilege/listrolprivilege.component';
-
+import { TablerenderComponent } from './components/tablerender/tablerender.component';
+import { UpdateComponent } from './components/tablerender/update/update.component';
+import { DeleteComponent } from './components/tablerender/delete/delete.component';
 //service
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
@@ -67,17 +67,10 @@ import { SaleService } from './services/sale.service';
 import { PodService } from './services/pod.service';
 import { RolprivilegeService } from './services/rolprivilege.service';
 import { PrintService } from './services/print.service';
-import { AggridrenderComponent } from './components/aggridrender/aggridrender.component';
-import { RenderStatusComponent } from './components/aggridrender/render-status/render-status.component';
-import { RendereditbuttonComponent } from './components/aggridrender/rendereditbutton/rendereditbutton.component';
-import { RenderdeletebuttonComponent } from './components/aggridrender/renderdeletebutton/renderdeletebutton.component';
-import { RendersettingbuttonComponent } from './components/aggridrender/rendersettingbutton/rendersettingbutton.component';
-import { RendervisibilitybuttonComponent } from './components/aggridrender/rendervisibilitybutton/rendervisibilitybutton.component';
-import { RenderbarcodeComponent } from './components/aggridrender/renderbarcode/renderbarcode.component';
-import { RendermaterialiconComponent } from './components/aggridrender/rendermaterialicon/rendermaterialicon.component';
 import { InvoiceComponent } from './components/sale/invoice/invoice.component';
 import { PreloadComponent } from './components/preload/preload.component';
-import { RenderresetbuttonComponent } from './components/aggridrender/renderresetbutton/renderresetbutton.component';
+import { ResetComponent } from './components/tablerender/reset/reset.component';
+
 
 
 
@@ -123,17 +116,12 @@ import { RenderresetbuttonComponent } from './components/aggridrender/renderrese
     ListpodsComponent,
     RolprivilegeComponent,
     ListrolprivilegeComponent,
-    AggridrenderComponent,
-    RenderStatusComponent,
-    RendereditbuttonComponent,
-    RenderdeletebuttonComponent,
-    RendersettingbuttonComponent,
-    RendervisibilitybuttonComponent,
-    RenderbarcodeComponent,
-    RendermaterialiconComponent,
     PreloadComponent,
     InvoiceComponent,
-    RenderresetbuttonComponent
+    TablerenderComponent,
+    UpdateComponent,
+    DeleteComponent,
+    ResetComponent
   ],
   imports: [
     BrowserModule,
@@ -142,16 +130,8 @@ import { RenderresetbuttonComponent } from './components/aggridrender/renderrese
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AgGridModule.withComponents([
-      RenderStatusComponent,
-      RendereditbuttonComponent,
-      RenderdeletebuttonComponent,
-      RendersettingbuttonComponent,
-      RendervisibilitybuttonComponent,
-      RenderbarcodeComponent,
-      RendermaterialiconComponent, 
-      RenderresetbuttonComponent
-    ])
+    DataTablesModule,
+    
   ],
   providers: [
     AuthService,

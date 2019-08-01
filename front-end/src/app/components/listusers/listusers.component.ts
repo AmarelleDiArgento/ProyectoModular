@@ -11,9 +11,6 @@ import { UserService } from '../../services/user.service';
 import { ExcelService } from '../../services/excel.service';
 //print service
 import { PrintService } from '../../services/print.service';
-import { RenderdeletebuttonComponent } from '../aggridrender/renderdeletebutton/renderdeletebutton.component';
-import { RendereditbuttonComponent } from '../aggridrender/rendereditbutton/rendereditbutton.component';
-import { RenderStatusComponent } from '../aggridrender/render-status/render-status.component';
 
 @Component({
   selector: 'app-listusers',
@@ -53,83 +50,7 @@ export class ListusersComponent implements OnInit {
     private excelService: ExcelService,
     private printService: PrintService,
 
-    private router: Router) {
-    this.columnDefs = [
-      { headerName: 'ID', field: 'user_id', sortable: true },
-      { headerName: 'Nombre', field: 'username', sortable: true },
-      { headerName: 'Correo', field: 'email', sortable: true },
-      { headerName: 'Rol', field: 'rol_name', sortable: true },
-      {
-        headerName: 'Fecha creación',
-        field: 'create_time',
-        sortable: true,
-        width: 190,
-        filter: 'agDateColumnFilter',
-        filterParams: {
-          comparator: filter
-        }
-      },
-      {
-        headerName: 'Fecha modificación',
-        field: 'update_time',
-        sortable: true,
-        width: 190,
-        filter: 'agDateColumnFilter',
-        filterParams: {
-          comparator: filter
-        }
-      },
-      {
-        headerName: 'Estado',
-        field: 'status',
-        sortable: true,
-        cellRenderer: 'customizedStatusCell',
-        width: 100
-      },
-      {
-        headerName: '',
-        field: 'user_id',
-        cellRenderer: 'customizedEditCell',
-        cellRendererParams: {
-          name: 'user',
-          Name: 'User'
-        }, width: 80
-      },
-      {
-        headerName: '', field: 'user_id',
-        cellRenderer: 'customizedDeleteCell',
-        cellRendererParams: {
-          name: 'user',
-          Name: 'User'
-        }, width: 80
-      }
-    ];
-
-    this.frameworkComponents = {
-      customizedStatusCell: RenderStatusComponent,
-      customizedEditCell: RendereditbuttonComponent,
-      customizedDeleteCell: RenderdeletebuttonComponent
-    };
-
-
-    this.defaultColDef = {
-      pagination: true,
-      suppressRowClickSelection: true,
-      enableRangeSelection: true,
-      editable: true,
-      enablePivot: true,
-      enableValue: true,
-      sortable: true,
-      resizable: true,
-      filter: true
-    };
-    this.rowSelection = 'multiple';
-    this.pivotPanelShow = 'always';
-    this.paginationPageSize = 10;
-    this.paginationNumberFormatter = function (params) {
-      return '[' + params.value.toLocaleString() + ']';
-    };
-  }
+    private router: Router) { }
 
   ngOnInit() {
     // this.getAllData();

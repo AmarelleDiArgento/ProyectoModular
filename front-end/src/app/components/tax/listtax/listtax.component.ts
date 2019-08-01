@@ -9,8 +9,6 @@ import { TaxService } from '../../../services/tax.service';
 // service excel
 import { ExcelService } from '../../../services/excel.service';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
-import { RendereditbuttonComponent } from '../../aggridrender/rendereditbutton/rendereditbutton.component';
-import { RenderdeletebuttonComponent } from '../../aggridrender/renderdeletebutton/renderdeletebutton.component';
 
 @Component({
   selector: 'app-listtax',
@@ -47,52 +45,7 @@ export class ListtaxComponent implements OnInit {
     private taxService: TaxService,
     private excelService: ExcelService,
     private router: Router) {
-    this.columnDefs = [
-      { headerName: 'ID', field: 'tax_id', sortable: true },
-      { headerName: 'Nombre', field: 'name', sortable: true },
-      { headerName: 'Porcentaje', field: 'percent', sortable: true },
-      {
-        headerName: '',
-        field: 'tax_id',
-        cellRenderer: 'customizedEditCell',
-        cellRendererParams: {
-          name: 'tax',
-          Name: 'Tax'
-        }, width: 80
-      },
-      {
-        headerName: '',
-        field: 'tax_id',
-        cellRenderer: 'customizedDeleteCell',
-        cellRendererParams: {
-          name: 'tax',
-          Name: 'Tax'
-        }, width: 80
-      }
-    ];
-
-    this.frameworkComponents = {
-      customizedEditCell: RendereditbuttonComponent,
-      customizedDeleteCell: RenderdeletebuttonComponent
-    };
-
-    this.defaultColDef = {
-      pagination: true,
-      suppressRowClickSelection: true,
-      enableRangeSelection: true,
-      editable: true,
-      enablePivot: true,
-      enableValue: true,
-      sortable: true,
-      resizable: true,
-      filter: true
-    };
-    this.rowSelection = 'multiple';
-    this.pivotPanelShow = 'always';
-    this.paginationPageSize = 10;
-    this.paginationNumberFormatter = function (params) {
-      return '[' + params.value.toLocaleString() + ']';
-    };
+    
   }
 
   ngOnInit() {
