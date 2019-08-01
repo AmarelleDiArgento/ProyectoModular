@@ -69,6 +69,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //urls
 //url init
+app.disable('etag'); 
 app.use('/', indexRouter);
 //url login
 app.post('/auth', login)
