@@ -41,7 +41,7 @@ export class RenderresetbuttonComponent implements OnInit, ICellRendererAngularC
     for (let i = 0; i < 10; i++) {
       contraseña += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
     }
-    console.log(contraseña);
+    //console.log(contraseña);
     return contraseña;
   }
 
@@ -57,7 +57,7 @@ export class RenderresetbuttonComponent implements OnInit, ICellRendererAngularC
       confirmButtonText: 'Sí, resetealo!'
     }).then((result) => {
       if (result.value) {
-        console.log('this.' + this.name + 'Service');
+        // console.log('this.' + this.name + 'Service');
         let newPassword = this.newPassword();
         this.userService.resetUserPassword(this.cellvalue, newPassword)
           .subscribe(data => {

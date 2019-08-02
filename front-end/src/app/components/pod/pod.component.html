@@ -36,7 +36,7 @@
         <div class="form-group col s4">
           <label for="daterdian">Fecha de registro DIAN</label>
           <input type="text" class="datepicker form-control" id="daterdian" formControlName="daterdian"
-            [ngClass]="{ 'is-invalid': submitted && f.daterdian.errors }" placeholder="Enter registro DIAN">
+            [ngClass]="{ 'is-invalid': submitted && f.daterdian.errors }" placeholder="AAAA-MM-DD">
           <span>
             <div *ngIf="submitted && f.daterdian.errors">
               <div *ngIf="f.daterdian.errors.required"> <label id="error">Error la fecha de registro DIAN es requerido </label></div>
@@ -55,12 +55,12 @@
         </div>
 
         <div class="form-group col s6">
-          <label for="billing_limit">Limite de facturacion</label>
+          <label for="billing_limit">Limite de facturación</label>
           <input type="number" class="form-control" id="billing_limit" formControlName="billing_limit"
-            [ngClass]="{ 'is-invalid': submitted && f.billing_limit.errors }" placeholder="Enter registro DIAN">
+            [ngClass]="{ 'is-invalid': submitted && f.billing_limit.errors }" placeholder="Enter Limite de facturación">
           <span>
             <div *ngIf="submitted && f.billing_limit.errors">
-              <div *ngIf="f.billing_limit.errors.required"> <label id="error">Error el limite de facturacion es requerido </label></div>
+              <div *ngIf="f.billing_limit.errors.required"> <label id="error">Error el limite de facturación es requerido </label></div>
             </div>
           </span>
         </div>

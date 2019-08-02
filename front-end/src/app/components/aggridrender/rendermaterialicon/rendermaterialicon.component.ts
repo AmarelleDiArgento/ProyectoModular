@@ -18,7 +18,7 @@ export class RendermaterialiconComponent implements OnInit, ICellRendererAngular
     return true;
   }
   agInit(params: any): void {
-    console.log('material icon ok!');
+    // console.log('material icon ok!');
     this.cellvalue = params.value;
   }
 

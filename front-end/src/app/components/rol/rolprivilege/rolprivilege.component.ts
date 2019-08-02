@@ -56,7 +56,7 @@ export class RolprivilegeComponent implements OnInit {
     });
     //asign rol variable
     this.idRolPrivilege = localStorage.getItem('idRolPrivilege');
-    console.log(this.idRolPrivilege);
+    // console.log(this.idRolPrivilege);
     //list privilege
     this.getAllDataPrivilege();
   }
@@ -71,7 +71,7 @@ export class RolprivilegeComponent implements OnInit {
       .subscribe(data => {
         // populate list json rol
         this.listRol = data.rows;
-        console.log(this.listRol);
+        // console.log(this.listRol);
       });
   }
   // obtain all data from the register privileges
@@ -81,7 +81,7 @@ export class RolprivilegeComponent implements OnInit {
       .subscribe(data => {
         // populate list json privilege
         this.listPrivileges = data.rows;
-        console.log(this.listPrivileges);
+        // console.log(this.listPrivileges);
       });
   }
 

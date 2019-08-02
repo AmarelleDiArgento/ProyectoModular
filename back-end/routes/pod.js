@@ -6,21 +6,21 @@ var pod = require('../Modules/pod')
 
 //create pod
 router.post('/createpod', function (req, res, next) {
-  console.log('llegue a la ruta');
+  // console.log('llegue a la ruta');
   
   var podData = {
     code: req.body.code,
     nit: req.body.nit,
     rdian: req.body.rdian,
     daterdian: req.body.daterdian,
-    billinglimit: req.body.billing_limit,
+    billing_limit: req.body.billing_limit,
     name: req.body.name,
     address: req.body.address,
     phone: req.body.phone,
     status: req.body.status
   }
   pod.createPod(podData, function (error, data) {
-    console.log(podData);
+    // console.log(podData);
     
     if (error) {
       res.status(504).jsonp({
@@ -40,12 +40,14 @@ router.post('/updatepod', function (req, res, next) {
     nit: req.body.nit,
     rdian: req.body.rdian,
     daterdian: req.body.daterdian,
-    billinglimit: req.body.billing_limit,
+    billing_limit: req.body.billing_limit,
     name: req.body.name,
     address: req.body.address,
     phone: req.body.phone,
     status: req.body.status
   }
+  //console.log(podData);
+  
   pod.updatePod(podData, function (error, data) {
     if (error) {
       res.status(504).jsonp({

@@ -93,7 +93,7 @@ export class UpdatepodComponent implements OnInit {
       .subscribe(data => {
         if (data != null) {
           // add values to the form
-          console.log(data);
+          // console.log(data);
 
           this.updatePodForm.get('pod_id').setValue(data.rows[0].pod_id);
           this.updatePodForm.get('code').setValue(data.rows[0].code);

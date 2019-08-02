@@ -18,7 +18,7 @@ export class RenderbarcodeComponent implements OnInit, ICellRendererAngularComp 
     return true;
   }
   agInit(params: any): void {
-    console.log('barcode ok!');
+    // console.log('barcode ok!');
     this.cellvalue = params.value;
   }
 

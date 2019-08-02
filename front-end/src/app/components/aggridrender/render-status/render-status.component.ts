@@ -18,7 +18,7 @@ export class RenderStatusComponent implements OnInit, ICellRendererAngularComp {
     return true;
   }
   agInit(params: any): void {
-    console.log('status ok!');
+    //console.log('status ok!');
     this.cellvalue = params.value;
   }
 

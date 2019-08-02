@@ -122,7 +122,7 @@ export class ListrolComponent implements OnInit {
   }
 
   quickSearch() {
-    console.log(this.searchFilter);
+    // console.log(this.searchFilter);
     this.gridApi.setQuickFilter(this.searchFilter);
   }
 
@@ -137,7 +137,7 @@ export class ListrolComponent implements OnInit {
     this.rolService.getAllDataRol()
       .subscribe(data => {
         // populate list json
-        console.log(data);
+        // console.log(data);
         this.listRol = data.rows;
       });
   }
