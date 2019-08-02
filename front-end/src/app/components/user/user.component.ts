@@ -113,7 +113,6 @@ export class UserComponent implements OnInit {
         .subscribe(data => {
           // populate list json
           this.listPod = data.rows;
-          console.log(this.listPod);
         });
     }
     // obtain all data from the rol
@@ -122,7 +121,6 @@ export class UserComponent implements OnInit {
       this.rolService.getAllDataRol()
         .subscribe(data => {
           // populate list json
-          console.log(data);
           this.listRol = data.rows;
         });
     }

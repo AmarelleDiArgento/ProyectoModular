@@ -147,7 +147,6 @@ export class ListuserComponent implements OnInit {
     this.userService.getAllDataUsers()
       .subscribe(data => {
         // populate list json
-        console.log(data);
         this.listUser = data.rows;
       });
   }
@@ -162,7 +161,7 @@ export class ListuserComponent implements OnInit {
   }
 
   quickSearch() {
-    console.log(this.searchFilter);
+    //console.log(this.searchFilter);
     this.gridApi.setQuickFilter(this.searchFilter);
   }
 

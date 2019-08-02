@@ -77,7 +77,6 @@ export class UpdaterolComponent implements OnInit {
       .subscribe(data => {
         if (data != null) {
           // add values to the form
-          console.log(data);
 
           this.updateRolForm.get('rol_id').setValue(data.rows[0].rol_id);
           this.updateRolForm.get('name').setValue(data.rows[0].name);

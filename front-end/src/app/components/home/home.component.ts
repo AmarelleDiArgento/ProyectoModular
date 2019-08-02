@@ -33,10 +33,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     // asign rol user to search data from menu
     this.idSesionRol = localStorage.getItem('idSesionRol');
-    console.log(localStorage);
     this.getUserValidateMenuRol();
-
-
   }
   
   contador() {
@@ -49,8 +46,6 @@ export class HomeComponent implements OnInit {
     this.authService.menu(this.idSesionRol)
       .subscribe(data => {
         if (data != null) {
-          console.log(data.rows);
-
           // send json response to list
           this.listMenuAuth = data.rows;
         }

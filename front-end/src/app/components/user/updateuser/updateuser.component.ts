@@ -100,7 +100,6 @@ export class UpdateuserComponent implements OnInit {
     this.submitted = true;
     let pods = JSON.stringify(this.updateUserForm.value.pod_id);
     pods = pods.substring(1, pods.length - 1);
-    console.log(pods);
     
     // error here if form is invalid
     if (this.updateUserForm.invalid) {
@@ -123,7 +122,7 @@ export class UpdateuserComponent implements OnInit {
               this.userService.updateUsersPod(this.updateUserForm.value.user_id, this.updateUserForm.value.pod_id)
                 .subscribe(dataPod => {
                   if (dataPod.respuesta == 'Success') {
-                    this.router.navigate(['/listuser']);
+                    this.router.navigate(['/listusers']);
                   } else {
                     this.msgerr = 'error al actualizar el usuario-lugar';
                   }
@@ -141,7 +140,6 @@ export class UpdateuserComponent implements OnInit {
       .subscribe(data => {
         if (data != null) {
           // add values to the form
-          console.log(data);
           this.updateUserForm.patchValue({
             user_id: data.rows[0].user_id,
             username: data.rows[0].username,
@@ -159,7 +157,6 @@ export class UpdateuserComponent implements OnInit {
       .subscribe(data => {
         // populate list json module
         this.listPod = data.rows;
-        console.log(this.listPod);
         //init validation checks
         $(function () {
           $('select').formSelect();

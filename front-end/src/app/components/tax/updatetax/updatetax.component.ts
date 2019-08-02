@@ -40,7 +40,6 @@ export class UpdatetaxComponent implements OnInit {
     });
     // asign id tax to search data
     this.idTax = localStorage.getItem('idTax');
-    console.log(localStorage);
     
     // eject ws search tax for id
     this.getTaxDataId();
