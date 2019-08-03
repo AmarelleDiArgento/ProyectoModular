@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
       // send to search api backend email and password return msj
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
         .subscribe(data => {
-          console.log(data);
 
           if (data.respuesta === 'Success' && data.rows[0] != null) {
             // storage the id

@@ -106,7 +106,6 @@ export class ProductComponent implements OnInit {
       .subscribe(data => {
         // populate list json
         this.listCategory = data.rows;
-        console.log(this.listCategory);
       });
   }
   // obtain all data from the tax
@@ -115,7 +114,6 @@ export class ProductComponent implements OnInit {
     this.taxService.getAllDataTax()
       .subscribe(data => {
         // populate list json
-        console.log(data);
         this.listTax = data.rows;
       });
   }

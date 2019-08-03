@@ -112,12 +112,11 @@ export class ListcategoryComponent implements OnInit {
     this.filtro = !this.filtro;
   }
   quickSearch() {
-    console.log(this.searchFilter);
+    //console.log(this.searchFilter);
     this.gridApi.setQuickFilter(this.searchFilter);
   }
 
   onGridReady(params) {
-    console.log(params);
 
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;

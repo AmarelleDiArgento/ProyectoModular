@@ -121,7 +121,6 @@ export class UpdateproductComponent implements OnInit {
     this.productService.getDataProductForId(this.idProduct)
       .subscribe(data => {
         if (data != null) {
-          console.log(data);
           
           // add values to the form
           this.updateProductForm.get('product_id').setValue(this.idProduct);
@@ -180,7 +179,6 @@ export class UpdateproductComponent implements OnInit {
       .subscribe(data => {
         // populate list json
         this.listCheck = data.rows;
-        console.log(this.listCheck)
       });
   }
   recagarImagen(e) {

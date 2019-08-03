@@ -137,7 +137,6 @@ export class ListrolComponent implements OnInit {
     this.rolService.getAllDataRol()
       .subscribe(data => {
         // populate list json
-        // console.log(data);
         this.listRol = data.rows;
       });
   }

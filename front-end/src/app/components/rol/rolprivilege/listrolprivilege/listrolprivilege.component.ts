@@ -42,7 +42,6 @@ getAllData() {
     .subscribe(data => {
       // populate list json rolprivilege
       this.listRolPrivilege = data.rows;
-      console.log(this.listRolPrivilege);
 
     });
 }

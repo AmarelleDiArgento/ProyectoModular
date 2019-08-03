@@ -109,7 +109,7 @@ export class ListtaxComponent implements OnInit {
     this.filtro = !this.filtro;
   }
   quickSearch() {
-    console.log(this.searchFilter);
+    //console.log(this.searchFilter);
     this.gridApi.setQuickFilter(this.searchFilter);
   }
 

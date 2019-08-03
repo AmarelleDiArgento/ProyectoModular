@@ -32,7 +32,6 @@ export class PrivilegeComponent implements OnInit {
 
   ngOnInit() {
     // init form
-    console.log('entre');
 
     this.registerPrivilegesForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -46,7 +45,6 @@ export class PrivilegeComponent implements OnInit {
       .subscribe(data => {
         // populate list json module
         this.listModule = data.rows;
-        console.log(this.listModule);
 
       });
 
