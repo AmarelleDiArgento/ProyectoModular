@@ -91,7 +91,6 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
       confirmButtonText: 'Sí, eliminalo!'
     }).then((result) => {
       if (result.value) {
-        console.log('this.' + this.name + 'Service');
 
         this.Service.delete(this.cellvalue)
           .subscribe(data => {
@@ -106,8 +105,10 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
                 onClose: () => {
                   // get oninit component to recharge info
                   let component = this.Component;
+                  location.reload()
+                 //this.router.navigate(['/'+component]);
                   // recharge component init (redirection)
-                  component.getAllData();
+                  component.ngOnInit();
                 }
               });
             } else {
