@@ -36,7 +36,7 @@ export class RendersettingbuttonComponent implements OnInit, ICellRendererAngula
     setting() {
       // almacenamos el id
       localStorage.setItem('id' + this.Name, this.cellvalue);
-      //console.log('id' + this.Name, this.cellvalue);
+      // console.log('id' + this.Name, this.cellvalue);
       
       this.router.navigate(['/listrolprivileges']);
     }

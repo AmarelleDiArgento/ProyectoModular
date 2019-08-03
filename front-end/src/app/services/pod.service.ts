@@ -42,7 +42,7 @@ export class PodService {
     if (status) { s = 1; } else { s = 0; }
     // tslint:disable-next-line: max-line-length
     this.params = 'code=' + code + '&nit=' + nit + '&rdian=' + rdian + '&daterdian=' + daterdian + '&billing_limit=' + billing_limit + '&name=' + name + '&address=' + address + '&phone=' + phone + '&status=' + s;
-    console.log(this.params);
+    // console.log(this.params);
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(varsGlobals.url + '/createpod/', this.params, options)
@@ -54,7 +54,7 @@ export class PodService {
     if (status) { s = 1; } else { s = 0; }
     // tslint:disable-next-line: max-line-length
     this.params = 'pod_id=' + pod_id + '&code=' + code + '&nit=' + nit + '&rdian=' + rdian + '&daterdian=' + daterdian + '&billing_limit=' + billing_limit + '&name=' + name + '&address=' + address + '&phone=' + phone + '&status=' + status;
-    console.log(this.params);
+    // console.log(this.params);
 
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });

@@ -122,7 +122,7 @@ export class ListrolComponent implements OnInit {
   }
 
   quickSearch() {
-    console.log(this.searchFilter);
+    // console.log(this.searchFilter);
     this.gridApi.setQuickFilter(this.searchFilter);
   }
 

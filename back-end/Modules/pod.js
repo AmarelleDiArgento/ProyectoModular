@@ -27,8 +27,9 @@ podModel.createPod = function (podData, callback) {
       podData.status
     ], function (error, rows) {
       if (error) {
+        // console.log(error);
+        
         callback(null, {
-
           "respuesta": error
         })        
       } else {
@@ -69,6 +70,8 @@ podModel.updatePod = function (podData, callback) {
       podData.status
     ], function (error, rows) {
       if (error) {
+        // console.log(error);
+        
         callback(null, {
           "respuesta": "Error de conexión"
         })
@@ -79,7 +82,7 @@ podModel.updatePod = function (podData, callback) {
           }
           callback(null, jsonObj)
         } else {
-          console.log("Error")
+          //console.log("Error")
           callback(null, {
             "respuesta": "Error al actualizar"
           })
@@ -99,7 +102,7 @@ podModel.deletePod = function (podData, callback) {
   if (connection) {
     connection.query(del, podData.pod_id, function (error, rows) {
       if (error) {
-        console.log(error)
+        //console.log(error)
         callback(null, {
           "respuesta": "Error de conexión"
         })

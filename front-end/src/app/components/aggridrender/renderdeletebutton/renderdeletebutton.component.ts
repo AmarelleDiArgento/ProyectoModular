@@ -92,6 +92,7 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
     }).then((result) => {
       if (result.value) {
 
+
         this.Service.delete(this.cellvalue)
           .subscribe(data => {
             if (data.respuesta === 'Success') {
