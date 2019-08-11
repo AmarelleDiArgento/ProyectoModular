@@ -136,4 +136,13 @@ export class ListtaxComponent implements OnInit {
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listTax, 'Reporteimpuestos');
   }
+
+  reload(){
+    // send to reload data
+    this.taxService.getAllDataTax()
+      .subscribe(data => {
+        this.gridApi.setRowData(data.rows)
+      });
+  }
+
 }

@@ -149,4 +149,15 @@ export class ListrolComponent implements OnInit {
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listRol, 'Reporteroles');
   }
+
+
+  reload(){
+    // send to reload data
+    this.rolService.getAllDataRol()
+      .subscribe(data => {
+        this.gridApi.setRowData(data.rows)
+      });
+  }
+
+
 }

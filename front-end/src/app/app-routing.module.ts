@@ -57,163 +57,190 @@ const routes: Routes = [
     {
         path: '',
         component: LoginComponent,
+        
     },
     {
         path: 'home',
         component: HomeComponent,
+        
     },
     {
         path: 'inventory',
         component: InventoryComponent,
+        
     },
     {
         path: 'profile',
         component: ProfileComponent,
+        
     },
     {
         path: 'createuser',
         component: UserComponent,
+        
     },
     {
         path: 'updateuser',
         component: UpdateuserComponent,
+        
     },
     {
         path: 'listuser',
         component: ListusersComponent,
+        
     },
     {
         path: 'listusers',
         component: ListuserComponent,
+        
     },
     {
         path: 'createrol',
         component: RolComponent,
+        
     },
     {
         path: 'updaterol',
         component: UpdaterolComponent,
+        
     },
     {
         path: 'listrols',
         component: ListrolComponent,
+
     },
     {
         path: 'createprivilege',
         component: PrivilegeComponent,
+        
     },
     {
         path: 'updateprivilege',
         component: UpdateprivilegeComponent,
+        
     },
     {
         path: 'listprivileges',
         component: ListprivilegeComponent,
+        
     },
     {
         path: 'createmodule',
         component: ModuleComponent,
+        
     },
     {
         path: 'updatemodule',
         component: UpdatemodulesComponent,
+        
     },
     {
         path: 'listmodules',
         component: ListmodulesComponent,
+        
     },
     {
         path: 'createcategory',
         component: CategoryComponent,
+        
     },
     {
         path: 'updatecategory',
         component: UpdatecategoryComponent,
+        
     },
     {
         path: 'listcategorys',
         component: ListcategoryComponent,
+        
 
     },
     {
         path: 'createtax',
         component: TaxComponent,
+        
 
     },
     {
         path: 'updatetax',
         component: UpdatetaxComponent,
+        
     },
     {
         path: 'listtaxs',
         component: ListtaxComponent,
+        
     },
     {
         path: 'createproduct',
         component: ProductComponent,
+        
 
     },
     {
         path: 'updateproduct',
-
         component: UpdateproductComponent,
+        
     },
     {
         path: 'listproducts',
         component: ListproductComponent,
+        
     },
     {
         path: 'createsale',
         component: SaleComponent,
-
+        
     },
     {
         path: 'invoiceprint',
         component: InvoiceComponent,
+        
 
     },
     {
         path: 'updatesale',
         component: UpdatesaleComponent,
+        
     },
     {
         path: 'listsales',
         component: ListsalesComponent,
+        
     },
     {
         path: 'createpod',
         component: PodComponent,
+        
 
     },
     {
         path: 'updatepod',
         component: UpdatepodComponent,
+        
     },
     {
         path: 'listpods',
         component: ListpodsComponent,
+        
     },
     {
         path: 'createrolprivilege',
         component: RolprivilegeComponent,
+        
     },
     {
         path: 'listrolprivileges',
         component: ListrolprivilegeComponent,
+        
     }
-
-
-
-
-
-
-
-
 ];
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes, {
+        onSameUrlNavigation: "reload"
+        })
     ],
     exports: [
         RouterModule

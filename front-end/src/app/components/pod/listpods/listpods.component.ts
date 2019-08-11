@@ -148,5 +148,14 @@ export class ListpodsComponent implements OnInit {
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listPod, 'Reportepod');
   }
+
+  reload(){
+    // send to reload data
+    this.podService.getAllDataPod()
+      .subscribe(data => {
+        this.gridApi.setRowData(data.rows)
+      });
+  }
+
 }
 function getStatusIcon() { }

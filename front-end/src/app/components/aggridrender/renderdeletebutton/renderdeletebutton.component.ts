@@ -57,7 +57,7 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
     private saleService: SaleService,
     private taxService: TaxService,
     private listcategoryComponent: ListcategoryComponent,
-    private ListrolComponent: ListrolComponent,
+    private listrolComponent: ListrolComponent,
     private listrolprivilegeComponent: ListrolprivilegeComponent,
     private listprivilegeComponent: ListprivilegeComponent,
     private listmoduleComponent: ListmodulesComponent,
@@ -81,7 +81,7 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
     this.cellvalue = params.value;
     this.Service = eval('this.' + this.name + 'Service');
     this.Component = eval('this.list' + this.name + 'Component');
-    this.NameComponent = eval('this.List' + this.name + 'Component');
+    this.NameComponent = eval('this.list' + this.name + 'Component');
     
     this.Reload = 'list' + this.name +'s';
   }
@@ -109,7 +109,9 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
                 showConfirmButton: false,
                 timer: 2000,
                 onClose: () => {
-                  this.router.navigate(['/home']);
+                  // get method generic reload
+                  console.log()
+                  this.NameComponent.reload();
                 }
               });
             } else {

@@ -189,6 +189,15 @@ export class ListusersComponent implements OnInit {
   printFile() {
     this.printService.print();
   }
+
+  reload(){
+    // send to reload data
+    this.userService.getAllDataUsers()
+      .subscribe(data => {
+        this.gridApi.setRowData(data.rows)
+      });
+  }
+
 }
 
 

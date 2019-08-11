@@ -149,4 +149,12 @@ export class ListmodulesComponent implements OnInit {
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listModule, 'Reportemodulos');
   }
+
+  reload(){
+    // send to reload data
+    this.moduleService.getAllDataModules()
+      .subscribe(data => {
+        this.gridApi.setRowData(data.rows)
+      });
+  }
 }

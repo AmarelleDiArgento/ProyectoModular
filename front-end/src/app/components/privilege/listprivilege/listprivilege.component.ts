@@ -157,4 +157,12 @@ export class ListprivilegeComponent implements OnInit {
   createPrivilege() {
     this.router.navigate(['/createprivilege']);
   }
+
+  reload(){
+    // send to reload data
+    this.privilegeService.getAllDataprivileges()
+      .subscribe(data => {
+        this.gridApi.setRowData(data.rows)
+      });
+  }
 }

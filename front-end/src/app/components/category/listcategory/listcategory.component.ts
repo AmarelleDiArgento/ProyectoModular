@@ -139,6 +139,15 @@ export class ListcategoryComponent implements OnInit {
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listCategory, 'Reportecategorias');
   }
+
+  reload(){
+    // send to reload data
+    this.categoryService.getAllDataCategory()
+      .subscribe(data => {
+        this.gridApi.setRowData(data.rows)
+      });
+  }
+
 }
 
 function getStatusIcon() { }

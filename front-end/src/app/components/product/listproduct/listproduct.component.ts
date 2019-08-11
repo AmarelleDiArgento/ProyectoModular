@@ -152,4 +152,13 @@ export class ListproductComponent implements OnInit {
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listProduct, 'ReporteProductos');
   }
+
+  reload(){
+    // send to reload data
+    this.productService.getAllDataProduct()
+      .subscribe(data => {
+        this.gridApi.setRowData(data.rows)
+      });
+  }
+
 }
