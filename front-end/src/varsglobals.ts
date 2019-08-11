@@ -1,4 +1,4 @@
 'use strict';
 
 //const server url 
-export const url='http://100.98.26.6';
+export const url='http://192.168.10.3';

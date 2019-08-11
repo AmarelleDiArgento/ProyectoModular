@@ -6,9 +6,9 @@ services:
     build: ./Sql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
-    networks:
+    networks: 
       lan:
-        ipv4_address: 100.98.26.7
+        ipv4_address: 192.168.10.2
 
   node-back:
   #back-end
@@ -22,25 +22,26 @@ services:
     volumes:
      - ./back-end:/app/back-end
     restart: always
-    networks:
+    networks: 
       lan:
-        ipv4_address: 100.98.26.6
+        ipv4_address: 192.168.10.3
   
   nginx-front:
     build: ./front-end
     ports:
      - "8080:80"
     restart: always
-    networks:
+    networks: 
       lan:
-        ipv4_address: 100.98.26.5
-
+        ipv4_address: 192.168.10.4
+        
 networks:
   lan:
     driver: macvlan
+    driver_opts:
+      parent: wlp2s0
     ipam:
       config:
-        - subnet: "100.98.26.0/24"
-          gateway: "100.98.26.1"
-
+       - subnet: "192.168.10.0/24"
+         gateway: "192.168.10.1"
     #Limpiar docker system prune --all 
