@@ -106,10 +106,7 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
                 onClose: () => {
                   // get oninit component to recharge info
                   let component = this.Component;
-                  location.reload()
-                 //this.router.navigate(['/'+component]);
-                  // recharge component init (redirection)
-                  component.ngOnInit();
+                  location.reload();
                 }
               });
             } else {
