@@ -1305,21 +1305,30 @@ DELIMITER ;
 -- PROCEDURE SALE UPDATE CARD PAYMENT
 -- ------------------------------------------------------------
 
-DROP procedure IF EXISTS saleupdpay;
+DROP procedure IF EXISTS saleupdacco;
 
 DELIMITER $$
 USE proyectomodular$$
-CREATE PROCEDURE saleupdpay (
+CREATE PROCEDURE saleupdacco (
   _sale_id BIGINT,
-  _cardpayment VARCHAR(12),
-  _authorization VARCHAR(45)
+  _user VARCHAR(255),
+  _password VARCHAR(255)
 )
 BEGIN
+
+declare validar INT(11);
+select s.rol_id into validar
+from user as s
+where (email = _user or user_id = _user) and password = _password;
+
+if  validar = 2 then
 UPDATE proyectomodular.sale
 SET
-  cardpayment = _cardpayment,
-  authorization = _authorization
+accountant= 0
 WHERE sale_id = _sale_id;
+else 
+select 'not allowed' as message;
+end if;
 
 END$$
 
