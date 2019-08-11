@@ -1,0 +1,46 @@
+version: '2'
+
+services:
+
+  mysql:
+    build: ./Sql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    networks:
+      lan:
+        ipv4_address: 100.98.26.7
+
+  node-back:
+  #back-end
+    build: ./
+    ports:
+     - "3000:3000"
+    depends_on:
+     - mysql
+    environment:
+     - DATABASE_HOST=mysql
+    volumes:
+     - ./back-end:/app/back-end
+    restart: always
+    networks:
+      lan:
+        ipv4_address: 100.98.26.6
+  
+  nginx-front:
+    build: ./front-end
+    ports:
+     - "8080:80"
+    restart: always
+    networks:
+      lan:
+        ipv4_address: 100.98.26.5
+
+networks:
+  lan:
+    driver: macvlan
+    ipam:
+      config:
+        - subnet: "100.98.26.0/24"
+          gateway: "100.98.26.1"
+
+    #Limpiar docker system prune --all 
