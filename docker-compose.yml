@@ -37,9 +37,7 @@ services:
         
 networks:
   lan:
-    driver: macvlan
-    driver_opts:
-      parent: wlp2s0
+    driver: bridge
     ipam:
       config:
        - subnet: "192.168.10.0/24"
