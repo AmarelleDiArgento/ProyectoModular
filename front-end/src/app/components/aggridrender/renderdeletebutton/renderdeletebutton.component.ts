@@ -39,6 +39,8 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
   private Name: string;
   private name: string;
   private Service;
+  public Reload;
+  public NameComponent;
   private Component;
 
   constructor(
@@ -55,7 +57,7 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
     private saleService: SaleService,
     private taxService: TaxService,
     private listcategoryComponent: ListcategoryComponent,
-    private listrolComponent: ListrolComponent,
+    private ListrolComponent: ListrolComponent,
     private listrolprivilegeComponent: ListrolprivilegeComponent,
     private listprivilegeComponent: ListprivilegeComponent,
     private listmoduleComponent: ListmodulesComponent,
@@ -79,6 +81,9 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
     this.cellvalue = params.value;
     this.Service = eval('this.' + this.name + 'Service');
     this.Component = eval('this.list' + this.name + 'Component');
+    this.NameComponent = eval('this.List' + this.name + 'Component');
+    
+    this.Reload = 'list' + this.name +'s';
   }
   delete() {
     Swal.fire({
@@ -104,9 +109,7 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
                 showConfirmButton: false,
                 timer: 2000,
                 onClose: () => {
-                  // get oninit component to recharge info
-                  let component = this.Component;
-                  location.reload();
+                  this.router.navigate(['/home']);
                 }
               });
             } else {
