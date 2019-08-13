@@ -4,6 +4,11 @@ services:
 
   mysql:
     build: ./Sql
+    volumes:
+      - ~/mycustom.cnf:/etc/mysql/conf.d/custom.cnf
+      - ~/docker/mysql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     networks: 

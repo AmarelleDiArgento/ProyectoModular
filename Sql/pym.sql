@@ -1,3 +1,4 @@
+
 -- usuario generico de la bd
 CREATE USER IF NOT EXISTS 'proyectomodular'@'localhost' IDENTIFIED BY 'da12cb09fe566f2d6e131d7fb5c5c732';
 GRANT ALL PRIVILEGES ON * . * TO 'proyectomodular'@'localhost';FLUSH PRIVILEGES;
