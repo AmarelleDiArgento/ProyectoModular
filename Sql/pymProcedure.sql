@@ -1542,6 +1542,37 @@ END$$
 
 DELIMITER ;
 
+
+
+
+   
+-- ------------------------------------------------------------
+-- PROCEDURE SALE_PRODUCT ALL FOR Day
+-- ------------------------------------------------------------
+
+DROP procedure IF EXISTS sale_productDay;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE sale_productDay (
+  _begin varchar(10),
+  _end varchar(10)
+)
+BEGIN
+
+    Select p.name, sum(sp.quantity), sum(p.net_price) 
+    from sale as s 
+    inner join sale_product as sp on s.sale_id = sp.sp_sale_id
+    inner join product as p on sp.sp_product_id = p.product_id
+	where s.date between concat(_begin, " 00:00:00") and concat(_end, " 23:59:59")
+    group by product_id
+    order by p.name asc; 
+	
+END$$
+
+DELIMITER ;
+    
+    
 -- ------------------------------------------------------------
 -- PROCEDURE SALE_PRODUCT ALL FOR DATE
 -- ------------------------------------------------------------
