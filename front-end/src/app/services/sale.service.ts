@@ -13,18 +13,27 @@ export class SaleService {
   params;
   // service to api mysql get all sale
   getAllDataSale() {
-    
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
     return this.http.get(varsGlobals.url + '/getdatasales/', options)
       .map((response: Response) => response.json())
   }
 
+  //get all data sale between
   getAllDataSaleBetween(since, until) {
     this.params = 'since=' + since + '&until=' + until;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(varsGlobals.url + '/getdatasalebetween/', this.params, options)
+      .map((response: Response) => response.json())
+  }
+
+  //get all data sale between sum
+  getAllDataSaleBetweenSum(since, until) {
+    this.params = 'since=' + since + '&until=' + until;
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(varsGlobals.url + '/getdatasalebetweensum/', this.params, options)
       .map((response: Response) => response.json())
   }
 

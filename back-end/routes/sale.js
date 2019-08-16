@@ -90,6 +90,23 @@ router.post('/getdatasalebetween', function (req, res, next) {
     })
 })
 
+//get sale between x date sum
+router.post('/getdatasalebetweensum', function (req, res, next) {
+    var saleData = {
+        since: req.body.since,
+        until: req.body.until
+    }
+    sale.dataSaleBetSum(saleData, function (error, data) {
+        if (error) {
+            res.status(504).jsonp({
+                "error": error
+            })
+        } else {
+            res.status(200).jsonp(data)
+        }
+    })
+})
+
 //get all sale 
 router.get('/getdatasales', function (req, res, next) {
     var saleData = {}

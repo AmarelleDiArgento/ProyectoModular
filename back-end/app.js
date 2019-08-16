@@ -121,6 +121,7 @@ app.post('/updatesale', sale)
 app.post('/deletesale', sale)
 app.post('/getdatasale', sale)
 app.post('/getdatasalebetween', sale)
+app.post('/getdatasalebetweensum', sale)
 app.get('/getdatasales', sale)
 
 //urls saleproduct

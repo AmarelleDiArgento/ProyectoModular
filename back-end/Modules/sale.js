@@ -16,6 +16,7 @@ let del = ``;
 let all = `call proyectomodular.saleall();`;
 let bet = `call proyectomodular.saledate(?,?);`;
 let one = `call proyectomodular.saleone(?);`;
+let sum = `call proyectomodular.sale_productDay(?,?);`;
 
 saleModel.createSale = function (saleData, callback) {
   if (connection) {
@@ -213,6 +214,43 @@ saleModel.dataSaleBet = function (saleData, callback) {
     })
   }
 }
+
+saleModel.dataSaleBetSum = function (saleData, callback) {
+  if (connection) {
+    connection.query(sum, [
+      saleData.since,
+      saleData.until
+    ], function (error, rows) {
+      if (error) {
+        console.log(error)
+        callback(null, {
+          "respuesta": "Error de conexión"
+        })
+      } else {
+        if (rows.length != 0) {
+          rows = rows[0];
+          var jsonObj = {
+            rows,
+            respuesta: "Success"
+          }
+          callback(null, jsonObj)
+        } else {
+          console.log("Error la consulta no arroja datos")
+          callback(null, {
+            "respuesta": "Error la consulta no arroja datos"
+          })
+        }
+      }
+    })
+  } else {
+    console.log("No se conecto con servidor")
+    callback(null, {
+      "Respuesta": "Error en Conexion"
+    })
+  }
+}
+
+
 saleModel.dataAllSale = function (saleData, callback) {
   if (connection) {
     connection.query(all, function (error, rows) {

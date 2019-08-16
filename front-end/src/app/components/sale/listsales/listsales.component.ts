@@ -234,6 +234,21 @@ export class ListsalesComponent implements OnInit {
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.listSale, 'Reporteventas');
   }
+
+
+  exportTotalDayXLSX(){
+     // send to search api backend all sales
+     this.saleService.getAllDataSaleBetweenSum(
+      this.since,
+      this.until
+    )
+      .subscribe(data => {
+        // populate list json sale
+        this.listSale = data.rows;
+        //generate excel
+        this.excelService.exportAsExcelFile(this.listSale, 'ReporteTotalVentas');
+      });
+  } 
 }
 
 function filter(filterLocalDateAtMidnight, cellValue) {
