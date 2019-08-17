@@ -328,7 +328,7 @@ USE `proyectomodular` ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `categoryall`()
+CREATE PROCEDURE `categoryall`()
 BEGIN
 
 SELECT  c.category_id, c.name
@@ -344,7 +344,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `categorydel`(_category_id INT)
+CREATE PROCEDURE `categorydel`(_category_id INT)
 BEGIN
 
 DELETE FROM proyectomodular.category
@@ -360,7 +360,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `categoryins`(_name varchar(100) )
+CREATE PROCEDURE `categoryins`(_name varchar(100) )
 BEGIN
 INSERT INTO proyectomodular.category (name) 
 VALUES
@@ -375,7 +375,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `categoryone`(_category_id INT)
+CREATE PROCEDURE `categoryone`(_category_id INT)
 BEGIN
 SELECT  c.category_id, c.name
 FROM proyectomodular.category AS c
@@ -390,7 +390,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `categoryupd`(_category_id INT, _name varchar(100) )
+CREATE PROCEDURE `categoryupd`(_category_id INT, _name varchar(100) )
 BEGIN
 
 UPDATE proyectomodular.category
@@ -408,7 +408,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `moduleall`()
+CREATE PROCEDURE `moduleall`()
 BEGIN
 
 SELECT  m.module_id, m.name, m.status
@@ -424,7 +424,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `moduledel`(_module_id INT)
+CREATE PROCEDURE `moduledel`(_module_id INT)
 BEGIN
 
 DELETE FROM proyectomodular.module
@@ -440,7 +440,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `moduleins`(
+CREATE PROCEDURE `moduleins`(
 _name varchar(100),
 _status tinyint(4))
 BEGIN
@@ -457,7 +457,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `moduleone`(_module_id INT)
+CREATE PROCEDURE `moduleone`(_module_id INT)
 BEGIN
 SELECT  m.module_id, m.name, m.status
 FROM proyectomodular.module AS m
@@ -472,7 +472,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `moduleupd`(
+CREATE PROCEDURE `moduleupd`(
 _module_id INT, 
 _name varchar(100),
 _status tinyint(4))
@@ -494,7 +494,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pod_userallpodbyuser`(
+CREATE PROCEDURE `pod_userallpodbyuser`(
   _ps_user_id varchar(45)
 )
 BEGIN
@@ -513,7 +513,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pod_useralluserbypod`(
+CREATE PROCEDURE `pod_useralluserbypod`(
 _ps_pod_id int(11)
 )
 BEGIN
@@ -534,7 +534,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pod_userdel`(
+CREATE PROCEDURE `pod_userdel`(
   _ps_user_id varchar(45)
   )
 BEGIN
@@ -552,7 +552,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pod_userins`(
+CREATE PROCEDURE `pod_userins`(
   _ps_user_id varchar(45),
   _ps_pod_id int(11)
 )
@@ -578,7 +578,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `podall`()
+CREATE PROCEDURE `podall`()
 BEGIN
 
 SELECT pod.pod_id, pod.code, pod.nit, pod.rdian, pod.daterdian, pod.billing_limit, pod.name, pod.address, pod.phone, pod.status, pod.create_time, pod.update_time
@@ -594,7 +594,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `poddel`(_pod_id INT)
+CREATE PROCEDURE `poddel`(_pod_id INT)
 BEGIN
 
 DELETE FROM proyectomodular.pod
@@ -610,7 +610,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `podins`(
+CREATE PROCEDURE `podins`(
   _code varchar(5),
   _nit varchar(15),
   _rdian VARCHAR(45),
@@ -638,7 +638,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `podone`(_pod_id INT)
+CREATE PROCEDURE `podone`(_pod_id INT)
 BEGIN
 
 SELECT pod.pod_id, pod.code, pod.nit, pod.rdian, pod.daterdian, pod.billing_limit, pod.name, pod.address, pod.phone, pod.status, pod.create_time, pod.update_time
@@ -655,7 +655,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pods_userins`(_user_id BIGINT, _list MEDIUMTEXT)
+CREATE PROCEDURE `pods_userins`(_user_id BIGINT, _list MEDIUMTEXT)
 BEGIN
 
 DECLARE _next TEXT DEFAULT NULL;
@@ -703,7 +703,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `podupd`(
+CREATE PROCEDURE `podupd`(
   _pod_id INT(11),
   _code varchar(5),
   _nit varchar(15),
@@ -741,7 +741,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `privilegeall`()
+CREATE PROCEDURE `privilegeall`()
 BEGIN
 
 SELECT  p.privilege_id, p.name, p.module_id, m.name as module_name, p.icon, p.route, p.status
@@ -758,7 +758,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `privilegedel`(_privilege_id INT)
+CREATE PROCEDURE `privilegedel`(_privilege_id INT)
 BEGIN
 
 DELETE FROM proyectomodular.privilege
@@ -774,7 +774,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `privilegeins`(
+CREATE PROCEDURE `privilegeins`(
   _name varchar(100),
   _module_id int(11),
   _icon varchar(75),
@@ -794,7 +794,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `privilegeone`(_privilege_id INT)
+CREATE PROCEDURE `privilegeone`(_privilege_id INT)
 BEGIN
 SELECT  p.privilege_id, p.name, p.module_id, m.name as module_name, p.icon, p.route, p.status
 FROM proyectomodular.privilege AS p
@@ -810,7 +810,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `privilegeupd`(
+CREATE PROCEDURE `privilegeupd`(
   _privilege_id int(11),
   _name varchar(100),
   _module_id int(11),
@@ -838,7 +838,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `productall`()
+CREATE PROCEDURE `productall`()
 BEGIN
 
 	SELECT p.product_id, p.code, p.name, p.net_price, p.category_id, c.name as category_name,
@@ -863,7 +863,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `productdel`(_product_id BIGINT)
+CREATE PROCEDURE `productdel`(_product_id BIGINT)
 BEGIN
 
 DELETE FROM proyectomodular.product
@@ -879,7 +879,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `productins`(
+CREATE PROCEDURE `productins`(
   _code varchar(100),
   _name varchar(255),
   _net_price varchar(45),
@@ -901,7 +901,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `productone`(
+CREATE PROCEDURE `productone`(
 _product_id BIGINT
 )
 BEGIN
@@ -927,7 +927,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `productonebycode`(
+CREATE PROCEDURE `productonebycode`(
 _code varchar(100)
 )
 BEGIN
@@ -949,7 +949,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `productonebycodeorid`(
+CREATE PROCEDURE `productonebycodeorid`(
 _codeOrId varchar(100)
 )
 BEGIN
@@ -973,7 +973,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `producttaxdel`(
+CREATE PROCEDURE `producttaxdel`(
   _pt_product_id INT(11)
 )
 BEGIN
@@ -990,7 +990,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `producttaxins`(
+CREATE PROCEDURE `producttaxins`(
   _pt_product_id INT(11),
   _pt_tax_id INT(11)
 )
@@ -1015,7 +1015,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `producttaxsins`(_product_id BIGINT, _list MEDIUMTEXT)
+CREATE PROCEDURE `producttaxsins`(_product_id BIGINT, _list MEDIUMTEXT)
 BEGIN
 
 DECLARE _next TEXT DEFAULT NULL;
@@ -1065,7 +1065,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `productupd`(
+CREATE PROCEDURE `productupd`(
   _product_id BIGINT,
   _code varchar(100),
   _name varchar(255),
@@ -1095,7 +1095,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rol_privilegeall`(
+CREATE PROCEDURE `rol_privilegeall`(
 _rp_rol_id int(11)
 )
 BEGIN
@@ -1115,7 +1115,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rol_privilegedel`(
+CREATE PROCEDURE `rol_privilegedel`(
   _rp_privilege_id int(11),
   _rp_rol_id int(11)
 )
@@ -1134,7 +1134,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rol_privilegeins`(
+CREATE PROCEDURE `rol_privilegeins`(
  _rp_privilege_id INT(11),
  _rp_rol_id INT(11),
  _view TINYINT(4),
@@ -1162,7 +1162,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rol_privilegeone`(_privilege_id INT)
+CREATE PROCEDURE `rol_privilegeone`(_privilege_id INT)
 BEGIN
 SELECT  rp.rp_privilege_id, rp.rp_rol_id, rp.view, rp.create, rp.update, rp.delete
 FROM proyectomodular.rol_privilege AS rp
@@ -1177,7 +1177,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rol_privilegeupd`(
+CREATE PROCEDURE `rol_privilegeupd`(
  _rp_privilege_id INT(11),
  _rp_rol_id INT(11),
  _view TINYINT(4),
@@ -1204,7 +1204,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rolall`()
+CREATE PROCEDURE `rolall`()
 BEGIN
 
 SELECT  r.rol_id, r.name
@@ -1220,7 +1220,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `roldel`(_rol_id INT)
+CREATE PROCEDURE `roldel`(_rol_id INT)
 BEGIN
 
 DELETE FROM proyectomodular.rol
@@ -1236,7 +1236,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rolins`(_name varchar(100) )
+CREATE PROCEDURE `rolins`(_name varchar(100) )
 BEGIN
 INSERT INTO proyectomodular.rol (name) 
 VALUES
@@ -1251,7 +1251,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rolone`(_rol_id INT)
+CREATE PROCEDURE `rolone`(_rol_id INT)
 BEGIN
 SELECT  r.rol_id, r.name
 FROM proyectomodular.rol AS r
@@ -1266,7 +1266,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rolpermissions`(
+CREATE PROCEDURE `rolpermissions`(
   _rol_id INT(11) 
 )
 BEGIN
@@ -1289,7 +1289,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rolupd`(_rol_id INT, _name varchar(100) )
+CREATE PROCEDURE `rolupd`(_rol_id INT, _name varchar(100) )
 BEGIN
 
 UPDATE proyectomodular.rol
@@ -1307,7 +1307,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sale_productBet`(
+CREATE PROCEDURE `sale_productBet`(
   _date varchar(10)
 )
 BEGIN
@@ -1330,7 +1330,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sale_productDay`(
+CREATE PROCEDURE `sale_productDay`(
   _begin varchar(10),
   _end varchar(10)
 )
@@ -1354,7 +1354,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sale_productdel`(
+CREATE PROCEDURE `sale_productdel`(
   _sp_product_id BIGINT,
   _sp_sale_id BIGINT
 )
@@ -1373,7 +1373,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sale_productins`(
+CREATE PROCEDURE `sale_productins`(
   _sp_sale_id BIGINT,
   _sp_product_id BIGINT,
   _quantity INT(11)
@@ -1417,7 +1417,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sale_productsins`(
+CREATE PROCEDURE `sale_productsins`(
 	_venta BIGINT, 
 	_list MEDIUMTEXT
     )
@@ -1474,7 +1474,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sale_productupd`(
+CREATE PROCEDURE `sale_productupd`(
   _sp_product_id BIGINT,
   _sp_sale_id BIGINT,
   _gross_price real,
@@ -1501,7 +1501,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `saleall`(
+CREATE PROCEDURE `saleall`(
 )
 BEGIN
 
@@ -1524,7 +1524,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `saledate`(
+CREATE PROCEDURE `saledate`(
   _begin varchar(10),
   _end varchar(10)
 )
@@ -1554,7 +1554,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `saleins`(
+CREATE PROCEDURE `saleins`(
 
   in _pod_id INT(11),
   in _user_id VARCHAR(45),
@@ -1585,7 +1585,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `salenum`(
+CREATE PROCEDURE `salenum`(
 in _pod_id int(11),
 out numfac bigint
 )
@@ -1613,7 +1613,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `saleone`(
+CREATE PROCEDURE `saleone`(
   _sp_sale_id BIGINT
 )
 BEGIN
@@ -1639,7 +1639,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `saleupdacco`(
+CREATE PROCEDURE `saleupdacco`(
   _sale_id BIGINT,
   _user VARCHAR(255),
   _password VARCHAR(255)
@@ -1670,7 +1670,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `taxall`()
+CREATE PROCEDURE `taxall`()
 BEGIN
 
 SELECT  t.tax_id, t.name, t.percent
@@ -1686,7 +1686,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `taxdel`(_tax_id INT)
+CREATE PROCEDURE `taxdel`(_tax_id INT)
 BEGIN
 
 DELETE FROM proyectomodular.tax
@@ -1702,7 +1702,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `taxins`(
+CREATE PROCEDURE `taxins`(
 _name varchar(100), 
 _percent decimal(10,2)
 )
@@ -1720,7 +1720,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `taxone`(_tax_id INT)
+CREATE PROCEDURE `taxone`(_tax_id INT)
 BEGIN
 SELECT  t.tax_id, t.name, t.percent
 FROM proyectomodular.tax AS t
@@ -1735,7 +1735,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `taxupd`(
+CREATE PROCEDURE `taxupd`(
 _tax_id INT, 
 _name varchar(100),
 _percent decimal(10,2) )
@@ -1757,7 +1757,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `userall`()
+CREATE PROCEDURE `userall`()
 BEGIN
 
 SELECT  u.user_id, u.username, u.email, u.password, u.rol_id as rol_id, r.name as rol_name, u.status, u.create_time, u.update_time
@@ -1774,7 +1774,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usercliins`(
+CREATE PROCEDURE `usercliins`(
 _user_id VARCHAR(45) ,
 _username varchar(255),
 _email VARCHAR(255)
@@ -1795,7 +1795,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `userdel`(_user_id INT)
+CREATE PROCEDURE `userdel`(_user_id INT)
 BEGIN
 
 DELETE FROM proyectomodular.user
@@ -1811,7 +1811,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `userins`(
+CREATE PROCEDURE `userins`(
 _user_id VARCHAR(45) ,
 _username varchar(255),
 _email VARCHAR(255),
@@ -1834,7 +1834,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `userlogin`(
+CREATE PROCEDURE `userlogin`(
   _user VARCHAR(255),
   _password VARCHAR(255)
 )
@@ -1855,7 +1855,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `userone`(_user_id INT)
+CREATE PROCEDURE `userone`(_user_id INT)
 BEGIN
 SELECT  u.user_id, u.username, u.email, u.password, u.rol_id as rol_id, r.name as rol_name, u.status, u.create_time, u.update_time
 FROM proyectomodular.user AS u
@@ -1871,7 +1871,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `userpasres`(
+CREATE PROCEDURE `userpasres`(
   _user_id VARCHAR(255),
   _password VARCHAR(255)
 )
@@ -1892,7 +1892,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `userpasupd`(
+CREATE PROCEDURE `userpasupd`(
   _user_id VARCHAR(255),
   _password_old VARCHAR(255),
   _password_new VARCHAR(255)
@@ -1918,7 +1918,7 @@ DELIMITER ;
 
 DELIMITER $$
 USE `proyectomodular`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `userupd`(
+CREATE PROCEDURE `userupd`(
 
 _user_id VARCHAR(45) ,
 _username VARCHAR(255),
