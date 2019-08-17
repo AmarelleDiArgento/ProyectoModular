@@ -26,7 +26,6 @@ CREATE TABLE IF NOT EXISTS `proyectomodular`.`category` (
   PRIMARY KEY (`category_id`),
   UNIQUE INDEX `name` (`name` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 10
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
@@ -41,7 +40,6 @@ CREATE TABLE IF NOT EXISTS `proyectomodular`.`module` (
   PRIMARY KEY (`module_id`),
   UNIQUE INDEX `name` (`name` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
@@ -68,7 +66,6 @@ CREATE TABLE IF NOT EXISTS `proyectomodular`.`pod` (
   UNIQUE INDEX `rdian` (`rdian` ASC) VISIBLE,
   UNIQUE INDEX `name` (`name` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 18
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci
 COMMENT = 'Point of sale';
@@ -83,7 +80,6 @@ CREATE TABLE IF NOT EXISTS `proyectomodular`.`rol` (
   PRIMARY KEY (`rol_id`),
   UNIQUE INDEX `name` (`name` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 13
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
@@ -157,7 +153,6 @@ CREATE TABLE IF NOT EXISTS `proyectomodular`.`privilege` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
@@ -183,7 +178,6 @@ CREATE TABLE IF NOT EXISTS `proyectomodular`.`product` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 39
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
@@ -198,7 +192,6 @@ CREATE TABLE IF NOT EXISTS `proyectomodular`.`tax` (
   PRIMARY KEY (`tax_id`),
   UNIQUE INDEX `name` (`name` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
@@ -286,7 +279,6 @@ CREATE TABLE IF NOT EXISTS `proyectomodular`.`sale` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 14
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
