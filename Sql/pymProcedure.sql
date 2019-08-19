@@ -1527,7 +1527,7 @@ CREATE PROCEDURE saleone (
 )
 BEGIN
 
-	SELECT 	po.name as pod_name, po.nit, po.phone, po.address, po.code, s.invoice_num, s.sale_id, s.date, 
+	SELECT 	po.name as pod_name, po.nit, po.rdian, po.billing_limit, po.daterdian, po.phone, po.address, po.code, s.invoice_num, s.sale_id, s.date, s.cardpayment, 
 			c.username as client_name, u.username as user_name, p.product_id, sp.quantity, p.name, sp.net_price,
 			sp.gross_price as gross_price, sp.tax_price
 	FROM pod as po 

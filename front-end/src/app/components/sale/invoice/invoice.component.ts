@@ -29,6 +29,11 @@ export class InvoiceComponent implements OnInit {
   invoiceNumber = 0;
   invoiceCode = '';
   printOn: boolean = true;
+  rdian = '';
+  billingLimit = 0;
+  daterdian = '';
+  payment = '';
+
 
   constructor(private http: Http,
     private formBuilder: FormBuilder,
@@ -93,7 +98,10 @@ export class InvoiceComponent implements OnInit {
             tax = tax + c.tax_price;
             this.invoiceNumber = c.invoice_num;
             this.invoiceCode = c.code;
-
+            this.rdian = c.rdian;
+            this.billingLimit = c.billing_limit;
+            this.daterdian = c.daterdian;
+            this.payment = c.cardpayment;
           }
 
           this.gross_priceTotal = number_format(gross, 2);
