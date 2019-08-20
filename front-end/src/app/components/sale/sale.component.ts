@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import {  Router } from '@angular/router';
 import Swal from 'sweetalert2';
 declare var $: any;
 // service auth
@@ -17,7 +17,12 @@ import { forEach } from '@angular/router/src/utils/collection';
   templateUrl: './sale.component.html',
   styleUrls: ['./sale.component.css']
 })
+
+
+
 export class SaleComponent implements OnInit {
+
+  
 
   // vars msj
   msgerr = '';
@@ -57,8 +62,12 @@ export class SaleComponent implements OnInit {
   recibo;
   cambio = 0;
   cambioPesos = '$ 0';
-
   listSaleProduct: any[][] = [];
+
+  // force to redirect
+  @HostListener('window:beforeunload') goToPage() {
+    this.router.navigate(['/listsales']);
+  }
 
   constructor(private http: Http,
     private formBuilder: FormBuilder,
@@ -69,6 +78,8 @@ export class SaleComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.getAllDataCategory();
+    this.getAllDataProduct();
     // init form
     this.payForm = this.formBuilder.group({
       waytopay: ['', Validators.required],
@@ -76,8 +87,6 @@ export class SaleComponent implements OnInit {
       code: ['0',Validators.required]
     });
 
-    this.getAllDataCategory();
-    this.getAllDataProduct();
     this.idUser = localStorage.getItem('idSesionUser');
     this.idPod = localStorage.getItem('idSesionPod');
     this.client_id = '1020121';
