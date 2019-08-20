@@ -66,7 +66,7 @@ export class SaleComponent implements OnInit {
 
   // force to redirect
   @HostListener('window:beforeunload') goToPage() {
-    this.router.navigate(['/listsales']);
+    this.ngOnInit();
   }
 
   constructor(private http: Http,
@@ -75,11 +75,13 @@ export class SaleComponent implements OnInit {
     private categoryService: CategoryService,
     private productService: ProductService,
     private userService: UserService,
-    private router: Router) { }
+    private router: Router) {
+      this.getAllDataCategory();
+      this.getAllDataProduct();
+     }
 
   ngOnInit() {
-    this.getAllDataCategory();
-    this.getAllDataProduct();
+    
     // init form
     this.payForm = this.formBuilder.group({
       waytopay: ['', Validators.required],
@@ -92,17 +94,18 @@ export class SaleComponent implements OnInit {
     this.client_id = '1020121';
     // send to search api backend all category
 
-    $(document).ready(function () {
-      $('.tabs').tabs();
-      $('.modal').modal();
-      $('select').formSelect();
-    });
+    
   }
   // get payform controls
   get fpay() { return this.payForm.controls; }
 
 
   getAllDataCategory() {
+    $(document).ready(function () {
+      $('.tabs').tabs();
+      $('.modal').modal();
+      $('select').formSelect();
+    });
     this.categoryService.getAllDataCategory()
       .subscribe(data => {
         // populate list json
