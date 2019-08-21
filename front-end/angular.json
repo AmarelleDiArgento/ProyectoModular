@@ -25,13 +25,14 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/materialize-css/dist/css/materialize.min.css",
+              "src/assets/css/materialize.min.css",
               "node_modules/ag-grid-community/dist/styles/ag-grid.css",
               "node_modules/ag-grid-community/dist/styles/ag-theme-material.css"
           ],
           "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/materialize-css/dist/js/materialize.min.js"
+            "src/assets/js/jquery.js",
+              "src/assets/js/jquery.min.js",
+              "src/assets/js/materialize.min.js"
           ]
           },
           "configurations": {

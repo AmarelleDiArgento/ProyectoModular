@@ -66,7 +66,7 @@ export class SaleComponent implements OnInit {
 
   // force to redirect
   @HostListener('window:beforeunload') goToPage() {
-    this.ngOnInit();
+   
   }
 
   constructor(private http: Http,
@@ -78,6 +78,13 @@ export class SaleComponent implements OnInit {
     private router: Router) {
       this.getAllDataCategory();
       this.getAllDataProduct();
+
+      $(document).ready(function () {
+        $('.tabs').tabs();
+        $('.modal').modal();
+        $('select').formSelect();
+      });
+
      }
 
   ngOnInit() {
@@ -101,11 +108,7 @@ export class SaleComponent implements OnInit {
 
 
   getAllDataCategory() {
-    $(document).ready(function () {
-      $('.tabs').tabs();
-      $('.modal').modal();
-      $('select').formSelect();
-    });
+   
     this.categoryService.getAllDataCategory()
       .subscribe(data => {
         // populate list json
@@ -134,6 +137,9 @@ export class SaleComponent implements OnInit {
   }
 
   onSubmitPay() {
+
+  if(this.listSaleProduct.length > 0){
+  
     this.submittedPay = true;
     // error here if form is invalid
     console.log(this.payForm.invalid);
@@ -170,6 +176,7 @@ export class SaleComponent implements OnInit {
         });
     }
   }
+}
 
 
   // get form contsales
