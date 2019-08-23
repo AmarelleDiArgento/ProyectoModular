@@ -37,7 +37,7 @@ call proyectomodular.categoryins('Otros');
 -- ------------------------------------------------------------
 -- USER INSERT
 -- ------------------------------------------------------------
-call proyectomodular.userins('1020121','Cliente','cliente@prueba.com', "é61ë62î63Þ64Û45Ú74ª134«45¬118­87®", 1, 1);
+call proyectomodular.userupd('1020121','Cliente','cliente@prueba.com', "é61ë62î63Þ64Û45Ú74ª134«45¬118­87®", 1, 1);
 call proyectomodular.userins('1020122','Admin','admin@prueba.com', "é61ë62î63Þ64Û45Ú74ª134«45¬118­87®", 2, 1);
 call proyectomodular.userins('1020123','Vendedor','vendedor@prueba.com', "é61ë62î63Þ64Û45Ú74ª134«45¬118­87®", 3, 1);
 

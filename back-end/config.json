@@ -1,6 +1,6 @@
 {
     "db": {
-        "host": "192.168.10.2",
+        "host": "localhost",
         "port": "3306",
         "user": "proyectomodular",
         "password": "da12cb09fe566f2d6e131d7fb5c5c732",
