@@ -24,12 +24,12 @@ export class InvoiceComponent implements OnInit {
   Productos: {};
   Impuestos: {};
   Total: {};
-  
+
   zero = 0;
   zeros = '';
   invoiceNumber = 0;
   invoiceCode = '';
-  
+
 
   printOn: boolean = true;
 
@@ -39,12 +39,12 @@ export class InvoiceComponent implements OnInit {
     private saleService: SaleService,
     private printService: PrintService,
     private router: Router) {
+    this.idSale = localStorage.getItem('idSale');
     this.getSaleDataId();
-    }
+  }
 
   ngOnInit() {
 
-    this.idSale = localStorage.getItem('idSale');
     if (localStorage.getItem('printOn') === '0') {
       this.printOn = false;
 
@@ -82,11 +82,10 @@ export class InvoiceComponent implements OnInit {
 
   // obtain data sale for id
   getSaleDataId() {
-    this.saleService.getDataSaleForInvoice(17)
-    //this.saleService.getDataSaleForInvoice(this.idSale)
+    this.saleService.getDataSaleForInvoice(this.idSale)
       .subscribe(data => {
         if (data != null) {
-          
+
           // add values to the form
           this.Encabezado = data.Encabezado[0];
           this.Productos = data.Productos;
@@ -94,7 +93,7 @@ export class InvoiceComponent implements OnInit {
           this.Total = data.Totales[0];
         }
         if (this.printOn) {
-          // this.printFile();
+           this.printFile();
         }
       });
   }
