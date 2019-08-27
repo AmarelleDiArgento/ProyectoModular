@@ -107,6 +107,24 @@ router.post('/getdatasalebetweensum', function (req, res, next) {
     })
 })
 
+
+
+//get sale between x date sum
+router.post('/getdatasaleinvoice', function (req, res, next) {
+    var saleData = {
+        sale_id: req.body.sale_id
+    }
+    sale.dataSaleInvoice(saleData, function (error, data) {
+        if (error) {
+            res.status(504).jsonp({
+                "error": error
+            })
+        } else {
+            res.status(200).jsonp(data)
+        }
+    })
+})
+
 //get all sale 
 router.get('/getdatasales', function (req, res, next) {
     var saleData = {}
@@ -120,5 +138,7 @@ router.get('/getdatasales', function (req, res, next) {
         }
     })
 })
+
+
 
 module.exports = router;

@@ -1,4 +1,5 @@
 var createError = require('http-errors');
+// var compression = require('compression');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -47,6 +48,7 @@ app.use(bodyParser.json({
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+// app.use(compression());
 //access cors  
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -122,6 +124,7 @@ app.post('/deletesale', sale)
 app.post('/getdatasale', sale)
 app.post('/getdatasalebetween', sale)
 app.post('/getdatasalebetweensum', sale)
+app.post('/getdatasaleinvoice', sale)
 app.get('/getdatasales', sale)
 
 //urls saleproduct

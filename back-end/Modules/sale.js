@@ -1,9 +1,5 @@
 var mysql = require('mysql'),
   config = require("../config");
-  var enigma = require('enigma-code')
-  
-  const valorEncriptación = 8
-  let key = '3456#@|#lM'
 
 //init pool mysql
 var connection = mysql.createPool(config.db);
@@ -57,7 +53,6 @@ saleModel.createSale = function (saleData, callback) {
   }
 }
 
-
 saleModel.updateSale = function (saleData, callback) {
   console.log('Llegue al modulo')
   let pass;
@@ -72,7 +67,7 @@ saleModel.updateSale = function (saleData, callback) {
       pass
     ], function (error, rows) {
       console.log(saleData);
-      
+
       if (error) {
         console.log(error)
         callback(null, {
@@ -281,6 +276,81 @@ saleModel.dataAllSale = function (saleData, callback) {
       "Respuesta": "Error en Conexion"
     })
   }
+}
+
+
+saleModel.dataSaleInvoice = function (saleData, callback) {
+  let Encabezado, Productos, Impuestos, Totales, Error;
+
+  var queries = [
+    `Select p.pod_id as pv, code as prefijo, nit, rdian, daterdian, billing_limit, p.name as pod, 
+    address, phone, s.sale_id, s.invoice_num, s.date, s.cardpayment, s.authorization, u.user_id as uId , u.username uName, 
+    u.email as uEmail, s.client_id as cId , c.username cName, c.email as cEmail
+    FROM pod as p
+      inner join sale as s on p.pod_id = s.pod_id
+      inner join user as u on s.user_id = u.user_id  
+      inner join user as c on s.client_id = c.user_id 
+    where sale_id = ${saleData.sale_id}`,
+    `select p.product_id as id, p.name as producto, sp.quantity as cantidad, sp.net_price as precio
+    from sale as s
+    inner join sale_product as sp on s.sale_id = sp.sp_sale_id
+    inner join product as p on sp.sp_product_id = p.product_id
+    where s.sale_id = ${saleData.sale_id}`,
+    `Select t.name as impuesto, t.percent as porcentaje , sum(sp.gross_price) as base,  (sum(sp.gross_price) * t.percent)/100 as val_impuesto
+    from sale as s
+    inner join sale_product as sp on s.sale_id = sp.sp_sale_id
+    inner join product as p on sp.sp_product_id = p.product_id
+    inner join product_tax as pt on p.product_id = pt.pt_product_id
+    inner join tax as t on pt.pt_tax_id = t.tax_id
+    where s.sale_id = ${saleData.sale_id}
+    group by t.tax_id`,
+    `SELECT sum(net_price) as Total
+    FROM proyectomodular.sale_product
+    where sp_sale_id = ${saleData.sale_id}`
+  ];
+    
+
+    if (connection) {
+      connection.query(queries.join(';'),  function (error, rows) {
+        if (error) {
+          console.log(error)
+          callback(null, {
+            "respuesta": "Error de conexión"
+          })
+        } else {
+          if (rows.length != 0) {
+            Encabezado = rows[0]
+            Productos = rows[1]
+            Impuestos = rows[2]
+            Totales = rows[3]
+            
+            var jsonObj = {
+              Encabezado,
+              Productos,
+              Impuestos,
+              Totales,  
+              respuesta: "Success"
+            }
+            // console.log(jsonObj);
+            callback(null, jsonObj)
+
+          } else {
+            console.log("Error la consulta no arroja datos")
+            callback(null, {
+              "respuesta": "Error no hay datos"
+            })
+          }
+        }
+      })
+    } else {
+      console.log("No se conecto con servidor")
+      callback(null, {
+        "Respuesta": "Error en Conexion"
+      })
+    }
+
+
+
 }
 
 
