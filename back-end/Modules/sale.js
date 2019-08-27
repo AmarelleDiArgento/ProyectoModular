@@ -291,12 +291,13 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
       inner join user as u on s.user_id = u.user_id  
       inner join user as c on s.client_id = c.user_id 
     where sale_id = ${saleData.sale_id}`,
-    `select p.product_id as id, p.name as producto, sp.quantity as cantidad, sp.net_price as precio
+    `select p.product_id as id, p.name as producto, sp.quantity as cantidad, FORMAT(sp.net_price, 0) as precio
     from sale as s
     inner join sale_product as sp on s.sale_id = sp.sp_sale_id
     inner join product as p on sp.sp_product_id = p.product_id
     where s.sale_id = ${saleData.sale_id}`,
-    `Select t.name as impuesto, t.percent as porcentaje , sum(sp.gross_price) as base,  (sum(sp.gross_price) * t.percent)/100 as val_impuesto
+    `Select t.name as impuesto, t.percent as porcentaje , FORMAT(sum(sp.gross_price),2) as base,  
+    FORMAT((sum(sp.gross_price) * t.percent)/100, 2) as val_impuesto
     from sale as s
     inner join sale_product as sp on s.sale_id = sp.sp_sale_id
     inner join product as p on sp.sp_product_id = p.product_id
@@ -304,11 +305,10 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
     inner join tax as t on pt.pt_tax_id = t.tax_id
     where s.sale_id = ${saleData.sale_id}
     group by t.tax_id`,
-    `SELECT sum(net_price) as Total
+    `SELECT FORMAT(sum(net_price),0) as Total
     FROM proyectomodular.sale_product
     where sp_sale_id = ${saleData.sale_id}`
   ];
-    
 
     if (connection) {
       connection.query(queries.join(';'),  function (error, rows) {
@@ -331,7 +331,7 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
               Totales,  
               respuesta: "Success"
             }
-            // console.log(jsonObj);
+             // console.log(jsonObj);
             callback(null, jsonObj)
 
           } else {

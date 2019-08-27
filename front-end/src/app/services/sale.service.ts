@@ -46,6 +46,15 @@ export class SaleService {
       .map((response: Response) => response.json())
   }
 
+  // service to api mysql get sale for id
+  getDataSaleForInvoice(sale_id) {
+    this.params = 'sale_id=' + sale_id;
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(varsGlobals.url + '/getdatasaleinvoice/', this.params, options)
+      .map((response: Response) => response.json())
+  }
+
   // service to api mysql create sale
   createSale(pod_id, user_id, client_id, waytopay, authorization, list_product) {
     this.params = 'pod_id=' + pod_id +
