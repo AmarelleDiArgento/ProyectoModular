@@ -67,7 +67,6 @@ router.post('/updateuser', function (req, res, next) {
     user_id: req.body.user_id,
     username: req.body.username,
     email: req.body.email,
-    password: req.body.password,
     rol_id: req.body.rol_id,
     status: req.body.status
   }

@@ -48,18 +48,6 @@
           </span>
         </div>
 
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" formControlName="password"
-            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Ingrese el password">
-          <span>
-            <div *ngIf="submitted && f.password.errors">
-              <div *ngIf="f.password.errors.required"> <label id="error">Error el password es requerido</label></div>
-            </div>
-          </span>
-        </div>
-
         <div class="form-group">
           <label for="name">Rol</label>
           <select class="form-control" id="rol_id" name="rol_id" formControlName="rol_id"

@@ -12,7 +12,7 @@ var userModel = {}
 
 let ins = `call proyectomodular.userins(?,?,?,?,?,?);`;
 let cli = `call proyectomodular.usercliins(?,?,?);`;
-let upd = `call proyectomodular.userupd(?,?,?,?,?,?);`;
+let upd = `call proyectomodular.userupd(?,?,?,?,?);`;
 let pas = `call proyectomodular.userpasupd(?,?,?);`;
 let res = `call proyectomodular.userpasres(?,?);`;
 let del = `call proyectomodular.userdel(?);`;
@@ -103,18 +103,12 @@ userModel.createClient = function (userData, callback) {
 }
 
 userModel.updateUser = function (userData, callback) {
-  var pass;
-  enigma.genHash(valorEncriptación, key, userData.password, function (error, hash) {
-    if (error) return console.error(error)
-    pass = hash
-  })
 
   if (connection) {
     connection.query(upd, [
       userData.user_id,
       userData.username,
       userData.email,
-      pass,
       userData.rol_id,
       userData.status
     ], function (error, rows) {

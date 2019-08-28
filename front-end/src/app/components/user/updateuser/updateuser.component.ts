@@ -43,7 +43,6 @@ export class UpdateuserComponent implements OnInit {
   user_id = '';
   username = '';
   email = '';
-  password = '';
   rol_id = '';
   status = '';
   pod_id = [];
@@ -83,7 +82,6 @@ export class UpdateuserComponent implements OnInit {
       user_id: ['', Validators.required],
       username: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', Validators.required],
       rol_id: ['', Validators.required],
       pod_id: ['', Validators.required],
       status: ['', Validators.required],
@@ -109,7 +107,6 @@ export class UpdateuserComponent implements OnInit {
         this.updateUserForm.value.user_id,
         this.updateUserForm.value.username,
         this.updateUserForm.value.email,
-        this.updateUserForm.value.password,
         this.updateUserForm.value.rol_id,
         this.updateUserForm.value.status,
         
@@ -144,7 +141,6 @@ export class UpdateuserComponent implements OnInit {
             user_id: data.rows[0].user_id,
             username: data.rows[0].username,
             email: data.rows[0].email,
-            password: data.rows[0].password,
             status: data.rows[0].status,
             rol_id: data.rows[0].rol_id,
           })
