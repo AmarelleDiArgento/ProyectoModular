@@ -1,94 +1,90 @@
 <div class="row center">
-    <div class="col s12 ">
-      <div class="row">
-        <div class="container">
-          <img src="assets/logoprobocaitos.png" width="100%" height="auto" alt="">
-        </div>
-        <div id="bill" class="center">
-          {{Encabezado.pod}} <br>
-          NIT: {{Encabezado.nit}} TEL {{Encabezado.phone}} <br>
-          REGIMEN COMÚN <br>
-          {{Encabezado.address}} <br>
-          <br>
-  
-          <div class="row left-align" style="height: 35px; margin: 0%">
-            <div class="col s12 center">FACTURA DE VENTAS</div>
-            <div class="col s12 center">{{Encabezado.prefijo}} - {{Encabezado.invoice_num}}</div>
-          </div>
-          <br>
-  
-          <div class="container">
-            <div class="row">
-              <div class="col s6">
-                <!-- Consecutivo: <br>
+  <div class="row">
+    <div class="container">
+      <img src="assets/logoprobocaitos.png" width="100%" height="auto" alt="">
+    </div>
+    <div id="bill" class="center">
+      {{Encabezado.pod}} <br>
+      NIT: {{Encabezado.nit}} TEL {{Encabezado.phone}} <br>
+      REGIMEN COMÚN <br>
+      {{Encabezado.address}} <br>
+      <br>
+
+      <div class="row left-align" style="height: 35px; margin: 0%">
+        <div class="col s12 center">FACTURA DE VENTAS</div>
+        <div class="col s12 center">{{Encabezado.prefijo}} - {{Encabezado.invoice_num}}</div>
+      </div>
+      <br>
+
+      <div class="container">
+        <div class="row">
+          <div class="col s6">
+            <!-- Consecutivo: <br>
                 {{listSale[zero].sale_id}}<br>
               -->
-              </div>
-              <div class="col s6">
-                Fecha:
-                {{Encabezado.date}} <br>
-              </div>
-            </div>
-            <div class="row">
-              Vendedor: {{Encabezado.uName}}<br>
-              Cliente: {{Encabezado.cName}}<br>
-              Forma de pago: {{Encabezado.cardpayment}}<br>
-            </div>
-  
-            <div class="row" style="height: 35px; margin: 0%">
-              <div class="col s2">Item</div>
-              <div class="col s2">Cant.</div>
-              <div class="col s5">Descripcion</div>
-              <div class="col s3">Total</div>
-            </div>
-            <div class="left-align">
-              <div class="row" style="height: 100%; margin: 0%" *ngFor="let p of Productos">
-  
-                <div class="col s2">{{p.id}} </div>
-                <div class="col s2 center-align">{{p.cantidad}}</div>
-                <div class="col s5">{{p.producto}}</div>
-                <div class="col s3 right-align">$ {{p.precio}}</div>
-              </div>
-            </div>
-  
-            <div class="row left-align" style="height: 35px; margin: 0%">
-              <div class="col s9">TOTAL</div>
-              <div class="col s3 right-align">$ {{Total.Total}}</div>
-            </div>
-  
-            <div class="row" style="height: 35px; margin: 0%">
-              <div class="col s12 center">INFORMACION TRIBUTARIA
-              </div>
-              <div>
-                <div class="col s3">Tipo</div>
-                <div class="col s1">%</div>
-                <div class="col s4">VLR BASE</div>
-                <div class="col s4">VLR IMP</div>
-              </div>
-  
-              <div *ngFor="let i of Impuestos">
-                <div class="col s3">{{i.impuesto}} </div>
-                <div class="col s1">{{i.porcentaje}}%</div>
-                <div class="col s4 ">$ {{i.base}}</div>
-                <div class="col s4 ">$ {{i.val_impuesto}}</div>
-              </div>
-            </div>
-  
-            <div class="row left-align" style="height: 35px; margin: 0%">
-              <div class="col s12 center">R DIAN: {{Encabezado.rdian}}</div>
-              <div class="col s12 center">FECHA {{Encabezado.daterdian}} </div>
-              <div class="col s12 center">RANGO 0 A {{Encabezado.billing_limit}}</div>
-            </div>
-  
-            <div class="col s12 cente-align" style="height: 35px; margin: 0%">
-              <h5>
-                GRACIAS POR SU COMPRA
-              </h5>
-            </div>
           </div>
-  
+          <div class="col s6">
+            Fecha:
+            {{Encabezado.date}} <br>
+          </div>
+        </div>
+        <div class="row">
+          Vendedor: {{Encabezado.uName}}<br>
+          Cliente: {{Encabezado.cName}}<br>
+          Forma de pago: {{Encabezado.cardpayment}}<br>
+        </div>
+
+        <div class="row" style="height: 35px; margin: 0%">
+          <div class="col s2">Item</div>
+          <div class="col s2">Cant.</div>
+          <div class="col s5">Descripcion</div>
+          <div class="col s3">Total</div>
+        </div>
+        <div class="left-align">
+          <div class="row" style="height: 100%; margin: 0%" *ngFor="let p of Productos">
+
+            <div class="col s2">{{p.id}} </div>
+            <div class="col s2 center-align">{{p.cantidad}}</div>
+            <div class="col s5">{{p.producto}}</div>
+            <div class="col s3 right-align">$ {{p.precio}}</div>
+          </div>
+        </div>
+
+        <div class="row left-align" style="height: 35px; margin: 0%">
+          <div class="col s9">TOTAL</div>
+          <div class="col s3 right-align">$ {{Total.Total}}</div>
+        </div>
+
+        <div class="row" style="height: 35px; margin: 0%">
+          <div class="col s12 center">INFORMACION TRIBUTARIA
+          </div>
+          <div>
+            <div class="col s3">Tipo</div>
+            <div class="col s1">%</div>
+            <div class="col s4">VLR BASE</div>
+            <div class="col s4">VLR IMP</div>
+          </div>
+
+          <div *ngFor="let i of Impuestos">
+            <div class="col s3">{{i.impuesto}} </div>
+            <div class="col s1">{{i.porcentaje}}%</div>
+            <div class="col s4 ">$ {{i.base}}</div>
+            <div class="col s4 ">$ {{i.val_impuesto}}</div>
+          </div>
+        </div>
+
+        <div class="row left-align" style="height: 35px; margin: 0%">
+          <div class="col s12 center">R DIAN: {{Encabezado.rdian}}</div>
+          <div class="col s12 center">FECHA {{Encabezado.daterdian}} </div>
+          <div class="col s12 center">RANGO 0 A {{Encabezado.billing_limit}}</div>
+        </div>
+
+        <div class="col s12 cente-align" style="height: 35px; margin: 0%">
+          <h5>
+            GRACIAS POR SU COMPRA
+          </h5>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

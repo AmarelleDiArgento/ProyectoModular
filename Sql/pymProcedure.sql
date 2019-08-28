@@ -467,7 +467,6 @@ CREATE PROCEDURE userupd (
 _user_id VARCHAR(45) ,
 _username VARCHAR(255),
 _email VARCHAR(255),
-_password VARCHAR(255),
 _rol_id INT,
 _status tinyint)
 
@@ -478,7 +477,6 @@ SET
 user_id = _user_id ,
 username =_username,
 email =_email,
-password = _password,
 rol_id=_rol_id,
 update_time = now()
 WHERE 

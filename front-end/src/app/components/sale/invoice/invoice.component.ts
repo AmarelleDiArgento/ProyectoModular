@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
-import Swal from 'sweetalert2';
 declare var $: any;
 // service auth
 import { SaleService } from '../../../services/sale.service';
-
 import { PrintService } from '../../../services/print.service';
 
 @Component({
@@ -24,11 +22,7 @@ export class InvoiceComponent implements OnInit {
   Productos: {};
   Impuestos: {};
   Total: {};
-
-  zero = 0;
-  zeros = '';
-  invoiceNumber = 0;
-  invoiceCode = '';
+  
 
 
   printOn: boolean = true;
@@ -39,46 +33,20 @@ export class InvoiceComponent implements OnInit {
     private saleService: SaleService,
     private printService: PrintService,
     private router: Router) {
-    this.idSale = localStorage.getItem('idSale');
-    this.getSaleDataId();
   }
 
   ngOnInit() {
+    this.idSale = localStorage.getItem('idSale');
+    this.getSaleDataId();
 
     if (localStorage.getItem('printOn') === '0') {
       this.printOn = false;
-
       localStorage.removeItem('printOn');
     }
-    console.log(this.printOn);
-
+    
     // this.router.navigate(['/createsale']);
   }
 
-  getZeros(number, width) {
-    var numberOutput = Math.abs(number); /* Valor absoluto del número */
-    var length = number.toString().length; /* Largo del número */
-    var zero = '0'; /* String de cero */
-
-    if (width <= length) {
-      if (number < 0) {
-        return ('-' + numberOutput.toString());
-      } else {
-        return numberOutput.toString();
-      }
-    } else {
-      if (number < 0) {
-        return ('-' + (zero.repeat(width - length)) + numberOutput.toString());
-      } else {
-        return ((zero.repeat(width - length)) + numberOutput.toString());
-      }
-    }
-  }
-
-  getInvoiceNumber() {
-    this.zeros = this.invoiceCode + ' - ' + this.getZeros(this.invoiceNumber, 10);
-
-  }
 
   // obtain data sale for id
   getSaleDataId() {
