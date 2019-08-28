@@ -21,9 +21,6 @@ import { forEach } from '@angular/router/src/utils/collection';
 
 
 export class SaleComponent implements OnInit {
-
-  
-
   // vars msj
   msgerr = '';
   // var submitted
@@ -63,12 +60,14 @@ export class SaleComponent implements OnInit {
   cambio = 0;
   cambioPesos = '$ 0';
   listSaleProduct: any[][] = [];
-
+  private layout: any = 'alphanumeric';
+  increment: number = 1;
+  decrement: number = 1;
   // force to redirect
   @HostListener('window:beforeunload') goToPage() {
-   
   }
 
+  // tslint:disable-next-line: deprecation
   constructor(private http: Http,
     private formBuilder: FormBuilder,
     private saleService: SaleService,
@@ -84,31 +83,26 @@ export class SaleComponent implements OnInit {
         $('.modal').modal();
         $('select').formSelect();
       });
-
      }
 
+
   ngOnInit() {
-    
     // init form
     this.payForm = this.formBuilder.group({
       waytopay: ['', Validators.required],
       recibo: ['0', Validators.required],
-      code: ['0',Validators.required]
+      code: ['0', Validators.required]
     });
 
     this.idUser = localStorage.getItem('idSesionUser');
     this.idPod = localStorage.getItem('idSesionPod');
     this.client_id = '1020121';
     // send to search api backend all category
-
-    
   }
   // get payform controls
   get fpay() { return this.payForm.controls; }
 
-
   getAllDataCategory() {
-   
     this.categoryService.getAllDataCategory()
       .subscribe(data => {
         // populate list json
@@ -138,8 +132,7 @@ export class SaleComponent implements OnInit {
 
   onSubmitPay() {
 
-  if(this.listSaleProduct.length > 0){
-  
+  if (this.listSaleProduct.length > 0) {
     this.submittedPay = true;
     // error here if form is invalid
     console.log(this.payForm.invalid);
@@ -192,6 +185,7 @@ export class SaleComponent implements OnInit {
     }
     this.tax_price = tax;
     this.total_price = this.total;
+    // tslint:disable-next-line: no-unused-expression
     this.gross_price = this.total - tax, 2;
 
 
@@ -248,7 +242,8 @@ export class SaleComponent implements OnInit {
   increAmount(id) {
     for (let i = 0; i < this.listSaleProduct.length; i++) {
       if (this.listSaleProduct[i][0] === id) {
-        const cont: number = this.listSaleProduct[i][3] + 1;
+        // tslint:disable-next-line: radix
+        const cont: number =  parseInt(this.listSaleProduct[i][3]) + this.increment;
         this.listSaleProduct[i][3] = cont;
         this.listSaleProduct[i][4] = this.listSaleProduct[i][6] * cont;
         this.listSaleProduct[i][5] = this.listSaleProduct[i][7] * cont;
@@ -260,7 +255,22 @@ export class SaleComponent implements OnInit {
   decreAmount(id) {
     for (let i = 0; i < this.listSaleProduct.length; i++) {
       if (this.listSaleProduct[i][0] === id) {
-        const cont: number = this.listSaleProduct[i][3] - 1;
+        // tslint:disable-next-line: radix
+        const cont: number = parseInt(this.listSaleProduct[i][3]) - this.decrement;
+        this.listSaleProduct[i][3] = cont;
+        this.listSaleProduct[i][4] = this.listSaleProduct[i][6] * cont;
+        this.listSaleProduct[i][5] = this.listSaleProduct[i][7] * cont;
+
+      }
+    }
+
+    this.totals();
+  }
+
+  virtualKeyboardValue(id, searchValue) {
+    for (let i = 0; i < this.listSaleProduct.length; i++) {
+      if (this.listSaleProduct[i][0] === id) {
+        const cont: number = searchValue;
         this.listSaleProduct[i][3] = cont;
         this.listSaleProduct[i][4] = this.listSaleProduct[i][6] * cont;
         this.listSaleProduct[i][5] = this.listSaleProduct[i][7] * cont;
@@ -293,6 +303,8 @@ export class SaleComponent implements OnInit {
     }
     this.cambioPesos = '$ ' + number_format(this.cambio, 0);
   }
+
+ 
 }
 // function format number
 function number_format(amount, decimals) {
@@ -319,3 +331,4 @@ function number_format(amount, decimals) {
 
   return amount_parts.join('.');
 }
+

@@ -91,9 +91,19 @@
                         <i class="material-icons white-text">remove</i>
                       </a>
                     </div>
+                    <!--
                     <div class="badge center col s4">
                       {{sp[3]}}
                     </div>
+                    -->
+
+                    <input class="badge center col s4" type="tel" 
+                        [ngModel]="mymodel" 
+                        (ngModelChange)="virtualKeyboardValue(sp[0],$event)"
+                        ng-virtual-keyboard
+                        ng-virtual-keyboard-layout="numeric"
+                        readonly />
+
                     <div class="badge white-text col s4 center-flex">
                       <a (click)="increAmount(sp[0])" class="btn btn_producto teal darken-4">
                         <i class="material-icons white-text">add</i>

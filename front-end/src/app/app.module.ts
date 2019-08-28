@@ -53,6 +53,8 @@ import { ListpodsComponent } from './components/pod/listpods/listpods.component'
 import { UpdatepodComponent } from './components/pod/updatepod/updatepod.component';
 import { RolprivilegeComponent } from './components/rol/rolprivilege/rolprivilege.component';
 import { ListrolprivilegeComponent } from './components/rol/rolprivilege/listrolprivilege/listrolprivilege.component';
+import { NgVirtualKeyboardModule } from '@protacon/ng-virtual-keyboard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //service
 import { AuthService } from './services/auth.service';
@@ -141,6 +143,8 @@ import { RenderresetbuttonComponent } from './components/aggridrender/renderrese
     HttpModule,
     HttpClientModule,
     FormsModule,
+    NgVirtualKeyboardModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     AgGridModule.withComponents([
       RenderStatusComponent,
