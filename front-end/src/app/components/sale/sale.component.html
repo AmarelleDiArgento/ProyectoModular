@@ -96,13 +96,14 @@
                       {{sp[3]}}
                     </div>
                     -->
+                    <div class="keypad"><input class="badge center col s4" type="tel" 
+                      [ngModel]="mymodel" 
+                      (ngModelChange)="virtualKeyboardValue(sp[0],$event)"
+                      ng-virtual-keyboard
+                      ng-virtual-keyboard-layout="numeric"
+                      readonly /></div>
 
-                    <input class="badge center col s4" type="tel" 
-                        [ngModel]="mymodel" 
-                        (ngModelChange)="virtualKeyboardValue(sp[0],$event)"
-                        ng-virtual-keyboard
-                        ng-virtual-keyboard-layout="numeric"
-                        readonly />
+                    
 
                     <div class="badge white-text col s4 center-flex">
                       <a (click)="increAmount(sp[0])" class="btn btn_producto teal darken-4">

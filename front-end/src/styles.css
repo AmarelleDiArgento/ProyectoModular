@@ -514,3 +514,16 @@ table {
 .background-white {
   background: white;
 }
+
+
+div.keypad input {
+  background:url(./assets/keypad.png) no-repeat !important;
+  cursor:pointer !important;
+  border: none;
+  border-bottom: 1px solid white !important;
+  color: transparent !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block !important;
+   margin: 0 auto!important;
+}
