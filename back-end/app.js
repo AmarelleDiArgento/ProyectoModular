@@ -7,6 +7,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 const fs = require('fs');
 
+
 //routes
 var indexRouter = require('./routes/index');
 //route login
@@ -37,6 +38,8 @@ var rolprivilege = require('./routes/rolprivilege');
 var pod = require('./routes/pod');
 //route poduser
 var poduser = require('./routes/poduser');
+//route email
+var email = require('./routes/email');
 
 
 // Initialize the app
@@ -163,6 +166,8 @@ app.post('/updatepoduser', poduser)
 app.post('/deletepoduser', poduser)
 app.post('/getdatapoduser', poduser)
 app.get('/getdatapodusers', poduser)
+//urls email
+app.post('/sendemail', email)
 
 
 //file text sql
