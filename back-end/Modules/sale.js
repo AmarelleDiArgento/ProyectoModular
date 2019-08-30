@@ -1,6 +1,9 @@
 var mysql = require('mysql'),
-  config = require("../config");
-
+config = require("../config");
+var nodemailer = require('nodemailer');
+var smtpTransport = require("nodemailer-smtp-transport");
+var express = require('express');
+var router = express.Router();
 //init pool mysql
 var connection = mysql.createPool(config.db);
 
@@ -323,6 +326,120 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
             Productos = rows[1]
             Impuestos = rows[2]
             Totales = rows[3]
+
+            var myHTML = ''; 
+            myHTML +='<div class="row center">'+
+              '<div class="row">'+
+                '<div class="container">'+
+                  '<img src="/logoprobocaitos.png" width="100%" height="auto" alt="">'+
+                '</div>'+
+                '<div id="bill" class="center">'+
+                  JSON.stringify(Encabezado[0].pod) +'<br>'+
+                  'NIT: '+JSON.stringify(Encabezado[0].nit)+ '  TEL'+ JSON.stringify(Encabezado[0].phone)+ '<br>'+
+                  'REGIMEN COMÚN <br>'+
+                  JSON.stringify(Encabezado[0].address)+ '<br>'+
+                  '<br>'+
+            
+                  '<div class="row left-align" style="height: 35px; margin: 0%">'+
+                    '<div class="col s12 center">FACTURA DE VENTAS</div>'+
+                    '<div class="col s12 center">'+JSON.stringify(Encabezado[0].prefijo)+ '-' +JSON.stringify(Encabezado[0].invoice_num)+'</div>'+
+                  '</div>'+
+                  '<br>'+
+                  '<div class="container">'+
+                    '<div class="row">'+
+                      '<div class="col s6">'+
+                      '</div>'+
+                      '<div class="col s6">'+
+                        'Fecha:'+
+                        JSON.stringify(Encabezado[0].date)+ '<br>'+
+                      '</div>'+
+                    '</div>'+
+                    '<div class="row">'+
+                      'Vendedor:'+ JSON.stringify(Encabezado[0].uName)+'<br>'+
+                      'Cliente:'+ JSON.stringify(Encabezado[0].cName) +'<br>'+
+                      'Forma de pago:'+ JSON.stringify(Encabezado[0].cardpayment)+'<br>'+
+                    '</div>'+
+                    '<div class="row" style="">'+
+                      '<div class="col s2">Item</div>'+
+                      '<div class="col s2">Cant.</div>'+
+                      '<div class="col s5">Descripcion</div>'+
+                      '<div class="col s3">Total</div>'+
+                    "</div>";
+                    for (var p= 0; p < Productos.length; p++) {
+                      myHTML +='<div class="col s2">'+ JSON.stringify(Productos[p].id)+ '</div>'+
+                      '<div class="col s2 center-align">'+ JSON.stringify(Productos[p].cantidad)+'</div>'+
+                      '<div class="col s5">'+JSON.stringify(Productos[p].producto)+'</div>'+
+                      '<div class="col s3 right-align">$ '+JSON.stringify(Productos[p].precio)+'</div>';
+                  }
+
+                  myHTML +='<div class="row left-align" style="">'+
+                    '<div class="col s9">TOTAL</div>'+
+                    '<div class="col s3 right-align">$ '+JSON.stringify(Totales[0].Total)+'</div>'+
+                  '</div>'+
+
+                  '<div class="row" style="">'+
+                      '<div class="col s12 center">INFORMACION TRIBUTARIA '+
+                      '</div>'+
+                      '<div>'+
+                        '<div class="col s3">Tipo</div>'+
+                        '<div class="col s1">%</div>'+
+                        '<div class="col s4">VLR BASE</div>'+
+                        '<div class="col s4">VLR IMP</div>'+
+                      '</div>';
+
+                      for (var i= 0; i < Impuestos.length; i++) {
+                        myHTML +='<div class="col s3">'+JSON.stringify(Impuestos[i].impuesto) +'</div>'+
+                        '<div class="col s1">'+JSON.stringify(Impuestos[i].porcentaje)+ '%</div>'+
+                        '<div class="col s4 ">$'+ JSON.stringify(Impuestos[i].base) +'</div>'+
+                        '<div class="col s4 ">$'+ JSON.stringify(Impuestos[i].val_impuesto) +'</div>';
+                      }
+
+                     myHTML +='</div>'+
+
+                     '<div class="row left-align" style="">'+
+                        '<div class="col s12 center">R DIAN: '+Encabezado[0].rdian+'</div>'+
+                        '<div class="col s12 center">FECHA '+Encabezado[0].daterdian+'</div>'+
+                        '<div class="col s12 center">RANGO 0 A '+Encabezado[0].billing_limit +'</div>'+
+                      '</div>'+
+
+                      '<div class="col s12 cente-align" style="">'+
+                        '<h5>'+
+                          'GRACIAS POR SU COMPRA'+
+                        '</h5>'+
+                      '</div>'+
+                    '</div>'+
+                    '</div>'+
+                  '</div>'+
+                '</div>';
+
+
+          var transporter = nodemailer.createTransport(smtpTransport({
+              service: 'gmail',
+              auth: {
+                     user: 'cesarleandromayorga7@gmail.com',
+                     pass: 'passsssssss'
+                 }
+          }));
+          
+          const mailOptions = {
+              from: 'cesarleandromayorga7@gmail.com', // sender address
+              to: 'cesarleandromayorga7@gmail.com', // list of receivers
+              subject: 'Factura de pago Probocaitos', // Subject line
+              html: myHTML
+            };
+          
+            transporter.sendMail(mailOptions, function (err, info) {
+              if(err)
+                console.log(err)
+              else
+                console.log(info);
+           });
+
+
+
+
+
+
             
             var jsonObj = {
               Encabezado,

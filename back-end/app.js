@@ -79,7 +79,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //urls
 //url init
-app.disable('etag'); 
+app.disable('etag');
 app.use('/', indexRouter);
 //url login
 app.post('/auth', login)
@@ -126,6 +126,7 @@ app.post('/updateproductax', product)
 //urls permission menu
 app.post('/getdatapermission', permission)
 //urls sale
+
 app.post('/createsale', sale)
 app.post('/updatesale', sale)
 app.post('/deletesale', sale)
@@ -134,7 +135,7 @@ app.post('/getdatasalebetween', sale)
 app.post('/getdatasalebetweensum', sale)
 app.post('/getdatasaleinvoice', sale)
 app.get('/getdatasales', sale)
-
+ 
 //urls saleproduct
 app.post('/createsaleproduct', saleproduct)
 app.post('/updatesaleproduct', saleproduct)
