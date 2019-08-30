@@ -171,8 +171,7 @@ app.post('/updatepoduser', poduser)
 app.post('/deletepoduser', poduser)
 app.post('/getdatapoduser', poduser)
 app.get('/getdatapodusers', poduser)
-//urls email
-app.post('/sendemail', email)
+
 
 
 //file text sql
