@@ -1,7 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, AfterContentInit, Directive, ElementRef, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 declare var $: any;
 // service auth
@@ -12,6 +12,7 @@ import { UserService } from '../../services/user.service';
 import { forEach } from '@angular/router/src/utils/collection';
 
 
+
 @Component({
   selector: 'app-sale',
   templateUrl: './sale.component.html',
@@ -20,7 +21,12 @@ import { forEach } from '@angular/router/src/utils/collection';
 
 
 
-export class SaleComponent implements OnInit {
+export class SaleComponent implements OnInit, AfterContentInit {
+
+
+
+  @Input() public appAutoFocus: boolean;
+
   // vars msj
   msgerr = '';
   // var submitted
@@ -30,6 +36,8 @@ export class SaleComponent implements OnInit {
   // var form
   payForm: FormGroup;
   registerSalesForm: FormGroup;
+  registerClientForm: FormGroup;
+
   // list data auth
   listSale: {};
   listCategory: {};
@@ -74,17 +82,27 @@ export class SaleComponent implements OnInit {
     private categoryService: CategoryService,
     private productService: ProductService,
     private userService: UserService,
-    private router: Router) {
-      this.getAllDataCategory();
-      this.getAllDataProduct();
+    private router: Router,
+    private el: ElementRef) {
+    this.getAllDataCategory();
+    this.getAllDataProduct();
 
-      $(document).ready(function () {
-        $('.tabs').tabs();
-        $('.modal').modal();
-        $('select').formSelect();
-      });
-     }
+    $(document).ready(function () {
+      $('.tabs').tabs();
+      $('.modal').modal();
+      $('select').formSelect();
+    });
+  }
 
+
+  public ngAfterContentInit() {
+
+    setTimeout(() => {
+
+      this.el.nativeElement.focus();
+    }, 500);
+
+  }
 
   ngOnInit() {
     // init form
@@ -94,6 +112,13 @@ export class SaleComponent implements OnInit {
       code: ['0', Validators.required]
     });
 
+    // init form Client
+    this.registerClientForm = this.formBuilder.group({
+      user_id: ['', Validators.required],
+      username: ['', Validators.required],
+      email: ['', Validators.required]
+    });
+
     this.idUser = localStorage.getItem('idSesionUser');
     this.idPod = localStorage.getItem('idSesionPod');
     this.client_id = '1020121';
@@ -101,6 +126,9 @@ export class SaleComponent implements OnInit {
   }
   // get payform controls
   get fpay() { return this.payForm.controls; }
+  // get form controls
+  get fc() { return this.registerClientForm.controls; }
+
 
   getAllDataCategory() {
     this.categoryService.getAllDataCategory()
@@ -132,48 +160,48 @@ export class SaleComponent implements OnInit {
 
   onSubmitPay() {
 
-  if (this.listSaleProduct.length > 0) {
-    this.submittedPay = true;
-    // error here if form is invalid
-    console.log(this.payForm.invalid);
+    if (this.listSaleProduct.length > 0) {
+      this.submittedPay = true;
+      // error here if form is invalid
+      console.log(this.payForm.invalid);
 
-    if (this.payForm.invalid) {
-      return;
-    } else {
+      if (this.payForm.invalid) {
+        return;
+      } else {
 
-      this.saleService.createSale(
-        this.idPod,
-        this.idUser,
-        this.client_id,
-        this.RadioButton,
-        this.payForm.value.code,
-        this.listProductSale
-      )
-        .subscribe(data => {
-          if (data.respuesta === 'Success') {
-            this.sale_id = data.rows[0].sale_id;
-            console.log(data.rows);
+        this.saleService.createSale(
+          this.idPod,
+          this.idUser,
+          this.client_id,
+          this.RadioButton,
+          this.payForm.value.code,
+          this.listProductSale
+        )
+          .subscribe(data => {
+            if (data.respuesta === 'Success') {
+              this.sale_id = data.rows[0].sale_id;
+              console.log(data.rows);
 
-            localStorage.setItem('idSale', this.sale_id);
-            this.router.navigate(['/invoiceprint']);
+              localStorage.setItem('idSale', this.sale_id);
+              this.router.navigate(['/invoiceprint']);
 
-          } else {
-            Swal.fire({
-              type: 'error',
-              title: 'Ups!, algo salio mal',
-              showConfirmButton: false,
-              timer: 2000
-            });
-          }
+            } else {
+              Swal.fire({
+                type: 'error',
+                title: 'Ups!, algo salio mal',
+                showConfirmButton: false,
+                timer: 2000
+              });
+            }
 
-        });
+          });
+      }
     }
   }
-}
 
 
   // get form contsales
-  get f() { return this.registerSalesForm.controls; }
+  // get f() { return this.registerSalesForm.controls; }
 
   totals() {
     this.total = 0;
@@ -243,7 +271,7 @@ export class SaleComponent implements OnInit {
     for (let i = 0; i < this.listSaleProduct.length; i++) {
       if (this.listSaleProduct[i][0] === id) {
         // tslint:disable-next-line: radix
-        const cont: number =  parseInt(this.listSaleProduct[i][3]) + this.increment;
+        const cont: number = parseInt(this.listSaleProduct[i][3]) + this.increment;
         this.listSaleProduct[i][3] = cont;
         this.listSaleProduct[i][4] = this.listSaleProduct[i][6] * cont;
         this.listSaleProduct[i][5] = this.listSaleProduct[i][7] * cont;
@@ -304,8 +332,93 @@ export class SaleComponent implements OnInit {
     this.cambioPesos = '$ ' + number_format(this.cambio, 0);
   }
 
- 
+
+  // obtain data user for id
+  clientSearch(e) {
+    if (e.keyCode === 13 && !e.shiftKey) {
+      // send to ws api mysql search data user for id
+      this.registerClientForm.get('user_id').setValue(this.client_id);
+      this.getClient();
+    }
+  }
+
+  getClient() {
+    this.userService.getDataUserForId(this.client_id)
+      .subscribe(data => {
+        if (data.respuesta === 'Success') {
+          this.client = data.rows[0];
+        } else {
+          Swal.fire({
+            title: 'Ups!',
+            text: 'Usuario no registrado',
+            type: 'error',
+            showCancelButton: true,
+            confirmButtonText: 'Registrar'
+          }).then((result) => {
+            if (result.value) {
+              $('#ClientRegister').modal('open');
+            }
+
+          });
+        }
+      });
+  }
+  // submit form
+  onClientSubmit() {
+    this.submitted = true;
+
+    // error here if form is invalid
+    if (this.registerClientForm.invalid) {
+      return;
+    } else {
+      this.client_id = this.registerClientForm.value.user_id;
+      // send to api backend create user
+      this.userService.createClient(
+        this.registerClientForm.value.user_id,
+        this.registerClientForm.value.username,
+        this.registerClientForm.value.email)
+        .subscribe(data => {
+          if (data.respuesta === 'Success') {
+
+            this.modalClose();
+
+            Swal.fire({
+              type: 'success',
+              title: 'Registro exitoso',
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000
+            });
+
+          } else {
+            Swal.fire({
+              type: 'error',
+              title: 'Ups!, algo salio mal: \n' + data.respuesta,
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000
+            });
+            this.msgerr = 'Error al crear el cliente';
+          }
+
+        });
+    }
+  }
+
+  modalClose() {
+    $('#ClientRegister').modal('close');
+    this.getClient();
+  }
+  modalOpen() {
+    $('#ClientRegister').modal('open');
+
+  }
+
 }
+
+
 // function format number
 function number_format(amount, decimals) {
 

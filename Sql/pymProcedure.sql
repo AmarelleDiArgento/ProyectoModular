@@ -476,7 +476,7 @@ UPDATE proyectomodular.user
 SET
 user_id = _user_id ,
 username =_username,
-email =_email,
+email =_email,	
 rol_id=_rol_id,
 update_time = now()
 WHERE 

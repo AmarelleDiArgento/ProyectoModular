@@ -39,7 +39,6 @@
         <div class="col s4">
           <h4 class="center">{{sale_id}}</h4>
         </div>
-        <!---
         <ng-container *ngIf="client != null; else elseTemplate">
           <div class="col s8">
             <p class="left">Cliente: </p>
@@ -50,19 +49,19 @@
           <form class="from-none">
             <div class="input-field col s10">
               <i class="material-icons prefix">person_pin</i>
-              <input id="client_id" name="client_id" (keypress)="clientSearch($event)" [(ngModel)]="client_id"
-                type="text" class="validate">
+              <input appAutoFocus id="client_id" name="client_id" (keypress)="clientSearch($event)"
+                [(ngModel)]="client_id" type="text" class="validate">
               <label for="client_id">Documento</label>
             </div>
             <div class="input-field col s1">
               <!-- Modal Trigger 
+      -->
               <a class="waves-effect waves-light btn-floating modal-trigger" href="#ClientRegister">
                 <i class="material-icons white-text">person_add</i>
               </a>
             </div>
           </form>
         </ng-template>
-      -->
         <div class="input-field col s12">
           <i class="material-icons prefix">center_focus_strong</i>
           <input id="icon_prefix" name="seeker" (keypress)="productSearch($event)" [(ngModel)]="seeker" type="text"
@@ -83,7 +82,7 @@
                 </div>
                 <div class="col s6" style="margin: 0;">
                   <p style="font-size: 16px;"><b>$ {{sp[4]}}</b></p>
-                </div>  
+                </div>
                 <div class="col s6" style="margin: 0;">
                   <div class="row" style="margin-bottom: 0;">
                     <div class="badge white-text col s4 center-flex">
@@ -96,14 +95,11 @@
                       {{sp[3]}}
                     </div>
                     -->
-                    <div class="keypad"><input class="badge center col s4" type="tel" 
-                      [ngModel]="mymodel" 
-                      (ngModelChange)="virtualKeyboardValue(sp[0],$event)"
-                      ng-virtual-keyboard
-                      ng-virtual-keyboard-layout="numeric"
-                      readonly /></div>
+                    <div class="keypad"><input class="badge center col s4" type="tel" [ngModel]="mymodel"
+                        (ngModelChange)="virtualKeyboardValue(sp[0],$event)" ng-virtual-keyboard
+                        ng-virtual-keyboard-layout="numeric" readonly /></div>
 
-                    
+
 
                     <div class="badge white-text col s4 center-flex">
                       <a (click)="increAmount(sp[0])" class="btn btn_producto teal darken-4">
@@ -145,18 +141,64 @@
 </div>
 
 <!-- Modal Structure 
+-->
 <div id="ClientRegister" class="modal">
   <div class="modal-content">
     <h4>Registrar Cliente</h4>
     <p>Registra los datos del cliente</p>
-    <app-clientregister></app-clientregister>
 
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4" id="create">
+        <form [formGroup]="registerClientForm" class="from-none" (ngSubmit)="onClientSubmit()">
+          <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
+            <a class="close" (click)="closeAlertErr()">
+              &times;
+            </a>
+            <h6>{{msgerr}}</h6>
+          </div>
+          <div class="form-group input-field col s12">
+            <input type="text" class="form-control" id="user_id" formControlName="user_id"
+              [ngClass]="{ 'is-invalid': submitted && fc.user_id.errors }" placeholder="Enter document">
+            <label for="user_id">Documento</label>
+            <span>
+              <div *ngIf="submitted && fc.user_id.errors">
+                <div *ngIf="fc.user_id.errors.required"> <label id="error">Error el documento es requerido </label>
+                </div>
+              </div>
+            </span>
+          </div>
+          <div class="form-group input-field col s12">
+            <input type="text" class="form-control" id="username" formControlName="username"
+              [ngClass]="{ 'is-invalid': submitted && fc.username.errors }" placeholder="Enter username">
+            <label for="username">Username </label>
+            <span>
+              <div *ngIf="submitted && fc.username.errors">
+                <div *ngIf="fc.username.errors.required"> <label id="error">Error el usuario es requerido </label></div>
+              </div>
+            </span>
+          </div>
+          <div class="form-group input-field col s12">
+            <input type="email" class="form-control" id="email" formControlName="email"
+              [ngClass]="{ 'is-invalid': submitted && fc.email.errors }" placeholder="Enter email">
+            <label for="email">Email </label>
+            <span>
+              <div *ngIf="submitted && fc.email.errors">
+                <div *ngIf="fc.email.errors.required"> <label id="error">Error el email es requerido </label></div>
+              </div>
+            </span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-block btn-full">Crear</button>
+        </form>
+      </div>
+    </div>
   </div>
+
   <div class="modal-footer">
     <a class="waves-effect waves-green btn-flat" (click)="modalClose()">Cerrar</a>
   </div>
 </div>
--->
 <div id="formadepago" class="modal" style="width: 30%;">
   <div class="modal-content row">
 
@@ -193,13 +235,14 @@
             <div *ngIf="fpay.waytopay.errors.required"> <label id="error">La forma de pago es requerida </label></div>
           </div>
         </span>
-        
+
       </div>
 
       <div class="row" *ngIf="RadioButton === 'Efectivo'">
         <div class="input-field col s12">
           <i class="material-icons prefix">attach_money</i>
-          <input id="recibo" class="pago" name="recibo" type="number" (keyup)="turn()" [(ngModel)]="recibo" formControlName="recibo">
+          <input id="recibo" class="pago" name="recibo" type="number" (keyup)="turn()" [(ngModel)]="recibo"
+            formControlName="recibo">
           <label for="recibo">Efectivo</label>
         </div>
         <div class="input-field col s12 center-align">
