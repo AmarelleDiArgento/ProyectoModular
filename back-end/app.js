@@ -7,6 +7,9 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 const fs = require('fs');
 
+// At the top of your server.js
+process.env.PWD = process.cwd()
+
 
 //routes
 var indexRouter = require('./routes/index');
@@ -38,8 +41,7 @@ var rolprivilege = require('./routes/rolprivilege');
 var pod = require('./routes/pod');
 //route poduser
 var poduser = require('./routes/poduser');
-//route email
-var email = require('./routes/email');
+
 
 
 // Initialize the app
@@ -60,6 +62,9 @@ app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
+
+// Then
+app.use(express.static(process.env.PWD + '/public'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
