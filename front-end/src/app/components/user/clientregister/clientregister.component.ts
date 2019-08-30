@@ -42,10 +42,9 @@ export class ClientregisterComponent implements OnInit {
       email: ['', Validators.required]
     });
 
-    this.noClient = localStorage.getItem('noClient');
-    console.log(this.noClient);
+    this.registerUsersForm.get('user_id').setValue(localStorage.getItem('noClient'));
 
-    this.registerUsersForm.get('user_id').setValue(this.noClient);
+    console.log("Registro:" + this.noClient);
   }
 
   // get form controls
@@ -65,6 +64,10 @@ export class ClientregisterComponent implements OnInit {
         this.registerUsersForm.value.email)
         .subscribe(data => {
           if (data.respuesta === 'Success') {
+            
+            this.modalClose();
+            localStorage.setItem('idClient', this.registerUsersForm.value.user_id);
+
             Swal.fire({
               type: 'success',
               title: 'Registro exitoso',
@@ -73,7 +76,7 @@ export class ClientregisterComponent implements OnInit {
               showConfirmButton: false,
               timer: 2000
             });
-            localStorage.setItem('idClient', this.registerUsersForm.value.user_id);
+
           } else {
             Swal.fire({
               type: 'error',
@@ -83,7 +86,7 @@ export class ClientregisterComponent implements OnInit {
               showConfirmButton: false,
               timer: 2000
             });
-            this.msgerr = 'Error al crear el rol';
+            this.msgerr = 'Error al crear el cliente';
           }
 
         });
@@ -92,5 +95,10 @@ export class ClientregisterComponent implements OnInit {
   // clear alert err
   closeAlertErr(): void {
     this.msgerr = '';
+  }
+  modalClose() {
+    // this.client_id = localStorage.getItem('idClient');
+    $('#ClientRegister').modal('close');
+    // this.getClient();
   }
 }

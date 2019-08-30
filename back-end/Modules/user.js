@@ -281,12 +281,14 @@ userModel.dataUser = function (userData, callback) {
           "respuesta": "Error de conexión"
         })
       } else {
-        if (rows.length != 0) {
+        if (rows[0].length != 0) {
           rows = rows[0];
           var jsonObj = {
             rows,
             respuesta: "Success"
           }
+          console.log(jsonObj);
+          
           callback(null, jsonObj)
         } else {
           console.log("Error la consulta no arroja datos")
