@@ -321,13 +321,29 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
             "respuesta": "Error de conexión"
           })
         } else {
-          if (rows.length != 0) {
+          if (rows.length != 0) { 
+
             Encabezado = rows[0]
             Productos = rows[1]
             Impuestos = rows[2]
             Totales = rows[3]
 
             var myHTML = ''; 
+            myHTML += `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                <!-- Compiled and minified CSS -->
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+                <!-- Compiled and minified JavaScript -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+                        
+                <title>Document</title>
+            </head>
+            <body>`
             myHTML +='<div class="row center">'+
               '<div class="row">'+
                 '<div class="container">'+
@@ -416,17 +432,18 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
           var transporter = nodemailer.createTransport(smtpTransport({
               service: 'gmail',
               auth: {
-                     user: 'cesarleandromayorga7@gmail.com',
-                     pass: 'passsssssss'
+                     user: 'infopalatos@gmail.com',
+                     pass: 'Pro2019*'
                  }
           }));
           
           const mailOptions = {
-              from: 'cesarleandromayorga7@gmail.com', // sender address
-              to: 'cesarleandromayorga7@gmail.com', // list of receivers
-              subject: 'Factura de pago Probocaitos', // Subject line
+              from: 'infopalatos@gmail.com', // sender address
+              to: Encabezado[0].cEmail, // list of receivers
+              subject: 'Factura de pago Probocaitos No. ' + Encabezado[0].prefijo + '-' + Encabezado[0].invoice_num, // Subject line
               html: myHTML
             };
+          console.log(mailOptions);
           
             transporter.sendMail(mailOptions, function (err, info) {
               if(err)
