@@ -1415,20 +1415,14 @@ select (net_price * ((100 - _discount) / 100)) * _quantity into net
 from product as p
 where p.product_id = _sp_product_id;
 
-select 	(net / (1 + (sum(t.percent) /100))) * _quantity into gross
+select 	(net / (1 + (sum(t.percent) /100))) into gross
 from product as p 
 inner join product_tax as pt on p.product_id = pt.pt_product_id
 inner join tax as t on pt.pt_tax_id = t.tax_id
 where p.product_id = _sp_product_id
 group by p.product_id;
 
-select (net - (net / (1 + ((sum(t.percent) /100))))) * _quantity into tax
-from product as p 
-inner join product_tax as pt on p.product_id = pt.pt_product_id
-inner join tax as t on pt.pt_tax_id = t.tax_id
-where p.product_id = _sp_product_id
-group by p.product_id;
-
+select (net - gross)  into tax;
 INSERT INTO proyectomodular.sale_product
 (sp_product_id, sp_sale_id, gross_price, tax_price, net_price, quantity)
 VALUES

@@ -106,7 +106,7 @@ export class ListsalesComponent implements OnInit {
       };
     this.rowSelection = 'multiple';
     this.pivotPanelShow = 'always';
-    this.paginationPageSize = 50;
+    this.paginationPageSize = 10;
     this.paginationNumberFormatter = function (params) {
       return '[' + params.value.toLocaleString() + ']';
     };

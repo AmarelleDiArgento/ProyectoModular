@@ -416,10 +416,10 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
             '<div class="col s12 center" style="display: table; margin: 0 auto;">INFORMACION TRIBUTARIA ' +
             '</div>' +
             '<div>';
-
+          myHTML += '<div class="col s3" style="display: table; margin: 0 auto;">&nbsp;&nbsp; Tipo   &nbsp;&nbsp;    %  &nbsp;&nbsp;  %  VLR BASE $  &nbsp;&nbsp;   VLR IMP $ &nbsp;&nbsp; </div>';
+          
           for (var i = 0; i < Impuestos.length; i++) {
-            myHTML += '<div class="col s3" style="display: table; margin: 0 auto;">&nbsp;&nbsp; Tipo   &nbsp;&nbsp;    %  &nbsp;&nbsp;  %  VLR BASE $  &nbsp;&nbsp;   VLR IMP $ &nbsp;&nbsp; </div>' +
-              '<div class="col s3" style="display: table; margin: 0 auto;">&nbsp;&nbsp; ' + JSON.stringify(Impuestos[i].impuesto) + '&nbsp;&nbsp;&nbsp;' + JSON.stringify(Impuestos[i].porcentaje) + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' + JSON.stringify(Impuestos[i].base) + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ' + JSON.stringify(Impuestos[i].val_impuesto) + '&nbsp;&nbsp;</div>';
+            myHTML += '<div class="col s3" style="display: table; margin: 0 auto;">&nbsp;&nbsp; ' + JSON.stringify(Impuestos[i].impuesto) + '&nbsp;&nbsp;&nbsp;' + JSON.stringify(Impuestos[i].porcentaje) + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' + JSON.stringify(Impuestos[i].base) + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ' + JSON.stringify(Impuestos[i].val_impuesto) + '&nbsp;&nbsp;</div>';
           }
 
           myHTML += '</div>' +
@@ -451,9 +451,9 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
 
           const mailOptions = {
             from: 'infopalatos@gmail.com', // sender address
-              to: Encabezado[0].cEmail, // list of receivers
-              subject: 'Factura de pago Probocaitos No. ' + Encabezado[0].prefijo + '-' + Encabezado[0].invoice_num, // Subject line
-              html: myHTML
+            to: Encabezado[0].cEmail, // list of receivers
+            subject: 'Factura de pago Probocaitos No. ' + Encabezado[0].prefijo + '-' + Encabezado[0].invoice_num, // Subject line
+            html: myHTML
           };
           console.log(mailOptions);
 
