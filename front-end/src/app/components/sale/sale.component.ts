@@ -65,6 +65,7 @@ export class SaleComponent implements OnInit, AfterContentInit {
   waytopay;
   authorization;
   recibo;
+  descuento;
   cambio = 0;
   cambioPesos = '$ 0';
   listSaleProduct: any[][] = [];
@@ -107,6 +108,7 @@ export class SaleComponent implements OnInit, AfterContentInit {
   ngOnInit() {
     // init form
     this.payForm = this.formBuilder.group({
+      descuento: ['0', Validators.required],
       waytopay: ['', Validators.required],
       recibo: ['0', Validators.required],
       code: ['0', Validators.required]
@@ -175,6 +177,7 @@ export class SaleComponent implements OnInit, AfterContentInit {
           this.client_id,
           this.RadioButton,
           this.payForm.value.code,
+          this.descuento,
           this.listProductSale
         )
           .subscribe(data => {
@@ -220,7 +223,6 @@ export class SaleComponent implements OnInit, AfterContentInit {
     this.tax_priceMoney = '$ ' + number_format(this.tax_price, 2);
     this.total_priceMoney = '$ ' + number_format(this.total_price, 0);
     this.gross_priceMoney = '$ ' + number_format(this.gross_price, 2);
-
   }
 
   addProduct(p) {
@@ -298,15 +300,14 @@ export class SaleComponent implements OnInit, AfterContentInit {
   virtualKeyboardValue(id, searchValue) {
     for (let i = 0; i < this.listSaleProduct.length; i++) {
       if (this.listSaleProduct[i][0] === id) {
-        const cont: number = searchValue;
-        this.listSaleProduct[i][3] = cont;
-        this.listSaleProduct[i][4] = this.listSaleProduct[i][6] * cont;
-        this.listSaleProduct[i][5] = this.listSaleProduct[i][7] * cont;
-
+        this.listSaleProduct[i][3] = searchValue;
+        this.listSaleProduct[i][4] = this.listSaleProduct[i][6] * searchValue;
+        this.listSaleProduct[i][5] = this.listSaleProduct[i][7] * searchValue;
       }
     }
-
     this.totals();
+    this.listProductSale = '';
+    this.getAllDataProductSale();
   }
 
   productSearch(e) {
@@ -330,6 +331,12 @@ export class SaleComponent implements OnInit, AfterContentInit {
       this.cambio = this.recibo - this.total;
     }
     this.cambioPesos = '$ ' + number_format(this.cambio, 0);
+  }
+
+  discount() {
+    let pagar = (this.total * (100 - this.descuento)) / 100;
+    this.total_priceMoney = '$ ' + number_format(pagar, 0);
+    this.total = pagar;
   }
 
 

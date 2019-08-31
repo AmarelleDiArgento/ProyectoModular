@@ -56,12 +56,13 @@ export class SaleService {
   }
 
   // service to api mysql create sale
-  createSale(pod_id, user_id, client_id, waytopay, authorization, list_product) {
+  createSale(pod_id, user_id, client_id, waytopay, authorization, discount, list_product) {
     this.params = 'pod_id=' + pod_id +
     '&user_id=' + user_id +
     '&client_id=' + client_id +
     '&waytopay=' + waytopay +
     '&authorization=' + authorization +
+    '&discount=' + discount +
     '&list_product=' + list_product;
     console.log(this.params);
 

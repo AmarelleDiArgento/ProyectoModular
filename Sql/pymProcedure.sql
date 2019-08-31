@@ -1281,6 +1281,7 @@ CREATE PROCEDURE saleins (
   in _client_id VARCHAR(45),
   in _cardpayment VARCHAR(12),
   in _authorization varchar(45),
+  in _discount INT(11),
   in _list_product MEDIUMTEXT
 )
 BEGIN
@@ -1289,11 +1290,11 @@ declare num bigint;
 	call proyectomodular.salenum(_pod_id, @numfac);
 
 	INSERT INTO proyectomodular.sale
-	(invoice_num, date, pod_id, cardpayment, authorization, user_id, client_id)
+	(invoice_num, date, pod_id, cardpayment, authorization, discount, user_id, client_id)
 	VALUES
-	(@numfac,NOW(),_pod_id, _cardpayment, _authorization,_user_id, _client_id);
+	(@numfac,NOW(),_pod_id, _cardpayment, _authorization, _discount, _user_id, _client_id);
 	SELECT LAST_INSERT_ID() INTO num;
-	call proyectomodular.sale_productsins(num , _list_product);
+	call proyectomodular.sale_productsins(num ,_discount, _list_product);
 SELECT num AS sale_id;
 END$$
 
@@ -1333,52 +1334,6 @@ END$$
 DELIMITER ;
 
 -- ------------------------------------------------------------
--- PROCEDURE SALE_PRODUCT INSERT
--- ------------------------------------------------------------
-
-DROP procedure IF EXISTS sale_productins;
-
-DELIMITER $$
-USE proyectomodular$$
-CREATE PROCEDURE sale_productins (
-  _sp_sale_id BIGINT,
-  _sp_product_id BIGINT,
-  _quantity INT(11)
-)
-BEGIN
-declare net real;
-declare gross real;
-declare tax real;
-
-select 	(net_price / (1 + (sum(t.percent) /100))) * _quantity into gross
-from product as p 
-inner join product_tax as pt on p.product_id = pt.pt_product_id
-inner join tax as t on pt.pt_tax_id = t.tax_id
-where p.product_id = _sp_product_id
-group by p.product_id;
-
-select (p.net_price - (net_price / (1 + ((sum(t.percent) /100))))) * _quantity into tax
-from product as p 
-inner join product_tax as pt on p.product_id = pt.pt_product_id
-inner join tax as t on pt.pt_tax_id = t.tax_id
-where p.product_id = _sp_product_id
-group by p.product_id;
-
-select net_price * _quantity into net
-from product as p
-where p.product_id = _sp_product_id;
-
-
-INSERT INTO proyectomodular.sale_product
-(sp_product_id, sp_sale_id, gross_price, tax_price, net_price, quantity)
-VALUES
-(_sp_product_id, _sp_sale_id, gross, tax, net, _quantity);
-
-END$$
-
-DELIMITER ;
-
--- ------------------------------------------------------------
 -- PROCEDURE SALE_PRODUCTS INSERT
 -- ------------------------------------------------------------
 
@@ -1387,6 +1342,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS sale_productsins $$
 CREATE PROCEDURE sale_productsins(
 	_venta BIGINT, 
+	_discount int,
 	_list MEDIUMTEXT
     )
 BEGIN
@@ -1423,7 +1379,7 @@ LOOP
   SET _quantity = right(_value,length(_value)-locate(':',_value));
   -- SELECT left(_value,locate(':',_value)-1) AS product, right(_value,length(_value)-locate(':',_value)) as quantity;
   
-  call sale_productins(_venta,_product_id,_quantity);
+  call sale_productins(_venta,_discount,_product_id,_quantity);
 
 -- reescriba la cadena original usando la función de cadena INSERT (),
 -- Los argumentos son la cadena original, la posición de inicio, cuántos caracteres se eliminarán,
@@ -1433,6 +1389,52 @@ LOOP
 END LOOP;
 
 END $$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
+-- PROCEDURE SALE_PRODUCT INSERT
+-- ------------------------------------------------------------
+
+DROP procedure IF EXISTS sale_productins;
+
+DELIMITER $$
+USE proyectomodular$$
+CREATE PROCEDURE sale_productins (
+  _sp_sale_id BIGINT,
+  _discount int,
+  _sp_product_id BIGINT,
+  _quantity INT(11)
+)
+BEGIN
+declare net real;
+declare gross real;
+declare tax real;
+
+select (net_price * ((100 - _discount) / 100)) * _quantity into net
+from product as p
+where p.product_id = _sp_product_id;
+
+select 	(net / (1 + (sum(t.percent) /100))) * _quantity into gross
+from product as p 
+inner join product_tax as pt on p.product_id = pt.pt_product_id
+inner join tax as t on pt.pt_tax_id = t.tax_id
+where p.product_id = _sp_product_id
+group by p.product_id;
+
+select (net - (net / (1 + ((sum(t.percent) /100))))) * _quantity into tax
+from product as p 
+inner join product_tax as pt on p.product_id = pt.pt_product_id
+inner join tax as t on pt.pt_tax_id = t.tax_id
+where p.product_id = _sp_product_id
+group by p.product_id;
+
+INSERT INTO proyectomodular.sale_product
+(sp_product_id, sp_sale_id, gross_price, tax_price, net_price, quantity)
+VALUES
+(_sp_product_id, _sp_sale_id, gross, tax, net, _quantity);
+
+END$$
 
 DELIMITER ;
 

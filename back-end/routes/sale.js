@@ -12,6 +12,7 @@ router.post('/createsale', function (req, res, next) {
         client_id: req.body.client_id,
         cardpayment: req.body.waytopay,
         authorization: req.body.authorization,
+        discount: req.body.discount,
         list_product: req.body.list_product
     }
 

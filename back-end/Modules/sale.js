@@ -9,7 +9,7 @@ var connection = mysql.createPool(config.db);
 
 var saleModel = {}
 
-let ins = `call proyectomodular.saleins(?,?,?,?,?,?);`;
+let ins = `call proyectomodular.saleins(?,?,?,?,?,?,?);`;
 let acc = `call proyectomodular.saleupdacco(?,?,?);`;
 let del = ``;
 let all = `call proyectomodular.saleall();`;
@@ -25,6 +25,7 @@ saleModel.createSale = function (saleData, callback) {
       saleData.client_id,
       saleData.cardpayment,
       saleData.authorization,
+      saleData.discount,
       saleData.list_product
     ], function (error, rows) {
       if (error) {

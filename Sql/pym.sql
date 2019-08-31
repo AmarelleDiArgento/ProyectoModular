@@ -1,7 +1,8 @@
 
 -- usuario generico de la bd
 CREATE USER IF NOT EXISTS 'proyectomodular'@'localhost' IDENTIFIED BY 'da12cb09fe566f2d6e131d7fb5c5c732';
-GRANT ALL PRIVILEGES ON * . * TO 'proyectomodular'@'localhost';FLUSH PRIVILEGES;
+GRANT ALL PRIVILEGES ON * . * TO 'proyectomodular'@'%';
+FLUSH PRIVILEGES;
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -148,6 +149,7 @@ CREATE TABLE IF NOT EXISTS proyectomodular.sale (
     pod_id INT(11) NOT NULL,
     cardpayment VARCHAR(12) DEFAULT NULL,
     authorization VARCHAR(45),
+    discount INT(11) DEFAULT 0,
     user_id VARCHAR(45) NOT NULL,
     client_id VARCHAR(45) NULL DEFAULT NULL,
     accountant BOOLEAN DEFAULT TRUE,
