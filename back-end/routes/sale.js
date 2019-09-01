@@ -15,6 +15,7 @@ router.post('/createsale', function (req, res, next) {
         discount: req.body.discount,
         list_product: req.body.list_product
     }
+    
 
     sale.createSale(saleData, function (error, data) {
         if (error) {
@@ -113,7 +114,8 @@ router.post('/getdatasalebetweensum', function (req, res, next) {
 //get sale between x date sum
 router.post('/getdatasaleinvoice', function (req, res, next) {
     var saleData = {
-        sale_id: req.body.sale_id
+        sale_id: req.body.sale_id,
+        type: req.body.type
     }
     sale.dataSaleInvoice(saleData, function (error, data) {
         if (error) {

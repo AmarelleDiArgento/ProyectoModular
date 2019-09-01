@@ -22,9 +22,6 @@ export class InvoiceComponent implements OnInit {
   Productos: {};
   Impuestos: {};
   Total: {};
-  
-
-
   printOn: boolean = true;
 
 
@@ -43,31 +40,33 @@ export class InvoiceComponent implements OnInit {
       this.printOn = false;
       localStorage.removeItem('printOn');
     }
-    
     // this.router.navigate(['/createsale']);
   }
 
 
   // obtain data sale for id
   getSaleDataId() {
-    this.saleService.getDataSaleForInvoice(this.idSale)
+    const type = localStorage.getItem('typeSale');
+    this.saleService.getDataSaleForInvoice(this.idSale, type)
       .subscribe(data => {
         if (data != null) {
-
           // add values to the form
           this.Encabezado = data.Encabezado[0];
           this.Productos = data.Productos;
           this.Impuestos = data.Impuestos;
           this.Total = data.Totales[0];
         }
-        if (this.printOn) {
-           this.printFile();
+
+        if (localStorage.getItem('typeSale') === 'Correo') {
+          this.router.navigate(['/createsale']);
+        } else {
+          this.printFile();
         }
       });
   }
   // service to print
   printFile() {
-    // remove idSale  
+    // remove idSale
     localStorage.removeItem('idSale');
     // print file time
     setTimeout(() => {

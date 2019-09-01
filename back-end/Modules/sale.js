@@ -329,6 +329,10 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
           Impuestos = rows[2]
           Totales = rows[3]
 
+          
+
+          if(saleData.type === 'Correo'){
+
           var myHTML = '';
           myHTML += `<!DOCTYPE html>
             <html lang="en">
@@ -455,8 +459,9 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
             subject: 'Factura de pago Probocaitos No. ' + Encabezado[0].prefijo + '-' + Encabezado[0].invoice_num, // Subject line
             html: myHTML
           };
-          console.log(mailOptions);
 
+         
+          
           transporter.sendMail(mailOptions, function (err, info) {
             if (err)
               console.log(err)
@@ -464,11 +469,7 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
               console.log(info);
           });
 
-
-
-
-
-
+        }
 
           var jsonObj = {
             Encabezado,

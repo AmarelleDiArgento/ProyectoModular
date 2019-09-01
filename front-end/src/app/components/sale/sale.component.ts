@@ -60,9 +60,11 @@ export class SaleComponent implements OnInit, AfterContentInit {
   total_priceMoney = '$ 0';
   listProductSale = '';
   RadioButton: any;
+  Option: any;
   total;
   seeker;
   waytopay;
+  selectoption;
   authorization;
   recibo;
   descuento;
@@ -110,6 +112,7 @@ export class SaleComponent implements OnInit, AfterContentInit {
     this.payForm = this.formBuilder.group({
       descuento: ['0', Validators.required],
       waytopay: ['', Validators.required],
+      selectoption: ['', Validators.required],
       recibo: ['0', Validators.required],
       code: ['0', Validators.required]
     });
@@ -170,6 +173,7 @@ export class SaleComponent implements OnInit, AfterContentInit {
       if (this.payForm.invalid) {
         return;
       } else {
+        console.log(this.payForm.value.selectoption)
 
         this.saleService.createSale(
           this.idPod,
@@ -184,7 +188,7 @@ export class SaleComponent implements OnInit, AfterContentInit {
             if (data.respuesta === 'Success') {
               this.sale_id = data.rows[0].sale_id;
               console.log(data.rows);
-
+              localStorage.setItem('typeSale', this.payForm.value.selectoption);
               localStorage.setItem('idSale', this.sale_id);
               this.router.navigate(['/invoiceprint']);
 

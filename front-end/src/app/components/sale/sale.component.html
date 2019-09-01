@@ -253,6 +253,32 @@
           <p id="cambio" class="pago automargin"> {{cambioPesos}} </p>
           <label for="cambio">Cambio: </label>
         </div>
+
+        <div class="form-group col m6 s6">
+          <p>
+            <label>
+              <input type="radio" value="Imprimir" [(ngModel)]="Option" formControlName="selectoption"
+              [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
+              <span><i class="material-icons ">print</i> Imprimir</span>
+            </label>
+          </p>
+        </div>
+        <div class="form-group col m6 s6">
+          <p>
+            <label>
+              <input type="radio" value="Correo" [(ngModel)]="Option" formControlName="selectoption"
+              [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
+              <span><i class="material-icons ">email</i> Correo</span>
+            </label>
+          </p>
+        </div>
+
+        <span class="center">
+          <div *ngIf="submittedPay && fpay.selectoption.errors">
+            <div *ngIf="fpay.selectoption.errors.required"> <label id="error">El envio de factura es requerido </label></div>
+          </div>
+        </span>
+
       </div>
 
       <div class="row" *ngIf="RadioButton === 'Tarjeta'">
@@ -274,6 +300,32 @@
           <input id="code" class="pago" name="code" type="number" [(ngModel)]="code" required formControlName="code">
           <label for="code">Codigo de autorizacion</label>
         </div>
+
+        <div class="form-group col m6 s6">
+          <p>
+            <label>
+              <input type="radio" value="Imprimir" [(ngModel)]="Option" formControlName="selectoption"
+              [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
+              <span><i class="material-icons ">print</i> Imprimir</span>
+            </label>
+          </p>
+        </div>
+        <div class="form-group col m6 s6">
+          <p>
+            <label>
+              <input type="radio" value="Correo" [(ngModel)]="Option" formControlName="selectoption"
+              [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
+              <span><i class="material-icons ">email</i> Correo</span>
+            </label>
+          </p>
+        </div>
+
+        <span class="center">
+          <div *ngIf="submittedPay && fpay.selectoption.errors">
+            <div *ngIf="fpay.selectoption.errors.required"> <label id="error">El envio de factura es requerido </label></div>
+          </div>
+        </span>
+
       </div>
 
       <div class="col s12">
