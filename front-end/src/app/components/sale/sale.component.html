@@ -10,13 +10,13 @@
     <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12 ">
       <div class="products center">
         <div *ngFor="let p of listProduct">
-          <div class="col m4 s12" *ngIf="c.category_id === p.category_id">
-            <div class="card horizontal alto-productos">
-              <div class="card-image center-product">
+          <div class="col m3 s12" *ngIf="c.category_id === p.category_id">
+            <div class="card horizontal alto-productos" style="background-image:url({{p.image}})">
+              <!-- <div class="card-image center-product">
                 <img src="{{p.image}}" class="imagendeproducto">
-              </div>
+              </div> -->
               <div class="card-stacked">
-                <div class="card-content">
+                <div class="card-content name-product">
                   <p><b>{{p.name}}</b></p>
                   <p><b>$ {{p.net_price}}</b></p>
                 </div>
@@ -71,27 +71,25 @@
       <div *ngFor="let sp of listSaleProduct">
         <div class="col s12">
           <ul class="collection" *ngIf="sp[3] > 0 " style="height: 100px; margin: 2px">
-            <li class="collection-item avatar li_product">
-              <img src="{{sp[2]}}" alt="" class="circle">
+            <li class="collection-item avatar li_product" style="padding: 3%;">
+              <!-- <img src="{{sp[2]}}" alt="" class="circle"> -->
               <div class="row" style="margin-bottom: 10px;">
-                <div class="col s12">
+                <div class="col s8" style="margin: 0;">
                   <p class="title" style="font-size: 16px; margin: 5px;"><b>{{sp[1]}} x {{sp[3]}}</b></p>
-                </div>
-                <div class="col s6" style="margin: 0;">
                   <p style="font-size: 16px;"><b>$ {{sp[4]}}</b></p>
                 </div>
-                <div class="col s6" style="margin: 0;">
-                  <div class="row" style="margin-bottom: 0;">
+                <div class="col s4" style="margin: 0; margin-top: 5%;">
+                  <div class="row center" style="margin-bottom: 0;">
                     <div class="badge white-text col s4 center-flex">
                       <a (click)="decreAmount(sp[0])" class="btn btn_producto teal darken-4">
                         <i class="material-icons white-text">remove</i>
                       </a>
+                    </div>                
+                    <div class="keypad col s4 center" style="padding: 0;">
+                      <input class="badge center col s12" type="tel" [ngModel]="mymodel"
+                      (ngModelChange)="virtualKeyboardValue(sp[0],$event)" ng-virtual-keyboard
+                      ng-virtual-keyboard-layout="numeric" readonly />
                     </div>
-                    
-                    <div class="keypad"><input class="badge center col s4" type="tel" [ngModel]="mymodel"
-                        (ngModelChange)="virtualKeyboardValue(sp[0],$event)" ng-virtual-keyboard
-                        ng-virtual-keyboard-layout="numeric" readonly /></div>
-
                     <div class="badge white-text col s4 center-flex">
                       <a (click)="increAmount(sp[0])" class="btn btn_producto teal darken-4">
                         <i class="material-icons white-text">add</i>
