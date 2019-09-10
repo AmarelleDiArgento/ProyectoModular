@@ -72,7 +72,7 @@ export class ListsalesComponent implements OnInit {
           comparator: filter
         }
       },
-      { headerName: 'No.', field: 'invoice_num', sortable: true, width: 100 },
+      { headerName: 'No.', field: 'invoice_num', sortable: true, width: 200 },
       { headerName: 'punto de venta', field: 'pod_name', sortable: true },
       { headerName: 'Usuario', field: 'user_name', sortable: true },
       { headerName: 'Cliente', field: 'client_name', sortable: true },

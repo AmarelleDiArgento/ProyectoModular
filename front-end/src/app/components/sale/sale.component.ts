@@ -271,6 +271,8 @@ export class SaleComponent implements OnInit, AfterContentInit {
     }
 
     this.totals();
+    this.listProductSale = '';
+    this.getAllDataProductSale();
   }
 
   increAmount(id) {
@@ -285,6 +287,8 @@ export class SaleComponent implements OnInit, AfterContentInit {
     }
 
     this.totals();
+    this.listProductSale = '';
+    this.getAllDataProductSale();
   }
   decreAmount(id) {
     for (let i = 0; i < this.listSaleProduct.length; i++) {
@@ -299,6 +303,8 @@ export class SaleComponent implements OnInit, AfterContentInit {
     }
 
     this.totals();
+    this.listProductSale = '';
+    this.getAllDataProductSale();
   }
 
   virtualKeyboardValue(id, searchValue) {
