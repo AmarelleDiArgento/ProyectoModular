@@ -12,7 +12,7 @@
         <div *ngFor="let p of listProduct">
             <div class="col m2 s12" *ngIf="c.category_id === p.category_id" (click)="addProduct(p)" style="margin-bottom: 3%;">
               
-                  <div style="background-size: cover;"
+                  <div style="background-size: cover; cursor: pointer;"
                   [ngStyle]="{'background-image':'url('+p.image+')'}" >
                     <div  class="alto-productos name-product">
                       <p><b>{{p.name}}</b></p>
@@ -63,15 +63,15 @@
     <div class="productos">
       <div *ngFor="let sp of listSaleProduct">
         <div class="col s12">
-          <ul class="collection" *ngIf="sp[3] > 0 " style="height: 100px; margin: 2px">
-            <li class="collection-item avatar li_product" style="padding: 3%;">
+          <ul class="collection" *ngIf="sp[3] > 0 " style="height: 60px; margin: 2px">
+            <li class="avatar li_product" style="padding: 5%;">
               <!-- <img src="{{sp[2]}}" alt="" class="circle"> -->
-              <div class="row" style="margin-bottom: 10px;">
+              <div class="">
                 <div class="col s8" style="margin: 0;">
-                  <p class="title" style="font-size: 16px; margin: 5px;"><b>{{sp[1]}} x {{sp[3]}}</b></p>
-                  <p style="font-size: 16px;"><b>$ {{sp[4]}}</b></p>
+                  <p class="title" style="font-size: 16px;" style="margin: 0;"><b>{{sp[1]}} x {{sp[3]}}</b></p>
+                  <p style="font-size: 16px;" style="margin: 0;"><b>$ {{sp[4]}}</b></p>
                 </div>
-                <div class="col s4" style="margin: 0; margin-top: 5%;">
+                <div class="col s4" style="margin: 0;">
                   <div class="row center" style="margin-bottom: 0;">
                     <div class="badge white-text col s4 center-flex">
                       <a (click)="decreAmount(sp[0])" class="btn btn_producto teal darken-4">
