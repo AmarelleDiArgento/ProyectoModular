@@ -171,3 +171,7 @@
   background: #00000059;
   color: white;
 }
+
+.modal {
+  max-height: 85%;
+}

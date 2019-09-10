@@ -200,6 +200,11 @@
             [(ngModel)]="descuento" formControlName="descuento">
           <label for="descuento">Descuento</label>
         </div>
+        <span class="center">
+          <div *ngIf="submittedPay && fpay.descuento.errors">
+            <div *ngIf="fpay.descuento.errors.required"> <label id="error">La descuento es requerido </label></div>
+          </div>
+        </span>
         <div class="form-group col m6 s6">
           <p>
             <label>
@@ -234,6 +239,12 @@
             formControlName="recibo">
           <label for="recibo">Efectivo</label>
         </div>
+
+        <span class="center">
+          <div *ngIf="submittedPay && fpay.recibo.errors">
+            <div *ngIf="fpay.recibo.errors.required"> <label id="error">La pago es requerido </label></div>
+          </div>
+        </span>
 
         <div class="input-field col s12 center-align">
           <p id="total" class="pago automargin right-align"> {{total_priceMoney}} </p>
