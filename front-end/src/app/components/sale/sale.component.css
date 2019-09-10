@@ -127,8 +127,8 @@
     right: 0px !important;
 }
 .btn_producto{
-  height: 21px;
-  line-height: 21px;
+  height: 42px;
+  line-height: 42px;
   padding: 0px 8px;
 }
 .center-product {
@@ -166,4 +166,8 @@
 
 .automargin {
   margin: auto;
+}
+.name-product{
+  background: #00000059;
+  color: white;
 }
