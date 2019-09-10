@@ -10,8 +10,9 @@
     <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12 ">
       <div class="products center">
         <div *ngFor="let p of listProduct">
-          <div class="col m3 s12" *ngIf="c.category_id === p.category_id">
-            <div class="card horizontal alto-productos" style="background-image:url('{{p.image}}');">
+          <div class="col m2 s12" *ngIf="c.category_id === p.category_id">
+            <div class="card horizontal alto-productos" (click)="addProduct(p)"
+            [ngStyle]="{'background-image':'url('+p.image+')'}">
               <!-- <div class="card-image center-product">
                 <img src="{{p.image}}" class="imagendeproducto">
               </div> -->
@@ -20,11 +21,13 @@
                   <p><b>{{p.name}}</b></p>
                   <p><b>$ {{p.net_price}}</b></p>
                 </div>
+                
                 <div class="card-action">
                   <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="addProduct(p)">
                     <i class="material-icons prefix">shopping_cart</i>
                   </a>
                 </div>
+                
               </div>
             </div>
           </div>
