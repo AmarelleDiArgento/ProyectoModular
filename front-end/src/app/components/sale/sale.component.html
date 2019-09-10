@@ -87,7 +87,7 @@
                         <i class="material-icons white-text">remove</i>
                       </a>
                     </div>
-                    
+
                     <div class="keypad"><input class="badge center col s4" type="tel" [ngModel]="mymodel"
                         (ngModelChange)="virtualKeyboardValue(sp[0],$event)" ng-virtual-keyboard
                         ng-virtual-keyboard-layout="numeric" readonly /></div>
@@ -194,6 +194,7 @@
   <div class="modal-content row">
 
     <form class="from-none" [formGroup]="payForm" (ngSubmit)="onSubmitPay()">
+
       <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
         <a class="close" (click)="closeAlertErr()">
           <p class="center"><b>Forma de Pago</b></p>
@@ -202,7 +203,12 @@
         <h6>{{msgerr}}</h6>
       </div>
       <div>
-
+        <div class="input-field col s12">
+          <i class="material-icons prefix">money_off</i>
+          <input id="descuento" class="pago" name="descuento" type="number" max="100" (keyup)="discount()"
+            [(ngModel)]="descuento" formControlName="descuento">
+          <label for="descuento">Descuento</label>
+        </div>
         <div class="form-group col m6 s6">
           <p>
             <label>
@@ -231,20 +237,13 @@
 
       <div class="row" *ngIf="RadioButton === 'Efectivo'">
 
-        <div class="input-field col s4">
-          <i class="material-icons prefix">money_off</i>
-          <input id="descuento" class="pago" name="descuento" type="number" max="100" (keyup)="discount()" [(ngModel)]="descuento"
-            formControlName="descuento">
-          <label for="descuento">Descuento</label>
-        </div>
-
-        <div class="input-field col s8">
+        <div class="input-field col s12">
           <i class="material-icons prefix">attach_money</i>
           <input id="recibo" class="pago" name="recibo" type="number" (keyup)="turn()" [(ngModel)]="recibo"
             formControlName="recibo">
           <label for="recibo">Efectivo</label>
         </div>
-        
+
         <div class="input-field col s12 center-align">
           <p id="total" class="pago automargin right-align"> {{total_priceMoney}} </p>
           <label for="total">Total: </label>
@@ -258,7 +257,7 @@
           <p>
             <label>
               <input type="radio" value="Imprimir" [(ngModel)]="Option" formControlName="selectoption"
-              [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
+                [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
               <span><i class="material-icons ">print</i> Imprimir</span>
             </label>
           </p>
@@ -267,7 +266,7 @@
           <p>
             <label>
               <input type="radio" value="Correo" [(ngModel)]="Option" formControlName="selectoption"
-              [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
+                [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
               <span><i class="material-icons ">email</i> Correo</span>
             </label>
           </p>
@@ -275,7 +274,8 @@
 
         <span class="center">
           <div *ngIf="submittedPay && fpay.selectoption.errors">
-            <div *ngIf="fpay.selectoption.errors.required"> <label id="error">El envio de factura es requerido </label></div>
+            <div *ngIf="fpay.selectoption.errors.required"> <label id="error">El envio de factura es requerido </label>
+            </div>
           </div>
         </span>
 
@@ -305,7 +305,7 @@
           <p>
             <label>
               <input type="radio" value="Imprimir" [(ngModel)]="Option" formControlName="selectoption"
-              [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
+                [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
               <span><i class="material-icons ">print</i> Imprimir</span>
             </label>
           </p>
@@ -314,7 +314,7 @@
           <p>
             <label>
               <input type="radio" value="Correo" [(ngModel)]="Option" formControlName="selectoption"
-              [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
+                [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
               <span><i class="material-icons ">email</i> Correo</span>
             </label>
           </p>
@@ -322,7 +322,8 @@
 
         <span class="center">
           <div *ngIf="submittedPay && fpay.selectoption.errors">
-            <div *ngIf="fpay.selectoption.errors.required"> <label id="error">El envio de factura es requerido </label></div>
+            <div *ngIf="fpay.selectoption.errors.required"> <label id="error">El envio de factura es requerido </label>
+            </div>
           </div>
         </span>
 

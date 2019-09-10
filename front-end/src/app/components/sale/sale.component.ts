@@ -67,7 +67,7 @@ export class SaleComponent implements OnInit, AfterContentInit {
   selectoption;
   authorization;
   recibo;
-  descuento;
+  descuento = 0;
   cambio = 0;
   cambioPesos = '$ 0';
   listSaleProduct: any[][] = [];
