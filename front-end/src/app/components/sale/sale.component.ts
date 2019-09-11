@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, AfterContentInit, Directive, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
@@ -21,11 +21,11 @@ import { forEach } from '@angular/router/src/utils/collection';
 
 
 
-export class SaleComponent implements OnInit, AfterContentInit {
+export class SaleComponent implements AfterViewInit, OnInit {
 
 
 
-  @Input() public appAutoFocus: boolean;
+
 
   // vars msj
   msgerr = '';
@@ -85,28 +85,22 @@ export class SaleComponent implements OnInit, AfterContentInit {
     private categoryService: CategoryService,
     private productService: ProductService,
     private userService: UserService,
-    private router: Router,
-    private el: ElementRef) {
+    private router: Router) {
+
+    
+  }
+
+  ngAfterViewInit() {
     this.getAllDataCategory();
     this.getAllDataProduct();
-
     $(document).ready(function () {
       $('.tabs').tabs();
       $('.modal').modal();
       $('select').formSelect();
     });
-  }
-
-
-  public ngAfterContentInit() {
-
-    setTimeout(() => {
-
-      this.el.nativeElement.focus();
-    }, 500);
 
   }
-
+  
   ngOnInit() {
     // init form
     this.payForm = this.formBuilder.group({

@@ -1,5 +1,5 @@
 {
-  "name": "front-end",
+  "name": "probocaitos",
   "version": "0.0.0",
   "main": "main.js",
   "scripts": {
@@ -26,7 +26,6 @@
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
     "file-saver": "^2.0.2",
-    "font-awesome": "^4.7.0",
     "html2canvas": "^1.0.0-rc.3",
     "jquery": "^3.3.1",
     "jspdf": "^1.5.3",
@@ -46,6 +45,7 @@
     "@angular/cli": "~7.0",
     "@angular/compiler-cli": "~7.1.0",
     "@angular/language-service": "~7.1.0",
+    "@fortawesome/fontawesome-free": "^5.10.2",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",

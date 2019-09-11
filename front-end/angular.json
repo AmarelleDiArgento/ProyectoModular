@@ -25,14 +25,18 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/css/materialize.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "node_modules/materialize-css/dist/css/materialize.min.css",
+              "node_modules/materialize-css/dist/css/materialize.css",
               "node_modules/ag-grid-community/dist/styles/ag-grid.css",
               "node_modules/ag-grid-community/dist/styles/ag-theme-material.css"
           ],
           "scripts": [
-            "src/assets/js/jquery.js",
-              "src/assets/js/jquery.min.js",
-              "src/assets/js/materialize.min.js"
+              "node_modules/@fortawesome/fontawesome-free/js/all.js",
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/materialize-css/dist/js/materialize.js",
+              "node_modules/materialize-css/dist/js/materialize.min.js"
           ]
           },
           "configurations": {
