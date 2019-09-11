@@ -87,17 +87,19 @@ export class SaleComponent implements AfterViewInit, OnInit {
     private userService: UserService,
     private router: Router) {
 
+      this.getAllDataCategory();
+    this.getAllDataProduct();
     
   }
 
   ngAfterViewInit() {
-    this.getAllDataCategory();
-    this.getAllDataProduct();
     $(document).ready(function () {
       $('.tabs').tabs();
       $('.modal').modal();
       $('select').formSelect();
     });
+    
+    
 
   }
   
