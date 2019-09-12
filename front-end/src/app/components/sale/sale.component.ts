@@ -72,8 +72,8 @@ export class SaleComponent implements AfterViewInit, OnInit {
   cambioPesos = '$ 0';
   listSaleProduct: any[][] = [];
   private layout: any = 'alphanumeric';
-  increment: number = 1;
-  decrement: number = 1;
+  increment = 1;
+  decrement = 1;
   // force to redirect
   @HostListener('window:beforeunload') goToPage() {
   }
@@ -86,10 +86,8 @@ export class SaleComponent implements AfterViewInit, OnInit {
     private productService: ProductService,
     private userService: UserService,
     private router: Router) {
-
-      this.getAllDataCategory();
+    this.getAllDataCategory();
     this.getAllDataProduct();
-    
   }
 
   ngAfterViewInit() {
@@ -98,11 +96,8 @@ export class SaleComponent implements AfterViewInit, OnInit {
       $('.modal').modal();
       $('select').formSelect();
     });
-    
-    
-
   }
-  
+
   ngOnInit() {
     // init form
     this.payForm = this.formBuilder.group({
@@ -161,43 +156,94 @@ export class SaleComponent implements AfterViewInit, OnInit {
 
   onSubmitPay() {
 
-    if (this.listSaleProduct.length > 0) {
-      this.submittedPay = true;
-      // error here if form is invalid
-      console.log(this.payForm.invalid);
+    console.log(this.payForm.value.waytopay)
+    console.log(this.payForm.value.recibo)
+    console.log(this.total)
 
-      if (this.payForm.invalid) {
-        return;
-      } else {
-        console.log(this.payForm.value.selectoption)
+    if (this.payForm.value.waytopay === 'Efectivo') {
 
-        this.saleService.createSale(
-          this.idPod,
-          this.idUser,
-          this.client_id,
-          this.RadioButton,
-          this.payForm.value.code,
-          this.descuento,
-          this.listProductSale
-        )
-          .subscribe(data => {
-            if (data.respuesta === 'Success') {
-              this.sale_id = data.rows[0].sale_id;
-              console.log(data.rows);
-              localStorage.setItem('typeSale', this.payForm.value.selectoption);
-              localStorage.setItem('idSale', this.sale_id);
-              this.router.navigate(['/invoiceprint']);
+      if (this.payForm.value.recibo >= this.total) {
+        if (this.listSaleProduct.length > 0) {
 
-            } else {
-              Swal.fire({
-                type: 'error',
-                title: 'Ups!, algo salio mal',
-                showConfirmButton: false,
-                timer: 2000
+          this.submittedPay = true;
+          console.log(this.payForm);
+          if (this.payForm.invalid) {
+            return;
+          } else {
+            console.log("pasa")
+            this.saleService.createSale(
+              this.idPod,
+              this.idUser,
+              this.client_id,
+              this.RadioButton,
+              this.payForm.value.code,
+              this.descuento,
+              this.listProductSale
+            )
+              .subscribe(data => {
+                if (data.respuesta === 'Success') {
+                  this.sale_id = data.rows[0].sale_id;
+                  console.log(data.rows);
+                  localStorage.setItem('typeSale', this.payForm.value.selectoption);
+                  localStorage.setItem('idSale', this.sale_id);
+                  this.router.navigate(['/invoiceprint']);
+
+                } else {
+                  Swal.fire({
+                    type: 'error',
+                    title: 'Ups!, algo salio mal',
+                    showConfirmButton: false,
+                    timer: 2000
+                  });
+                }
               });
-            }
+          }
+        }
+      } else {
+        Swal.fire({
+          type: 'error',
+          title: 'Error!, verifique el valor del pago',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
 
-          });
+    } else {
+
+      if (this.listSaleProduct.length > 0) {
+        this.submittedPay = true;
+        // error here if form is invalid
+        console.log(this.payForm.invalid);
+
+        if (this.payForm.invalid) {
+          return;
+        } else {
+          this.saleService.createSale(
+            this.idPod,
+            this.idUser,
+            this.client_id,
+            this.RadioButton,
+            this.payForm.value.code,
+            this.descuento,
+            this.listProductSale
+          )
+            .subscribe(data => {
+              if (data.respuesta === 'Success') {
+                this.sale_id = data.rows[0].sale_id;
+                console.log(data.rows);
+                localStorage.setItem('typeSale', this.payForm.value.selectoption);
+                localStorage.setItem('idSale', this.sale_id);
+                this.router.navigate(['/invoiceprint']);
+              } else {
+                Swal.fire({
+                  type: 'error',
+                  title: 'Ups!, algo salio mal',
+                  showConfirmButton: false,
+                  timer: 2000
+                });
+              }
+            });
+        }
       }
     }
   }
