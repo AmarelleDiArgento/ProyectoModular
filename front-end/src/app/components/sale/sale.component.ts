@@ -147,7 +147,9 @@ export class SaleComponent implements AfterViewInit, OnInit {
 
   getAllDataProductSale() {
     this.listSaleProduct.forEach(ps => {
-      this.listProductSale += ps[0] + ':' + ps[3] + ',';
+      if(ps[3]> 0){
+        this.listProductSale += ps[0] + ':' + ps[3] + ',';
+      }
     });
     this.listProductSale = this.listProductSale.substr(0, this.listProductSale.length - 1);
     console.log(this.listProductSale);
@@ -352,7 +354,7 @@ export class SaleComponent implements AfterViewInit, OnInit {
   virtualKeyboardValue(id, searchValue) {
     for (let i = 0; i < this.listSaleProduct.length; i++) {
       if (this.listSaleProduct[i][0] === id) {
-        this.listSaleProduct[i][3] = searchValue;
+        this.listSaleProduct[i][3] = parseInt(searchValue);
         this.listSaleProduct[i][4] = this.listSaleProduct[i][6] * searchValue;
         this.listSaleProduct[i][5] = this.listSaleProduct[i][7] * searchValue;
       }
