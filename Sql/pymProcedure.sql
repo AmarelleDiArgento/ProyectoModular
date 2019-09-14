@@ -1112,7 +1112,7 @@ BEGIN
 	left join tax as t on pt.pt_tax_id = t.tax_id
 	inner join category as c on p.category_id = c.category_id
 	group by p.product_id
-    order by p.name;
+    order by p.category_id, p.name;
 
 
 END$$

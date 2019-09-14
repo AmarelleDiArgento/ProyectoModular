@@ -250,10 +250,6 @@ export class SaleComponent implements AfterViewInit, OnInit {
     }
   }
 
-
-  // get form contsales
-  // get f() { return this.registerSalesForm.controls; }
-
   totals() {
     this.total = 0;
     let tax = 0;
@@ -334,6 +330,7 @@ export class SaleComponent implements AfterViewInit, OnInit {
     this.listProductSale = '';
     this.getAllDataProductSale();
   }
+
   decreAmount(id) {
     for (let i = 0; i < this.listSaleProduct.length; i++) {
       if (this.listSaleProduct[i][0] === id) {
