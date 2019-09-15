@@ -15,16 +15,16 @@ import { PrintService } from '../../../services/print.service';
 export class InvoiceComponent implements OnInit {
 
 
-
   // id sale
   idSale;
   Encabezado: {};
   Productos: {};
   Impuestos: {};
   Total: {};
+  // tslint:disable-next-line: no-inferrable-types
   printOn: boolean = true;
 
-
+  // tslint:disable-next-line: deprecation
   constructor(private http: Http,
     private formBuilder: FormBuilder,
     private saleService: SaleService,
@@ -35,12 +35,6 @@ export class InvoiceComponent implements OnInit {
   ngOnInit() {
     this.idSale = localStorage.getItem('idSale');
     this.getSaleDataId();
-
-    if (localStorage.getItem('printOn') === '0') {
-      this.printOn = false;
-      localStorage.removeItem('printOn');
-    }
-    // this.router.navigate(['/createsale']);
   }
 
 
@@ -57,10 +51,33 @@ export class InvoiceComponent implements OnInit {
           this.Total = data.Totales[0];
         }
 
-        if (localStorage.getItem('typeSale') === 'Correo') {
-          this.router.navigate(['/createsale']);
+        console.log(localStorage.getItem('moduleSelected'))
+        //part of update sale
+        if (localStorage.getItem('moduleSelected') === 'UpdatedSale') {
+          if (localStorage.getItem('typeSale') === 'Imprimir') {
+            if (localStorage.getItem('sendPrint') === 'Yes') {
+              this.printFileUpdate();
+            }
+          }
+
+          if (localStorage.getItem('typeSale') === 'Correo') {
+            if (localStorage.getItem('sendEmail') === 'Yes') {
+              // print file time
+              setTimeout(() => {
+                this.router.navigate(['/listsales']);
+              }, 1000);
+            }
+          }
+
         } else {
-          this.printFile();
+          //part of sale
+          if (localStorage.getItem('moduleSelected') === 'Sale') {
+            if (localStorage.getItem('typeSale') === 'Correo') {
+              this.router.navigate(['/createsale']);
+            } else {
+              this.printFile();
+            }
+          }
         }
       });
   }
@@ -72,6 +89,17 @@ export class InvoiceComponent implements OnInit {
     setTimeout(() => {
       this.printService.print();
       this.router.navigate(['/createsale']);
+    }, 1000);
+  }
+
+  // service to print
+  printFileUpdate() {
+    // remove idSale
+    localStorage.removeItem('idSale');
+    // print file time
+    setTimeout(() => {
+      this.printService.print();
+      this.router.navigate(['/listsales']);
     }, 1000);
   }
 
