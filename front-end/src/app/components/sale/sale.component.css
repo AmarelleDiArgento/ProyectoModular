@@ -175,3 +175,7 @@
 .modal {
   max-height: 85%;
 }
+
+h4 {
+  line-height: inherit !important;
+}

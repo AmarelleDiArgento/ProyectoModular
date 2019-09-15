@@ -32,12 +32,12 @@
           <form class="from-none">
             <div class="input-field no-padding col s4">
               <i class="material-icons prefix">person_pin</i>
-              <input appAutoFocus id="client_id" name="client_id" (keypress)="clientSearch($event)"
+              <input class="pago" id="client_id" name="client_id" (keypress)="clientSearch($event)"
                 [(ngModel)]="client_id" type="text" class="validate">
               <label for="client_id">Documento</label>
             </div>
             <div class="input-field padding col s1">
-              <a class="waves-effect waves-light btn-floating modal-trigger" href="#ClientRegister">
+              <a class="waves-effect waves-light btn modal-trigger" href="#ClientRegister">
                 <i class="material-icons white-text">person_add</i>
               </a>
             </div>
@@ -51,12 +51,12 @@
           <form class="from-none">
             <div class="input-field no-padding col s10">
               <i class="material-icons prefix">person_pin</i>
-              <input appAutoFocus id="client_id" name="client_id" (keypress)="clientSearch($event)"
+              <input class="pago" id="client_id" name="client_id" (keypress)="clientSearch($event)"
                 [(ngModel)]="client_id" type="text" class="validate">
               <label for="client_id">Documento</label>
             </div>
             <div class="input-field no-padding col s1">
-              <a class="waves-effect waves-light btn-floating modal-trigger" href="#ClientRegister">
+              <a class="waves-effect waves-light btn modal-trigger" href="#ClientRegister">
                 <i class="material-icons white-text">person_add</i>
               </a>
             </div>
@@ -83,45 +83,59 @@
         <div class="container primary-text-color unselectable">
           <!--   <div class="center" id="clc" style="cursor: pointer;" >CLC</div> -->
           <div class="row">
-            
+
             <div class="input-field col s12">
               <i class="material-icons prefix">plus_one</i>
-              <input id="numv" class="pago" name="numv" type="number"  [(ngModel)]="numv"
-                formControlName="numv">
+              <input id="numv" class="pago" name="numv" type="number" [(ngModel)]="numv" formControlName="numv">
               <label for="numv">Cantidad</label>
             </div>
-<!--
+            <!--
             <span class="center">
               <div *ngIf="submittedPay && fpay.recibo.errors">
                 <div *ngIf="fpay.recibo.errors.required"> <label id="error">La pago es requerido </label></div>
               </div>
             </span>
 -->
-            <div class="col l8 m8 s8 no-padding">
+            <div class="col l8 m8 s8">
 
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3"><span
-                  id="siete">7</span></div>
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3"><span id="ocho">8</span>
+              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"><span id="siete">
+                  <h4>7</h4>
+                </span></div>
+              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"><span id="ocho">
+                  <h4>8</h4>
+                </span>
               </div>
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3"><span
-                  id="nueve">9</span></div>
+              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"><span id="nueve">
+                  <h4>9</h4>
+                </span></div>
 
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3"><span
-                  id="siete">4</span></div>
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3"><span id="ocho">5</span>
+              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"><span id="siete">
+                  <h4>4</h4>
+                </span></div>
+              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"><span id="ocho">
+                  <h4>5</h4>
+                </span>
               </div>
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3"><span
-                  id="nueve">6</span></div>
+              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"><span id="nueve">
+                  <h4>6</h4>
+                </span></div>
 
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3"><span
-                  id="siete">1</span></div>
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3"><span id="ocho">2</span>
+              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"><span id="siete">
+                  <h4>1</h4>
+                </span></div>
+              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"><span id="ocho">
+                  <h4>2</h4>
+                </span>
               </div>
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3"><span
-                  id="nueve">3</span></div>
+              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"><span id="nueve">
+                  <h4>3</h4>
+                </span></div>
 
-              <div class="waves-effect waves-light col l4 m4 s4 offset-s4 btn-large center teal darken-3"><span
-                  id="siete">0</span></div>
+              <div
+                class="waves-effect waves-light col l4 m4 s4 offset-s4 offset-m4 offset-l4 btn-large center teal darken-3 medium">
+                <span id="siete">
+                  <h4>0</h4>
+                </span></div>
             </div>
 
             <div class="col l4 m4 s4 no-padding">
