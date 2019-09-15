@@ -11,7 +11,19 @@ var saleModel = {}
 
 let ins = `call proyectomodular.saleins(?,?,?,?,?,?,?);`;
 let acc = `call proyectomodular.saleupdacco(?,?,?);`;
-let del = ``;
+let del = [`
+          delete FROM proyectomodular.sale_product
+          where sp_sale_id not in(
+            select dobles.saled from (
+              select min(sale_id) as saled, count(*) as cont, round(unix_timestamp(s.date)/(15)) as timekey
+              FROM proyectomodular.sale as s
+              group by timekey
+              order by cont desc) as dobles )`,
+  `delete from proyectomodular.sale 
+          where sale_id not in(
+            SELECT distinct sp_sale_id FROM proyectomodular.sale_product
+            )`
+];
 let all = `call proyectomodular.saleall();`;
 let bet = `call proyectomodular.saledate(?,?);`;
 let one = `call proyectomodular.saleone(?);`;
@@ -116,16 +128,17 @@ saleModel.updateSale = function (saleData, callback) {
 
 
 saleModel.deleteSale = function (saleData, callback) {
-  var query = "DELETE  from sale where sale_id=" + saleData.sale_id + " ";
   if (connection) {
-    connection.query(query, function (error, rows) {
+    connection.query(del.join(';'), function (error, rows) {
       if (error) {
-        console.log(error)
+        //console.log(error)
         callback(null, {
           "respuesta": "Error de conexión"
         })
       } else {
         if (rows.length != 0) {
+          console.log("Limpio!");
+
           var jsonObj = {
             respuesta: "Success"
           }
@@ -313,7 +326,6 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
     FROM proyectomodular.sale_product
     where sp_sale_id = ${saleData.sale_id}`
   ];
-
   if (connection) {
     connection.query(queries.join(';'), function (error, rows) {
       if (error) {
@@ -329,12 +341,12 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
           Impuestos = rows[2]
           Totales = rows[3]
 
-          
 
-          if(saleData.type === 'Correo'){
 
-          var myHTML = '';
-          myHTML += `<!DOCTYPE html>
+          if (saleData.type === 'Correo') {
+
+            var myHTML = '';
+            myHTML += `<!DOCTYPE html>
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
@@ -349,127 +361,127 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
                 <title>Document</title>
             </head>
             <body>`
-          myHTML += '<div class="row center">' +
-            '<div class="row">' +
-            '<div class="container">' +
-            '<img src="https://venturaterreros.com/wp-content/uploads/2018/05/probocaditos-ventura-soacha.jpg" style="display: table; margin: 0 auto; width:30%;">' +
-            '</div>' +
-            '<div  style="display: table; margin: 0 auto;">' +
-            JSON.stringify(Encabezado[0].pod) + '' +
-            '</div>' +
-            '<div  style="display: table; margin: 0 auto;">' +
-            'NIT: ' + JSON.stringify(Encabezado[0].nit) + '  TEL' + JSON.stringify(Encabezado[0].phone) + '' +
-            '</div>' +
-            '<div  style="display: table; margin: 0 auto;">' +
-            'REGIMEN COMÚN ' +
-            JSON.stringify(Encabezado[0].address) + '' +
-            '</div>' +
-            '<br>' +
+            myHTML += '<div class="row center">' +
+              '<div class="row">' +
+              '<div class="container">' +
+              '<img src="https://venturaterreros.com/wp-content/uploads/2018/05/probocaditos-ventura-soacha.jpg" style="display: table; margin: 0 auto; width:30%;">' +
+              '</div>' +
+              '<div  style="display: table; margin: 0 auto;">' +
+              JSON.stringify(Encabezado[0].pod) + '' +
+              '</div>' +
+              '<div  style="display: table; margin: 0 auto;">' +
+              'NIT: ' + JSON.stringify(Encabezado[0].nit) + '  TEL' + JSON.stringify(Encabezado[0].phone) + '' +
+              '</div>' +
+              '<div  style="display: table; margin: 0 auto;">' +
+              'REGIMEN COMÚN ' +
+              JSON.stringify(Encabezado[0].address) + '' +
+              '</div>' +
+              '<br>' +
 
-            '<div class="row left-align" style="display: table; margin: 0 auto;">' +
-            '<div class="col s12 center">FACTURA DE VENTAS</div>' +
-            '<div class="col s12 center" style="display: table; margin: 0 auto;">' + JSON.stringify(Encabezado[0].prefijo) + '-' + JSON.stringify(Encabezado[0].invoice_num) + '</div>' +
-            '</div>' +
-            '<br>' +
-            '<div class="container" style="display: table; margin: 0 auto;">' +
-            '<div class="row">' +
-            '<div class="col s6">' +
-            '</div>' +
-            '<div class="col s6" style="text-align: right;">' +
-            'Fecha:' +
-            JSON.stringify(Encabezado[0].date) + '<br>' +
-            '</div>' +
-            '<br>' +
-            '</div>' +
-            '<div class="row">' +
-            '<div class="container" style="display: table; margin: 0 auto;">' +
-            'Vendedor:' + JSON.stringify(Encabezado[0].uName) + '' +
-            '</div>' +
-            '<div class="container" style="display: table; margin: 0 auto;">' +
-            'Cliente:' + JSON.stringify(Encabezado[0].cName) + '' +
-            '</div>' +
-            '<div class="container" style="display: table; margin: 0 auto;">' +
-            'Forma de pago:' + JSON.stringify(Encabezado[0].cardpayment) + '' +
-            '</div>' +
-            '</div>' +
-            '<br>' +
-            '<table style="display: table; margin: 0 auto;">' +
-            '<tr>' +
-            '<th>Item</th>' +
-            '<th>Cant.</th>' +
-            '<th>Descripcion</th>' +
-            '<th>Total $</th>' +
-            '</tr>';
-
-          for (var p = 0; p < Productos.length; p++) {
-            myHTML += '<tr>' +
-              '<td style="text-align: center; vertical-align: middle;"> ' + JSON.stringify(Productos[p].id) + '</td>' +
-              '<td style="text-align: center; vertical-align: middle;">' + JSON.stringify(Productos[p].cantidad) + '</td>' +
-              '<td style="text-align: center; vertical-align: middle;">' + JSON.stringify(Productos[p].producto) + '</td>' +
-              '<td style="text-align: center; vertical-align: middle;">' + JSON.stringify(Productos[p].precio) + '</td>' +
+              '<div class="row left-align" style="display: table; margin: 0 auto;">' +
+              '<div class="col s12 center">FACTURA DE VENTAS</div>' +
+              '<div class="col s12 center" style="display: table; margin: 0 auto;">' + JSON.stringify(Encabezado[0].prefijo) + '-' + JSON.stringify(Encabezado[0].invoice_num) + '</div>' +
+              '</div>' +
+              '<br>' +
+              '<div class="container" style="display: table; margin: 0 auto;">' +
+              '<div class="row">' +
+              '<div class="col s6">' +
+              '</div>' +
+              '<div class="col s6" style="text-align: right;">' +
+              'Fecha:' +
+              JSON.stringify(Encabezado[0].date) + '<br>' +
+              '</div>' +
+              '<br>' +
+              '</div>' +
+              '<div class="row">' +
+              '<div class="container" style="display: table; margin: 0 auto;">' +
+              'Vendedor:' + JSON.stringify(Encabezado[0].uName) + '' +
+              '</div>' +
+              '<div class="container" style="display: table; margin: 0 auto;">' +
+              'Cliente:' + JSON.stringify(Encabezado[0].cName) + '' +
+              '</div>' +
+              '<div class="container" style="display: table; margin: 0 auto;">' +
+              'Forma de pago:' + JSON.stringify(Encabezado[0].cardpayment) + '' +
+              '</div>' +
+              '</div>' +
+              '<br>' +
+              '<table style="display: table; margin: 0 auto;">' +
+              '<tr>' +
+              '<th>Item</th>' +
+              '<th>Cant.</th>' +
+              '<th>Descripcion</th>' +
+              '<th>Total $</th>' +
               '</tr>';
-          }
 
-          myHTML += '</table>' +
-            '<div class="row left-align" >' +
-            '<br>' +
-            '<div class="col s3 right-align" style="text-align: right;"> TOTAL $ ' + JSON.stringify(Totales[0].Total) + '</div>' +
-            '</div>' +
-            '<br>' +
-            '<div class="row">' +
-            '<div class="col s12 center" style="display: table; margin: 0 auto;">INFORMACION TRIBUTARIA ' +
-            '</div>' +
-            '<div>';
-          myHTML += '<div class="col s3" style="display: table; margin: 0 auto;">&nbsp;&nbsp; Tipo   &nbsp;&nbsp;    %  &nbsp;&nbsp;  %  VLR BASE $  &nbsp;&nbsp;   VLR IMP $ &nbsp;&nbsp; </div>';
-          
-          for (var i = 0; i < Impuestos.length; i++) {
-            myHTML += '<div class="col s3" style="display: table; margin: 0 auto;">&nbsp;&nbsp; ' + JSON.stringify(Impuestos[i].impuesto) + '&nbsp;&nbsp;&nbsp;' + JSON.stringify(Impuestos[i].porcentaje) + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' + JSON.stringify(Impuestos[i].base) + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ' + JSON.stringify(Impuestos[i].val_impuesto) + '&nbsp;&nbsp;</div>';
-          }
-
-          myHTML += '</div>' +
-            '<br>' +
-            '<div class="row left-align">' +
-            '<div class="col s12 center" style="display: table; margin: 0 auto;">R DIAN: ' + Encabezado[0].rdian + '</div>' +
-            '<div class="col s12 center" style="display: table; margin: 0 auto;">FECHA ' + Encabezado[0].daterdian + '</div>' +
-            '<div class="col s12 center" style="display: table; margin: 0 auto;">RANGO 0 A ' + Encabezado[0].billing_limit + '</div>' +
-            '</div>' +
-
-            '<div class="col s12 cente-align" style="display: table; margin: 0 auto;">' +
-            '<h5>' +
-            'GRACIAS POR SU COMPRA' +
-            '</h5>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>';
-
-
-          var transporter = nodemailer.createTransport(smtpTransport({
-            service: 'gmail',
-            auth: {
-              user: 'infopalatos@gmail.com',
-              pass: 'Pro2019*'
+            for (var p = 0; p < Productos.length; p++) {
+              myHTML += '<tr>' +
+                '<td style="text-align: center; vertical-align: middle;"> ' + JSON.stringify(Productos[p].id) + '</td>' +
+                '<td style="text-align: center; vertical-align: middle;">' + JSON.stringify(Productos[p].cantidad) + '</td>' +
+                '<td style="text-align: center; vertical-align: middle;">' + JSON.stringify(Productos[p].producto) + '</td>' +
+                '<td style="text-align: center; vertical-align: middle;">' + JSON.stringify(Productos[p].precio) + '</td>' +
+                '</tr>';
             }
-          }));
 
-          const mailOptions = {
-            from: 'infopalatos@gmail.com', // sender address
-            to: Encabezado[0].cEmail, // list of receivers
-            subject: 'Factura de pago Probocaitos No. ' + Encabezado[0].prefijo + '-' + Encabezado[0].invoice_num, // Subject line
-            html: myHTML
-          };
+            myHTML += '</table>' +
+              '<div class="row left-align" >' +
+              '<br>' +
+              '<div class="col s3 right-align" style="text-align: right;"> TOTAL $ ' + JSON.stringify(Totales[0].Total) + '</div>' +
+              '</div>' +
+              '<br>' +
+              '<div class="row">' +
+              '<div class="col s12 center" style="display: table; margin: 0 auto;">INFORMACION TRIBUTARIA ' +
+              '</div>' +
+              '<div>';
+            myHTML += '<div class="col s3" style="display: table; margin: 0 auto;">&nbsp;&nbsp; Tipo   &nbsp;&nbsp;    %  &nbsp;&nbsp;  %  VLR BASE $  &nbsp;&nbsp;   VLR IMP $ &nbsp;&nbsp; </div>';
 
-         
-          
-          transporter.sendMail(mailOptions, function (err, info) {
-            if (err)
-              console.log(err)
-            else
-              console.log(info);
-          });
+            for (var i = 0; i < Impuestos.length; i++) {
+              myHTML += '<div class="col s3" style="display: table; margin: 0 auto;">&nbsp;&nbsp; ' + JSON.stringify(Impuestos[i].impuesto) + '&nbsp;&nbsp;&nbsp;' + JSON.stringify(Impuestos[i].porcentaje) + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' + JSON.stringify(Impuestos[i].base) + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ' + JSON.stringify(Impuestos[i].val_impuesto) + '&nbsp;&nbsp;</div>';
+            }
 
-        }
+            myHTML += '</div>' +
+              '<br>' +
+              '<div class="row left-align">' +
+              '<div class="col s12 center" style="display: table; margin: 0 auto;">R DIAN: ' + Encabezado[0].rdian + '</div>' +
+              '<div class="col s12 center" style="display: table; margin: 0 auto;">FECHA ' + Encabezado[0].daterdian + '</div>' +
+              '<div class="col s12 center" style="display: table; margin: 0 auto;">RANGO 0 A ' + Encabezado[0].billing_limit + '</div>' +
+              '</div>' +
+
+              '<div class="col s12 cente-align" style="display: table; margin: 0 auto;">' +
+              '<h5>' +
+              'GRACIAS POR SU COMPRA' +
+              '</h5>' +
+              '</div>' +
+              '</div>' +
+              '</div>' +
+              '</div>' +
+              '</div>';
+
+
+            var transporter = nodemailer.createTransport(smtpTransport({
+              service: 'gmail',
+              auth: {
+                user: 'infopalatos@gmail.com',
+                pass: 'Pro2019*'
+              }
+            }));
+
+            const mailOptions = {
+              from: 'infopalatos@gmail.com', // sender address
+              to: Encabezado[0].cEmail, // list of receivers
+              subject: 'Factura de pago Probocaitos No. ' + Encabezado[0].prefijo + '-' + Encabezado[0].invoice_num, // Subject line
+              html: myHTML
+            };
+
+
+
+            transporter.sendMail(mailOptions, function (err, info) {
+              if (err)
+                console.log(err)
+              else
+                console.log(info);
+            });
+
+          }
 
           var jsonObj = {
             Encabezado,

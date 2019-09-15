@@ -129,7 +129,7 @@ app.post('/getdatapermission', permission)
 
 app.post('/createsale', sale)
 app.post('/updatesale', sale)
-app.post('/deletesale', sale)
+app.get('/deletesale', sale)
 app.post('/getdatasale', sale)
 app.post('/getdatasalebetween', sale)
 app.post('/getdatasalebetweensum', sale)

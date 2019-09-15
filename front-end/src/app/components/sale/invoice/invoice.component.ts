@@ -34,6 +34,12 @@ export class InvoiceComponent implements OnInit {
 
   ngOnInit() {
     this.idSale = localStorage.getItem('idSale');
+    this.saleService.delete()
+      .subscribe(data => {
+        if (data != null) {
+          console.log(data)
+        }
+      });
     this.getSaleDataId();
   }
 

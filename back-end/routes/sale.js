@@ -26,6 +26,8 @@ router.post('/createsale', function (req, res, next) {
             res.status(200).jsonp(data)
         }
     })
+
+    
 })
 //update sale
 router.post('/updatesale', function (req, res, next) {
@@ -46,10 +48,8 @@ router.post('/updatesale', function (req, res, next) {
     })
 })
 //delete sale
-router.post('/deletesale', function (req, res, next) {
-    var saleData = {
-        sale_id: req.body.sale_id
-    }
+router.get('/deletesale', function (req, res, next) {
+    var saleData = {}
     sale.deleteSale(saleData, function (error, data) {
         if (error) {
             res.status(504).jsonp({

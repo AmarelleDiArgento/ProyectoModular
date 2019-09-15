@@ -2,7 +2,7 @@
 <app-header></app-header>
 <!-- end header -->
 
-<div class="row animated fadeIn">
+<div class="row">
   <div class="col m8 s12 no-padding productos-tab">
     <ul class="tabs display-flex">
       <li class="tab col s3" *ngFor="let c of listCategory"><a href="#tab{{c.category_id}}">{{c.name}}</a></li>
@@ -10,16 +10,19 @@
     <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12 ">
       <div class="products center">
         <div *ngFor="let p of listProduct">
-          <div class="col m2 s12" *ngIf="c.category_id === p.category_id" (click)="addProduct(p)"
-            style="margin-bottom: 3%;">
 
+          <div class="col m2 s12" *ngIf="c.category_id === p.category_id" (click)="addProduct(p)"
+            style="margin-bottom: 1%;">
+            <!-- Aqui inicia el producto -->
             <div style="background-size: cover; cursor: pointer;" [ngStyle]="{'background-image':'url('+p.image+')'}">
               <div class="alto-productos name-product">
                 <p><b>{{p.name}}</b></p>
                 <p><b>$ {{p.net_price}}</b></p>
               </div>
             </div>
+            <!-- Aqui termina el producto -->
           </div>
+
         </div>
       </div>
     </div>
@@ -69,11 +72,13 @@
             class="validate">
           <label for="icon_prefix">Id o Codigo de barras</label>
         </div>
+        <!--
         <div class="input-field no-padding col s1">
           <button data-target="modal1" class="btn modal-trigger">
             <i class="material-icons medium center">dialpad</i>
           </button>
         </div>
+        -->
       </form>
     </div>
 

@@ -58,12 +58,12 @@ export class SaleService {
   // service to api mysql create sale
   createSale(pod_id, user_id, client_id, waytopay, authorization, discount, list_product) {
     this.params = 'pod_id=' + pod_id +
-    '&user_id=' + user_id +
-    '&client_id=' + client_id +
-    '&waytopay=' + waytopay +
-    '&authorization=' + authorization +
-    '&discount=' + discount +
-    '&list_product=' + list_product;
+      '&user_id=' + user_id +
+      '&client_id=' + client_id +
+      '&waytopay=' + waytopay +
+      '&authorization=' + authorization +
+      '&discount=' + discount +
+      '&list_product=' + list_product;
     console.log(this.params);
 
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
@@ -80,11 +80,11 @@ export class SaleService {
       .map((response: Response) => response.json())
   }
   // service to api mysql delete saledate
-  delete(sale_id) {
-    this.params = 'sale_id=' + sale_id;
+  delete() {
+    console.log("eliminando");
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(varsGlobals.url + '/deletesale/', this.params, options)
+    return this.http.get(varsGlobals.url + '/deletesale/', options)
       .map((response: Response) => response.json())
   }
   createSaleProduct(sale_id, product_id, quantity) {

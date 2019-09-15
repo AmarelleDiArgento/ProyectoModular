@@ -55,6 +55,9 @@ export class SaleComponent implements AfterViewInit, OnInit {
   tax_price = 0;
   total_price = 0;
 
+
+  cat = 0;
+
   gross_priceMoney = '$ 0';
   tax_priceMoney = '$ 0';
   total_priceMoney = '$ 0';
@@ -144,7 +147,7 @@ export class SaleComponent implements AfterViewInit, OnInit {
 
   getAllDataProductSale() {
     this.listSaleProduct.forEach(ps => {
-      if(ps[3]> 0){
+      if (ps[3] > 0) {
         this.listProductSale += ps[0] + ':' + ps[3] + ',';
       }
     });
@@ -466,6 +469,15 @@ export class SaleComponent implements AfterViewInit, OnInit {
   modalOpen() {
     $('#ClientRegister').modal('open');
 
+  }
+
+  cambioCat(val) {
+    if (this.cat === val) {
+      return false;
+    } else {
+      this.cat = parseInt(val);
+      return true;
+    }
   }
 
 }
