@@ -36,7 +36,9 @@ export class UpdatesaleComponent implements OnInit {
   constructor(private http: Http, private formBuilder: FormBuilder, private saleService: SaleService, private router: Router) { }
 
   ngOnInit() {
-    localStorage.setItem('printOn', '0');
+    localStorage.setItem('moduleSelected', 'UpdatedSale');
+    localStorage.setItem('typeSale', 'Imprimir');
+    localStorage.setItem('sendPrint', 'No');
     // init form
     this.updateSaleForm = this.formBuilder.group({
       sale_id: ['', Validators.required],
@@ -93,9 +95,17 @@ export class UpdatesaleComponent implements OnInit {
   }
 
   invoicePrint() {
+    localStorage.setItem('typeSale', 'Imprimir');
+    localStorage.setItem('sendPrint', 'Yes');
     this.router.navigate(['/invoiceprint']);
   }
-  
+
+  sendEmail() {
+    localStorage.setItem('typeSale', 'Correo');
+    localStorage.setItem('sendEmail', 'Yes');
+    this.router.navigate(['/invoiceprint']);
+  }
+
   onSubmit() {
     // console.log('Llegue al metodo');
 

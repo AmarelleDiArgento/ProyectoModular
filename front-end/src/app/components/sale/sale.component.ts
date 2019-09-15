@@ -74,9 +74,6 @@ export class SaleComponent implements AfterViewInit, OnInit {
   private layout: any = 'alphanumeric';
   increment = 1;
   decrement = 1;
-  // force to redirect
-  @HostListener('window:beforeunload') goToPage() {
-  }
 
   // tslint:disable-next-line: deprecation
   constructor(private http: Http,
@@ -156,10 +153,6 @@ export class SaleComponent implements AfterViewInit, OnInit {
 
   onSubmitPay() {
 
-    console.log(this.payForm.value.waytopay)
-    console.log(this.payForm.value.recibo)
-    console.log(this.total)
-
     if (this.payForm.value.waytopay === 'Efectivo') {
 
       if (this.payForm.value.recibo >= this.total) {
@@ -170,7 +163,6 @@ export class SaleComponent implements AfterViewInit, OnInit {
           if (this.payForm.invalid) {
             return;
           } else {
-            console.log("pasa")
             this.saleService.createSale(
               this.idPod,
               this.idUser,
@@ -184,6 +176,7 @@ export class SaleComponent implements AfterViewInit, OnInit {
                 if (data.respuesta === 'Success') {
                   this.sale_id = data.rows[0].sale_id;
                   console.log(data.rows);
+                  localStorage.setItem('moduleSelected', 'Sale');
                   localStorage.setItem('typeSale', this.payForm.value.selectoption);
                   localStorage.setItem('idSale', this.sale_id);
                   this.router.navigate(['/invoiceprint']);
@@ -231,6 +224,7 @@ export class SaleComponent implements AfterViewInit, OnInit {
               if (data.respuesta === 'Success') {
                 this.sale_id = data.rows[0].sale_id;
                 console.log(data.rows);
+                localStorage.setItem('moduleSelected', 'Sale');
                 localStorage.setItem('typeSale', this.payForm.value.selectoption);
                 localStorage.setItem('idSale', this.sale_id);
                 this.router.navigate(['/invoiceprint']);
@@ -386,7 +380,7 @@ export class SaleComponent implements AfterViewInit, OnInit {
   }
 
   discount() {
-    let pagar = (this.total * (100 - this.descuento)) / 100;
+    const pagar = (this.total * (100 - this.descuento)) / 100;
     this.total_priceMoney = '$ ' + number_format(pagar, 0);
     this.total = pagar;
   }

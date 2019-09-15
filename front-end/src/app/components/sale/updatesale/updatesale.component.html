@@ -14,6 +14,11 @@
             local_printshop
           </i>
         </button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block btn-full" (click)="sendEmail()">
+          <i class="material-icons">
+            email
+          </i>
+        </button>
       </div>
       <form [formGroup]="updateSaleForm" (ngSubmit)="onInactive()">
         <h3>Venta</h3>
