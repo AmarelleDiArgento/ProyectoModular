@@ -17,10 +17,27 @@ export class InvoiceComponent implements OnInit {
 
   // id sale
   idSale;
-  Encabezado: {};
+  Encabezado: {
+    pod: '',
+    nit: '',
+    phone: '',
+    address: '',
+    prefijo: '',
+    invoice_num: '',
+    date: '',
+    uName: '',
+    cName: '',
+    cardpayment: '',
+    Total: '',
+    rdian: '',
+    daterdian: '',
+    billing_limit: ''
+  };
   Productos: {};
   Impuestos: {};
-  Total: {};
+  Total: {
+    Total: ''
+  };
   // tslint:disable-next-line: no-inferrable-types
   printOn: boolean = true;
 
