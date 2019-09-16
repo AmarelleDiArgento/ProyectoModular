@@ -12,11 +12,18 @@
     left join tax as t on t.tax_id = pt.pt_tax_id
 	where s.date between concat("2019-01-10 00:00:00") and concat("2019-12-31 23:59:59")
     and s.accountant = 1
-    group by nitcliente, Fecha, CodigoProducto, Punto,Iva,Base,
-    order by nitcliente, p.code asc
+    group by nitcliente, Fecha, CodigoProducto, Punto,Iva,Base	
+    order by nitcliente, p.code asc;
     
     -- Cliente def 76: 20001014 
     -- Bodega: CL76
     -- Centro de costo: 20001014 
     
     -- desde hasta ventas producto tirilla
+    
+    
+    ALTER TABLE proyectomodular.pod 
+	ADD COLUMN warehouse VARCHAR(10) NULL AFTER billing_limit,
+	ADD COLUMN costcenter INT NULL AFTER warehouse,
+	ADD COLUMN email VARCHAR(100) NULL AFTER name;
+

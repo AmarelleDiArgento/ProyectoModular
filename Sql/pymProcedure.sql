@@ -191,7 +191,10 @@ CREATE PROCEDURE podins (
   _rdian VARCHAR(45),
   _daterdian date,
   _billing_limit BIGINT,
+  _warehouse VARCHAR(10),
+  _costcenter INT,
   _name VARCHAR(255),
+  _email VARCHAR(100),
   _address VARCHAR(255),
   _phone VARCHAR(12),
   _status TINYINT(4)
@@ -199,9 +202,9 @@ CREATE PROCEDURE podins (
 BEGIN  
 
 INSERT INTO proyectomodular.pod
-(code, nit, rdian, daterdian, billing_limit, name, address, phone, status, create_time, update_time)
+(code, nit, rdian, daterdian, billing_limit, warehouse, costcenter, name, email, address, phone, status, create_time, update_time)
 VALUES
-(_code, _nit, _rdian, _daterdian, _billing_limit, _name, _address, _phone, _status, now(), now());
+(_code, _nit, _rdian, _daterdian, _billing_limit, _warehouse, _costcenter, _name, _email, _address, _phone, _status, now(), now());
 
 END$$
 
@@ -221,7 +224,10 @@ CREATE PROCEDURE podupd (
   _rdian VARCHAR(45),
   _daterdian date,
   _billing_limit BIGINT,
+  _warehouse VARCHAR(10),
+  _costcenter INT,
   _name VARCHAR(255),
+  _email VARCHAR(100),
   _address VARCHAR(255),
   _phone VARCHAR(12),
   _status TINYINT(4)
@@ -235,7 +241,10 @@ nit = _nit,
 rdian = _rdian,
 daterdian = _daterdian,
 billing_limit = _billing_limit,
+warehouse = _warehouse,
+costcenter = _costcenter, 
 name = _name,
+email = _email,
 address = _address,
 phone = _phone,
 status = _status,
@@ -256,7 +265,8 @@ USE proyectomodular$$
 CREATE PROCEDURE podone (_pod_id INT)
 BEGIN
 
-SELECT pod.pod_id, pod.code, pod.nit, pod.rdian, pod.daterdian, pod.billing_limit, pod.name, pod.address, pod.phone, pod.status, pod.create_time, pod.update_time
+SELECT pod.pod_id, pod.code, pod.nit, pod.rdian, pod.daterdian, pod.billing_limit, pod.warehouse, 
+pod.costcenter, pod.name, pod.email, pod.address, pod.phone, pod.status, pod.create_time, pod.update_time
 FROM proyectomodular.pod
 WHERE pod_id = _pod_id;
 
@@ -292,7 +302,8 @@ USE proyectomodular$$
 CREATE PROCEDURE podall ()
 BEGIN
 
-SELECT pod.pod_id, pod.code, pod.nit, pod.rdian, pod.daterdian, pod.billing_limit, pod.name, pod.address, pod.phone, pod.status, pod.create_time, pod.update_time
+SELECT pod.pod_id, pod.code, pod.nit, pod.rdian, pod.daterdian, pod.billing_limit, pod.warehouse, 
+pod.costcenter, pod.name, pod.email, pod.address, pod.phone, pod.status, pod.create_time, pod.update_time
 FROM proyectomodular.pod;
 
 END$$
