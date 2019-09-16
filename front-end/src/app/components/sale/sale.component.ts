@@ -66,7 +66,7 @@ export class SaleComponent implements AfterViewInit, OnInit {
   increment = 1;
   decrement = 1;
   valueProduct = '';
-  count = 0;
+  count = '';
 
   // tslint:disable-next-line: deprecation
   constructor(private http: Http,
@@ -334,16 +334,17 @@ export class SaleComponent implements AfterViewInit, OnInit {
   }
 
   keyClick(value) {
-    this.count += value;
+    const str = this.count.concat( value );
+    this.count = str;
     this.virtualKeyboardValue();
   }
 
   deleteKey(value) {
-    this.count = value;
+    this.count = '';
   }
 
   sendValueProduct(value) {
-    this.count = 0;
+    this.count = '';
     this.valueProduct = value;
   }
 
@@ -352,8 +353,10 @@ export class SaleComponent implements AfterViewInit, OnInit {
       if (this.listSaleProduct[i][0] === this.valueProduct) {
         // tslint:disable-next-line: radix
         this.listSaleProduct[i][3] = this.count;
-        this.listSaleProduct[i][4] = this.listSaleProduct[i][6] * this.count;
-        this.listSaleProduct[i][5] = this.listSaleProduct[i][7] * this.count;
+        // tslint:disable-next-line: radix
+        this.listSaleProduct[i][4] = this.listSaleProduct[i][6] * parseInt(this.count);
+        // tslint:disable-next-line: radix
+        this.listSaleProduct[i][5] = this.listSaleProduct[i][7] * parseInt(this.count);
       }
     }
     this.totals();
