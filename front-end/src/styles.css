@@ -516,16 +516,15 @@ table {
 }
 
 
-div.keypad input {
-  background:url(./assets/keypad.png) no-repeat !important;
-  cursor:pointer !important;
-  border: none;
-  border-bottom: 1px solid white !important;
-  color: transparent !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  display: block !important;
-   margin: 0 auto !important;
+#keypad{
+  width: 25px;
+  margin-left: 10px;
+}
+
+#numv{
+  color: black;
+  height: 50px;
+  font-size: 25px;
 }
 
 .mat-dialog-container {

@@ -23,10 +23,6 @@ import { forEach } from '@angular/router/src/utils/collection';
 
 export class SaleComponent implements AfterViewInit, OnInit {
 
-
-
-
-
   // vars msj
   msgerr = '';
   // var submitted
@@ -37,27 +33,19 @@ export class SaleComponent implements AfterViewInit, OnInit {
   payForm: FormGroup;
   registerSalesForm: FormGroup;
   registerClientForm: FormGroup;
-
   // list data auth
   listSale: {};
   listCategory: {};
-
   client_id;
   client: {};
-
   sale_id;
-
   idPod;
   idUser;
   listProduct: {};
-
   gross_price = 0;
   tax_price = 0;
   total_price = 0;
-
-
   cat = 0;
-
   gross_priceMoney = '$ 0';
   tax_priceMoney = '$ 0';
   total_priceMoney = '$ 0';
@@ -77,6 +65,8 @@ export class SaleComponent implements AfterViewInit, OnInit {
   private layout: any = 'alphanumeric';
   increment = 1;
   decrement = 1;
+  valueProduct = '';
+  count = 0;
 
   // tslint:disable-next-line: deprecation
   constructor(private http: Http,
@@ -152,8 +142,6 @@ export class SaleComponent implements AfterViewInit, OnInit {
       }
     });
     this.listProductSale = this.listProductSale.substr(0, this.listProductSale.length - 1);
-    console.log(this.listProductSale);
-
   }
 
   onSubmitPay() {
@@ -345,12 +333,27 @@ export class SaleComponent implements AfterViewInit, OnInit {
     this.getAllDataProductSale();
   }
 
-  virtualKeyboardValue(id, searchValue) {
+  keyClick(value) {
+    this.count += value;
+    this.virtualKeyboardValue();
+  }
+
+  deleteKey(value) {
+    this.count = value;
+  }
+
+  sendValueProduct(value) {
+    this.count = 0;
+    this.valueProduct = value;
+  }
+
+  virtualKeyboardValue() {
     for (let i = 0; i < this.listSaleProduct.length; i++) {
-      if (this.listSaleProduct[i][0] === id) {
-        this.listSaleProduct[i][3] = parseInt(searchValue);
-        this.listSaleProduct[i][4] = this.listSaleProduct[i][6] * searchValue;
-        this.listSaleProduct[i][5] = this.listSaleProduct[i][7] * searchValue;
+      if (this.listSaleProduct[i][0] === this.valueProduct) {
+        // tslint:disable-next-line: radix
+        this.listSaleProduct[i][3] = this.count;
+        this.listSaleProduct[i][4] = this.listSaleProduct[i][6] * this.count;
+        this.listSaleProduct[i][5] = this.listSaleProduct[i][7] * this.count;
       }
     }
     this.totals();
@@ -475,6 +478,7 @@ export class SaleComponent implements AfterViewInit, OnInit {
     if (this.cat === val) {
       return false;
     } else {
+      // tslint:disable-next-line: radix
       this.cat = parseInt(val);
       return true;
     }
