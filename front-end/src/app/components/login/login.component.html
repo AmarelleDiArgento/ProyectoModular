@@ -16,7 +16,7 @@
 </div>           
   <div class="row login">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <h3 class="center conforta">LOGIN</h3>
+        <h3 class="center conforta">Iniciar de sesión</h3>
         <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
             <a class="close" (click)="closeAlertErr()">
                &times;
@@ -26,7 +26,7 @@
         <div class="">
           <label for="exampleInputEmail1"> </label>
           <input type="email" class="form-control" id="email" formControlName="email"
-            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Enter email">
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Email">
           <span>
             <div *ngIf="submitted && f.email.errors">
               <div *ngIf="f.email.errors.required"> <label id="error">Error el email es requerido </label></div>

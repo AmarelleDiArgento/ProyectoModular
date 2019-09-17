@@ -6,7 +6,7 @@
     <div class="col-md-4"></div>
     <div class="col-md-4" id="update">
       <form [formGroup]="updateModuleForm" (ngSubmit)="onSubmit()">
-        <h3>Actualizar Modulos</h3>
+        <h3>Actualizar Módulos</h3>
         <div class="alert alert-danger alert-dismissable fuente-project" *ngIf="msgerr">
           <a class="close" (click)="closeAlertErr()">
             &times;
@@ -14,22 +14,22 @@
           <h6>{{msgerr}}</h6>
         </div>
         <div class="form-group">
-          <label for="module_id">Id Modulo</label>
+          <label for="module_id">Id Módulo</label>
           <input type="text" class="form-control" id="module_id" formControlName="module_id"
             [ngClass]="{ 'is-invalid': submitted && f.module_id.errors }" placeholder="Enter document" readonly>
           <span>
             <div *ngIf="submitted && f.module_id.errors">
-              <div *ngIf="f.module_id.errors.required"> <label id="error">Error el documento es requerido </label></div>
+              <div *ngIf="f.module_id.errors.required"> <label id="error">Error el módulo es requerido </label></div>
             </div>
           </span>
         </div>
         <div class="form-group">
-          <label for="name">name </label>
+          <label for="name">Módulo </label>
           <input type="text" class="form-control" id="name" formControlName="name"
             [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Enter name">
           <span>
             <div *ngIf="submitted && f.name.errors">
-              <div *ngIf="f.name.errors.required"> <label id="error">Error el usuario es requerido </label></div>
+              <div *ngIf="f.name.errors.required"> <label id="error">Error el módulo es requerido </label></div>
             </div>
           </span>
         </div>

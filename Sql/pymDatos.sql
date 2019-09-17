@@ -172,12 +172,12 @@ call proyectomodular.moduleins('Product', 1);
 call proyectomodular.privilegeins('Usuarios', 1,'people','listusers', 1);
 call proyectomodular.privilegeins('Roles', 1,'assignment_ind','listrols', 1);
 call proyectomodular.privilegeins('Privilegios', 1,'view_list','listprivileges', 1);
-call proyectomodular.privilegeins('Modulos', 1,'widgets','listmodules', 1);
+call proyectomodular.privilegeins('Módulos', 1,'widgets','listmodules', 1);
 call proyectomodular.privilegeins('Puntos', 2,'store','listpods', 1);
 call proyectomodular.privilegeins('Ventas', 2,'local_grocery_store','listsales', 1);
 call proyectomodular.privilegeins('Productos', 3,'card_giftcard','listproducts', 1);
 call proyectomodular.privilegeins('Impuestos', 3,'description','listtaxs', 1);
-call proyectomodular.privilegeins('Categorias', 3,'extension','listcategorys', 1);
+call proyectomodular.privilegeins('Categorías', 3,'extension','listcategorys', 1);
 
 -- call proyectomodular.privilegeins(?,?,?,?,?);
 -- call proyectomodular.privilegeupd(?,?,?,?,?,?);

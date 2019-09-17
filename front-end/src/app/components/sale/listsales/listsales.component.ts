@@ -73,12 +73,12 @@ export class ListsalesComponent implements OnInit {
         }
       },
       { headerName: 'No.', field: 'invoice_num', sortable: true, width: 200 },
-      { headerName: 'punto de venta', field: 'pod_name', sortable: true },
+      { headerName: 'Pto de venta', field: 'pod_name', sortable: true },
       { headerName: 'Usuario', field: 'user_name', sortable: true },
       { headerName: 'Cliente', field: 'client_name', sortable: true },
       { headerName: 'Impuesto', field: 'tax_price', sortable: true, width: 150, valueFormatter: currencyFormatterdecimal },
-      { headerName: 'Precio bruto', field: 'gross_price', sortable: true, width: 150, valueFormatter: currencyFormatterdecimal },
-      { headerName: 'Precio neto', field: 'net_price', sortable: true, width: 150, valueFormatter: currencyFormatter },
+      { headerName: 'Precio Bruto', field: 'gross_price', sortable: true, width: 150, valueFormatter: currencyFormatterdecimal },
+      { headerName: 'Precio Neto', field: 'net_price', sortable: true, width: 150, valueFormatter: currencyFormatter },
       {
         headerName: '',
         field: 'sale_id',

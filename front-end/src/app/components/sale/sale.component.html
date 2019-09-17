@@ -36,9 +36,9 @@
           <form class="from-none">
             <div class="input-field no-padding col s4">
               <i class="material-icons prefix">person_pin</i>
+              <label for="client_id">Documento</label>
               <input class="pago" id="client_id" name="client_id" (keypress)="clientSearch($event)"
                 [(ngModel)]="client_id" type="text" class="validate">
-              <label for="client_id">Documento</label>
             </div>
             <div class="input-field padding col s1">
               <a class="waves-effect waves-light btn modal-trigger" href="#ClientRegister">
@@ -187,11 +187,11 @@
 
 <div class="row totales">
   <div class="col s2">
-    <p class="left">Total impuesto</p>
+    <p class="left">Total impuesto: </p>
     <h5 class="center">{{tax_priceMoney}}</h5>
   </div>
   <div class="col s3">
-    <p class="left">Total base: Compra</p>
+    <p class="left">Total base: </p>
     <h5 class="center">{{gross_priceMoney}}</h5>
   </div>
   <div class="col s3">
@@ -223,9 +223,9 @@
             <h6>{{msgerr}}</h6>
           </div>
           <div class="form-group input-field col s12">
-            <input type="text" class="form-control" id="user_id" formControlName="user_id"
-              [ngClass]="{ 'is-invalid': submitted && fc.user_id.errors }" placeholder="Enter document">
             <label for="user_id">Documento</label>
+            <input type="text" class="form-control" id="user_id" formControlName="user_id"
+              [ngClass]="{ 'is-invalid': submitted && fc.user_id.errors }" placeholder="Documento">
             <span>
               <div *ngIf="submitted && fc.user_id.errors">
                 <div *ngIf="fc.user_id.errors.required"> <label id="error">Error el documento es requerido </label>
@@ -234,9 +234,9 @@
             </span>
           </div>
           <div class="form-group input-field col s12">
+            <label for="username">Nombre </label>
             <input type="text" class="form-control" id="username" formControlName="username"
-              [ngClass]="{ 'is-invalid': submitted && fc.username.errors }" placeholder="Enter username">
-            <label for="username">Username </label>
+              [ngClass]="{ 'is-invalid': submitted && fc.username.errors }" placeholder="Nombre">
             <span>
               <div *ngIf="submitted && fc.username.errors">
                 <div *ngIf="fc.username.errors.required"> <label id="error">Error el usuario es requerido </label></div>
@@ -244,9 +244,9 @@
             </span>
           </div>
           <div class="form-group input-field col s12">
-            <input type="email" class="form-control" id="email" formControlName="email"
-              [ngClass]="{ 'is-invalid': submitted && fc.email.errors }" placeholder="Enter email">
             <label for="email">Email </label>
+            <input type="email" class="form-control" id="email" formControlName="email"
+              [ngClass]="{ 'is-invalid': submitted && fc.email.errors }" placeholder="Email">
             <span>
               <div *ngIf="submitted && fc.email.errors">
                 <div *ngIf="fc.email.errors.required"> <label id="error">Error el email es requerido </label></div>
@@ -383,9 +383,14 @@
         <div class="input-field col s12">
           <i class="material-icons prefix">done_all</i>
           <input id="code" class="pago" name="code" type="number" [(ngModel)]="code" required formControlName="code">
-          <label for="code">Codigo de autorizacion</label>
+          <label for="code">Código de autorización</label>
         </div>
 
+        <span class="center">
+          <div *ngIf="submittedPay && fpay.code.errors">
+            <div *ngIf="fpay.code.errors.required"> <label id="error">El código de autorización es requerido </label></div>
+          </div>
+        </span>
         <div class="form-group col m6 s6">
           <p>
             <label>

@@ -88,7 +88,7 @@ export class RenderdeletebuttonComponent implements OnInit, ICellRendererAngular
   delete() {
     Swal.fire({
       title: '¿Estás seguro?',
-      text: 'No podras recuperar los cambios',
+      text: 'No podrás recuperar los cambios',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
