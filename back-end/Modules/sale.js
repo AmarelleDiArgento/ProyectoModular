@@ -1,5 +1,10 @@
 var mysql = require('mysql'),
   config = require("../config");
+var enigma = require('enigma-code')
+
+const valorEncriptación = 8
+let key = '3456#@|#lM'
+
 var nodemailer = require('nodemailer');
 var smtpTransport = require("nodemailer-smtp-transport");
 var express = require('express');
@@ -70,19 +75,18 @@ saleModel.createSale = function (saleData, callback) {
 }
 
 saleModel.updateSale = function (saleData, callback) {
-  console.log('Llegue al modulo')
   let pass;
-  enigma.genHash(valorEncriptación, key, saleData.password, function (error, hash) {
-    if (error) return console.error(error.error)
+  enigma.genHash(valorEncriptación, key, userData.password, function (error, hash) {
+    if (error) return console.error(error)
     pass = hash
   })
+
   if (connection) {
     connection.query(acc, [
       saleData.sale_id,
       saleData.user_id,
       pass
     ], function (error, rows) {
-      console.log(saleData);
 
       if (error) {
         console.log(error)
