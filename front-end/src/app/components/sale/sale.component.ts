@@ -84,6 +84,7 @@ export class SaleComponent implements AfterViewInit, OnInit {
     $(document).ready(function () {
       $('.tabs').tabs();
       $('.modal').modal();
+      $('.collapsible').collapsible();
       $('select').formSelect();
     });
   }

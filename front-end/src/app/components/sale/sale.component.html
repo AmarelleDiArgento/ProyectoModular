@@ -4,33 +4,34 @@
 
 <div class="row">
   <div class="col m8 s12 no-padding productos-tab">
-    <ul class="tabs display-flex">
-      <li class="tab col s3" *ngFor="let c of listCategory"><a href="#tab{{c.category_id}}">{{c.name}}</a></li>
-    </ul>
-    <div *ngFor="let c of listCategory" id="tab{{c.category_id}}" class="col s12 ">
-      <div class="products center">
-        <div *ngFor="let p of listProduct">
-
-          <div class="col m2 s12" *ngIf="c.category_id === p.category_id" (click)="addProduct(p)"
-            style="margin-bottom: 1%;">
-            <!-- Aqui inicia el producto -->
-            <div style="background-size: cover; cursor: pointer;" [ngStyle]="{'background-image':'url('+p.image+')'}">
-              <div class="alto-productos name-product">
-                <p><b>{{p.name}}</b></p>
-                <p><b>$ {{p.net_price}}</b></p>
+      <ul class="collapsible">
+          <li *ngFor="let c of listCategory">
+            <div class="collapsible-header"><i class="material-icons">store_mall_directory</i>{{c.name}}</div>
+            <div class="collapsible-body">
+              <div class="row">
+                <div class="col s12">
+                  <div *ngFor="let p of listProduct">
+                    <div class="col m2" *ngIf="c.category_id === p.category_id" (click)="addProduct(p)" style="margin-bottom: 1%;">
+                      <!-- Aqui inicia el producto -->
+                      <div style="background-size: cover; cursor: pointer;"
+                        [ngStyle]="{'background-image':'url('+p.image+')'}">
+                        <div class="alto-productos name-product">
+                          <p><b>{{p.name}}</b></p>
+                          <p><b>$ {{p.net_price}}</b></p>
+                        </div>
+                      </div>
+                      <!-- Aqui termina el producto -->
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <!-- Aqui termina el producto -->
-          </div>
-
-        </div>
-      </div>
-    </div>
+          </li>
+        </ul>
   </div>
   <div class="col m4 s12 z-depth-1 ventas">
     <div class="row" style="margin-bottom: 0;">
       <form class="from-none">
-
         <ng-container *ngIf="client != null; else elseTemplate">
           <form class="from-none">
             <div class="input-field no-padding col s4">
@@ -72,18 +73,11 @@
             class="validate">
           <label for="icon_prefix">Id o Codigo de barras</label>
         </div>
-        <!--
-        <div class="input-field no-padding col s1">
-          <button data-target="modal1" class="btn modal-trigger">
-            <i class="material-icons medium center">dialpad</i>
-          </button>
-        </div>
-        -->
       </form>
     </div>
 
     <!-- Modal Structure -->
-    <div id="modal1" class="modal" style="width: 30%;" >
+    <div id="modal1" class="modal" style="width: 30%;">
       <div class="modal-content">
         <div class="container primary-text-color unselectable">
           <div class="row">
@@ -142,7 +136,7 @@
             </div>
             <div class="col l4 m4 s4 no-padding">
               <div class="waves-effect waves-light col l12 m12 s12  btn-large center teal darken-3"
-              (click)="deleteKey(0)"><span id="deteleKey">
+                (click)="deleteKey(0)"><span id="deteleKey">
                   <i class="fas fa-backspace fa-2x"></i>
                 </span></div>
             </div>
