@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,7 +16,7 @@ import { TaxService } from '../../services/tax.service';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements AfterViewInit, OnInit {
   // vars msj
   msgerr = '';
   // var submitted
@@ -26,20 +26,26 @@ export class ProductComponent implements OnInit {
   // list data
   listProduct: {};
   // list dataasd
-  listCategory: {};
+  lstCat: {};
   // list data
   listTax: {};
   image;
 
-  constructor(private http: Http, private formBuilder: FormBuilder,
-    private productService: ProductService,
-    private categoryService: CategoryService,
-    private taxService: TaxService, private router: Router) { }
+  constructor(private http: Http,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    public categoryService: CategoryService,
+    public taxService: TaxService,
+    public productService: ProductService) {
+  }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     $(document).ready(function () {
       $('select').formSelect();
     });
+  }
+
+  ngOnInit() {
     // init form
     this.registerProductForm = this.formBuilder.group({
       code: ['', Validators.required],
@@ -54,6 +60,30 @@ export class ProductComponent implements OnInit {
     this.getAllDataCategory();
     // init select tax
     this.getAllDataTax();
+  }
+
+  // obtain all data from the category
+  getAllDataCategory() {
+    // send to search api backend all category
+    this.categoryService.getAllDataCategory()
+      .subscribe(data => {
+        // populate list json
+        this.lstCat = data.rows;
+        console.log(this.lstCat);
+      });
+  }
+  // obtain all data from the tax
+  getAllDataTax() {
+    // send to search api backend all tax
+    this.taxService.getAllDataTax()
+      .subscribe(data => {
+        // populate list json
+        this.listTax = data.rows;
+        //init validation checks
+        $(function () {
+          $('select').formSelect();
+        });
+      });
   }
   // get form controls
   get f() { return this.registerProductForm.controls; }
@@ -99,24 +129,7 @@ export class ProductComponent implements OnInit {
         });
     }
   }
-  // obtain all data from the category
-  getAllDataCategory() {
-    // send to search api backend all category
-    this.categoryService.getAllDataCategory()
-      .subscribe(data => {
-        // populate list json
-        this.listCategory = data.rows;
-      });
-  }
-  // obtain all data from the tax
-  getAllDataTax() {
-    // send to search api backend all tax
-    this.taxService.getAllDataTax()
-      .subscribe(data => {
-        // populate list json
-        this.listTax = data.rows;
-      });
-  }
+
   recagarImagen(e) {
     if (e.srcElement.value != null) {
       this.image = e.srcElement.value;
