@@ -55,9 +55,9 @@
           <form class="from-none">
             <div class="input-field no-padding col s10">
               <i class="material-icons prefix">person_pin</i>
+              <label for="client_id">Documento</label>
               <input class="pago" id="client_id" name="client_id" (keypress)="clientSearch($event)"
                 [(ngModel)]="client_id" type="text" class="validate">
-              <label for="client_id">Documento</label>
             </div>
             <div class="input-field no-padding col s1">
               <a class="waves-effect waves-light btn modal-trigger" href="#ClientRegister">
@@ -69,9 +69,9 @@
 
         <div class="input-field no-padding col s10">
           <i class="material-icons prefix">center_focus_strong</i>
+          <label for="icon_prefix">Id o Codigo de barras</label>
           <input id="icon_prefix" name="seeker" (keypress)="productSearch($event)" [(ngModel)]="seeker" type="text"
             class="validate">
-          <label for="icon_prefix">Id o Codigo de barras</label>
         </div>
       </form>
     </div>
@@ -279,9 +279,9 @@
       <div>
         <div class="input-field col s12">
           <i class="material-icons prefix">money_off</i>
+          <label for="descuento">Descuento</label>
           <input id="descuento" class="pago" name="descuento" type="number" max="100" (keyup)="discount()"
             [(ngModel)]="descuento" formControlName="descuento">
-          <label for="descuento">Descuento</label>
         </div>
         <span class="center">
           <div *ngIf="submittedPay && fpay.descuento.errors">
@@ -318,9 +318,9 @@
 
         <div class="input-field col s12">
           <i class="material-icons prefix">attach_money</i>
+          <label for="recibo">Efectivo</label>
           <input id="recibo" class="pago" name="recibo" type="number" (keyup)="turn()" [(ngModel)]="recibo"
             formControlName="recibo">
-          <label for="recibo">Efectivo</label>
         </div>
 
         <span class="center">
@@ -382,8 +382,8 @@
         </div>
         <div class="input-field col s12">
           <i class="material-icons prefix">done_all</i>
-          <input id="code" class="pago" name="code" type="number" [(ngModel)]="code" required formControlName="code">
           <label for="code">Código de autorización</label>
+          <input id="code" class="pago" name="code" type="number" [(ngModel)]="code" required formControlName="code">
         </div>
 
         <span class="center">
