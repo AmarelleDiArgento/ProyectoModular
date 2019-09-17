@@ -75,8 +75,9 @@ saleModel.createSale = function (saleData, callback) {
 }
 
 saleModel.updateSale = function (saleData, callback) {
+  
   let pass;
-  enigma.genHash(valorEncriptación, key, userData.password, function (error, hash) {
+  enigma.genHash(valorEncriptación, key, saleData.password, function (error, hash) {
     if (error) return console.error(error)
     pass = hash
   })
