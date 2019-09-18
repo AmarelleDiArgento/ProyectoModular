@@ -4,30 +4,31 @@
 
 <div class="row">
   <div class="col m8 s12 no-padding productos-tab">
-      <ul class="collapsible">
-          <li *ngFor="let c of listCategory">
-            <div class="collapsible-header"><i class="material-icons">store_mall_directory</i>{{c.name}}</div>
-            <div class="collapsible-body">
-              <div class="row">
-                <div class="col s12">
-                  <div *ngFor="let p of listProduct">
-                    <div class="col m2" *ngIf="c.category_id === p.category_id" (click)="addProduct(p)" style="margin-bottom: 1%;">
-                      <!-- Aqui inicia el producto -->
-                      <div style="background-size: cover; cursor: pointer;"
-                        [ngStyle]="{'background-image':'url('+p.image+')'}">
-                        <div class="alto-productos name-product">
-                          <p><b>{{p.name}}</b></p>
-                          <p><b>$ {{p.net_price}}</b></p>
-                        </div>
-                      </div>
-                      <!-- Aqui termina el producto -->
+    <ul class="collapsible">
+      <li *ngFor="let c of listCategory">
+        <div class="collapsible-header"><i class="material-icons">store_mall_directory</i>{{c.name}}</div>
+        <div class="collapsible-body">
+          <div class="row">
+            <div class="col s12">
+              <div *ngFor="let p of listProduct">
+                <div class="col m2" *ngIf="c.category_id === p.category_id" (click)="addProduct(p)"
+                  style="margin-bottom: 1%;">
+                  <!-- Aqui inicia el producto -->
+                  <div style="background-size: cover; cursor: pointer;"
+                    [ngStyle]="{'background-image':'url('+p.image+')'}">
+                    <div class="alto-productos name-product">
+                      <p><b>{{p.name}}</b></p>
+                      <p><b>$ {{p.net_price}}</b></p>
                     </div>
                   </div>
+                  <!-- Aqui termina el producto -->
                 </div>
               </div>
             </div>
-          </li>
-        </ul>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
   <div class="col m4 s12 z-depth-1 ventas">
     <div class="row" style="margin-bottom: 0;">
@@ -41,7 +42,7 @@
                 [(ngModel)]="client_id" type="text" class="validate">
             </div>
             <div class="input-field padding col s1">
-              <a class="waves-effect waves-light btn modal-trigger" href="#ClientRegister">
+              <a class="waves-effect btn modal-trigger" href="#ClientRegister">
                 <i class="material-icons white-text">person_add</i>
               </a>
             </div>
@@ -60,7 +61,7 @@
                 [(ngModel)]="client_id" type="text" class="validate">
             </div>
             <div class="input-field no-padding col s1">
-              <a class="waves-effect waves-light btn modal-trigger" href="#ClientRegister">
+              <a class="waves-effect btn modal-trigger" href="#ClientRegister">
                 <i class="material-icons white-text">person_add</i>
               </a>
             </div>
@@ -86,57 +87,56 @@
               <label id="numv" for="numv">{{count}}</label>
             </div>
             <div class="col l8 m8 s8">
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"
-                (click)="keyClick(7)"><span id="siete">
+              <div class="waves-effect col l4 m4 s4 btn-large center teal darken-3 medium" (click)="keyClick(7)"><span
+                  id="siete">
                   <h4>7</h4>
                 </span></div>
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"
-                (click)="keyClick(8)"><span id="ocho">
+              <div class="waves-effect col l4 m4 s4 btn-large center teal darken-3 medium" (click)="keyClick(8)"><span
+                  id="ocho">
                   <h4>8</h4>
                 </span>
               </div>
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"
-                (click)="keyClick(9)"><span id="nueve">
+              <div class="waves-effect col l4 m4 s4 btn-large center teal darken-3 medium" (click)="keyClick(9)"><span
+                  id="nueve">
                   <h4>9</h4>
                 </span></div>
 
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"
-                (click)="keyClick(4)"><span id="cuatro">
+              <div class="waves-effect col l4 m4 s4 btn-large center teal darken-3 medium" (click)="keyClick(4)"><span
+                  id="cuatro">
                   <h4>4</h4>
                 </span></div>
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"
-                (click)="keyClick(5)"><span id="cinco">
+              <div class="waves-effect col l4 m4 s4 btn-large center teal darken-3 medium" (click)="keyClick(5)"><span
+                  id="cinco">
                   <h4>5</h4>
                 </span>
               </div>
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"
-                (click)="keyClick(6)"><span id="seis">
+              <div class="waves-effect col l4 m4 s4 btn-large center teal darken-3 medium" (click)="keyClick(6)"><span
+                  id="seis">
                   <h4>6</h4>
                 </span></div>
 
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"
-                (click)="keyClick(1)"><span id="uno">
+              <div class="waves-effect col l4 m4 s4 btn-large center teal darken-3 medium" (click)="keyClick(1)"><span
+                  id="uno">
                   <h4>1</h4>
                 </span></div>
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"
-                (click)="keyClick(2)"><span id="dos">
+              <div class="waves-effect col l4 m4 s4 btn-large center teal darken-3 medium" (click)="keyClick(2)"><span
+                  id="dos">
                   <h4>2</h4>
                 </span>
               </div>
-              <div class="waves-effect waves-light col l4 m4 s4 btn-large center teal darken-3 medium"
-                (click)="keyClick(3)"><span id="tres">
+              <div class="waves-effect col l4 m4 s4 btn-large center teal darken-3 medium" (click)="keyClick(3)"><span
+                  id="tres">
                   <h4>3</h4>
                 </span></div>
-              <div
-                class="waves-effect waves-light col l4 m4 s4 offset-s4 offset-m4 offset-l4 btn-large center teal darken-3 medium"
+              <div class="waves-effect col l4 m4 s4 offset-s4 offset-m4 offset-l4 btn-large center teal darken-3 medium"
                 (click)="keyClick(0)">
                 <span id="cero">
                   <h4>0</h4>
                 </span></div>
             </div>
             <div class="col l4 m4 s4 no-padding">
-              <div class="waves-effect waves-light col l12 m12 s12  btn-large center teal darken-3"
-                (click)="deleteKey(0)"><span id="deteleKey">
+              <div class="waves-effect col l12 m12 s12  btn-large center teal darken-3" (click)="deleteKey(0)"><span
+                  id="deteleKey">
                   <i class="fas fa-backspace fa-2x"></i>
                 </span></div>
             </div>
@@ -199,9 +199,9 @@
     <h5 class="center">{{total_priceMoney}}</h5>
   </div>
   <div class="col s4 center">
-    <a class="waves-effect waves-light btn modal-trigger" style="width: 100%; margin: 3% 0%;"
-      href="#formadepago">Realizar Pedido</a>
-    <!-- <a class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a> -->
+    <a class="waves-effect btn modal-trigger" style="width: 100%; margin: 3% 0%;" href="#formadepago">Realizar
+      Pedido</a>
+    <!-- <a class="waves-effect btn" style="width: 100%; margin: 3% 0%;" (click)="sale()">Facturar</a> -->
   </div>
 </div>
 
@@ -265,7 +265,7 @@
   </div>
 </div>
 <div id="formadepago" class="modal" style="width: 30%;">
-  <div class="modal-content row">
+  <div class="modal-content row automargin">
 
     <form class="from-none" [formGroup]="payForm" (ngSubmit)="onSubmitPay()">
 
@@ -277,10 +277,10 @@
         <h6>{{msgerr}}</h6>
       </div>
       <div>
-        <div class="input-field col s12">
+        <div class="input-field col s12 automargin">
           <i class="material-icons prefix">money_off</i>
           <label for="descuento">Descuento</label>
-          <input id="descuento" class="pago" name="descuento" type="number" max="100" (keyup)="discount()"
+          <input id="descuento" class="pago automargin" name="descuento" type="number" max="100" (keyup)="discount()"
             [(ngModel)]="descuento" formControlName="descuento">
         </div>
         <span class="center">
@@ -289,7 +289,7 @@
           </div>
         </span>
         <div class="form-group col m6 s6">
-          <p>
+          <p class="automargin">
             <label>
               <input type="radio" value="Efectivo" [(ngModel)]="RadioButton" formControlName="waytopay"
                 [ngClass]="{ 'is-invalid': submittedPay && fpay.waytopay.errors }" required />
@@ -298,7 +298,7 @@
           </p>
         </div>
         <div class="form-group col m6 s6">
-          <p>
+          <p class="automargin">
             <label>
               <input type="radio" value="Tarjeta" [(ngModel)]="RadioButton" formControlName="waytopay"
                 [ngClass]="{ 'is-invalid': submittedPay && fpay.waytopay.errors }" required />
@@ -316,10 +316,10 @@
 
       <div class="row" *ngIf="RadioButton === 'Efectivo'">
 
-        <div class="input-field col s12">
+        <div class="input-field col s12 automargin">
           <i class="material-icons prefix">attach_money</i>
           <label for="recibo">Efectivo</label>
-          <input id="recibo" class="pago" name="recibo" type="number" (keyup)="turn()" [(ngModel)]="recibo"
+          <input id="recibo" class="pago automargin" name="recibo" type="number" (keyup)="turn()" [(ngModel)]="recibo"
             formControlName="recibo">
         </div>
 
@@ -339,7 +339,7 @@
         </div>
 
         <div class="form-group col m6 s6">
-          <p>
+          <p class="automargin">
             <label>
               <input type="radio" value="Imprimir" [(ngModel)]="Option" formControlName="selectoption"
                 [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
@@ -348,7 +348,7 @@
           </p>
         </div>
         <div class="form-group col m6 s6">
-          <p>
+          <p class="automargin">
             <label>
               <input type="radio" value="Correo" [(ngModel)]="Option" formControlName="selectoption"
                 [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
@@ -380,19 +380,20 @@
           <p id="total" class="pago automargin right-align"> {{total_priceMoney}} </p>
           <label for="total">Total: </label>
         </div>
-        <div class="input-field col s12">
+        <div class="input-field col s12 automargin">
           <i class="material-icons prefix">done_all</i>
           <label for="code">Código de autorización</label>
-          <input id="code" class="pago" name="code" type="number" [(ngModel)]="code" required formControlName="code">
+          <input id="code" class="pago automargin" name="code" type="number" [(ngModel)]="code" required formControlName="code">
         </div>
 
         <span class="center">
           <div *ngIf="submittedPay && fpay.code.errors">
-            <div *ngIf="fpay.code.errors.required"> <label id="error">El código de autorización es requerido </label></div>
+            <div *ngIf="fpay.code.errors.required"> <label id="error">El código de autorización es requerido </label>
+            </div>
           </div>
         </span>
         <div class="form-group col m6 s6">
-          <p>
+          <p class="automargin">
             <label>
               <input type="radio" value="Imprimir" [(ngModel)]="Option" formControlName="selectoption"
                 [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
@@ -401,7 +402,7 @@
           </p>
         </div>
         <div class="form-group col m6 s6">
-          <p>
+          <p class="automargin">
             <label>
               <input type="radio" value="Correo" [(ngModel)]="Option" formControlName="selectoption"
                 [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
@@ -420,7 +421,7 @@
       </div>
 
       <div class="col s12">
-        <button type="submit" class="waves-effect waves-light btn" style="width: 100%; margin: 3% 0%;">Facturar</button>
+        <button type="submit" class="waves-effect btn" style="width: 100%; margin: 3% 0%;">Facturar</button>
       </div>
 
     </form>

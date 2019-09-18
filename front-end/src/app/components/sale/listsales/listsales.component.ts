@@ -106,7 +106,7 @@ export class ListsalesComponent implements OnInit {
       };
     this.rowSelection = 'multiple';
     this.pivotPanelShow = 'always';
-    this.paginationPageSize = 10;
+    this.paginationPageSize = 5;
     this.paginationNumberFormatter = function (params) {
       return '[' + params.value.toLocaleString() + ']';
     };
@@ -175,6 +175,7 @@ export class ListsalesComponent implements OnInit {
       this.until = this.selectDateForm.value.until;
       this.cambiaEstado();
       this.ngOnInit();
+      
     }
   }
 

@@ -104,6 +104,7 @@ export class UpdateuserComponent implements OnInit {
       return;
     } else {
       this.userService.updateUsers(
+        this.idUser,
         this.updateUserForm.value.user_id,
         this.updateUserForm.value.username,
         this.updateUserForm.value.email,
@@ -137,6 +138,8 @@ export class UpdateuserComponent implements OnInit {
       .subscribe(data => {
         if (data != null) {
           // add values to the form
+          console.log(data.rows[0]);
+          
           this.updateUserForm.patchValue({
             user_id: data.rows[0].user_id,
             username: data.rows[0].username,
@@ -153,6 +156,8 @@ export class UpdateuserComponent implements OnInit {
       .subscribe(data => {
         // populate list json module
         this.listPod = data.rows;
+        console.log(this.listPod);
+        
         //init validation checks
         $(function () {
           $('select').formSelect();
@@ -176,11 +181,12 @@ export class UpdateuserComponent implements OnInit {
   }
 
   getAllPodUser() {
+    console.log(this.idUser);
+    
     this.userService.getDataPodUserId(this.idUser)
       .subscribe(data => {
         // populate list json module
         this.listPodCheck = data.rows;
-
       });
   }
 

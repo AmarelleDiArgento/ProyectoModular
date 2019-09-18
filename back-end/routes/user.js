@@ -47,8 +47,6 @@ router.post('/assignuserpod', function (req, res, next) {
     user_id: req.body.user_id,
     pod_id: req.body.pod_id
   }
-  console.log(userData);
-
   user.assignUserPod(userData, function (error, data) {
     if (error) {
       console.log(error);
@@ -64,6 +62,7 @@ router.post('/assignuserpod', function (req, res, next) {
 //update user
 router.post('/updateuser', function (req, res, next) {
   var userData = {
+    old_id: req.body.old_id,
     user_id: req.body.user_id,
     username: req.body.username,
     email: req.body.email,
@@ -71,6 +70,8 @@ router.post('/updateuser', function (req, res, next) {
     status: req.body.status
   }
   user.updateUser(userData, function (error, data) {
+    console.log(userData);
+    
     if (error) {
       res.status(504).jsonp({
         "error": error
@@ -105,8 +106,6 @@ router.post('/resetuserpassword', function (req, res, next) {
     user_id: req.body.user_id,
     password: req.body.password
   }
-  console.log('Routes: ');
-  console.log(userData);
 
   user.resetUserPassword(userData, function (error, data) {
     if (error) {
@@ -217,6 +216,7 @@ router.post('/updatepoduser', function (req, res, next) {
     ps_pod_id: req.body.ps_pod_id
   }
   user.updatatePodUser(userData, function (error, data) {
+    
     if (error) {
       res.status(504).jsonp({
         "error": error

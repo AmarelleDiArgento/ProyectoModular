@@ -95,7 +95,7 @@ export class UpdateproductComponent implements OnInit {
         this.updateProductForm.value.net_price,
         this.updateProductForm.value.category_id,
         this.updateProductForm.value.tax_id,
-        this.updateProductForm.value.image,
+        'assets/productos/' + this.updateProductForm.value.image,
         this.updateProductForm.value.status)
         .subscribe(data => {
           if (data.respuesta === 'Success') {
@@ -126,9 +126,10 @@ export class UpdateproductComponent implements OnInit {
           this.updateProductForm.get('product_id').setValue(this.idProduct);
           this.updateProductForm.get('code').setValue(data.rows[0].code);
           this.updateProductForm.get('name').setValue(data.rows[0].name);
-          this.updateProductForm.get('net_price').setValue(data.rows[0].net_price);
+          this.updateProductForm.get('net_price').setValue(data.rows[0].net_price);          
           this.updateProductForm.get('category_id').setValue(data.rows[0].category_id);
-          this.updateProductForm.get('image').setValue(data.rows[0].image);
+          let ima = data.rows[0].image.split('/');
+          this.updateProductForm.get('image').setValue(ima[2]);
           this.image = data.rows[0].image;
           this.updateProductForm.get('status').setValue(data.rows[0].status);
         }
@@ -183,7 +184,7 @@ export class UpdateproductComponent implements OnInit {
   }
   recagarImagen(e) {
     if (e.srcElement.value != null) {
-      this.image = e.srcElement.value;
+      this.image = 'assets/productos/' + e.srcElement.value;
     } else {
       this.updateUrl();
     }

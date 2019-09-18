@@ -81,6 +81,18 @@ export class UserComponent implements OnInit {
       ).subscribe(data => {
 
         if (data.respuesta === 'Success') {
+          //update en pod users
+            //update pod users
+          
+            this.userService.updateUsersPod(this.registerUserForm.value.user_id, this.registerUserForm.value.pod_id)
+              .subscribe(dataPod => {
+                if (dataPod.respuesta == 'Success') {
+                  this.router.navigate(['/listusers']);
+                } else {
+                  this.msgerr = 'error al actualizar el usuario-lugar';
+                }
+              })
+          //else user
           Swal.fire({
             type: 'success',
             title: 'Registro exitoso',

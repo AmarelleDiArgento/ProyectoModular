@@ -474,24 +474,25 @@ DROP procedure IF EXISTS userupd;
 DELIMITER $$
 USE proyectomodular$$
 CREATE PROCEDURE userupd (
-
+_old_id VARCHAR(45) ,
 _user_id VARCHAR(45) ,
 _username VARCHAR(255),
 _email VARCHAR(255),
 _rol_id INT,
-_status tinyint)
+_status INT)
 
 BEGIN
 
 UPDATE proyectomodular.user
 SET
-user_id = _user_id ,
+user_id = _user_id,
 username =_username,
 email =_email,	
 rol_id=_rol_id,
+status=_status,
 update_time = now()
 WHERE 
-user_id = _user_id;
+user_id = _old_id;
 END$$
 
 DELIMITER ;
@@ -503,7 +504,8 @@ DROP procedure IF EXISTS userone;
 
 DELIMITER $$
 USE proyectomodular$$
-CREATE PROCEDURE userone (_user_id INT)
+CREATE PROCEDURE userone (
+_user_id VARCHAR(45))
 BEGIN
 SELECT  u.user_id, u.username, u.email, u.password, u.rol_id as rol_id, r.name as rol_name, u.status, u.create_time, u.update_time
 FROM proyectomodular.user AS u
@@ -637,8 +639,10 @@ CREATE PROCEDURE pod_userins (
 BEGIN
 
 declare cont int;
-select  count(_ps_user_id) into cont from pod_user where ps_user_id = _ps_user_id and _ps_pod_id = ps_pod_id;
-if cont then
+select  count(ps_user_id) into cont from pod_user 
+where ps_user_id = _ps_user_id and ps_pod_id = _ps_pod_id;
+
+if cont>0 then
 select 'duplicate record' as error;
 else 
 INSERT INTO proyectomodular.pod_user (ps_user_id,ps_pod_id) 
@@ -657,13 +661,17 @@ DELIMITER ;
 DELIMITER $$
 
 DROP PROCEDURE IF EXISTS pods_userins $$
-CREATE PROCEDURE pods_userins(_user_id BIGINT, _list MEDIUMTEXT)
+CREATE PROCEDURE pods_userins(_user_id varchar(45), _list MEDIUMTEXT)
 BEGIN
 
 DECLARE _next TEXT DEFAULT NULL;
 DECLARE _nextlen INT DEFAULT NULL;
 DECLARE _pods TEXT DEFAULT NULL;
+
 CALL pod_userdel(_user_id);
+
+delete from pod_user where ps_user_id not in(
+SELECT user_id FROM proyectomodular.user);
 
 iterator:
 LOOP
@@ -975,6 +983,8 @@ BEGIN
 INSERT INTO proyectomodular.product (code,name,net_price,category_id,image,status) 
 VALUES
 (_code,_name,_net_price,_category_id,_image,_status);
+SELECT LAST_INSERT_ID() as id;
+
 END$$
 
 DELIMITER ;

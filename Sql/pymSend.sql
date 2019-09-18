@@ -26,8 +26,18 @@
     -- desde hasta ventas producto tirilla
     
     
-    -- ALTER TABLE proyectomodular.pod 
-	-- ADD COLUMN warehouse VARCHAR(10) NULL AFTER billing_limit,
-	-- ADD COLUMN costcenter INT NULL AFTER warehouse,
-	-- ADD COLUMN email VARCHAR(100) NULL AFTER name;
+     ALTER TABLE proyectomodular.pod 
+	 ADD COLUMN warehouse VARCHAR(10) NULL AFTER billing_limit,
+	 ADD COLUMN costcenter INT NULL AFTER warehouse,
+	 ADD COLUMN email VARCHAR(100) NULL AFTER name;
+    
+    ALTER TABLE proyectomodular.pod_user 
+	DROP FOREIGN KEY fk_user_has_pod_user1;
+	ALTER TABLE proyectomodular.pod_user 
+	ADD CONSTRAINT fk_user_has_pod_user1
+	  FOREIGN KEY (ps_user_id)
+	  REFERENCES proyectomodular.user (user_id)
+	  ON DELETE RESTRICT
+	  ON UPDATE CASCADE;
+
 

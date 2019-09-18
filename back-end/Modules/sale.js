@@ -412,7 +412,6 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
               '<br>' +
               '<table style="display: table; margin: 0 auto;">' +
               '<tr>' +
-              '<th>Item</th>' +
               '<th>Cant.</th>' +
               '<th>Descripcion</th>' +
               '<th>Total $</th>' +
@@ -420,7 +419,6 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
 
             for (var p = 0; p < Productos.length; p++) {
               myHTML += '<tr>' +
-                '<td style="text-align: center; vertical-align: middle;"> ' + JSON.stringify(Productos[p].id) + '</td>' +
                 '<td style="text-align: center; vertical-align: middle;">' + JSON.stringify(Productos[p].cantidad) + '</td>' +
                 '<td style="text-align: center; vertical-align: middle;">' + JSON.stringify(Productos[p].producto) + '</td>' +
                 '<td style="text-align: center; vertical-align: middle;">' + JSON.stringify(Productos[p].precio) + '</td>' +

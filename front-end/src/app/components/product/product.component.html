@@ -80,9 +80,10 @@
             </div>
           </div>
           <div class="col s6">
-            <div class="row">
+            <div class="row">            
+              
+                
               <div class="form-group col s12">
-                <label for="image">Imagen</label>
                 <input type="text" class="form-control" id="image" (change)="recagarImagen($event)"
                   formControlName="image" [ngClass]="{ 'is-invalid': submitted && f.image.errors }"
                   placeholder="Ingrese la url de la imagen">
@@ -92,6 +93,8 @@
                   </div>
                 </span>
               </div>
+              
+              
               <div class="col s12">
                 <img class="responsive-img" [src]="image" (error)="updateUrl()">
               </div>

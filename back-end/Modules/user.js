@@ -12,7 +12,7 @@ var userModel = {}
 
 let ins = `call proyectomodular.userins(?,?,?,?,?,?);`;
 let cli = `call proyectomodular.usercliins(?,?,?);`;
-let upd = `call proyectomodular.userupd(?,?,?,?,?);`;
+let upd = `call proyectomodular.userupd(?,?,?,?,?,?);`;
 let pas = `call proyectomodular.userpasupd(?,?,?);`;
 let res = `call proyectomodular.userpasres(?,?);`;
 let del = `call proyectomodular.userdel(?);`;
@@ -106,19 +106,20 @@ userModel.updateUser = function (userData, callback) {
 
   if (connection) {
     connection.query(upd, [
+      userData.old_id,
       userData.user_id,
       userData.username,
       userData.email,
       userData.rol_id,
       userData.status
-    ], function (error, rows) {
+    ], function (error, rows) {      
       if (error) {
         console.log(error)
         callback(null, {
           "respuesta": "Error de conexión"
         })
       } else {
-        if (rows.length != 0) {
+        if (rows.length != 0) {          
           rows = rows[0];
           var jsonObj = {
             respuesta: "Success"
@@ -200,8 +201,6 @@ userModel.updateUserPassword = function (userData, callback) {
 }
 
 userModel.resetUserPassword = function (userData, callback) {
-  console.log('Modulo: ');
-  console.log(userData);
   enigma.genHash(valorEncriptación, key, userData.password, function (error, hash) {
     if (error) return console.error(error.error)
     pass = hash
@@ -286,9 +285,7 @@ userModel.dataUser = function (userData, callback) {
           var jsonObj = {
             rows,
             respuesta: "Success"
-          }
-          console.log(jsonObj);
-          
+          }          
           callback(null, jsonObj)
         } else {
           console.log("Error la consulta no arroja datos")
@@ -339,7 +336,13 @@ userModel.dataAllUser = function (userData, callback) {
 }
 
 userModel.dataAllPodUser = function (userData, callback) {
-  var query = "SELECT pod.pod_id, pod.name FROM pod_user INNER JOIN user ON pod_user.ps_user_id = user.user_id INNER JOIN pod ON pod_user.ps_pod_id = pod.pod_id where pod_user.ps_user_id=" + userData.ps_user_id + " "
+  
+  var query = `
+  SELECT pod.pod_id, pod.name 
+  FROM pod_user INNER JOIN user ON pod_user.ps_user_id = user.user_id 
+  INNER JOIN pod ON pod_user.ps_pod_id = pod.pod_id 
+  WHERE pod_user.ps_user_id="` + userData.ps_user_id + `";
+  `;
   if (connection) {
     connection.query(query, function (error, rows) {
       if (error) {
@@ -371,7 +374,7 @@ userModel.dataAllPodUser = function (userData, callback) {
 }
 
 userModel.updatatePodUser = function (userData, callback) {
- if (connection) {
+ if (connection) {   
     connection.query(inspoduser,
       [
         userData.ps_user_id,
