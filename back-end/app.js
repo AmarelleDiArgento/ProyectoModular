@@ -135,6 +135,7 @@ app.post('/getdatasalebetween', sale)
 app.post('/getdatasalebetweensum', sale)
 app.post('/getdatasaleinvoice', sale)
 app.get('/getdatasales', sale)
+app.post('/getdatasalescsv', sale)
  
 //urls saleproduct
 app.post('/createsaleproduct', saleproduct)

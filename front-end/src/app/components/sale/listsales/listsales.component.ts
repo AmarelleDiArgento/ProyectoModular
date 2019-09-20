@@ -47,6 +47,7 @@ export class ListsalesComponent implements OnInit {
 
   since;
   until;
+  idPod;
 
   taxPrice = 0;
   grossPrice = 0;
@@ -130,6 +131,8 @@ export class ListsalesComponent implements OnInit {
     console.log(now);
 
 
+    this.idPod = localStorage.getItem('idSesionPod');
+
     if (this.since === null) {
       localStorage.setItem('sinceDate', now);
       this.since = now;
@@ -175,7 +178,7 @@ export class ListsalesComponent implements OnInit {
       this.until = this.selectDateForm.value.until;
       this.cambiaEstado();
       this.ngOnInit();
-      
+
     }
   }
 
@@ -237,19 +240,34 @@ export class ListsalesComponent implements OnInit {
   }
 
 
-  exportTotalDayXLSX(){
-     // send to search api backend all sales
-     this.saleService.getAllDataSaleBetweenSum(
+  sendDataSale() {
+    // send to search api backend all sales
+    this.saleService.getSendDataSale(
+      this.idPod,
       this.since,
       this.until
     )
       .subscribe(data => {
-        // populate list json sale
-        this.listSale = data.rows;
-        //generate excel
-        this.excelService.exportAsExcelFile(this.listSale, 'ReporteTotalVentas');
+        
+        if (data.respuesta === 'Success') {
+          Swal.fire({
+            type: 'success',
+            title: 'Enviado!',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          
+        }else{
+          Swal.fire({
+            type: 'error',
+            title: 'Ups! o_o',
+            showConfirmButton: false,
+            timer: 2000
+          });
+
+        }
       });
-  } 
+  }
 }
 
 function filter(filterLocalDateAtMidnight, cellValue) {

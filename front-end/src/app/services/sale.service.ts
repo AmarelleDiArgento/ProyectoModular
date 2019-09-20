@@ -28,6 +28,15 @@ export class SaleService {
       .map((response: Response) => response.json())
   }
 
+  //get all data sale between
+  getSendDataSale(pod_id, since, until) {
+    this.params = 'pod_id=' + pod_id + '&since=' + since + '&until=' + until;
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(varsGlobals.url + '/getdatasalescsv/', this.params, options)
+      .map((response: Response) => response.json())
+  }
+
   //get all data sale between sum
   getAllDataSaleBetweenSum(since, until) {
     this.params = 'since=' + since + '&until=' + until;
