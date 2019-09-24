@@ -1,59 +1,16 @@
-<div class="container">
-  <div class="row">
-    <div class="col s12">
-      <div class="col s6">
-        <form [formGroup]="selectDateForm" class="from-none col s12" (ngSubmit)="onDateSubmit()">
-          <div class="row">
-            <div class="form-group input-field col s5">
-              <label for="since">Desde:</label>
-              <input id="since" type="date" class="form-control" formControlName="since"
-                [ngClass]="{ 'is-invalid': submitted && f.since.errors }">
-              <span>
-                <div *ngIf="submitted && f.since.errors">
-                  <div *ngIf="f.since.errors.required"> <label id="error">Fecha inicial requerida </label></div>
-                </div>
-              </span>
-            </div>
+<div class="row">
+  <div class="col s12 flow-text center center-align">
 
-            <div class="form-group input-field col s5">
-              <label for="until">Hasta:</label>
-              <input id="until" type="date" class="form-control" formControlName="until"
-                [ngClass]="{ 'is-invalid': submitted && f.until.errors }">
-              <span>
-                <div *ngIf="submitted && f.until.errors">
-                  <div *ngIf="f.until.errors.required"> <label id="error">Fecha final requerida </label></div>
-                </div>
-              </span>
-            </div>
+    <div class="col s6">PRODUCTO</div>
+    <div class="col s2">CANTIDAD</div>
+    <div class="col s4">PRECIO</div>
 
-            <div class="input-field col s2">
-              <button type="submit" class="btn btn-primary btn-lg btn-block btn-full">
-                <i class="material-icons">
-                  date_range
-                </i>
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="col s6">
-        <table>
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Cantidad</th>
-              <th>Precio</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let p of listSale">
-              <td class="left">{{p.Productos}}</td>
-              <td>{{p.Cantidad}}</td>
-              <td class="right">{{CurrencyFormatted(p.Precio)}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 flow-text" *ngFor="let p of listSale">
+    <div class="col s6 left left-align">{{p.Productos}}</div>
+    <div class="col s2 center center-align">{{p.Cantidad}}</div>
+    <div class="col s4 center center-align">{{CurrencyFormatted(p.Precio)}}</div>
   </div>
 </div>

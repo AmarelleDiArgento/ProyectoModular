@@ -90,21 +90,15 @@ export class TicketComponent implements OnInit {
         this.listSale = data.rows;
         console.log(this.listSale);
       });
-  }
-
-  exportAsXLSX(): void {
-    //generate excel
-    this.excelService.exportAsExcelFile(this.listSale, 'ReporteTotalVentas');
+    this.printFile();
   }
 
   // service to print
   printFile() {
-    // remove idSale
-    localStorage.removeItem('idSale');
     // print file time
     setTimeout(() => {
       this.printService.print();
-      this.router.navigate(['/createsale']);
+      this.router.navigate(['/listsales']);
     }, 1000);
   }
   CurrencyFormatted(nStr) {

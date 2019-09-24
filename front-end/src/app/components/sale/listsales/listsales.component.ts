@@ -239,7 +239,10 @@ export class ListsalesComponent implements OnInit {
     this.excelService.exportAsExcelFile(this.listSale, 'Reporteventas');
   }
 
+  printTicket() {
+    this.router.navigate(['/ticketprint']);
 
+  }
   sendDataSale() {
     // send to search api backend all sales
     this.saleService.getSendDataSale(
@@ -248,7 +251,7 @@ export class ListsalesComponent implements OnInit {
       this.until
     )
       .subscribe(data => {
-        
+
         if (data.respuesta === 'Success') {
           Swal.fire({
             type: 'success',
@@ -256,8 +259,8 @@ export class ListsalesComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000
           });
-          
-        }else{
+
+        } else {
           Swal.fire({
             type: 'error',
             title: 'Ups! o_o',
