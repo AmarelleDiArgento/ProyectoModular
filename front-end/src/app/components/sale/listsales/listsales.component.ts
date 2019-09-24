@@ -176,8 +176,23 @@ export class ListsalesComponent implements OnInit {
 
       localStorage.setItem('untilDate', this.selectDateForm.value.until);
       this.until = this.selectDateForm.value.until;
+
+      this.saleService.getAllDataSaleBetween(
+        this.since,
+        this.until
+      ).subscribe(data => {
+        this.gridApi.setRowData(data.rows)
+
+        for (const d of data.rows) {
+          this.taxPrice = this.taxPrice + d.tax_price;
+          this.grossPrice = this.grossPrice + d.gross_price;
+          this.netPrice = this.netPrice + d.net_price;
+        }
+        this.getFormatTotals();
+      });
+
+
       this.cambiaEstado();
-      this.ngOnInit();
 
     }
   }
@@ -185,10 +200,12 @@ export class ListsalesComponent implements OnInit {
   onPageSizeChanged(value) {
     this.gridApi.paginationSetPageSize(Number(value));
   }
+
   cambiaEstado() {
     this.texto = (this.filtro) ? '' : 'hiddensearch';
     this.filtro = !this.filtro;
   }
+
   quickSearch() {
     console.log(this.searchFilter);
     this.gridApi.setQuickFilter(this.searchFilter);
@@ -198,7 +215,6 @@ export class ListsalesComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.rowData = this.listSale;
-
   }
 
   // obtain all data from the register sales
