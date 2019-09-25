@@ -171,6 +171,10 @@ export class ListsalesComponent implements OnInit {
       return;
     } else {
 
+      this.taxPrice = 0;
+      this.grossPrice = 0;
+      this.netPrice = 0;
+
       localStorage.setItem('sinceDate', this.selectDateForm.value.since);
       this.since = this.selectDateForm.value.since;
 
@@ -255,6 +259,19 @@ export class ListsalesComponent implements OnInit {
     this.excelService.exportAsExcelFile(this.listSale, 'Reporteventas');
   }
 
+  exportTotalDayXLSX() {
+    // send to search api backend all sales
+    this.saleService.getAllDataSaleBetweenSum(
+      this.since,
+      this.until
+    )
+      .subscribe(data => {
+        // populate list json sale
+        this.listSale = data.rows;
+        //generate excel
+        this.excelService.exportAsExcelFile(this.listSale, 'ReporteTotalVentas');
+      });
+  }
   printTicket() {
     this.router.navigate(['/ticketprint']);
 
