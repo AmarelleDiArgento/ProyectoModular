@@ -4,30 +4,31 @@
 
 <div class="row">
   <div class="col m8 s12 no-padding productos-tab">
-      <ul class="collapsible">
-          <li *ngFor="let c of listCategory">
-            <div class="collapsible-header"><i class="material-icons">store_mall_directory</i>{{c.name}}</div>
-            <div class="collapsible-body">
-              <div class="row">
-                <div class="col s12">
-                  <div *ngFor="let p of listProduct">
-                    <div class="col m2" *ngIf="c.category_id === p.category_id" (click)="addProduct(p)" style="margin-bottom: 1%;">
-                      <!-- Aqui inicia el producto -->
-                      <div style="background-size: cover; cursor: pointer;"
-                        [ngStyle]="{'background-image':'url('+p.image+')'}">
-                        <div class="alto-productos name-product">
-                          <p><b>{{p.name}}</b></p>
-                          <p><b>$ {{p.net_price}}</b></p>
-                        </div>
-                      </div>
-                      <!-- Aqui termina el producto -->
+    <ul class="collapsible">
+      <li *ngFor="let c of listCategory">
+        <div class="collapsible-header"><i class="material-icons">store_mall_directory</i>{{c.name}}</div>
+        <div class="collapsible-body">
+          <div class="row">
+            <div class="col s12">
+              <div *ngFor="let p of listProduct">
+                <div class="col m2" *ngIf="c.category_id === p.category_id" (click)="addProduct(p)"
+                  style="margin-bottom: 1%;">
+                  <!-- Aqui inicia el producto -->
+                  <div style="background-size: cover; cursor: pointer;"
+                    [ngStyle]="{'background-image':'url('+p.image+')'}">
+                    <div class="alto-productos name-product">
+                      <p><b>{{p.name}}</b></p>
+                      <p><b>$ {{p.net_price}}</b></p>
                     </div>
                   </div>
+                  <!-- Aqui termina el producto -->
                 </div>
               </div>
             </div>
-          </li>
-        </ul>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
   <div class="col m4 s12 z-depth-1 ventas">
     <div class="row" style="margin-bottom: 0;">
@@ -342,7 +343,7 @@
           <p>
             <label>
               <input type="radio" value="Imprimir" [(ngModel)]="Option" formControlName="selectoption"
-                [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
+                [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" [checked]="true" required />
               <span><i class="material-icons ">print</i> Imprimir</span>
             </label>
           </p>
