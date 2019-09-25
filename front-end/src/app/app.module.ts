@@ -79,6 +79,7 @@ import { RendermaterialiconComponent } from './components/aggridrender/rendermat
 import { InvoiceComponent } from './components/sale/invoice/invoice.component';
 import { PreloadComponent } from './components/preload/preload.component';
 import { RenderresetbuttonComponent } from './components/aggridrender/renderresetbutton/renderresetbutton.component';
+import { TicketComponent } from './components/sale/ticket/ticket.component';
 
 
 
@@ -134,7 +135,8 @@ import { RenderresetbuttonComponent } from './components/aggridrender/renderrese
     RendermaterialiconComponent,
     PreloadComponent,
     InvoiceComponent,
-    RenderresetbuttonComponent
+    RenderresetbuttonComponent,
+    TicketComponent
   ],
   imports: [
     BrowserModule,

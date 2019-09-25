@@ -89,7 +89,13 @@ export class ProductComponent implements AfterViewInit, OnInit {
   get f() { return this.registerProductForm.controls; }
   // submit form
   onSubmit() {
+
     this.submitted = true;
+
+    let taxs = JSON.stringify(this.registerProductForm.value.tax_id);
+    taxs = taxs.substring(1, taxs.length - 1);
+    console.log(taxs);
+
     // error here if form is invalid
     if (this.registerProductForm.invalid) {
       return;
@@ -100,21 +106,34 @@ export class ProductComponent implements AfterViewInit, OnInit {
         this.registerProductForm.value.name,
         this.registerProductForm.value.net_price,
         this.registerProductForm.value.category_id,
-        this.registerProductForm.value.image,
+        'assets/productos/' + this.registerProductForm.value.image,
         this.registerProductForm.value.status)
         .subscribe(data => {
+          console.log(data.rows[0].id);
 
           if (data.respuesta === 'Success') {
-            Swal.fire({
-              type: 'success',
-              title: 'Registro exitoso',
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 2000
-            });
-            // redirect to home menu
-            this.router.navigate(['/listproducts']);
+            //update tax products
+            //update tax product
+            this.productService.updateProductTax(data.rows[0].id, this.registerProductForm.value.tax_id)
+              .subscribe(dataTax => {
+                if (dataTax.respuesta == 'Success') {
+
+                  Swal.fire({
+                    type: 'success',
+                    title: 'Registro exitoso',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000
+                  });
+                  // redirect to home menu
+                  this.router.navigate(['/listproducts']);
+                } else {
+                  this.msgerr = 'error al actualizar el producto - impuesto';
+                }
+              })
+            //else product
+
           } else {
             Swal.fire({
               type: 'error',
@@ -132,7 +151,7 @@ export class ProductComponent implements AfterViewInit, OnInit {
 
   recagarImagen(e) {
     if (e.srcElement.value != null) {
-      this.image = e.srcElement.value;
+      this.image = 'assets/productos/' + e.srcElement.value;
     } else {
       this.updateUrl();
     }

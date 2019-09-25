@@ -35,17 +35,14 @@
         </div>
 
         <div class="row" style="height: 35px; margin: 0%">
-          <div class="col s2">Item</div>
           <div class="col s2">Cant.</div>
-          <div class="col s5">Descripcion</div>
+          <div class="col s7">Descripcion</div>
           <div class="col s3">Total</div>
         </div>
         <div class="left-align">
           <div class="row" style="height: 100%; margin: 0%" *ngFor="let p of Productos">
-
-            <div class="col s2">{{p.id}} </div>
             <div class="col s2 center-align">{{p.cantidad}}</div>
-            <div class="col s5">{{p.producto}}</div>
+            <div class="col s7">{{p.producto}}</div>
             <div class="col s3 right-align">$ {{p.precio}}</div>
           </div>
         </div>

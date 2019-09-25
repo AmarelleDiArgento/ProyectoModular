@@ -26,17 +26,17 @@
         </div>
 
         <div class="form-group">
-          <label for="name">Modulo</label>
+          <label for="name">Módulo</label>
           <select class="form-control" id="module_id" formControlName="module_id"
             [ngClass]="{ 'is-invalid': submitted && f.module_id.errors}">
-            <option value="" disabled>Selecione un modulo</option>
+            <option value="" disabled>Selecione un módulo</option>
             <option *ngFor="let m of listModule" [ngValue]="m.module_id">
               {{ m.name}}
             </option>
           </select>
           <span>
             <div *ngIf="submitted && f.module_id.errors">
-              <div *ngIf="f.module_id.errors.required"> <label id="error">Error el modulo es requerido</label></div>
+              <div *ngIf="f.module_id.errors.required"> <label id="error">Error el módulo es requerido</label></div>
             </div>
           </span>
 

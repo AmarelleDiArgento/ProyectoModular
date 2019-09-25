@@ -14,7 +14,10 @@ router.post('/createpod', function (req, res, next) {
     rdian: req.body.rdian,
     daterdian: req.body.daterdian,
     billing_limit: req.body.billing_limit,
+    warehouse: req.body.warehouse, 
+    costcenter: req.body.costcenter,
     name: req.body.name,
+    email: req.body.email,
     address: req.body.address,
     phone: req.body.phone,
     status: req.body.status
@@ -41,7 +44,10 @@ router.post('/updatepod', function (req, res, next) {
     rdian: req.body.rdian,
     daterdian: req.body.daterdian,
     billing_limit: req.body.billing_limit,
+    warehouse: req.body.warehouse, 
+    costcenter: req.body.costcenter,
     name: req.body.name,
+    email: req.body.email,
     address: req.body.address,
     phone: req.body.phone,
     status: req.body.status

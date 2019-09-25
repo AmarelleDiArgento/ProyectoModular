@@ -53,10 +53,13 @@ export class UserService {
       .map((response: Response) => response.json())
   }
   // service to api mysql update users
-  updateUsers(user_id, username, email, rol_id, status) {
+  updateUsers(old_id, user_id, username, email, rol_id, status) {
     let s
     if (status) { s = 1; } else { s = 0; }
-    this.params = 'user_id=' + user_id + '&username=' + username + '&email=' + email + '&rol_id=' + rol_id + '&status=' + s + '';
+    this.params = 'old_id=' + old_id + '&user_id=' + user_id + '&username=' + username + '&email=' + email + '&rol_id=' + rol_id + 
+    '&status=' + s + ''; 
+    console.log(this.params);
+    
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(varsGlobals.url + '/updateuser/', this.params, options)

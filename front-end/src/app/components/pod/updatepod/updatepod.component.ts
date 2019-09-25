@@ -35,11 +35,14 @@ export class UpdatepodComponent implements OnInit {
     this.updatePodForm = this.formBuilder.group({
       pod_id: ['', Validators.required],
       code: ['', Validators.required],
+      costcenter: ['', Validators.required],
+      warehouse: ['', Validators.required],
       nit: ['', Validators.required],
       rdian: ['', Validators.required],
       daterdian: ['', Validators.required],
       billing_limit: ['', Validators.required],
       name: ['', Validators.required],
+      email: ['', Validators.required],
       address: ['', Validators.required],
       phone: ['', Validators.required],
       status: ['', Validators.required]
@@ -71,7 +74,10 @@ export class UpdatepodComponent implements OnInit {
         this.updatePodForm.value.rdian,
         this.updatePodForm.value.daterdian,
         this.updatePodForm.value.billing_limit,
+        this.updatePodForm.value.warehouse,
+        this.updatePodForm.value.costcenter,
         this.updatePodForm.value.name,
+        this.updatePodForm.value.email,
         this.updatePodForm.value.address,
         this.updatePodForm.value.phone,
         this.updatePodForm.value.status
@@ -101,7 +107,10 @@ export class UpdatepodComponent implements OnInit {
           this.updatePodForm.get('rdian').setValue(data.rows[0].rdian);
           this.updatePodForm.get('daterdian').setValue(data.rows[0].daterdian);
           this.updatePodForm.get('billing_limit').setValue(data.rows[0].billing_limit);
+          this.updatePodForm.get('warehouse').setValue(data.rows[0].warehouse);
+          this.updatePodForm.get('costcenter').setValue(data.rows[0].costcenter);
           this.updatePodForm.get('name').setValue(data.rows[0].name);
+          this.updatePodForm.get('email').setValue(data.rows[0].email);
           this.updatePodForm.get('address').setValue(data.rows[0].address);
           this.updatePodForm.get('phone').setValue(data.rows[0].phone);
           this.updatePodForm.get('status').setValue(data.rows[0].status);

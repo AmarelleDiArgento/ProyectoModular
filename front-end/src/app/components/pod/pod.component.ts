@@ -30,11 +30,14 @@ export class PodComponent implements OnInit {
     // init form
     this.registerPodsForm = this.formBuilder.group({
       code: ['', Validators.required],
+      costcenter: ['', Validators.required],
+      warehouse: ['', Validators.required],
       nit: ['', Validators.required],
       rdian: ['', Validators.required],
       daterdian: ['', Validators.required],
       billing_limit: ['', Validators.required],
       name: ['', Validators.required],
+      email: ['', Validators.required],
       address: ['', Validators.required],
       phone: ['', Validators.required],
       status: ['', Validators.required]
@@ -59,7 +62,10 @@ export class PodComponent implements OnInit {
         this.registerPodsForm.value.rdian,
         this.registerPodsForm.value.daterdian,
         this.registerPodsForm.value.billing_limit,
+        this.registerPodsForm.value.warehouse,
+        this.registerPodsForm.value.costcenter,
         this.registerPodsForm.value.name,
+        this.registerPodsForm.value.email,
         this.registerPodsForm.value.address,
         this.registerPodsForm.value.phone,
         this.registerPodsForm.value.status

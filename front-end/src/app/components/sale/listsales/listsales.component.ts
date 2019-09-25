@@ -47,6 +47,7 @@ export class ListsalesComponent implements OnInit {
 
   since;
   until;
+  idPod;
 
   taxPrice = 0;
   grossPrice = 0;
@@ -73,12 +74,12 @@ export class ListsalesComponent implements OnInit {
         }
       },
       { headerName: 'No.', field: 'invoice_num', sortable: true, width: 200 },
-      { headerName: 'punto de venta', field: 'pod_name', sortable: true },
+      { headerName: 'Pto de venta', field: 'pod_name', sortable: true },
       { headerName: 'Usuario', field: 'user_name', sortable: true },
       { headerName: 'Cliente', field: 'client_name', sortable: true },
       { headerName: 'Impuesto', field: 'tax_price', sortable: true, width: 150, valueFormatter: currencyFormatterdecimal },
-      { headerName: 'Precio bruto', field: 'gross_price', sortable: true, width: 150, valueFormatter: currencyFormatterdecimal },
-      { headerName: 'Precio neto', field: 'net_price', sortable: true, width: 150, valueFormatter: currencyFormatter },
+      { headerName: 'Precio Bruto', field: 'gross_price', sortable: true, width: 150, valueFormatter: currencyFormatterdecimal },
+      { headerName: 'Precio Neto', field: 'net_price', sortable: true, width: 150, valueFormatter: currencyFormatter },
       {
         headerName: '',
         field: 'sale_id',
@@ -106,7 +107,7 @@ export class ListsalesComponent implements OnInit {
       };
     this.rowSelection = 'multiple';
     this.pivotPanelShow = 'always';
-    this.paginationPageSize = 10;
+    this.paginationPageSize = 5;
     this.paginationNumberFormatter = function (params) {
       return '[' + params.value.toLocaleString() + ']';
     };
@@ -129,6 +130,8 @@ export class ListsalesComponent implements OnInit {
     let now = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
     console.log(now);
 
+
+    this.idPod = localStorage.getItem('idSesionPod');
 
     if (this.since === null) {
       localStorage.setItem('sinceDate', now);
@@ -168,23 +171,45 @@ export class ListsalesComponent implements OnInit {
       return;
     } else {
 
+      this.taxPrice = 0;
+      this.grossPrice = 0;
+      this.netPrice = 0;
+
       localStorage.setItem('sinceDate', this.selectDateForm.value.since);
       this.since = this.selectDateForm.value.since;
 
       localStorage.setItem('untilDate', this.selectDateForm.value.until);
       this.until = this.selectDateForm.value.until;
+
+      this.saleService.getAllDataSaleBetween(
+        this.since,
+        this.until
+      ).subscribe(data => {
+        this.gridApi.setRowData(data.rows)
+
+        for (const d of data.rows) {
+          this.taxPrice = this.taxPrice + d.tax_price;
+          this.grossPrice = this.grossPrice + d.gross_price;
+          this.netPrice = this.netPrice + d.net_price;
+        }
+        this.getFormatTotals();
+      });
+
+
       this.cambiaEstado();
-      this.ngOnInit();
+
     }
   }
 
   onPageSizeChanged(value) {
     this.gridApi.paginationSetPageSize(Number(value));
   }
+
   cambiaEstado() {
     this.texto = (this.filtro) ? '' : 'hiddensearch';
     this.filtro = !this.filtro;
   }
+
   quickSearch() {
     console.log(this.searchFilter);
     this.gridApi.setQuickFilter(this.searchFilter);
@@ -194,7 +219,6 @@ export class ListsalesComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.rowData = this.listSale;
-
   }
 
   // obtain all data from the register sales
@@ -235,10 +259,9 @@ export class ListsalesComponent implements OnInit {
     this.excelService.exportAsExcelFile(this.listSale, 'Reporteventas');
   }
 
-
-  exportTotalDayXLSX(){
-     // send to search api backend all sales
-     this.saleService.getAllDataSaleBetweenSum(
+  exportTotalDayXLSX() {
+    // send to search api backend all sales
+    this.saleService.getAllDataSaleBetweenSum(
       this.since,
       this.until
     )
@@ -248,7 +271,39 @@ export class ListsalesComponent implements OnInit {
         //generate excel
         this.excelService.exportAsExcelFile(this.listSale, 'ReporteTotalVentas');
       });
-  } 
+  }
+  printTicket() {
+    this.router.navigate(['/ticketprint']);
+
+  }
+  sendDataSale() {
+    // send to search api backend all sales
+    this.saleService.getSendDataSale(
+      this.idPod,
+      this.since,
+      this.until
+    )
+      .subscribe(data => {
+
+        if (data.respuesta === 'Success') {
+          Swal.fire({
+            type: 'success',
+            title: 'Enviado!',
+            showConfirmButton: false,
+            timer: 2000
+          });
+
+        } else {
+          Swal.fire({
+            type: 'error',
+            title: 'Ups! o_o',
+            showConfirmButton: false,
+            timer: 2000
+          });
+
+        }
+      });
+  }
 }
 
 function filter(filterLocalDateAtMidnight, cellValue) {

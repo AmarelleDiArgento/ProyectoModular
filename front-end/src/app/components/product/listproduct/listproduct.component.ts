@@ -55,7 +55,7 @@ export class ListproductComponent implements OnInit {
     this.columnDefs = [
       { headerName: 'ID', field: 'product_id', sortable: true },
       {
-        headerName: 'Codigo', field: 'code',
+        headerName: 'Código', field: 'code',
         cellRenderer: 'customizedBarCode',
         cellRendererParams: {
           name: 'product',
@@ -64,7 +64,7 @@ export class ListproductComponent implements OnInit {
       },
       { headerName: 'Nombre', field: 'name', sortable: true },
       { headerName: 'Precio', field: 'net_price', sortable: true },
-      { headerName: 'Categoria', field: 'category_name', sortable: true },
+      { headerName: 'Categoría', field: 'category_name', sortable: true },
       { headerName: 'Impuesto', field: 'tax_name', sortable: true },
       { headerName: '%', field: 'tax_percent', sortable: true, width: 80 },
       {

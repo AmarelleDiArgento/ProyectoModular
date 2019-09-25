@@ -1,5 +1,11 @@
 var mysql = require('mysql'),
   config = require("../config");
+var enigma = require('enigma-code')
+let converter = require('json-2-csv');
+
+const valorEncriptación = 8
+let key = '3456#@|#lM'
+
 var nodemailer = require('nodemailer');
 var smtpTransport = require("nodemailer-smtp-transport");
 var express = require('express');
@@ -70,19 +76,19 @@ saleModel.createSale = function (saleData, callback) {
 }
 
 saleModel.updateSale = function (saleData, callback) {
-  console.log('Llegue al modulo')
+
   let pass;
   enigma.genHash(valorEncriptación, key, saleData.password, function (error, hash) {
-    if (error) return console.error(error.error)
+    if (error) return console.error(error)
     pass = hash
   })
+
   if (connection) {
     connection.query(acc, [
       saleData.sale_id,
       saleData.user_id,
       pass
     ], function (error, rows) {
-      console.log(saleData);
 
       if (error) {
         console.log(error)
@@ -341,8 +347,6 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
           Impuestos = rows[2]
           Totales = rows[3]
 
-
-
           if (saleData.type === 'Correo') {
 
             var myHTML = '';
@@ -407,7 +411,6 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
               '<br>' +
               '<table style="display: table; margin: 0 auto;">' +
               '<tr>' +
-              '<th>Item</th>' +
               '<th>Cant.</th>' +
               '<th>Descripcion</th>' +
               '<th>Total $</th>' +
@@ -415,7 +418,6 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
 
             for (var p = 0; p < Productos.length; p++) {
               myHTML += '<tr>' +
-                '<td style="text-align: center; vertical-align: middle;"> ' + JSON.stringify(Productos[p].id) + '</td>' +
                 '<td style="text-align: center; vertical-align: middle;">' + JSON.stringify(Productos[p].cantidad) + '</td>' +
                 '<td style="text-align: center; vertical-align: middle;">' + JSON.stringify(Productos[p].producto) + '</td>' +
                 '<td style="text-align: center; vertical-align: middle;">' + JSON.stringify(Productos[p].precio) + '</td>' +
@@ -507,10 +509,126 @@ saleModel.dataSaleInvoice = function (saleData, callback) {
       "Respuesta": "Error en Conexion"
     })
   }
-
-
-
 }
+
+
+
+
+
+saleModel.dataAllSaleCSV = function (saleData, callback) {
+  let p, info;
+
+  let cer = [`
+        Select if(s.client_id = '1020121', pd.costcenter, s.client_id) as nitcliente, DATE_FORMAT(s.date, "%Y-%m-%d") as Fecha, 
+        p.code as CodigoProducto, pd.warehouse as Bodega, "Und.", 
+        if(GROUP_CONCAT(DISTINCT t.tax_id ORDER BY t.name ASC SEPARATOR ',')=1,0.19,
+        if(GROUP_CONCAT(DISTINCT t.tax_id ORDER BY t.name ASC SEPARATOR ',')='1,2',0.19, 0)) as Iva, 
+        sum(sp.gross_price) as Base, 
+        if(pt_tax_id=2,(sum(sp.net_price) * 1.08)/100,0) as valConsumo, 
+        if(GROUP_CONCAT(DISTINCT t.tax_id ORDER BY t.name ASC SEPARATOR ',')=2,0.08,
+        if(GROUP_CONCAT(DISTINCT t.tax_id ORDER BY t.name ASC SEPARATOR ',')='1,2',0.08, 0)) as consumo, 
+        pd.costcenter as ccosto , sum(sp.quantity) as Cantidad, s.discount as descuento
+        from pod as pd 
+        left join sale as s on pd.pod_id = s.pod_id
+        left join user as c on c.user_id = s.client_id
+        left join sale_product as sp on s.sale_id = sp.sp_sale_id
+        left join product as p on sp.sp_product_id = p.product_id
+        left join product_tax as pt on p.product_id = pt.pt_product_id
+        left join tax as t on t.tax_id = pt.pt_tax_id
+        where s.date between concat("${saleData.since} 00:00:00") and concat("${saleData.until} 23:59:59")
+        and s.accountant = 1 and sp.quantity > 0 and pd.pod_id = ${saleData.pod_id}
+        group by nitcliente, Fecha, CodigoProducto, Bodega, ccosto
+        order by Fecha, nitcliente, p.code asc
+        `,
+    `SELECT *, DATE_FORMAT(now(), "%Y-%m-%d") as ahora FROM proyectomodular.pod WHERE pod_id = ${saleData.pod_id};`
+  ]
+  if (connection) {
+    connection.query(cer.join(';'), function (error, rows) {
+      if (error) {
+        console.log(error)
+        callback(null, {
+          "respuesta": "Error de conexión"
+        })
+      } else {
+        if (rows.length != 0) {
+          //console.log(rows);
+          info = rows[0];
+          p = rows[1];
+          p = p[0];
+          console.log(p.email);
+
+          let options = {
+            delimiter: {
+              wrap: '"', // Double Quote (") character
+              field: ',', // Comma field delimiter
+              eol: '\n' // Newline delimiter
+            },
+            prependHeader: false,
+            sortHeader: false,
+            excelBOM: true,
+            trimHeaderValues: true,
+            trimFieldValues: true,
+          };
+          let json2csvCallback = function (err, data) {
+            if (err) throw err;
+
+            var transporter = nodemailer.createTransport(smtpTransport({
+              service: 'gmail',
+              auth: {
+                user: p.email,
+                pass: 'Pro2019*'
+              }
+            }));
+            let rango = '';
+            if (saleData.since === saleData.until) {
+              rango = saleData.since;
+            } else {
+              rango = saleData.since + 'al' + saleData.until;
+            }
+            const mailOptions = {
+              from: p.email, // sender address
+              to: 'ewige.qual@gmail.com', // list of receivers
+              subject: 'Cierre Pto: ' + p.code + " " + p.name, // Subject line
+              html: '<b>Adjunto cierre de ventas ' + p.name + " del " + rango + '</b>', // html body     
+              attachments: [{
+                filename: p.code + rango + '.csv',
+                content: data
+              }]
+            };
+
+            console.log(rows[1]);
+
+
+            transporter.sendMail(mailOptions, function (err, info) {
+              if (err)
+                console.log(err)
+              else
+                console.log(info);
+            });
+          };
+
+          converter.json2csv(info, json2csvCallback, options);
+
+          var jsonObj = {
+            respuesta: "Success"
+          }
+          callback(null, jsonObj)
+        } else {
+          console.log("Error la consulta no arroja datos")
+          callback(null, {
+            "respuesta": "Error no hay datos"
+          })
+        }
+      }
+    })
+  } else {
+    console.log("No se conecto con servidor")
+    callback(null, {
+      "Respuesta": "Error en Conexion"
+    })
+  }
+}
+
 
 
 module.exports = saleModel;

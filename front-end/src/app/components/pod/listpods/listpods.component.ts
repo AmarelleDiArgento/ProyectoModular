@@ -51,10 +51,10 @@ export class ListpodsComponent implements OnInit {
     private router: Router) {
     this.columnDefs = [
       { headerName: 'Nombre', field: 'name', sortable: true},
-      { headerName: 'Codigo', field: 'code', sortable: true, width: 100 },
+      { headerName: 'Código', field: 'code', sortable: true, width: 100 },
       { headerName: 'Dirección', field: 'address', sortable: true, width: 300 },
       { headerName: 'Teléfono', field: 'phone', sortable: true, width: 200 },
-      { headerName: 'Limite de facturacion', field: 'billing_limit', sortable: true, width: 200 },
+      { headerName: 'Límite de facturación', field: 'billing_limit', sortable: true, width: 200 },
       {
         headerName: 'Estado',
         field: 'status',

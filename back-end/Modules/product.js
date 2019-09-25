@@ -26,18 +26,25 @@ productModel.createproduct = function (prodData, callback) {
                 prodData.category_id,
                 prodData.image,
                 prodData.status
+
             ],
             function (error, rows) {
                 console.log(prodData);
-                
+
                 if (error) {
+                    console.log(error);
+
                     callback(null, {
                         "respuesta": error
                     })
                 } else {
                     if (rows.length != 0) {
+                        console.log(rows);
+                        
                         rows = rows[0];
+
                         var jsonObj = {
+                            rows,
                             respuesta: "Success"
                         }
                         callback(null, jsonObj)
@@ -69,6 +76,7 @@ productModel.updateproduct = function (prodData, callback) {
                 prodData.category_id,
                 prodData.image,
                 prodData.status
+
             ],
             function (error, rows) {
                 console.log(rows);
@@ -196,7 +204,7 @@ productModel.dataAllproduct = function (prodData, callback) {
 }
 
 productModel.dataAllProductTax = function (prodData, callback) {
-    var query = "SELECT tax.tax_id, tax.name FROM product_tax INNER JOIN product ON product_tax.pt_product_id = product.product_id INNER JOIN tax ON product_tax.pt_tax_id = tax.tax_id where product.product_id="+prodData.pt_product_id+" "
+    var query = "SELECT tax.tax_id, tax.name FROM product_tax INNER JOIN product ON product_tax.pt_product_id = product.product_id INNER JOIN tax ON product_tax.pt_tax_id = tax.tax_id where product.product_id=" + prodData.pt_product_id + " "
     if (connection) {
         connection.query(query, function (error, rows) {
             if (error) {
@@ -228,34 +236,35 @@ productModel.dataAllProductTax = function (prodData, callback) {
 }
 
 productModel.updateProductTax = function (prodData, callback) {
-    
+
     if (connection) {
         connection.query(insprodtax,
             [
                 prodData.pt_product_id,
                 prodData.pt_tax_id
-            ], function (error, rows) {
-            if (error) {
-                console.log(error)
-                callback(null, {
-                    "respuesta": "Error de conexión"
-                })
-            } else {
-                if (rows.length != 0) {
-                    rows = rows[0];
-                    var jsonObj = {
-                        rows,
-                        respuesta: "Success"
-                    }
-                    callback(null, jsonObj)
-                } else {
-                    console.log("Error al actualizar")
+            ],
+            function (error, rows) {
+                if (error) {
+                    console.log(error)
                     callback(null, {
-                        "respuesta": "Error al actualizar"
+                        "respuesta": "Error de conexión"
                     })
+                } else {
+                    if (rows.length != 0) {
+                        rows = rows[0];
+                        var jsonObj = {
+                            rows,
+                            respuesta: "Success"
+                        }
+                        callback(null, jsonObj)
+                    } else {
+                        console.log("Error al actualizar")
+                        callback(null, {
+                            "respuesta": "Error al actualizar"
+                        })
+                    }
                 }
-            }
-        })
+            })
     } else {
         console.log("No se conecto con servidor")
         callback(null, {

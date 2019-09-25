@@ -37,11 +37,14 @@ export class PodService {
       .map((response: Response) => response.json())
   }
   // service to api mysql create pod
-  createPod(code, nit, rdian, daterdian, billing_limit, name, address, phone, status) {
+  createPod(code, nit, rdian, daterdian, billing_limit, warehouse, costcenter, name, email, address, phone, status) {
     let s
     if (status) { s = 1; } else { s = 0; }
     // tslint:disable-next-line: max-line-length
-    this.params = 'code=' + code + '&nit=' + nit + '&rdian=' + rdian + '&daterdian=' + daterdian + '&billing_limit=' + billing_limit + '&name=' + name + '&address=' + address + '&phone=' + phone + '&status=' + s;
+    this.params = 'code=' + code + '&nit=' + nit + '&rdian=' + rdian + '&daterdian=' + daterdian + 
+                  '&billing_limit=' + billing_limit + '&name=' + name + '&email=' + email + 
+                  '&warehouse=' + warehouse + '&costcenter=' + costcenter + '&address=' + address + 
+                  '&phone=' + phone + '&status=' + s;
     // console.log(this.params);
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
@@ -49,11 +52,14 @@ export class PodService {
       .map((response: Response) => response.json())
   }
   // service to api mysql update pod
-  updatePod(pod_id, code, nit, rdian, daterdian, billing_limit, name, address, phone, status) {
+  updatePod(pod_id, code, nit, rdian, daterdian, billing_limit, warehouse, costcenter, name, email, address, phone, status) {
     let s
     if (status) { s = 1; } else { s = 0; }
     // tslint:disable-next-line: max-line-length
-    this.params = 'pod_id=' + pod_id + '&code=' + code + '&nit=' + nit + '&rdian=' + rdian + '&daterdian=' + daterdian + '&billing_limit=' + billing_limit + '&name=' + name + '&address=' + address + '&phone=' + phone + '&status=' + status;
+    this.params = 'pod_id=' + pod_id + '&code=' + code + '&nit=' + nit + '&rdian=' + rdian + 
+                  '&daterdian=' + daterdian + '&billing_limit=' + billing_limit + '&name=' + name + 
+                  '&email=' + email + '&warehouse=' + warehouse + '&costcenter=' + costcenter + '&address=' + address + 
+                  '&phone=' + phone + '&status=' + s;
     // console.log(this.params);
 
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });

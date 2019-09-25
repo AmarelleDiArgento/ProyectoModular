@@ -56,7 +56,7 @@ export class ListprivilegeComponent implements OnInit {
     this.columnDefs = [
       { headerName: 'ID', field: 'privilege_id', sortable: true, width: 80 },
       { headerName: 'Nombre', field: 'name', sortable: true },
-      { headerName: 'Modulo', field: 'module_name', sortable: true },
+      { headerName: 'Módulo', field: 'module_name', sortable: true },
       {
         headerName: 'Icono', field: 'icon',
         cellRenderer: 'customizedMaterialIcon',

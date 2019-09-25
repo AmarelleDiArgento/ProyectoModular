@@ -6,8 +6,8 @@ var connection = mysql.createPool(config.db);
 
 var podModel = {}
 
-let ins = `call proyectomodular.podins(?, ?, ?, ?, ?, ?, ?, ?, ? );`;
-let upd = `call proyectomodular.podupd(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+let ins = `call proyectomodular.podins(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? );`;
+let upd = `call proyectomodular.podupd(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
 let del = `call proyectomodular.poddel(?);`;
 let all = `call proyectomodular.podall();`;
 let one = `call proyectomodular.podone(?);`;
@@ -21,13 +21,16 @@ podModel.createPod = function (podData, callback) {
       podData.rdian,
       podData.daterdian,
       podData.billing_limit,
+      podData.warehouse, 
+      podData.costcenter,
       podData.name,
+      podData.email,
       podData.address,
       podData.phone,
       podData.status
     ], function (error, rows) {
       if (error) {
-        // console.log(error);
+         console.log(error);
         
         callback(null, {
           "respuesta": error
@@ -64,13 +67,16 @@ podModel.updatePod = function (podData, callback) {
       podData.rdian,
       podData.daterdian,
       podData.billing_limit,
+      podData.warehouse, 
+      podData.costcenter,
       podData.name,
+      podData.email,
       podData.address,
       podData.phone,
       podData.status
     ], function (error, rows) {
       if (error) {
-        // console.log(error);
+        console.log(error);
         
         callback(null, {
           "respuesta": "Error de conexión"
