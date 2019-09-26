@@ -55,7 +55,7 @@ export class SaleComponent implements AfterViewInit, OnInit {
   total;
   seeker;
   waytopay;
-  selectoption;
+  selectoption = 'Imprimir';
   authorization;
   recibo;
   descuento = 0;
@@ -149,6 +149,7 @@ export class SaleComponent implements AfterViewInit, OnInit {
 
     if (this.payForm.value.waytopay === 'Efectivo') {
 
+      this.payForm.get('code').setValue(0);
       if (this.payForm.value.recibo >= this.total) {
         if (this.listSaleProduct.length > 0) {
 
@@ -197,6 +198,7 @@ export class SaleComponent implements AfterViewInit, OnInit {
 
     } else {
 
+      this.payForm.get('recibo').setValue(0);
       if (this.listSaleProduct.length > 0) {
         this.submittedPay = true;
         // error here if form is invalid
@@ -335,7 +337,7 @@ export class SaleComponent implements AfterViewInit, OnInit {
   }
 
   keyClick(value) {
-    const str = this.count.concat( value );
+    const str = this.count.concat(value);
     this.count = str;
     this.virtualKeyboardValue();
   }

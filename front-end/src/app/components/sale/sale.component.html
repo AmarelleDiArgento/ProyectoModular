@@ -316,7 +316,7 @@
 
       <div class="row" *ngIf="RadioButton === 'Efectivo'">
 
-        <div class="input-field col s12 automargin">
+        <div class="input-field col s12">
           <i class="material-icons prefix">attach_money</i>
           <label for="recibo">Efectivo</label>
           <input id="recibo" class="pago automargin" name="recibo" type="number" (keyup)="turn()" [(ngModel)]="recibo"
@@ -341,7 +341,7 @@
         <div class="form-group col m6 s6">
           <p class="automargin">
             <label>
-              <input type="radio" value="Imprimir" [(ngModel)]="Option" formControlName="selectoption"
+              <input type="radio" value="Imprimir" [(ngModel)]="selectoption" formControlName="selectoption"
                 [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" [checked]="true" required />
               <span><i class="material-icons ">print</i> Imprimir</span>
             </label>
@@ -350,7 +350,7 @@
         <div class="form-group col m6 s6">
           <p class="automargin">
             <label>
-              <input type="radio" value="Correo" [(ngModel)]="Option" formControlName="selectoption"
+              <input type="radio" value="Correo" [(ngModel)]="selectoption" formControlName="selectoption"
                 [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
               <span><i class="material-icons ">email</i> Correo</span>
             </label>
@@ -394,7 +394,7 @@
         <div class="form-group col m6 s6">
           <p class="automargin">
             <label>
-              <input type="radio" value="Imprimir" [(ngModel)]="Option" formControlName="selectoption"
+              <input type="radio" value="Imprimir" [(ngModel)]="selectoption" formControlName="selectoption"
                 [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
               <span><i class="material-icons ">print</i> Imprimir</span>
             </label>
@@ -403,7 +403,7 @@
         <div class="form-group col m6 s6">
           <p class="automargin">
             <label>
-              <input type="radio" value="Correo" [(ngModel)]="Option" formControlName="selectoption"
+              <input type="radio" value="Correo" [(ngModel)]="selectoption" formControlName="selectoption"
                 [ngClass]="{ 'is-invalid': submittedPay && fpay.selectoption.errors }" required />
               <span><i class="material-icons ">email</i> Correo</span>
             </label>
